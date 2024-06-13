@@ -74,6 +74,7 @@ void Game::initializeGUI()
 
 void Game::initializeWindow()
 {
+	// Size of the window
 	this->videoMode.height = 600;
 	this->videoMode.width = 800;
 
@@ -97,7 +98,7 @@ void Game::initializePlayer()
 
 }
 
-// Constructors
+// Constructor
 
 Game::Game()
 {
@@ -110,6 +111,7 @@ Game::Game()
 	this->initializeGUI();
 }
 
+// Destructor
 Game::~Game()
 {
 	delete this->window;
@@ -268,19 +270,19 @@ void Game::updateEnemies()
 		switch(enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], rand() % 500, -200.f));
+			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], float(rand() % 500), -200.f));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY2"], rand() % 500, -200.f));
+			this->enemies.push_back(new Enemy(this->textures["ENEMY2"], float(rand() % 500), -200.f));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY3"], rand() % 500, -200.f));
+			this->enemies.push_back(new Enemy(this->textures["ENEMY3"], float(rand() % 500), -200.f));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], rand() % 500, -200.f));
+			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], float(rand() % 500), -200.f));
 			this->spawnTimer = 0;
 			break;
 
@@ -290,17 +292,17 @@ void Game::updateEnemies()
 	}
 
 
-	for (int i = 0; i < this->enemies.size(); ++i)
+	for ( size_t i = 0; i < this->enemies.size(); ++i)
 	{
 		bool enemy_removed = false;
 		this->enemies[i]->update();
 
-		for (size_t k = 0; k < this->bullets.size() && !enemy_removed; k++)
+		for ( size_t k = 0; k < this->bullets.size() && !enemy_removed; k++)
 		{
 			if (this->bullets[k]->getBounds().intersects(this->enemies[i]->getBounds()))
 			{
-				this->bullets.erase(this->bullets.begin() + k);
-				this->enemies.erase(this->enemies.begin() + i);
+				this->bullets.erase(this->bullets.begin() + static_cast<int>(k));
+				this->enemies.erase(this->enemies.begin() + static_cast<int>(i));
 				enemy_removed = true;
 				temporalPointSystem = temporalPointSystem + 1;
 			}
@@ -312,7 +314,7 @@ void Game::updateEnemies()
 		{
 			if (this->enemies[i]->getBounds().top > this->window->getSize().y)
 			{
-				this->enemies.erase(this->enemies.begin() + i);
+				this->enemies.erase(this->enemies.begin() + (int)i);
 				enemy_removed = true;
 			}
 		}

@@ -25,6 +25,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y)
 
 Enemy::Enemy()
 {
+	initializeVariables();
 }
 
 Enemy::~Enemy()
