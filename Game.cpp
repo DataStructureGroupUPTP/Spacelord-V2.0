@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 // Private
 
 void Game::initializeLines()
@@ -72,13 +73,32 @@ void Game::initializeGUI()
 	
 }
 
+void Game::initializeStartMenu()
+{
+	// Load Fonts
+	if (!this->font.loadFromFile("Fonts/Pixellettersfull.ttf"))
+	{
+		std::cout << "FONT::PIXELLETTERSFULL::FAILED_TO_LOAD" << "\n";
+	}
+
+	// Initialize start menu text
+	this->startText.setFont(this->font);
+	this->startText.setCharacterSize(48);
+	this->startText.setFillColor(sf::Color::White);
+	this->startText.setString("Press Enter to Start");
+	this->startText.setPosition(
+		this->window->getSize().x / 2.f - this->startText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->startText.getGlobalBounds().height / 2.f
+	);
+}
+
 void Game::initializeWindow()
 {
 	// Size of the window
 	this->videoMode.height = 600;
 	this->videoMode.width = 800;
 
-	this->window = new sf::RenderWindow(this->videoMode, "Spacelord", sf::Style::Close | sf::Style::Titlebar);
+	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Close | sf::Style::Titlebar);
 
 	this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
@@ -109,6 +129,9 @@ Game::Game()
 	this->initializePlayer();
 	this->initializeEnemy();
 	this->initializeGUI();
+	this->initializeStartMenu(); // Initialize start menu
+
+	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 }
 
 // Destructor
@@ -155,9 +178,16 @@ void Game::updatePollEvents()
 		{
 			this->window->close();
 		}
-		if (ev.Event::type == sf::Event::KeyPressed && ev.Event::key.code == sf::Keyboard::Escape)
+		if (ev.Event::type == sf::Event::KeyPressed)
 		{
-			this->window->close();
+			if (ev.Event::key.code == sf::Keyboard::Escape)
+			{
+				this->window->close();
+			}
+			else if (this->gameState == MAIN_MENU && ev.Event::key.code == sf::Keyboard::Enter)
+			{
+				this->gameState = GAMEPLAY; // Start the game when Enter is pressed
+			}
 		}
 	}
 }
@@ -326,18 +356,16 @@ void Game::update()
 {
 	this->updatePollEvents();
 
-	this->updateInput();
-
-	this->player->update();
-
-	this->updateBullets();
-
-	this->updateEnemies();
-
-	this->updateGUI();
-
-
+	if (this->gameState == GAMEPLAY)
+	{
+		this->updateInput();
+		this->player->update();
+		this->updateBullets();
+		this->updateEnemies();
+		this->updateGUI();
+	}
 }
+
 
 void Game::renderGUI()
 {
@@ -348,24 +376,37 @@ void Game::render()
 {
 	this->window->clear();
 
-	// Draws
-	this->window->draw(this->line1, 2, sf::Lines);
-	this->window->draw(this->line2, 2, sf::Lines);
-	this->window->draw(this->line3, 2, sf::Lines);
-
-	for(auto *bullet : this->bullets)
+	if (this->gameState == MAIN_MENU)
 	{
-		bullet->render(this->window);
+		this->renderStartMenu(); // Render start menu if in MAIN_MENU state
 	}
 
-	for (auto *enemy : this->enemies)
+	else if (this->gameState == GAMEPLAY)
 	{
-		enemy->render(*this->window);
+		// Draw game elements
+		this->window->draw(this->line1, 2, sf::Lines);
+		this->window->draw(this->line2, 2, sf::Lines);
+		this->window->draw(this->line3, 2, sf::Lines);
+
+		for (auto* bullet : this->bullets)
+		{
+			bullet->render(this->window);
+		}
+
+		for (auto* enemy : this->enemies)
+		{
+			enemy->render(*this->window);
+		}
+
+		this->player->render(*this->window);
+		this->renderGUI();
 	}
-
-	this->player->render(*this->window);
-
-	this->renderGUI();
 
 	this->window->display();
+}
+
+
+void Game::renderStartMenu()
+{
+	this->window->draw(this->startText);
 }
