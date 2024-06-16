@@ -52,6 +52,13 @@ void Game::initializeSounds()
 	this->laserSound.setBuffer(this->laserBuffer);
 
 	this->laserSound.setVolume(12.5);
+
+	if(!this->menuClick.loadFromFile("Sounds/Menu.wav"))
+	{
+		std::cout << "SOUND::MENU::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->menuSound.setBuffer(this->menuClick);
 }
 
 void Game::initializeMusic()
@@ -74,6 +81,11 @@ void Game::initializeGUI()
 		std::cout << "FONT::PIXELLETTERSFULL::FAILED_TO_LOAD" << "\n";
 	}
 
+	if(!this->titleFont.loadFromFile("Fonts/Debrosee.ttf"))
+	{
+		std::cout << "FONT::DEBROSEE::FAILED_TO_LOAD" << "\n";
+	}
+
 	temporalPointSystem = 0;
 
 	//Initialize point text
@@ -82,6 +94,11 @@ void Game::initializeGUI()
 	this->pointText.setFillColor(sf::Color::White);
 	this->pointText.setString("ERROR");
 
+	this->gameTitle.setFont(this->titleFont);
+	this->gameTitle.setCharacterSize(100);
+	this->gameTitle.setFillColor(sf::Color::White);
+	this->gameTitle.setString("ASTRAL ATTACK");
+
 	
 }
 
@@ -89,7 +106,7 @@ void Game::initializeBackground()
 {
 	if(!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
 	{
-		std::cout << "TEXTURE::SPACE1::COULD NOT LOAD BACKGROUND" << "\n";
+		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->stageBackground.setTexture(this->stageBackgroundTexture);
@@ -98,15 +115,70 @@ void Game::initializeBackground()
 	this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
 
 	this->backgroundScrollSpeed = 1.f;
+
+	int randomBackground = rand() % 4 + 1;
+
+	switch(randomBackground)
+	{
+	case 1:
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu1.png"))
+		{
+			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
+		}
+
+		this->startMenuBackground.setTexture(this->startMenuTexture);
+		break;
+
+	case 2:
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu2.png"))
+		{
+			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
+		}
+
+		this->startMenuBackground.setTexture(this->startMenuTexture);
+		break;
+
+	case 3:
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu3.png"))
+		{
+			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
+		}
+
+		this->startMenuBackground.setTexture(this->startMenuTexture);
+		break;
+
+	case 4:
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu4.png"))
+		{
+			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
+		}
+
+		this->startMenuBackground.setTexture(this->startMenuTexture);
+		break;
+	
+	}
 }
 
 void Game::initializeStartMenu()
 {
-	// Load Fonts
-	if (!this->font.loadFromFile("Fonts/Pixellettersfull.ttf"))
+	// Initialize music
+	if (!this->menuMusic.openFromFile("Music/SkyFire.ogg"))
 	{
-		std::cout << "FONT::PIXELLETTERSFULL::FAILED_TO_LOAD" << "\n";
+		std::cout << "ERROR::SKYFIRE::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->menuMusic.setVolume(30);
+	// Play the music
+	this->menuMusic.play();
+
+
+	// Initialize title
+	this->gameTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->gameTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->gameTitle.getGlobalBounds().height / 2.f - 250.f
+	);
+
 
 	// Initialize Play menu item
 	this->playText.setFont(this->font);
@@ -249,6 +321,7 @@ void Game::updatePollEvents()
 				{
 					if (this->selectedMenuItem > 0)
 					{
+						this->menuSound.play();
 						this->selectedMenuItem--;
 					}
 				}
@@ -256,6 +329,7 @@ void Game::updatePollEvents()
 				{
 					if (this->selectedMenuItem < 3)
 					{
+						this->menuSound.play();
 						this->selectedMenuItem++;
 					}
 				}
@@ -263,7 +337,9 @@ void Game::updatePollEvents()
 				{
 					if (this->selectedMenuItem == 0)
 					{
+						this->initializeMusic();
 						this->gameState = GAMEPLAY;
+						this->menuMusic.stop();
 					}
 					else if (this->selectedMenuItem == 1)
 					{
@@ -345,6 +421,7 @@ void Game::updateInput()
 
 void Game::updateBackground()
 {
+
 	// Move the backgrounds downwards
 	this->stageBackground.move(0, this->backgroundScrollSpeed);
 	this->stageBackground2.move(0, this->backgroundScrollSpeed);
@@ -523,6 +600,7 @@ void Game::renderGUI()
 
 void Game::renderWorld()
 {
+
 	this->window->draw(this->stageBackground);
 	this->window->draw(this->stageBackground2);
 }
@@ -567,6 +645,8 @@ void Game::render()
 
 void Game::renderStartMenu()
 {
+	this->window->draw(this->startMenuBackground);
+
 	// Reset the color of all menu items
 	this->playText.setFillColor(sf::Color::White);
 	this->shopText.setFillColor(sf::Color::White);
@@ -580,17 +660,21 @@ void Game::renderStartMenu()
 		this->playText.setFillColor(sf::Color::Yellow);
 		break;
 	case 1:
+
 		this->shopText.setFillColor(sf::Color::Yellow);
 		break;
 	case 2:
+
 		this->settingsText.setFillColor(sf::Color::Yellow);
 		break;
 	case 3:
+
 		this->quitText.setFillColor(sf::Color::Yellow);
 		break;
 	}
 
 	// Draw menu items
+	this->window->draw(this->gameTitle);
 	this->window->draw(this->playText);
 	this->window->draw(this->shopText);
 	this->window->draw(this->settingsText);

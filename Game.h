@@ -29,7 +29,13 @@ private:
     sf::Text pointText;
     sf::Text startText; // New text for the start menu
 
+    sf::Font titleFont;
+    sf::Text gameTitle;
+
     //World
+    sf::Texture startMenuTexture;
+    sf::Sprite startMenuBackground;
+
     sf::Texture stageBackgroundTexture;
     sf::Sprite stageBackground;
     sf::Sprite stageBackground2;
@@ -47,9 +53,12 @@ private:
     // Sound effects
     sf::SoundBuffer laserBuffer;
     sf::Sound laserSound;
+    sf::SoundBuffer menuClick;
+    sf::Sound menuSound;
 
     // Music
     sf::Music stageMusic;
+    sf::Music menuMusic;
 
     // Line Mechanic
     sf::Vertex line1[2];
@@ -73,6 +82,7 @@ private:
     void initializeEnemy();
     void initializePlayer();
 
+    // Menu
     sf::Text playText;
     sf::Text shopText;
     sf::Text settingsText;
