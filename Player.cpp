@@ -12,7 +12,7 @@ void Player::initializeVariables()
 void Player::initializeTexture()
 {
 	// Load texture
-	if (!this->texture.loadFromFile("Textures/Mainship.png"))
+	if (!this->texture.loadFromFile("Textures/Mainshipfix.png"))
 	{
 		std::cout << "TEXTURE::MAIN_SHIP::FAILED_TO_LOAD" << "\n";
 	}
