@@ -61,6 +61,8 @@ void Game::initializeSounds()
 	}
 
 	this->menuSound.setBuffer(this->menuClick);
+
+	this->menuSound.setVolume(50);
 }
 
 void Game::initializeMusic()
@@ -164,6 +166,7 @@ void Game::initializeBackground()
 void Game::initializeSystems()
 {
 	this->points = 0;
+
 }
 
 void Game::initializeStartMenu()
@@ -434,10 +437,11 @@ void Game::updateInput()
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack()) 
 	{
 		this->laserSound.play();
-		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + 28.f,
+		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
 		this->player->getPos().y, 0.f, -1.5f, 5.f));
 	}
 
+	// FUTURE PAUSE
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
 		this->gameState = MAIN_MENU;
@@ -445,6 +449,35 @@ void Game::updateInput()
 		this->menuMusic.play();
 	}
 
+	// COLOR TESTS
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
+	{
+
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_RED::FAILED_TO_LOAD" << "\n";
+		}
+
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+	{
+
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Bluebulletfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
+		}
+
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+	{
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Greenbulletfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+		}
+	}
 }
 
 void Game::updateBackground()

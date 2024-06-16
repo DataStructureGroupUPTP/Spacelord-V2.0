@@ -95,8 +95,8 @@ private:
     sf::Text creditsText;
     sf::Text quitText;
 
-
     int selectedMenuItem;
+
 
 public:
     Game();
