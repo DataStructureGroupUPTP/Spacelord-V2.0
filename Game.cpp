@@ -308,6 +308,7 @@ void Game::updateInput()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
+			if (this->player->getPos().y > 0) // Check upper boundary
 			{
 				this->player->move(0.f, -1.f);
 			}
