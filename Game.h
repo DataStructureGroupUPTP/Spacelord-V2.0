@@ -73,6 +73,13 @@ private:
     void initializeEnemy();
     void initializePlayer();
 
+    sf::Text playText;
+    sf::Text shopText;
+    sf::Text settingsText;
+    sf::Text quitText;
+
+    int selectedMenuItem;
+
 public:
     Game();
     virtual ~Game();

@@ -108,14 +108,44 @@ void Game::initializeStartMenu()
 		std::cout << "FONT::PIXELLETTERSFULL::FAILED_TO_LOAD" << "\n";
 	}
 
-	// Initialize start menu text
-	this->startText.setFont(this->font);
-	this->startText.setCharacterSize(48);
-	this->startText.setFillColor(sf::Color::White);
-	this->startText.setString("Press Enter to Start");
-	this->startText.setPosition(
-		this->window->getSize().x / 2.f - this->startText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->startText.getGlobalBounds().height / 2.f
+	// Initialize Play menu item
+	this->playText.setFont(this->font);
+	this->playText.setCharacterSize(48);
+	this->playText.setFillColor(sf::Color::White);
+	this->playText.setString("Play");
+	this->playText.setPosition(
+		this->window->getSize().x / 2.f - this->playText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->playText.getGlobalBounds().height / 2.f - 100.f
+	);
+
+	// Initialize Shop menu item
+	this->shopText.setFont(this->font);
+	this->shopText.setCharacterSize(48);
+	this->shopText.setFillColor(sf::Color::White);
+	this->shopText.setString("Shop");
+	this->shopText.setPosition(
+		this->window->getSize().x / 2.f - this->shopText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->shopText.getGlobalBounds().height / 2.f - 50.f
+	);
+
+	// Initialize Settings menu item
+	this->settingsText.setFont(this->font);
+	this->settingsText.setCharacterSize(48);
+	this->settingsText.setFillColor(sf::Color::White);
+	this->settingsText.setString("Settings");
+	this->settingsText.setPosition(
+		this->window->getSize().x / 2.f - this->settingsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->settingsText.getGlobalBounds().height / 2.f
+	);
+
+	// Initialize Quit menu item
+	this->quitText.setFont(this->font);
+	this->quitText.setCharacterSize(48);
+	this->quitText.setFillColor(sf::Color::White);
+	this->quitText.setString("Quit");
+	this->quitText.setPosition(
+		this->window->getSize().x / 2.f - this->quitText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 50.f
 	);
 }
 
@@ -160,6 +190,7 @@ Game::Game()
 	this->initializeBackground();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
+	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
 }
 
 // Destructor
@@ -202,20 +233,51 @@ void Game::updatePollEvents()
 	sf::Event ev;
 	while (this->window->pollEvent(ev))
 	{
-		if (ev.Event::type == sf::Event::Closed)
+		if (ev.type == sf::Event::Closed)
 		{
 			this->window->close();
 		}
-		if (ev.Event::type == sf::Event::KeyPressed)
+		if (ev.type == sf::Event::KeyPressed)
 		{
-			if (ev.Event::key.code == sf::Keyboard::Escape)
+			if (ev.key.code == sf::Keyboard::Escape)
 			{
 				this->window->close();
 			}
-			else if (this->gameState == MAIN_MENU && ev.Event::key.code == sf::Keyboard::Enter)
+			else if (this->gameState == MAIN_MENU)
 			{
-				this->initializeMusic();
-				this->gameState = GAMEPLAY; // Start the game when Enter is pressed
+				if (ev.key.code == sf::Keyboard::Up)
+				{
+					if (this->selectedMenuItem > 0)
+					{
+						this->selectedMenuItem--;
+					}
+				}
+				else if (ev.key.code == sf::Keyboard::Down)
+				{
+					if (this->selectedMenuItem < 3)
+					{
+						this->selectedMenuItem++;
+					}
+				}
+				else if (ev.key.code == sf::Keyboard::Return)
+				{
+					if (this->selectedMenuItem == 0)
+					{
+						this->gameState = GAMEPLAY;
+					}
+					else if (this->selectedMenuItem == 1)
+					{
+						// Handle shop selection
+					}
+					else if (this->selectedMenuItem == 2)
+					{
+						// Handle settings selection
+					}
+					else if (this->selectedMenuItem == 3)
+					{
+						this->window->close();
+					}
+				}
 			}
 		}
 	}
@@ -258,6 +320,7 @@ void Game::updateInput()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
+			if (this->player->getPos().y > 0) // Check upper boundary
 			{
 				this->player->move(0.f, -1.f);
 			}
@@ -504,5 +567,32 @@ void Game::render()
 
 void Game::renderStartMenu()
 {
-	this->window->draw(this->startText);
+	// Reset the color of all menu items
+	this->playText.setFillColor(sf::Color::White);
+	this->shopText.setFillColor(sf::Color::White);
+	this->settingsText.setFillColor(sf::Color::White);
+	this->quitText.setFillColor(sf::Color::White);
+
+	// Highlight the selected menu item
+	switch (this->selectedMenuItem)
+	{
+	case 0:
+		this->playText.setFillColor(sf::Color::Yellow);
+		break;
+	case 1:
+		this->shopText.setFillColor(sf::Color::Yellow);
+		break;
+	case 2:
+		this->settingsText.setFillColor(sf::Color::Yellow);
+		break;
+	case 3:
+		this->quitText.setFillColor(sf::Color::Yellow);
+		break;
+	}
+
+	// Draw menu items
+	this->window->draw(this->playText);
+	this->window->draw(this->shopText);
+	this->window->draw(this->settingsText);
+	this->window->draw(this->quitText);
 }
