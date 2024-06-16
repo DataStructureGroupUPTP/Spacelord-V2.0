@@ -70,6 +70,16 @@ const bool Player::canAttack()
 	return false;
 }
 
+void Player::setPosition(const sf::Vector2f pos)
+{
+	this->ship.setPosition(pos);
+}
+
+void Player::setPosition(const float x, const float y)
+{
+	this->ship.setPosition(x,y);
+}
+
 void Player::updateAttackCooldown()
 {
 	if(this->attackCooldown < this->attackCooldownMax)

@@ -6,13 +6,13 @@
 void Game::initializeLines()
 {
 	
-	this->line1[0] = sf::Vertex(sf::Vector2f(200, 40), sf::Color::White);
+	this->line1[0] = sf::Vertex(sf::Vector2f(200, 0), sf::Color::White);
 	this->line1[1] = sf::Vertex(sf::Vector2f(200, 800), sf::Color::White);
 
-	this->line2[0] = sf::Vertex(sf::Vector2f(400, 40), sf::Color::White);
+	this->line2[0] = sf::Vertex(sf::Vector2f(400, 0), sf::Color::White);
 	this->line2[1] = sf::Vertex(sf::Vector2f(400, 800), sf::Color::White);
 
-	this->line3[0] = sf::Vertex(sf::Vector2f(600, 40), sf::Color::White);
+	this->line3[0] = sf::Vertex(sf::Vector2f(600, 0), sf::Color::White);
 	this->line3[1] = sf::Vertex(sf::Vector2f(600, 800), sf::Color::White);
 }
 
@@ -222,19 +222,14 @@ void Game::updateInput()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			if (this->player->getPos().y > 0) // Check upper boundary
-			{
-				this->player->move(0.f, -0.5f);
-			}
+			this->player->move(0.f, -0.5f);
 
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			if(this->player->getPos().y + this->player->getBounds().height < this->window->getSize().y)
-			{
-				this->player->move(0.f, 0.5f);
-			}
+			this->player->move(0.f, 0.5f);
+
 		}
 	}
 
@@ -250,7 +245,6 @@ void Game::updateInput()
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			if (this->player->getPos().y > 0) // Check upper boundary
 			{
 				this->player->move(0.f, -1.f);
 			}
@@ -322,6 +316,34 @@ void Game::updateBullets()
 		++counter;
 	}
 }
+
+void Game::updateCollision()
+{
+	// Collision with left side of the screen
+	if (this->player->getBounds().left < 0.f)
+	{
+		this->player->setPosition(0.f, this->player->getBounds().top);
+	}
+
+	// Collision with right side of the screen
+	if (this->player->getBounds().left + this->player->getBounds().width > this->window->getSize().x)
+	{
+		this->player->setPosition(this->window->getSize().x - this->player->getBounds().width, this->player->getBounds().top);
+	}
+
+	// Collision with top of the screen
+	if (this->player->getPos().y < 0.f)
+	{
+		this->player->setPosition(this->player->getPos().x, 0.f);
+	}
+
+	// Collision with bottom of the screen
+	if (this->player->getPos().y + this->player->getBounds().height > this->window->getSize().y)
+	{
+		this->player->setPosition(this->player->getPos().x, this->window->getSize().y - this->player->getBounds().height);
+	}
+}
+
 
 void Game::updateEnemies()
 {
@@ -407,6 +429,7 @@ void Game::update()
 	{
 		this->updateInput();
 		this->player->update();
+		this->updateCollision();
 		this->updateBackground();
 		this->updateBullets();
 		this->updateEnemies();

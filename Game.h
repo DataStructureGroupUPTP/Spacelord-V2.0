@@ -82,6 +82,8 @@ public:
     void updateBackground();
     void updateGUI();
     void updateBullets();
+    void updateCollision();
+
     void updateEnemies();
     void updateCombat();
     void update();
