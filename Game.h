@@ -48,6 +48,9 @@ private:
     sf::SoundBuffer laserBuffer;
     sf::Sound laserSound;
 
+    // Music
+    sf::Music stageMusic;
+
     // Line Mechanic
     sf::Vertex line1[2];
     sf::Vertex line2[2];
@@ -61,6 +64,7 @@ private:
     void initializeLines();
     void initializeTextures();
     void initializeSounds();
+    void initializeMusic();
     void initializeGUI();
     void initializeBackground();
 

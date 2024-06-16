@@ -51,7 +51,19 @@ void Game::initializeSounds()
 	}
 	this->laserSound.setBuffer(this->laserBuffer);
 
-	this->laserSound.setVolume(7.5);
+	this->laserSound.setVolume(12.5);
+}
+
+void Game::initializeMusic()
+{
+	if (!this->stageMusic.openFromFile("Music/BattleInTheStars.ogg"))
+	{
+		std::cout << "ERROR::BATTLEINTHESTARS::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->stageMusic.setVolume(30);
+	// Play the music
+	this->stageMusic.play();
 }
 
 void Game::initializeGUI()
@@ -202,6 +214,7 @@ void Game::updatePollEvents()
 			}
 			else if (this->gameState == MAIN_MENU && ev.Event::key.code == sf::Keyboard::Enter)
 			{
+				this->initializeMusic();
 				this->gameState = GAMEPLAY; // Start the game when Enter is pressed
 			}
 		}
