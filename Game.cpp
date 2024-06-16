@@ -85,7 +85,7 @@ void Game::initializeBackground()
 
 	this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
 
-	this->scrollSpeed = 1.f;
+	this->backgroundScrollSpeed = 1.f;
 }
 
 void Game::initializeStartMenu()
@@ -276,8 +276,8 @@ void Game::updateInput()
 void Game::updateBackground()
 {
 	// Move the backgrounds downwards
-	this->stageBackground.move(0, this->scrollSpeed);
-	this->stageBackground2.move(0, this->scrollSpeed);
+	this->stageBackground.move(0, this->backgroundScrollSpeed);
+	this->stageBackground2.move(0, this->backgroundScrollSpeed);
 
 	// Check if the first background has moved out of view
 	if (this->stageBackground.getPosition().y > this->window->getSize().y)

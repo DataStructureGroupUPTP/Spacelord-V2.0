@@ -33,7 +33,7 @@ private:
     sf::Texture stageBackgroundTexture;
     sf::Sprite stageBackground;
     sf::Sprite stageBackground2;
-    float scrollSpeed;
+    float backgroundScrollSpeed;
 
     // Player
     Player* player;
