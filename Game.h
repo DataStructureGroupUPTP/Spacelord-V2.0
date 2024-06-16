@@ -33,7 +33,7 @@ private:
     sf::Texture stageBackgroundTexture;
     sf::Sprite stageBackground;
     sf::Sprite stageBackground2;
-    float scrollSpeed;
+    float backgroundScrollSpeed;
 
     // Player
     Player* player;
@@ -89,6 +89,8 @@ public:
     void updateBackground();
     void updateGUI();
     void updateBullets();
+    void updateCollision();
+
     void updateEnemies();
     void updateCombat();
     void update();
