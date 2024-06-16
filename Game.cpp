@@ -46,7 +46,6 @@ void Game::initializeTextures()
 void Game::initializeSounds()
 {
 
-
 	if (!this->laserBuffer.loadFromFile("Sounds/Shiplaser.wav"))
 	{
 		std::cout << "SOUND::SHIPLASER::FAILED_TO_LOAD" << "\n";
@@ -63,6 +62,25 @@ void Game::initializeSounds()
 	this->menuSound.setBuffer(this->menuClick);
 
 	this->menuSound.setVolume(50);
+
+	if (!this->playerHitBuffer.loadFromFile("Sounds/Playerhit.flac"))
+	{
+		std::cout << "SOUND::PLAYER_HIT::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->playerHit.setBuffer(this->playerHitBuffer);
+
+	this->playerHit.setVolume(35);
+
+	if (!this->alienHitBuffer.loadFromFile("Sounds/Enemyhit.wav"))
+	{
+		std::cout << "SOUND::ALIEN_HIT::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->alienHit.setBuffer(this->alienHitBuffer);
+
+	this->alienHit.setVolume(30);
+
 }
 
 void Game::initializeMusic()
@@ -101,6 +119,8 @@ void Game::initializeGUI()
 	this->gameTitle.setFont(this->titleFont);
 	this->gameTitle.setCharacterSize(100);
 	this->gameTitle.setFillColor(sf::Color::White);
+	this->gameTitle.setStyle(sf::Text::Italic);
+	this->gameTitle.setOutlineThickness(1);
 	this->gameTitle.setString("ASTRAL ATTACK");
 
 	
@@ -131,6 +151,7 @@ void Game::initializeBackground()
 		}
 
 		this->startMenuBackground.setTexture(this->startMenuTexture);
+		this->gameTitle.setOutlineColor(sf::Color(255,165,0));
 		break;
 
 	case 2:
@@ -139,6 +160,7 @@ void Game::initializeBackground()
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
 
+		this->gameTitle.setOutlineColor(sf::Color::Cyan);
 		this->startMenuBackground.setTexture(this->startMenuTexture);
 		break;
 
@@ -148,6 +170,7 @@ void Game::initializeBackground()
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
 
+		this->gameTitle.setOutlineColor(sf::Color::Magenta);
 		this->startMenuBackground.setTexture(this->startMenuTexture);
 		break;
 
@@ -157,6 +180,7 @@ void Game::initializeBackground()
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
 
+		this->gameTitle.setOutlineColor(sf::Color::Green);
 		this->startMenuBackground.setTexture(this->startMenuTexture);
 		break;
 	
@@ -608,6 +632,14 @@ void Game::updateEnemies()
 
 		}
 
+		else if (enemy->getBounds().intersects(this->player->getBounds()))
+		{
+			delete this->enemies.at(counter);
+			this->enemies.erase(this->enemies.begin() + counter);
+			--counter;
+			this->playerHit.play();
+		}
+
 		++counter;
 	}
 	
@@ -632,10 +664,10 @@ void Game::updateCombat()
 				delete this->bullets[k];
 				this->bullets.erase(this->bullets.begin() + k);
 
-
-
+				this->alienHit.play();
 				enemy_deleted = true;
 			}
+
 		}
 	}
 }

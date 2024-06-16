@@ -57,8 +57,17 @@ private:
     // Sound effects
     sf::SoundBuffer laserBuffer;
     sf::Sound laserSound;
+
     sf::SoundBuffer menuClick;
     sf::Sound menuSound;
+
+    sf::SoundBuffer playerHitBuffer;
+    sf::Sound playerHit;
+
+    sf::SoundBuffer alienHitBuffer;
+    sf::Sound alienHit;
+
+
 
 
     // Music
