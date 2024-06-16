@@ -29,6 +29,12 @@ private:
     sf::Text pointText;
     sf::Text startText; // New text for the start menu
 
+    //World
+    sf::Texture stageBackgroundTexture;
+    sf::Sprite stageBackground;
+    sf::Sprite stageBackground2;
+    float scrollSpeed;
+
     // Player
     Player* player;
 
@@ -56,6 +62,8 @@ private:
     void initializeTextures();
     void initializeSounds();
     void initializeGUI();
+    void initializeBackground();
+
     void initializeStartMenu(); // New function for initializing the start menu
 
     void initializeEnemy();
@@ -71,12 +79,15 @@ public:
     void updatePollEvents();
     void updateInput();
 
+    void updateBackground();
     void updateGUI();
     void updateBullets();
     void updateEnemies();
+    void updateCombat();
     void update();
 
     void renderGUI();
+    void renderWorld();
     void render();
     void renderStartMenu(); // New function for rendering the start menu
 };

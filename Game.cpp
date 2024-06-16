@@ -19,7 +19,7 @@ void Game::initializeLines()
 void Game::initializeTextures()
 {
 	this->textures["BULLET"] = new sf::Texture();
-	if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletr.png"))
+	if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
 	{
 		std::cout << "TEXTURE::BULLET::FAILED_TO_LOAD" << "\n";
 	}
@@ -71,6 +71,21 @@ void Game::initializeGUI()
 	this->pointText.setString("ERROR");
 
 	
+}
+
+void Game::initializeBackground()
+{
+	if(!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
+	{
+		std::cout << "TEXTURE::SPACE1::COULD NOT LOAD BACKGROUND" << "\n";
+	}
+
+	this->stageBackground.setTexture(this->stageBackgroundTexture);
+	this->stageBackground2.setTexture(this->stageBackgroundTexture);
+
+	this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
+
+	this->scrollSpeed = 1.f;
 }
 
 void Game::initializeStartMenu()
@@ -130,6 +145,7 @@ Game::Game()
 	this->initializeEnemy();
 	this->initializeGUI();
 	this->initializeStartMenu(); // Initialize start menu
+	this->initializeBackground();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 }
@@ -251,10 +267,29 @@ void Game::updateInput()
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack()) 
 	{
 		this->laserSound.play();
-		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + 32.5f,
-		this->player->getPos().y - 40.f, 0.f, -1.5f, 5.f));
+		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + 28.f,
+		this->player->getPos().y, 0.f, -1.5f, 5.f));
 	}
 
+}
+
+void Game::updateBackground()
+{
+	// Move the backgrounds downwards
+	this->stageBackground.move(0, this->scrollSpeed);
+	this->stageBackground2.move(0, this->scrollSpeed);
+
+	// Check if the first background has moved out of view
+	if (this->stageBackground.getPosition().y > this->window->getSize().y)
+	{
+		this->stageBackground.setPosition(0, this->stageBackground2.getPosition().y - this->stageBackground2.getGlobalBounds().height);
+	}
+
+	// Check if the second background has moved out of view
+	if (this->stageBackground2.getPosition().y > this->window->getSize().y)
+	{
+		this->stageBackground2.setPosition(0, this->stageBackground.getPosition().y - this->stageBackground.getGlobalBounds().height);
+	}
 }
 
 void Game::updateGUI()
@@ -291,7 +326,8 @@ void Game::updateBullets()
 void Game::updateEnemies()
 {
 
-	this->spawnTimer += 3.f;
+	// Spawning
+	this->spawnTimer += 2.f;
 
 	if(this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -321,35 +357,46 @@ void Game::updateEnemies()
 
 	}
 
-
-	for ( size_t i = 0; i < this->enemies.size(); ++i)
+	unsigned counter = 0;
+	for (auto* enemy : this->enemies)
 	{
-		bool enemy_removed = false;
-		this->enemies[i]->update();
+		enemy->update();
 
-		for ( size_t k = 0; k < this->bullets.size() && !enemy_removed; k++)
+		if (enemy->getBounds().top  > this->window->getSize().y)
 		{
-			if (this->bullets[k]->getBounds().intersects(this->enemies[i]->getBounds()))
-			{
-				this->bullets.erase(this->bullets.begin() + static_cast<int>(k));
-				this->enemies.erase(this->enemies.begin() + static_cast<int>(i));
-				enemy_removed = true;
-				temporalPointSystem = temporalPointSystem + 1;
-			}
+			// Delete enemies at bottom screen
+			delete this->enemies.at(counter);
+			this->enemies.erase(this->enemies.begin() + counter);
+			--counter;
+
+
 		}
 
+		++counter;
+	}
+	
+}
 
-		// Enemy removal
-		if (!enemy_removed) 
+void Game::updateCombat()
+{
+
+	for (size_t i = 0; i < this->enemies.size(); ++i)
+	{
+		bool enemy_deleted = false;
+		for (size_t k = 0; k < this->bullets.size() && enemy_deleted == false; k++)
 		{
-			if (this->enemies[i]->getBounds().top > this->window->getSize().y)
+			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds()))
 			{
-				this->enemies.erase(this->enemies.begin() + (int)i);
-				enemy_removed = true;
+				delete this->enemies[i];
+				this->enemies.erase(this->enemies.begin() + i);
+
+				delete this->bullets[k];
+				this->bullets.erase(this->bullets.begin() + k);
+
+				enemy_deleted = true;
 			}
 		}
 	}
-	
 }
 
 void Game::update()
@@ -360,8 +407,10 @@ void Game::update()
 	{
 		this->updateInput();
 		this->player->update();
+		this->updateBackground();
 		this->updateBullets();
 		this->updateEnemies();
+		this->updateCombat();
 		this->updateGUI();
 	}
 }
@@ -370,6 +419,12 @@ void Game::update()
 void Game::renderGUI()
 {
 	this->window->draw(this->pointText);
+}
+
+void Game::renderWorld()
+{
+	this->window->draw(this->stageBackground);
+	this->window->draw(this->stageBackground2);
 }
 
 void Game::render()
@@ -383,6 +438,10 @@ void Game::render()
 
 	else if (this->gameState == GAMEPLAY)
 	{
+		// Draw world
+		this->renderWorld();
+
+
 		// Draw game elements
 		this->window->draw(this->line1, 2, sf::Lines);
 		this->window->draw(this->line2, 2, sf::Lines);
