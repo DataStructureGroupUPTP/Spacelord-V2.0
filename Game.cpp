@@ -24,20 +24,20 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::BULLET::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->textures["ENEMY1"] = new sf::Texture();
-	if(!this->textures["ENEMY1"]->loadFromFile("Textures/Greenalienfix.png"))
+	this->textures["GREENALIEN"] = new sf::Texture();
+	if(!this->textures["GREENALIEN"]->loadFromFile("Textures/Greenalienfix.png"))
 	{
 		std::cout << "TEXTURE::GREEN_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->textures["ENEMY2"] = new sf::Texture();
-	if (!this->textures["ENEMY2"]->loadFromFile("Textures/Bluealienfix.png"))
+	this->textures["BLUEALIEN"] = new sf::Texture();
+	if (!this->textures["BLUEALIEN"]->loadFromFile("Textures/Bluealienfix.png"))
 	{
 		std::cout << "TEXTURE::BLUE_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->textures["ENEMY3"] = new sf::Texture();
-	if (!this->textures["ENEMY3"]->loadFromFile("Textures/Yellowalienfix.png"))
+	this->textures["YELLOWALIEN"] = new sf::Texture();
+	if (!this->textures["YELLOWALIEN"]->loadFromFile("Textures/Yellowalienfix.png"))
 	{
 		std::cout << "TEXTURE::YELLOW_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
@@ -45,6 +45,8 @@ void Game::initializeTextures()
 
 void Game::initializeSounds()
 {
+
+
 	if (!this->laserBuffer.loadFromFile("Sounds/Shiplaser.wav"))
 	{
 		std::cout << "SOUND::SHIPLASER::FAILED_TO_LOAD" << "\n";
@@ -86,7 +88,7 @@ void Game::initializeGUI()
 		std::cout << "FONT::DEBROSEE::FAILED_TO_LOAD" << "\n";
 	}
 
-	temporalPointSystem = 0;
+
 
 	//Initialize point text
 	this->pointText.setFont(this->font);
@@ -159,6 +161,11 @@ void Game::initializeBackground()
 	}
 }
 
+void Game::initializeSystems()
+{
+	this->points = 0;
+}
+
 void Game::initializeStartMenu()
 {
 	// Initialize music
@@ -210,6 +217,15 @@ void Game::initializeStartMenu()
 		this->window->getSize().y / 2.f - this->settingsText.getGlobalBounds().height / 2.f
 	);
 
+	this->creditsText.setFont(this->font);
+	this->creditsText.setCharacterSize(48);
+	this->creditsText.setFillColor(sf::Color::White);
+	this->creditsText.setString("Credits");
+	this->creditsText.setPosition(
+		this->window->getSize().x / 2.f - this->creditsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f + 50.f
+	);
+
 	// Initialize Quit menu item
 	this->quitText.setFont(this->font);
 	this->quitText.setCharacterSize(48);
@@ -217,7 +233,7 @@ void Game::initializeStartMenu()
 	this->quitText.setString("Quit");
 	this->quitText.setPosition(
 		this->window->getSize().x / 2.f - this->quitText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 50.f
+		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 100.f
 	);
 }
 
@@ -260,6 +276,7 @@ Game::Game()
 	this->initializeGUI();
 	this->initializeStartMenu(); // Initialize start menu
 	this->initializeBackground();
+	this->initializeSystems();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
@@ -327,7 +344,7 @@ void Game::updatePollEvents()
 				}
 				else if (ev.key.code == sf::Keyboard::Down)
 				{
-					if (this->selectedMenuItem < 3)
+					if (this->selectedMenuItem < 4)
 					{
 						this->menuSound.play();
 						this->selectedMenuItem++;
@@ -350,6 +367,10 @@ void Game::updatePollEvents()
 						// Handle settings selection
 					}
 					else if (this->selectedMenuItem == 3)
+					{
+						// Handle credits selection
+					}
+					else if (this->selectedMenuItem == 4)
 					{
 						this->window->close();
 					}
@@ -417,6 +438,13 @@ void Game::updateInput()
 		this->player->getPos().y, 0.f, -1.5f, 5.f));
 	}
 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		this->gameState = MAIN_MENU;
+		this->stageMusic.stop();
+		this->menuMusic.play();
+	}
+
 }
 
 void Game::updateBackground()
@@ -443,7 +471,7 @@ void Game::updateGUI()
 {
 	std::stringstream ss;
 
-	ss << "Points: " << this->temporalPointSystem;
+	ss << "Score: " << this->points;
 
 	this->pointText.setString(ss.str());
 }
@@ -479,21 +507,21 @@ void Game::updateCollision()
 	}
 
 	// Collision with right side of the screen
-	if (this->player->getBounds().left + this->player->getBounds().width > this->window->getSize().x)
+	else if (this->player->getBounds().left + this->player->getBounds().width > this->window->getSize().x)
 	{
 		this->player->setPosition(this->window->getSize().x - this->player->getBounds().width, this->player->getBounds().top);
 	}
 
 	// Collision with top of the screen
-	if (this->player->getPos().y < 0.f)
+	if (this->player->getBounds().top < 0.f)
 	{
-		this->player->setPosition(this->player->getPos().x, 0.f);
+		this->player->setPosition(this->player->getBounds().left, 0.f);
 	}
 
 	// Collision with bottom of the screen
-	if (this->player->getPos().y + this->player->getBounds().height > this->window->getSize().y)
+	else if (this->player->getBounds().top + this->player->getBounds().height > this->window->getSize().y)
 	{
-		this->player->setPosition(this->player->getPos().x, this->window->getSize().y - this->player->getBounds().height);
+		this->player->setPosition(this->player->getBounds().left, this->window->getSize().y - this->player->getBounds().height);
 	}
 }
 
@@ -511,19 +539,19 @@ void Game::updateEnemies()
 		switch(enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], float(rand() % 500), -200.f));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], float(rand() % 500), -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY2"], float(rand() % 500), -200.f));
+			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], float(rand() % 500), -200.f, 2));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY3"], float(rand() % 500), -200.f));
+			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], float(rand() % 500), -200.f, 1));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["ENEMY1"], float(rand() % 500), -200.f));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], float(rand() % 500), -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 
@@ -562,11 +590,16 @@ void Game::updateCombat()
 		{
 			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds()))
 			{
+				this->points = this->points + this->enemies[i]->getPoints();
+
+
 				delete this->enemies[i];
 				this->enemies.erase(this->enemies.begin() + i);
 
 				delete this->bullets[k];
 				this->bullets.erase(this->bullets.begin() + k);
+
+
 
 				enemy_deleted = true;
 			}
@@ -651,6 +684,7 @@ void Game::renderStartMenu()
 	this->playText.setFillColor(sf::Color::White);
 	this->shopText.setFillColor(sf::Color::White);
 	this->settingsText.setFillColor(sf::Color::White);
+	this->creditsText.setFillColor(sf::Color::White);
 	this->quitText.setFillColor(sf::Color::White);
 
 	// Highlight the selected menu item
@@ -659,16 +693,20 @@ void Game::renderStartMenu()
 	case 0:
 		this->playText.setFillColor(sf::Color::Yellow);
 		break;
-	case 1:
 
+	case 1:
 		this->shopText.setFillColor(sf::Color::Yellow);
 		break;
-	case 2:
 
+	case 2:
 		this->settingsText.setFillColor(sf::Color::Yellow);
 		break;
-	case 3:
 
+	case 3:
+		this->creditsText.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 4:
 		this->quitText.setFillColor(sf::Color::Yellow);
 		break;
 	}
@@ -678,5 +716,6 @@ void Game::renderStartMenu()
 	this->window->draw(this->playText);
 	this->window->draw(this->shopText);
 	this->window->draw(this->settingsText);
+	this->window->draw(this->creditsText);
 	this->window->draw(this->quitText);
 }

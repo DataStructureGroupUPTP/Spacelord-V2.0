@@ -32,12 +32,13 @@ private:
 public:
 
 	Enemy();
-	Enemy(sf::Texture* texture, float pos_x, float pos_y);
+	Enemy(sf::Texture* texture, float pos_x, float pos_y, int type);
 
 	virtual ~Enemy();
 
 	// Accessors
 	const sf::FloatRect getBounds() const;
+	const int& getPoints() const;
 
 
 	void update();

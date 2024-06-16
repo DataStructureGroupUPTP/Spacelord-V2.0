@@ -3,6 +3,8 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include <map>
+#include <string>
+#include <sstream>
 
 enum GameState
 {
@@ -41,6 +43,9 @@ private:
     sf::Sprite stageBackground2;
     float backgroundScrollSpeed;
 
+    // Systems
+    unsigned points;
+
     // Player
     Player* player;
 
@@ -48,13 +53,13 @@ private:
     float spawnTimer;
     float spawnTimerMax;
     std::vector<Enemy*> enemies;
-    float temporalPointSystem;
 
     // Sound effects
     sf::SoundBuffer laserBuffer;
     sf::Sound laserSound;
     sf::SoundBuffer menuClick;
     sf::Sound menuSound;
+
 
     // Music
     sf::Music stageMusic;
@@ -76,6 +81,7 @@ private:
     void initializeMusic();
     void initializeGUI();
     void initializeBackground();
+    void initializeSystems();
 
     void initializeStartMenu(); // New function for initializing the start menu
 
@@ -86,7 +92,9 @@ private:
     sf::Text playText;
     sf::Text shopText;
     sf::Text settingsText;
+    sf::Text creditsText;
     sf::Text quitText;
+
 
     int selectedMenuItem;
 
