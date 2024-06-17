@@ -1,8 +1,6 @@
 #include "Game.h"
 
-
 // Private
-
 void Game::initializeLines()
 {
 	
