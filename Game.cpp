@@ -659,10 +659,10 @@ void Game::updateCombat()
 
 
 				delete this->enemies[i];
-				this->enemies.erase(this->enemies.begin() + i);
+				this->enemies.erase(this->enemies.begin() + (int)i);
 
 				delete this->bullets[k];
-				this->bullets.erase(this->bullets.begin() + k);
+				this->bullets.erase(this->bullets.begin() + (int)k);
 
 				this->alienHit.play();
 				enemy_deleted = true;
