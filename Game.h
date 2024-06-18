@@ -44,11 +44,22 @@ private:
     sf::Sprite stageBackground2;
     float backgroundScrollSpeed;
 
+    // Menu Backgrounds
+    sf::Texture gameOverBackgroundTexture;
+    sf::Sprite gameOverBackground;
+
     // Systems
     unsigned points;
 
     // Player
     Player* player;
+
+    // Player GUI
+    sf::RectangleShape playerHpBar;
+    sf::RectangleShape playerHpBarBack;
+    sf::Texture heartTexture;
+    sf::Sprite heartSprite;
+
 
     // Enemies
     float spawnTimer;
@@ -68,6 +79,8 @@ private:
     sf::SoundBuffer alienHitBuffer;
     sf::Sound alienHit;
 
+    sf::SoundBuffer pauseBuffer;
+    sf::Sound pauseSound;
 
 
 
@@ -93,9 +106,11 @@ private:
     void initializeGUI();
     void initializeBackground();
     void initializeSystems();
+    void initializeMenuBackgrounds();
 
     void initializeStartMenu(); // New function for initializing the start menu
     void initializePauseMenu();
+    void initializeGameOverMenu();
 
     void initializeEnemy();
     void initializePlayer();
@@ -111,6 +126,10 @@ private:
     sf::Text resumeText;
     sf::Text pausesettingsText;
     sf::Text mainmenuText;
+
+    // Game Over menu options
+    sf::Text gameOverText;
+
 
     int selectedMenuItem;
 
@@ -139,4 +158,5 @@ public:
     void render();
     void renderStartMenu(); // New function for rendering the start menu
     void renderPauseMenu();
+    void renderGameOverMenu();
 };

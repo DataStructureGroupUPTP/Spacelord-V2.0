@@ -44,6 +44,12 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::YELLOW_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->textures["HEALTH"] = new sf::Texture();
+	if (!this->textures["HEALTH"]->loadFromFile("Textures/Heart.png"))
+	{
+		std::cout << "TEXTURE::HEART::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 void Game::initializeSounds()
@@ -84,6 +90,17 @@ void Game::initializeSounds()
 
 	this->alienHit.setVolume(30);
 
+	if (!this->pauseBuffer.loadFromFile("Sounds/PauseSound.wav"))
+	{
+		std::cout << "SOUND::MENU::PAUSE::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->pauseSound.setBuffer(this->pauseBuffer);
+
+	this->pauseSound.setVolume(50);
+
+
+
 }
 
 void Game::initializeMusic()
@@ -111,14 +128,13 @@ void Game::initializeGUI()
 		std::cout << "FONT::DEBROSEE::FAILED_TO_LOAD" << "\n";
 	}
 
-
-
 	//Initialize point text
 	this->pointText.setFont(this->font);
 	this->pointText.setCharacterSize(36);
 	this->pointText.setFillColor(sf::Color::White);
 	this->pointText.setString("ERROR");
 
+	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
 	this->gameTitle.setCharacterSize(100);
 	this->gameTitle.setFillColor(sf::Color::White);
@@ -126,6 +142,7 @@ void Game::initializeGUI()
 	this->gameTitle.setOutlineThickness(1);
 	this->gameTitle.setString("ASTRAL ATTACK");
 
+	// Initialize Pause title
 	this->pauseTitle.setFont(this->titleFont);
 	this->pauseTitle.setCharacterSize(100);
 	this->pauseTitle.setFillColor(sf::Color::White);
@@ -133,6 +150,21 @@ void Game::initializeGUI()
 	this->pauseTitle.setOutlineThickness(1);
 	this->pauseTitle.setString("PAUSED");
 
+	// Initialize game over title
+	this->gameOverText.setFont(this->titleFont);
+	this->gameOverText.setCharacterSize(100);
+	this->gameOverText.setFillColor(sf::Color::Red);
+	this->gameOverText.setStyle(sf::Text::Italic);
+	this->gameOverText.setOutlineThickness(1);
+	this->gameOverText.setString("GAME OVER");
+
+	// Initialize health bar
+	this->playerHpBar.setSize(sf::Vector2f(150.f, 25.f));
+	this->playerHpBar.setFillColor(sf::Color::Red);
+	this->playerHpBar.setPosition(sf::Vector2f(20.f, 60.f));
+
+	this->playerHpBarBack = this->playerHpBar;
+	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 	
 }
 
@@ -150,7 +182,7 @@ void Game::initializeBackground()
 
 	this->backgroundScrollSpeed = 1.f;
 
-	int randomBackground = 1;
+	int randomBackground = rand() % 5 + 1;
 
 	switch(randomBackground)
 	{
@@ -210,6 +242,17 @@ void Game::initializeBackground()
 void Game::initializeSystems()
 {
 	this->points = 0;
+
+}
+
+void Game::initializeMenuBackgrounds()
+{
+	if (!this->gameOverBackgroundTexture.loadFromFile("Textures/BRUH.jpg"))
+	{
+		std::cout << "TEXTURE::GAME_OVER_BACKGROUND::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->gameOverBackground.setTexture(this->gameOverBackgroundTexture);
 
 }
 
@@ -320,13 +363,32 @@ void Game::initializePauseMenu()
 	);
 }
 
+void Game::initializeGameOverMenu()
+{
+	this->gameOverText.setPosition
+	(
+		this->window->getSize().x / 2.f - this->gameOverText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->gameOverText.getGlobalBounds().height / 2.f - 250.f
+	);
+
+	// Initialize Back to Main Menu menu item
+	this->mainmenuText.setFont(this->font);
+	this->mainmenuText.setCharacterSize(48);
+	this->mainmenuText.setFillColor(sf::Color::White);
+	this->mainmenuText.setString("Back to Main Menu");
+	this->mainmenuText.setPosition(
+		this->window->getSize().x / 2.f - this->mainmenuText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->mainmenuText.getGlobalBounds().height / 2.f
+	);
+}
+
 void Game::initializeWindow()
 {
 	// Size of the window
 	this->videoMode.height = 800;
 	this->videoMode.width = 1000;
 
-	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Close | sf::Style::Titlebar);
+	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Default | sf::Style::Titlebar);
 
 	this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
@@ -361,6 +423,8 @@ Game::Game()
 	this->initializeBackground();
 	this->initializeSystems();
 	this->initializePauseMenu();
+	this->initializeGameOverMenu();
+	this->initializeMenuBackgrounds();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
@@ -498,6 +562,15 @@ void Game::updatePollEvents()
 					}
 				}
 			}
+			if (this->gameState == GAME_OVER)
+			{
+				if (ev.key.code == sf::Keyboard::Return)
+				{
+					this->gameState = MAIN_MENU;
+					this->stageMusic.stop();
+					this->menuMusic.play();
+				}
+			}
 		}
 	}
 }
@@ -563,6 +636,7 @@ void Game::updateInput()
 	// FUTURE PAUSE
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
+		this->pauseSound.play();
 		this->gameState = PAUSED;
 		this->stageMusic.pause();
 	}
@@ -620,11 +694,23 @@ void Game::updateBackground()
 
 void Game::updateGUI()
 {
+	// Update Score
+
 	std::stringstream ss;
 
 	ss << "Score: " << this->points;
 
 	this->pointText.setString(ss.str());
+
+	// Update Player GUI
+	float hpPercent = static_cast<float>(this->player->getHp()) / static_cast<float>(this->player->getHpMax());
+	this->playerHpBar.setSize(sf::Vector2f(150.f * hpPercent, this->playerHpBar.getSize().y));
+
+	if(hpPercent == 0)
+	{
+		this->stageMusic.stop();
+		this->gameState = GAME_OVER;
+	}
 }
 
 void Game::updateBullets()
@@ -728,10 +814,12 @@ void Game::updateEnemies()
 
 		else if (enemy->getBounds().intersects(this->player->getBounds()))
 		{
+			this->player->loseHp(this->enemies.at(counter)->getDamage());
 			delete this->enemies.at(counter);
 			this->enemies.erase(this->enemies.begin() + counter);
 			--counter;
 			this->playerHit.play();
+			
 		}
 
 		++counter;
@@ -788,6 +876,8 @@ void Game::update()
 void Game::renderGUI()
 {
 	this->window->draw(this->pointText);
+	this->window->draw(this->playerHpBarBack);
+	this->window->draw(this->playerHpBar);
 }
 
 void Game::renderWorld()
@@ -835,6 +925,11 @@ void Game::render()
 	if (this->gameState == PAUSED)
 	{
 		this->renderPauseMenu();
+	}
+
+	if(this->gameState == GAME_OVER)
+	{
+		this->renderGameOverMenu();
 	}
 
 	this->window->display();
@@ -912,5 +1007,14 @@ void Game::renderPauseMenu()
 	this->window->draw(this->pauseTitle);
 	this->window->draw(this->resumeText);
 	this->window->draw(this->pausesettingsText);
+	this->window->draw(this->mainmenuText);
+}
+
+void Game::renderGameOverMenu()
+{
+	this->mainmenuText.setFillColor(sf::Color::Yellow);
+
+	this->window->draw(this->gameOverBackground);
+	this->window->draw(this->gameOverText);
 	this->window->draw(this->mainmenuText);
 }

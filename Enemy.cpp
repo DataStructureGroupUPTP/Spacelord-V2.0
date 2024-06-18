@@ -79,6 +79,11 @@ const int& Enemy::getPoints() const
 	return this->points;
 }
 
+const int& Enemy::getDamage() const
+{
+	return this->damage;
+}
+
 void Enemy::update()
 {
 	this->enemyOne.move(0.f, this->speed);
