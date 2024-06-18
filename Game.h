@@ -33,6 +33,7 @@ private:
 
     sf::Font titleFont;
     sf::Text gameTitle;
+    sf::Text pauseTitle;
 
     //World
     sf::Texture startMenuTexture;
@@ -94,16 +95,22 @@ private:
     void initializeSystems();
 
     void initializeStartMenu(); // New function for initializing the start menu
+    void initializePauseMenu();
 
     void initializeEnemy();
     void initializePlayer();
 
-    // Menu
+    // Main Menu options
     sf::Text playText;
     sf::Text shopText;
     sf::Text settingsText;
     sf::Text creditsText;
     sf::Text quitText;
+
+    // Pause Menu options
+    sf::Text resumeText;
+    sf::Text pausesettingsText;
+    sf::Text mainmenuText;
 
     int selectedMenuItem;
 
@@ -131,4 +138,5 @@ public:
     void renderWorld();
     void render();
     void renderStartMenu(); // New function for rendering the start menu
+    void renderPauseMenu();
 };
