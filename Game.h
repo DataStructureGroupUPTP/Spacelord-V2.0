@@ -82,11 +82,10 @@ private:
     sf::SoundBuffer pauseBuffer;
     sf::Sound pauseSound;
 
-
-
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;
+    sf::Music gameOverMusic;
 
     // Line Mechanic
     sf::Vertex line1[2];

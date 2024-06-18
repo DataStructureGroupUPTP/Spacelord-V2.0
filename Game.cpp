@@ -113,6 +113,14 @@ void Game::initializeMusic()
 	this->stageMusic.setVolume(30);
 	// Play the music
 	this->stageMusic.play();
+
+	if (!this->gameOverMusic.openFromFile("Music/Yellow.mp3"))
+	{
+		std::cout << "ERROR::YELLOW_GAME_OVER_THEME::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->gameOverMusic.setVolume(30);
+
 }
 
 void Game::initializeGUI()
@@ -567,8 +575,8 @@ void Game::updatePollEvents()
 				if (ev.key.code == sf::Keyboard::Return)
 				{
 					this->gameState = MAIN_MENU;
-					this->stageMusic.stop();
 					this->menuMusic.play();
+					this->gameOverMusic.stop();
 				}
 			}
 		}
@@ -709,6 +717,7 @@ void Game::updateGUI()
 	if(hpPercent == 0)
 	{
 		this->stageMusic.stop();
+		this->gameOverMusic.play();
 		this->gameState = GAME_OVER;
 	}
 }
