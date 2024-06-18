@@ -14,7 +14,7 @@ void Player::initializeVariables()
 void Player::initializeTexture()
 {
     // Load texture
-    if (!this->shipFull.loadFromFile("Textures/Mainship.png"))
+    if (!this->shipFull.loadFromFile("Textures/Mainshipfix.png"))
     {
         std::cout << "TEXTURE::MAIN_SHIP::FAILED_TO_LOAD" << "\n";
     }
@@ -114,7 +114,7 @@ void Player::move(const float dirX, const float dirY)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
     );
 
     this->fire.setPosition(
@@ -139,7 +139,7 @@ void Player::setPosition(const sf::Vector2f pos)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
     );
 
     this->fire.setPosition(
@@ -154,7 +154,7 @@ void Player::setPosition(const float x, const float y)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
     );
 
     this->fire.setPosition(
