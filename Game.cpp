@@ -164,6 +164,14 @@ void Game::initializeGUI()
 	this->pauseTitle.setOutlineThickness(1);
 	this->pauseTitle.setString("PAUSED");
 
+	// Initialize Settings title
+	this->settingsTitle.setFont(this->titleFont);
+	this->settingsTitle.setCharacterSize(100);
+	this->settingsTitle.setFillColor(sf::Color::White);
+	this->settingsTitle.setStyle(sf::Text::Italic);
+	this->settingsTitle.setOutlineThickness(1);
+	this->settingsTitle.setString("SETTINGS");
+
 	// Initialize game over title
 	this->gameOverText.setFont(this->titleFont);
 	this->gameOverText.setCharacterSize(100);
@@ -396,6 +404,42 @@ void Game::initializeGameOverMenu()
 	);
 }
 
+void Game::initializeSettingsMenu()
+{
+	this->settingsTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->settingsTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->settingsTitle.getGlobalBounds().height / 2.f - 250.f
+	);
+	// Initialize Resume menu item
+	this->musicvolumeText.setFont(this->font);
+	this->musicvolumeText.setCharacterSize(48);
+	this->musicvolumeText.setFillColor(sf::Color::White);
+	this->musicvolumeText.setString("Music Volume");
+	this->musicvolumeText.setPosition(
+		this->window->getSize().x / 2.f - this->musicvolumeText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->musicvolumeText.getGlobalBounds().height / 2.f - 100.f
+	);
+	// Initialize Pause Settings menu item
+	this->soundfxText.setFont(this->font);
+	this->soundfxText.setCharacterSize(48);
+	this->soundfxText.setFillColor(sf::Color::White);
+	this->soundfxText.setString("Sound FX");
+	this->soundfxText.setPosition(
+		this->window->getSize().x / 2.f - this->soundfxText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->soundfxText.getGlobalBounds().height / 2.f - 50.f
+	);
+	// Initialize Back to Main Menu menu item
+	this->backText.setFont(this->font);
+	this->backText.setCharacterSize(48);
+	this->backText.setFillColor(sf::Color::White);
+	this->backText.setString("Back");
+	this->backText.setPosition(
+		this->window->getSize().x / 2.f - this->backText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->backText.getGlobalBounds().height / 2.f
+	);
+}
+
 void Game::initializeWindow()
 {
 	// Size of the window
@@ -439,8 +483,10 @@ Game::Game()
 	this->initializePauseMenu();
 	this->initializeGameOverMenu();
 	this->initializeMenuBackgrounds();
+	this->initializeSettingsMenu();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
+	this->prevgameState = MAIN_MENU;
 	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
 }
 
@@ -494,97 +540,163 @@ void Game::updatePollEvents()
 			{
 				this->window->close();
 			}
-			if (this->gameState == MAIN_MENU)
+			switch (this->gameState)
 			{
-				if (ev.key.code == sf::Keyboard::Up)
-				{
-					if (this->selectedMenuItem > 0)
-					{
-						this->menuSound.play();
-						this->selectedMenuItem--;
-					}
-				}
-				if (ev.key.code == sf::Keyboard::Down)
-				{
-					if (this->selectedMenuItem < 4)
-					{
-						this->menuSound.play();
-						this->selectedMenuItem++;
-					}
-				}
-				if (ev.key.code == sf::Keyboard::Return)
-				{
-					if (this->selectedMenuItem == 0)
-					{
-						this->initializeMusic();
-						this->gameState = GAMEPLAY;
-						this->menuMusic.stop();
-					}
-					if (this->selectedMenuItem == 1)
-					{
-						// Handle shop selection
-					}
-					if (this->selectedMenuItem == 2)
-					{
-						// Handle settings selection
-					}
-					if (this->selectedMenuItem == 3)
-					{
-						// Handle credits selection
-					}
-					if (this->selectedMenuItem == 4)
-					{
-						this->window->close();
-					}
-				}
+			case MAIN_MENU:
+				handleMainMenuInput(ev);
+				break;
+			case PAUSED:
+				handlePauseMenuInput(ev);
+				break;
+			case GAME_OVER:
+				handleGameOverMenuInput(ev);
+				break;
+			case SETTINGS:
+				handleSettingsMenuInput(ev);
+				break;
+			default:
+				break;
 			}
-			if (this->gameState == PAUSED)
+		}
+	}
+}
+
+void Game::handleMainMenuInput(const sf::Event & ev)
+{
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->selectedMenuItem > 0)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->selectedMenuItem < 4)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem++;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			this->initializeMusic();
+			this->gameState = GAMEPLAY;
+			this->menuMusic.stop();
+			break;
+		case 1:
+			// Handle shop selection
+			break;
+		case 2:
+			this->prevgameState = this->gameState;
+			this->gameState = SETTINGS;
+			break;
+		case 3:
+			// Handle credits selection
+			break;
+		case 4:
+			this->window->close();
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Game::handlePauseMenuInput(const sf::Event & ev)
+{
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->selectedMenuItem > 0)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->selectedMenuItem < 2)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem++;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			this->gameState = GAMEPLAY;
+			this->menuMusic.stop();
+			this->stageMusic.play();
+			break;
+		case 1:
+			this->prevgameState = this->gameState;
+			this->gameState = SETTINGS;
+			break;
+		case 2:
+			this->gameState = MAIN_MENU;
+			this->stageMusic.stop();
+			this->menuMusic.play();
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Game::handleGameOverMenuInput(const sf::Event & ev)
+{
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		this->gameState = MAIN_MENU;
+		this->menuMusic.play();
+		this->gameOverMusic.stop();
+	}
+}
+
+void Game::handleSettingsMenuInput(const sf::Event & ev)
+{
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->selectedMenuItem > 0)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->selectedMenuItem < 2)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem++;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			// Implement changing music volume
+			break;
+
+		case 1:
+			// Implement changing sound fx volume
+			break;
+		case 2:
+			this->gameState = this->prevgameState;
+			if (this->prevgameState == GAMEPLAY)
 			{
-				if (ev.key.code == sf::Keyboard::Up)
-				{
-					if (this->selectedMenuItem > 0)
-					{
-						this->menuSound.play();
-						this->selectedMenuItem--;
-					}
-				}
-				if (ev.key.code == sf::Keyboard::Down)
-				{
-					if (this->selectedMenuItem < 2)
-					{
-						this->menuSound.play();
-						this->selectedMenuItem++;
-					}
-				}
-				if (ev.key.code == sf::Keyboard::Return)
-				{
-					if (this->selectedMenuItem == 0)
-					{
-						this->gameState = GAMEPLAY;
-						this->menuMusic.stop();
-						this->stageMusic.play();
-					}
-					if (this->selectedMenuItem == 1)
-					{
-						// Handle settings selection
-					}
-					if (this->selectedMenuItem == 2)
-					{
-						this->gameState = MAIN_MENU;
-						this->stageMusic.stop();
-						this->menuMusic.play();
-					}
-				}
+				this->stageMusic.play();
 			}
-			if (this->gameState == GAME_OVER)
-			{
-				if (ev.key.code == sf::Keyboard::Return)
-				{
-					this->gameState = MAIN_MENU;
-					this->menuMusic.play();
-					this->gameOverMusic.stop();
-				}
-			}
+			break;
+		default:
+			break;
 		}
 	}
 }
@@ -953,6 +1065,12 @@ void Game::render()
 		this->renderGameOverMenu();
 	}
 
+	if (this->gameState == SETTINGS)
+	{
+		std::cout << "Rendering settings menu\n";
+		this->renderSettingsMenu();
+	}
+
 	this->window->display();
 }
 
@@ -1038,4 +1156,33 @@ void Game::renderGameOverMenu()
 	this->window->draw(this->gameOverBackground);
 	this->window->draw(this->gameOverText);
 	this->window->draw(this->mainmenuText);
+}
+
+void Game::renderSettingsMenu()
+{
+	this->musicvolumeText.setFillColor(sf::Color::White);
+	this->soundfxText.setFillColor(sf::Color::White);
+	this->backText.setFillColor(sf::Color::White);
+
+	// Highlight the selected menu item
+	switch (this->selectedMenuItem)
+	{
+	case 0:
+		this->musicvolumeText.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 1:
+		this->soundfxText.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 2:
+		this->backText.setFillColor(sf::Color::Yellow);
+		break;
+	}
+
+	// Draw menu items
+	this->window->draw(this->settingsTitle);
+	this->window->draw(this->musicvolumeText);
+	this->window->draw(this->soundfxText);
+	this->window->draw(this->backText);
 }

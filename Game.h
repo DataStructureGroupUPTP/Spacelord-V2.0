@@ -11,6 +11,7 @@ enum GameState
     MAIN_MENU,
     GAMEPLAY,
     PAUSED,
+    SETTINGS,
     GAME_OVER
 };
 
@@ -34,6 +35,7 @@ private:
     sf::Font titleFont;
     sf::Text gameTitle;
     sf::Text pauseTitle;
+    sf::Text settingsTitle;
 
     //World
     sf::Texture startMenuTexture;
@@ -95,6 +97,7 @@ private:
 
     // Game state
     GameState gameState; // New game state variable
+    GameState prevgameState;
 
     // Private functions
     void initializeWindow();
@@ -110,9 +113,14 @@ private:
     void initializeStartMenu(); // New function for initializing the start menu
     void initializePauseMenu();
     void initializeGameOverMenu();
+    void initializeSettingsMenu();
 
     void initializeEnemy();
     void initializePlayer();
+    void handleMainMenuInput(const sf::Event& ev);
+    void handlePauseMenuInput(const sf::Event& ev);
+    void handleGameOverMenuInput(const sf::Event& ev);
+    void handleSettingsMenuInput(const sf::Event& ev);
 
     // Main Menu options
     sf::Text playText;
@@ -128,6 +136,11 @@ private:
 
     // Game Over menu options
     sf::Text gameOverText;
+
+    // Settings Menu options
+    sf::Text musicvolumeText;
+    sf::Text soundfxText;
+    sf::Text backText;
 
 
     int selectedMenuItem;
@@ -157,5 +170,6 @@ public:
     void render();
     void renderStartMenu(); // New function for rendering the start menu
     void renderPauseMenu();
+    void renderSettingsMenu();
     void renderGameOverMenu();
 };
