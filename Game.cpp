@@ -45,6 +45,12 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::YELLOW_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
 
+	this->textures["METEOR"] = new sf::Texture();
+	if (!this->textures["METEOR"]->loadFromFile("Textures/Meteor.png"))
+	{
+		std::cout << "TEXTURE::METEOR::FAILED_TO_LOAD" << "\n";
+	}
+
 	this->textures["HEALTH"] = new sf::Texture();
 	if (!this->textures["HEALTH"]->loadFromFile("Textures/Heart.png"))
 	{
@@ -846,17 +852,23 @@ void Game::updateCombat()
 		{
 			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds()))
 			{
-				this->points = this->points + this->enemies[i]->getPoints();
-
-
-				delete this->enemies[i];
-				this->enemies.erase(this->enemies.begin() + (int)i);
-
+				enemies[i]->reduceHp(1);
 				delete this->bullets[k];
 				this->bullets.erase(this->bullets.begin() + (int)k);
-
 				this->alienHit.play();
-				enemy_deleted = true;
+
+
+				if (enemies[i]->getHp() == 0)
+				{
+					this->points = this->points + this->enemies[i]->getPoints();
+
+
+					delete this->enemies[i];
+					this->enemies.erase(this->enemies.begin() + (int)i);
+
+					enemy_deleted = true;
+				}
+
 			}
 
 		}

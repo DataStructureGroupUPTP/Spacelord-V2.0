@@ -2,45 +2,86 @@
 
 void Player::initializeVariables()
 {
-	this->movementSpeed = 7.5f;
+    this->movementSpeed = 7.5f;
 
-	this->attackCooldownMax = 10.f;
-	this->attackCooldown = this->attackCooldownMax;
+    this->attackCooldownMax = 15.f;
+    this->attackCooldown = this->attackCooldownMax;
 
-	this->hpMax = 5;
-	this->hp = this->hpMax;
+    this->hpMax = 5;
+    this->hp = this->hpMax;
 }
 
 void Player::initializeTexture()
 {
-	// Load texture
-	if (!this->texture.loadFromFile("Textures/Mainshipfix.png"))
-	{
-		std::cout << "TEXTURE::MAIN_SHIP::FAILED_TO_LOAD" << "\n";
-	}
-}
+    // Load texture
+    if (!this->shipFull.loadFromFile("Textures/Mainship.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP::FAILED_TO_LOAD" << "\n";
+    }
 
+    if (!this->shipDamaged.loadFromFile("Textures/Mainshipdamage1.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP_DAMAGED_1::FAILED_TO_LOAD" << "\n";
+    }
+
+    if (!this->shipVeryDamaged.loadFromFile("Textures/Mainshipdamage2.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP_DAMAGED_2::FAILED_TO_LOAD" << "\n";
+    }
+
+    if (!this->shipEngine1.loadFromFile("Textures/Mainshipengine.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP_ENGINE::FAILED_TO_LOAD" << "\n";
+    }
+
+    if (!this->shipEngine1Fire.loadFromFile("Animations/Fireidle.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+    }
+}
 
 void Player::initializeSprite()
 {
-	// Set texture to sprite
-	this->ship.setTexture(this->texture);
+    // Set texture to sprite
+    this->ship.setTexture(this->shipFull);
 
-	// Resize
-	this->ship.scale(2.25f, 2.25f);
+    this->engine.setTexture(this->shipEngine1);
 
-	this->ship.setPosition(345.5f, 400.f);
+    // Resize
+    this->ship.scale(2.25f, 2.25f);
 
+    this->ship.setPosition(450.f, 900.f);
+
+    this->engine.setScale(2.25f, 2.25f);
+    this->engine.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height
+    );
+
+    this->fire.setTexture(this->shipEngine1Fire);
+    this->fireFrame = sf::IntRect(0, 0, 48, 48);
+    this->fire.setTextureRect(this->fireFrame);
+    this->fire.setScale(2.25f, 2.25f);
+    this->fire.setPosition(
+        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 20.f
+    );
+}
+
+void Player::initializeAnimation()
+{
+    this->currentFrame = 0;
+    this->animationTimer = 0.f;
+    this->animationSpeed = 0.1f; // Speed of the animation
 }
 
 // Constructors
 Player::Player()
 {
-	this->initializeVariables();
-	this->initializeTexture();
-	this->initializeSprite();
-
-
+    this->initializeVariables();
+    this->initializeTexture();
+    this->initializeSprite();
+    this->initializeAnimation();
 }
 
 Player::~Player()
@@ -49,84 +90,144 @@ Player::~Player()
 
 const sf::Vector2f& Player::getPos() const
 {
-	return this-> ship.getPosition();
+    return this->ship.getPosition();
 }
 
 const sf::FloatRect Player::getBounds() const
 {
-	return this->ship.getGlobalBounds();
+    return this->ship.getGlobalBounds();
 }
 
 const int& Player::getHp() const
 {
-	return this->hp;
+    return this->hp;
 }
 
 const int& Player::getHpMax() const
 {
-	return this->hpMax;
+    return this->hpMax;
 }
 
 void Player::move(const float dirX, const float dirY)
 {
-	this->ship.move(this->movementSpeed * dirX, this->movementSpeed * dirY);
+    this->ship.move(this->movementSpeed * dirX, this->movementSpeed * dirY);
+
+    this->engine.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+    );
+
+    this->fire.setPosition(
+        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
 }
 
 const bool Player::canAttack()
 {
-	if (this->attackCooldown >= this->attackCooldownMax)
-	{
-		this->attackCooldown = 0.f;
-		return true;
-	}
-	return false;
+    if (this->attackCooldown >= this->attackCooldownMax)
+    {
+        this->attackCooldown = 0.f;
+        return true;
+    }
+    return false;
 }
 
 void Player::setPosition(const sf::Vector2f pos)
 {
-	this->ship.setPosition(pos);
+    this->ship.setPosition(pos);
+
+    this->engine.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+    );
+
+    this->fire.setPosition(
+        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
 }
 
 void Player::setPosition(const float x, const float y)
 {
-	this->ship.setPosition(x,y);
+    this->ship.setPosition(x, y);
+
+    this->engine.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 100.f
+    );
+
+    this->fire.setPosition(
+        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
 }
 
 void Player::setHp(const int hp)
 {
-	this->hp = hp;
+    this->hp = hp;
 }
 
 void Player::loseHp(const int value)
 {
-	this->hp = this->hp - value;
-	if (this->hp < 0)
-	{
-		this->hp = 0;
-	}
+    this->hp = this->hp - value;
+    if (this->hp < 0)
+    {
+        this->hp = 0;
+    }
+
+    this->updateSprite();
 }
 
 void Player::updateAttackCooldown()
 {
-	if(this->attackCooldown < this->attackCooldownMax)
-	{
-		this->attackCooldown += 0.75f;
-	}
-
-
-	
+    if (this->attackCooldown < this->attackCooldownMax)
+    {
+        this->attackCooldown += 1.f;
+    }
 }
 
-// Functions
+void Player::updateSprite()
+{
+    if (this->hp == 3 or this->hp == 2)
+    {
+        this->ship.setTexture(this->shipDamaged);
+    }
+    else if (this->hp == 1)
+    {
+        this->ship.setTexture(this->shipVeryDamaged);
+    }
+    else
+    {
+        this->ship.setTexture(this->shipFull);
+    }
+}
+
+void Player::updateAnimation()
+{
+    this->animationTimer += this->animationSpeed;
+    if (this->animationTimer >= 1.f)
+    {
+        this->animationTimer = 0.f;
+        this->currentFrame++;
+        if (this->currentFrame >= 3) // 3 frames
+        {
+            this->currentFrame = 0;
+        }
+        this->fireFrame.left = this->currentFrame * 48; // Frame width is 48
+        this->fire.setTextureRect(this->fireFrame);
+    }
+}
+
 void Player::update()
 {
-	this->updateAttackCooldown();
-
-
+    this->updateAttackCooldown();
+    this->updateAnimation();
 }
 
 void Player::render(sf::RenderTarget& target)
 {
-	target.draw(this->ship);
-
+    target.draw(this->fire);
+    target.draw(this->engine);
+    target.draw(this->ship);
 }

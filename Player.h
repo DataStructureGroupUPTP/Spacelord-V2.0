@@ -17,8 +17,16 @@
 class Player
 {
 private:
-	sf::Texture texture;
+	sf::Texture shipFull;
+	sf::Texture shipDamaged;
+	sf::Texture shipVeryDamaged;
+	
+	sf::Texture shipEngine1;
+	sf::Texture shipEngine1Fire;
+
 	sf::Sprite ship;
+	sf::Sprite engine;
+	sf::Sprite fire;
 
 	float movementSpeed;
 
@@ -28,11 +36,18 @@ private:
 	int hp;
 	int hpMax;
 
+	// Animation
+
+	sf::IntRect fireFrame;
+	int currentFrame;
+	float animationTimer;
+	float animationSpeed;
+
 	// Private functions
 	void initializeVariables();
 	void initializeTexture();
 	void initializeSprite();
-
+	void initializeAnimation();
 
 public:
 	Player();
@@ -56,6 +71,10 @@ public:
 	
 	
 	void updateAttackCooldown();
+	void updateSprite();
+	void updateAnimation();
 	void update();
+
+
 	void render(sf::RenderTarget& target);
 };

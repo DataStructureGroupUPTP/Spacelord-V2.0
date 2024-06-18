@@ -2,7 +2,7 @@
 
 void Enemy::initializeVariables()
 {
-	this->hpMax = 10;
+	this->hpMax = 5;
 	this->hp = 0;
 	this->damage = 1;
 	this->points = 5;
@@ -21,8 +21,8 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
-		this->hpMax = 10;
-		this->hp = 0;
+		this->hpMax = 3;
+		this->hp = 2;
 		this->damage = 1;
 		this->points = 100;
 		this->speed = 15.f;
@@ -34,8 +34,8 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
-		this->hpMax = 10;
-		this->hp = 0;
+		this->hpMax = 4;
+		this->hp = 3;
 		this->damage = 1;
 		this->points = 50;
 		this->speed = 10.f;
@@ -48,7 +48,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->hpMax = 10;
-		this->hp = 0;
+		this->hp = 4;
 		this->damage = 1;
 		this->points = 25;
 		this->speed = 5.f;
@@ -83,6 +83,22 @@ const int& Enemy::getDamage() const
 {
 	return this->damage;
 }
+
+const int& Enemy::getHp() const
+{
+	return this->hp;
+}
+
+void Enemy::reduceHp(const int value)
+{
+	this->hp = this->hp - value;
+
+	if(this->hp < 0)
+	{
+		this->hp = 0;
+	}
+}
+
 
 void Enemy::update()
 {
