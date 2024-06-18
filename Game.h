@@ -78,6 +78,7 @@ private:
     sf::Vertex line1[2];
     sf::Vertex line2[2];
     sf::Vertex line3[2];
+    sf::Vertex line4[2];
 
     // Game state
     GameState gameState; // New game state variable

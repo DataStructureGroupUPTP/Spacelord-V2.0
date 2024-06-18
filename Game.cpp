@@ -5,13 +5,16 @@ void Game::initializeLines()
 {
 	
 	this->line1[0] = sf::Vertex(sf::Vector2f(200, 0), sf::Color::White);
-	this->line1[1] = sf::Vertex(sf::Vector2f(200, 800), sf::Color::White);
+	this->line1[1] = sf::Vertex(sf::Vector2f(200, 1000), sf::Color::White);
 
 	this->line2[0] = sf::Vertex(sf::Vector2f(400, 0), sf::Color::White);
-	this->line2[1] = sf::Vertex(sf::Vector2f(400, 800), sf::Color::White);
+	this->line2[1] = sf::Vertex(sf::Vector2f(400, 1000), sf::Color::White);
 
 	this->line3[0] = sf::Vertex(sf::Vector2f(600, 0), sf::Color::White);
-	this->line3[1] = sf::Vertex(sf::Vector2f(600, 800), sf::Color::White);
+	this->line3[1] = sf::Vertex(sf::Vector2f(600, 1000), sf::Color::White);
+
+	this->line4[0] = sf::Vertex(sf::Vector2f(800, 0), sf::Color::White);
+	this->line4[1] = sf::Vertex(sf::Vector2f(800, 1000), sf::Color::White);
 }
 
 void Game::initializeTextures()
@@ -730,6 +733,7 @@ void Game::render()
 		this->window->draw(this->line1, 2, sf::Lines);
 		this->window->draw(this->line2, 2, sf::Lines);
 		this->window->draw(this->line3, 2, sf::Lines);
+		this->window->draw(this->line4, 2, sf::Lines);
 
 		for (auto* bullet : this->bullets)
 		{
