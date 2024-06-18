@@ -20,7 +20,7 @@ void Game::initializeTextures()
 	if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
 	{
 		std::cout << "TEXTURE::BULLET::FAILED_TO_LOAD" << "\n";
-	}
+	} 
 
 	this->textures["GREENALIEN"] = new sf::Texture();
 	if(!this->textures["GREENALIEN"]->loadFromFile("Textures/Greenalienfix.png"))
@@ -138,12 +138,12 @@ void Game::initializeBackground()
 
 	this->backgroundScrollSpeed = 1.f;
 
-	int randomBackground = rand() % 4 + 1;
+	int randomBackground = 1;
 
 	switch(randomBackground)
 	{
 	case 1:
-		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu1.png"))
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu3.png"))
 		{
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
@@ -153,7 +153,7 @@ void Game::initializeBackground()
 		break;
 
 	case 2:
-		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu2.png"))
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu1.png"))
 		{
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
@@ -163,7 +163,7 @@ void Game::initializeBackground()
 		break;
 
 	case 3:
-		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu3.png"))
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu4.png"))
 		{
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
@@ -173,12 +173,22 @@ void Game::initializeBackground()
 		break;
 
 	case 4:
-		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu4.png"))
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu2.png"))
 		{
 			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
 		}
 
 		this->gameTitle.setOutlineColor(sf::Color::Green);
+		this->startMenuBackground.setTexture(this->startMenuTexture);
+		break;
+
+	case 5:
+		if (!this->startMenuTexture.loadFromFile("Textures/StartMenu5.png"))
+		{
+			std::cout << "TEXTURE::STARTMENU::FAILED_TO_LOAD" << "\n";
+		}
+
+		this->gameTitle.setOutlineColor(sf::Color::Yellow);
 		this->startMenuBackground.setTexture(this->startMenuTexture);
 		break;
 	
@@ -265,8 +275,8 @@ void Game::initializeStartMenu()
 void Game::initializeWindow()
 {
 	// Size of the window
-	this->videoMode.height = 600;
-	this->videoMode.width = 800;
+	this->videoMode.height = 800;
+	this->videoMode.width = 1000;
 
 	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Close | sf::Style::Titlebar);
 

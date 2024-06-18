@@ -25,7 +25,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->hp = 0;
 		this->damage = 1;
 		this->points = 100;
-		this->speed = 12.5f;
+		this->speed = 15.f;
 		break;
 
 	case 2:
@@ -38,7 +38,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->hp = 0;
 		this->damage = 1;
 		this->points = 50;
-		this->speed = 8.f;
+		this->speed = 10.f;
 		break;
 
 	case 3:
