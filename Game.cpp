@@ -123,6 +123,13 @@ void Game::initializeGUI()
 	this->gameTitle.setOutlineThickness(1);
 	this->gameTitle.setString("ASTRAL ATTACK");
 
+	this->pauseTitle.setFont(this->titleFont);
+	this->pauseTitle.setCharacterSize(100);
+	this->pauseTitle.setFillColor(sf::Color::White);
+	this->pauseTitle.setStyle(sf::Text::Italic);
+	this->pauseTitle.setOutlineThickness(1);
+	this->pauseTitle.setString("PAUSED");
+
 	
 }
 
@@ -264,6 +271,42 @@ void Game::initializeStartMenu()
 	);
 }
 
+void Game::initializePauseMenu()
+{
+	this->pauseTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->pauseTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->pauseTitle.getGlobalBounds().height / 2.f - 250.f
+	);
+	// Initialize Resume menu item
+	this->resumeText.setFont(this->font);
+	this->resumeText.setCharacterSize(48);
+	this->resumeText.setFillColor(sf::Color::White);
+	this->resumeText.setString("Resume");
+	this->resumeText.setPosition(
+		this->window->getSize().x / 2.f - this->resumeText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->resumeText.getGlobalBounds().height / 2.f - 100.f
+	);
+	// Initialize Pause Settings menu item
+	this->pausesettingsText.setFont(this->font);
+	this->pausesettingsText.setCharacterSize(48);
+	this->pausesettingsText.setFillColor(sf::Color::White);
+	this->pausesettingsText.setString("Settings");
+	this->pausesettingsText.setPosition(
+		this->window->getSize().x / 2.f - this->pausesettingsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->pausesettingsText.getGlobalBounds().height / 2.f - 50.f
+	);
+	// Initialize Back to Main Menu menu item
+	this->mainmenuText.setFont(this->font);
+	this->mainmenuText.setCharacterSize(48);
+	this->mainmenuText.setFillColor(sf::Color::White);
+	this->mainmenuText.setString("Back to Main Menu");
+	this->mainmenuText.setPosition(
+		this->window->getSize().x / 2.f - this->mainmenuText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->mainmenuText.getGlobalBounds().height / 2.f
+	);
+}
+
 void Game::initializeWindow()
 {
 	// Size of the window
@@ -304,6 +347,7 @@ Game::Game()
 	this->initializeStartMenu(); // Initialize start menu
 	this->initializeBackground();
 	this->initializeSystems();
+	this->initializePauseMenu();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
@@ -359,7 +403,7 @@ void Game::updatePollEvents()
 			{
 				this->window->close();
 			}
-			else if (this->gameState == MAIN_MENU)
+			if (this->gameState == MAIN_MENU)
 			{
 				if (ev.key.code == sf::Keyboard::Up)
 				{
@@ -369,7 +413,7 @@ void Game::updatePollEvents()
 						this->selectedMenuItem--;
 					}
 				}
-				else if (ev.key.code == sf::Keyboard::Down)
+				if (ev.key.code == sf::Keyboard::Down)
 				{
 					if (this->selectedMenuItem < 4)
 					{
@@ -377,7 +421,7 @@ void Game::updatePollEvents()
 						this->selectedMenuItem++;
 					}
 				}
-				else if (ev.key.code == sf::Keyboard::Return)
+				if (ev.key.code == sf::Keyboard::Return)
 				{
 					if (this->selectedMenuItem == 0)
 					{
@@ -385,21 +429,59 @@ void Game::updatePollEvents()
 						this->gameState = GAMEPLAY;
 						this->menuMusic.stop();
 					}
-					else if (this->selectedMenuItem == 1)
+					if (this->selectedMenuItem == 1)
 					{
 						// Handle shop selection
 					}
-					else if (this->selectedMenuItem == 2)
+					if (this->selectedMenuItem == 2)
 					{
 						// Handle settings selection
 					}
-					else if (this->selectedMenuItem == 3)
+					if (this->selectedMenuItem == 3)
 					{
 						// Handle credits selection
 					}
-					else if (this->selectedMenuItem == 4)
+					if (this->selectedMenuItem == 4)
 					{
 						this->window->close();
+					}
+				}
+			}
+			if (this->gameState == PAUSED)
+			{
+				if (ev.key.code == sf::Keyboard::Up)
+				{
+					if (this->selectedMenuItem > 0)
+					{
+						this->menuSound.play();
+						this->selectedMenuItem--;
+					}
+				}
+				if (ev.key.code == sf::Keyboard::Down)
+				{
+					if (this->selectedMenuItem < 2)
+					{
+						this->menuSound.play();
+						this->selectedMenuItem++;
+					}
+				}
+				if (ev.key.code == sf::Keyboard::Return)
+				{
+					if (this->selectedMenuItem == 0)
+					{
+						this->gameState = GAMEPLAY;
+						this->menuMusic.stop();
+						this->stageMusic.play();
+					}
+					if (this->selectedMenuItem == 1)
+					{
+						// Handle settings selection
+					}
+					if (this->selectedMenuItem == 2)
+					{
+						this->gameState = MAIN_MENU;
+						this->stageMusic.stop();
+						this->menuMusic.play();
 					}
 				}
 			}
@@ -468,9 +550,8 @@ void Game::updateInput()
 	// FUTURE PAUSE
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-		this->gameState = MAIN_MENU;
-		this->stageMusic.stop();
-		this->menuMusic.play();
+		this->gameState = PAUSED;
+		this->stageMusic.pause();
 	}
 
 	// COLOR TESTS
@@ -712,7 +793,7 @@ void Game::render()
 		this->renderStartMenu(); // Render start menu if in MAIN_MENU state
 	}
 
-	else if (this->gameState == GAMEPLAY)
+	if (this->gameState == GAMEPLAY)
 	{
 		// Draw world
 		this->renderWorld();
@@ -735,6 +816,11 @@ void Game::render()
 
 		this->player->render(*this->window);
 		this->renderGUI();
+	}
+
+	if (this->gameState == PAUSED)
+	{
+		this->renderPauseMenu();
 	}
 
 	this->window->display();
@@ -783,4 +869,34 @@ void Game::renderStartMenu()
 	this->window->draw(this->settingsText);
 	this->window->draw(this->creditsText);
 	this->window->draw(this->quitText);
+}
+
+void Game::renderPauseMenu()
+{
+	// Reset the color of all menu items
+	this->resumeText.setFillColor(sf::Color::White);
+	this->pausesettingsText.setFillColor(sf::Color::White);
+	this->mainmenuText.setFillColor(sf::Color::White);
+
+	// Highlight the selected menu item
+	switch (this->selectedMenuItem)
+	{
+	case 0:
+		this->resumeText.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 1:
+		this->pausesettingsText.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 2:
+		this->mainmenuText.setFillColor(sf::Color::Yellow);
+		break;
+	}
+
+	// Draw menu items
+	this->window->draw(this->pauseTitle);
+	this->window->draw(this->resumeText);
+	this->window->draw(this->pausesettingsText);
+	this->window->draw(this->mainmenuText);
 }
