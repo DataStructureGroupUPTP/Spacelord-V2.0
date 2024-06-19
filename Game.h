@@ -77,6 +77,8 @@ private:
     float spawnTimerMax;
     float horizontalSpawnTimer;
     float horizontalSpawnTimerMax;
+    float meteorSpawnTimer;
+    float meteorSpawnTimerMax;
 
     std::vector<Enemy*> enemies;
 

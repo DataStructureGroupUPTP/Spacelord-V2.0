@@ -205,7 +205,8 @@ void Game::updateEnemies()
 {
 	// Spawning
 	this->spawnTimer += 1.5f;
-	this->horizontalSpawnTimer += 1.f;
+	this->meteorSpawnTimer += 1.f;
+	this->horizontalSpawnTimer += 0.5f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -233,57 +234,81 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - 44.f, -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - (this->textures["GREENALIEN"]->getSize().x / 2)*0.75, -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], lanePos - 44.f, -200.f, 2));
+			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], lanePos - (this->textures["BLUEALIEN"]->getSize().x / 2) * 0.75, -200.f, 2));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], lanePos - 44.f, -200.f, 1));
+			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], lanePos - (this->textures["YELLOWALIEN"]->getSize().x / 2) * 0.75, -200.f, 1));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - 44.f, -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - (this->textures["GREENALIEN"]->getSize().x / 2) * 0.75, -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 
 		}
+	}
 
+	if (this->horizontalSpawnTimer >= horizontalSpawnTimerMax)
+	{
+		int enemyRandomizer = rand() % 3;
+		int sideRandomizer = 0;
 
-		if (this->horizontalSpawnTimer >= horizontalSpawnTimerMax)
+		if (sideRandomizer == 1)
 		{
-			int enemyRandomizer = rand() % 3;
-			int sideRandomizer = 0;
-
-			if (sideRandomizer == 1)
-			{
-				this->horizontalPos = 200.f;
-			}
-			else
-			{
-				this->horizontalPos = -200.f;
-			}
-
-			switch (enemyRandomizer)
-			{
-			case 0:
-				this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], horizontalPos, rand() % 750, 4));
-				this->horizontalSpawnTimer = 0;
-				break;
-			case 1:
-				this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], horizontalPos, rand() % 750, 5));
-				this->horizontalSpawnTimer = 0;
-				break;
-			case 2:
-				this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], horizontalPos, rand() % 750, 6));
-				this->horizontalSpawnTimer = 0;
-				break;
-
-			}
+			this->horizontalPos = 200.f;
+		}
+		else
+		{
+			this->horizontalPos = -200.f;
 		}
 
+		switch (enemyRandomizer)
+		{
+		case 0:
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], horizontalPos, rand() % 400 + 300, 4));
+			this->horizontalSpawnTimer = 0;
+			break;
+		case 1:
+			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], horizontalPos, rand() % 400 + 300, 4));
+			this->horizontalSpawnTimer = 0;
+			break;
+		case 2:
+			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], horizontalPos, rand() % 400 + 300, 4));
+			this->horizontalSpawnTimer = 0;
+			break;
+
+		}
+
+	}
+
+	if(this->meteorSpawnTimer >= meteorSpawnTimerMax)
+	{
+		this->laneRandomizer = rand() % 4 + 1;
+
+		switch (laneRandomizer)
+		{
+		case 1:
+			this->lanePos = 200.f;
+			break;
+		case 2:
+			this->lanePos = 400.f;
+			break;
+		case 3:
+			this->lanePos = 600.f;
+			break;
+		case 4:
+			this->lanePos = 800.f;
+			break;
+		}
+
+		this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x / 2) * 2.25f, -200.f, 5));
+		this->meteorSpawnTimer = 0;
+		
 	}
 
 	unsigned counter = 0;

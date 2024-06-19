@@ -58,6 +58,7 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::HEART::FAILED_TO_LOAD" << "\n";
 	}
+
 }
 
 void Game::initializeSounds()
@@ -502,8 +503,11 @@ void Game::initializeEnemy()
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;
 
-	this->horizontalSpawnTimerMax = 120.f;
+	this->horizontalSpawnTimerMax = 60.f;
 	this->horizontalSpawnTimer = horizontalSpawnTimerMax;
+
+	this->meteorSpawnTimerMax = 60.f;
+	this->meteorSpawnTimer = meteorSpawnTimerMax;
 }
 
 void Game::initializePlayer()

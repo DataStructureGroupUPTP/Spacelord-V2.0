@@ -20,7 +20,6 @@ private:
 	// Stats
 	int type;
 	int hp;
-	int hpMax;
 	int damage;
 	int points;
 	float speed;
