@@ -2,6 +2,11 @@
 
 void Game::initializeLines()
 {
+	this->lane = 4;
+	this->rightKeyPressed = false;
+	this->leftKeyPressed = false;
+	this->laneRandomizer = 1;
+	this->lanePos = 200.f;
 
 	this->line1[0] = sf::Vertex(sf::Vector2f(200, 0), sf::Color::White);
 	this->line1[1] = sf::Vertex(sf::Vector2f(200, 1000), sf::Color::White);
@@ -185,6 +190,11 @@ void Game::initializeGUI()
 	this->playerHpBarBack = this->playerHpBar;
 	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 
+	// Initialize timer
+	this->timerText.setFont(this->font);
+	this->timerText.setCharacterSize(36);
+	this->timerText.setFillColor(sf::Color::White);
+	timerText.setPosition(this->window->getSize().x - 75.f, 0.f);
 }
 
 void Game::initializeBackground()
@@ -266,7 +276,7 @@ void Game::initializeSystems()
 
 void Game::initializeMenuBackgrounds()
 {
-	if (!this->gameOverBackgroundTexture.loadFromFile("Textures/BRUH.jpg"))
+	if (!this->gameOverBackgroundTexture.loadFromFile("Textures/GameOver.png"))
 	{
 		std::cout << "TEXTURE::GAME_OVER_BACKGROUND::FAILED_TO_LOAD" << "\n";
 	}
@@ -459,6 +469,5 @@ void Game::initializeEnemy()
 void Game::initializePlayer()
 {
 	this->player = new Player;
-
 
 }

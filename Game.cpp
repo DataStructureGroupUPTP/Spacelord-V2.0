@@ -70,9 +70,10 @@ void Game::run()
 void Game::reset()
 {  
 	// Reset player stats
-	this->player->setPosition(450.f, 200.f); 
-	this->player->setHp(5);
+	delete player;
+	this->initializePlayer();
 	points = 0;
+	lane = 4;
 
 	// Clear bullets
 	for (auto* bullet : this->bullets)
@@ -286,6 +287,7 @@ void Game::update()
 		this->updateEnemies();
 		this->updateCombat();
 		this->updateGUI();
+		this->updateTimer();
 	}
 }
 

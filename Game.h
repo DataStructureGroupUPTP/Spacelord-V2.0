@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <iostream>
+#include <iomanip>
 
 enum GameState
 {
@@ -36,6 +38,13 @@ private:
     sf::Text gameTitle;
     sf::Text pauseTitle;
     sf::Text settingsTitle;
+
+    // Timer GUI
+    sf::Text timerText;
+    sf::Clock clock;
+    float elapsedTime; // Elapsed time in seconds
+    int seconds;
+    int minutes;
 
     //World
     sf::Texture startMenuTexture;
@@ -94,6 +103,11 @@ private:
     sf::Vertex line2[2];
     sf::Vertex line3[2];
     sf::Vertex line4[2];
+    int lane;
+    int laneRandomizer;
+    float lanePos;
+    bool leftKeyPressed;
+    bool rightKeyPressed;
 
     // Game state
     GameState gameState; // New game state variable
@@ -160,9 +174,10 @@ public:
 
     void updateBackground();
     void updateGUI();
+    void updateTimer();
     void updateBullets();
     void updateCollision();
-
+ 
     void updateEnemies();
     void updateCombat();
     void update();

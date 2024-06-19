@@ -17,41 +17,41 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 	{
 	case 1:
 		this->enemyOne.setTexture(*texture);
-		this->enemyOne.scale(1.f, 1.f);
+		this->enemyOne.scale(0.75f, 0.75f);
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->hpMax = 3;
 		this->hp = 2;
 		this->damage = 1;
-		this->points = 100;
-		this->speed = 15.f;
+		this->points = 300;
+		this->speed = 12.5f;
 		break;
 
 	case 2:
 		this->enemyOne.setTexture(*texture);
-		this->enemyOne.scale(1.f, 1.f);
+		this->enemyOne.scale(0.75f, 0.75f);
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->hpMax = 4;
 		this->hp = 3;
 		this->damage = 1;
-		this->points = 50;
+		this->points = 250;
 		this->speed = 10.f;
 		break;
 
 	case 3:
 		this->enemyOne.setTexture(*texture);
-		this->enemyOne.scale(1.f, 1.f);
+		this->enemyOne.scale(0.75f, 0.75f);
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->hpMax = 10;
-		this->hp = 4;
+		this->hp = 3;
 		this->damage = 1;
-		this->points = 25;
-		this->speed = 5.f;
+		this->points = 200;
+		this->speed = 7.5f;
 		break;
 	}
 

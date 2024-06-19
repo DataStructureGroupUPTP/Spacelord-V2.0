@@ -2,54 +2,51 @@
 
 void Game::updateInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-		{
-			this->player->move(-0.5f, 0.f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			this->player->move(0.5f, 0.f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			this->player->move(0.f, -0.5f);
+		leftKeyPressed = true;
 
-		}
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		if (lane > 1) 
 		{
-			this->player->move(0.f, 0.5f);
-
+			this->player->move(-26.65f, 0.f);
+			lane--;
 		}
 	}
 
-	else
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		leftKeyPressed = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && !rightKeyPressed)
+	{
+		rightKeyPressed = true;
+
+		if (lane < 4) 
 		{
-			this->player->move(-1.f, 0.f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-		{
-			this->player->move(1.f, 0.f);
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (this->player->getPos().y > 0) // Check upper boundary
-			{
-				this->player->move(0.f, -1.f);
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (this->player->getPos().y + this->player->getBounds().height < this->window->getSize().y)
-			{
-				this->player->move(0.f, 1.f);
-			}
+			this->player->move(26.65f, 0.f);
+			lane++;
 		}
 	}
+
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		rightKeyPressed = false;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+
+		this->player->move(0.f, -1.f);
+
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+
+		this->player->move(0.f, 1.f);
+
+	}
+
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack())
 	{
@@ -139,6 +136,21 @@ void Game::updateGUI()
 	}
 }
 
+void Game::updateTimer()
+{
+	sf::Time dt = clock.restart();
+	elapsedTime += dt.asSeconds();
+
+	// Update timer text
+	minutes = static_cast<int>(elapsedTime) / 60;
+	seconds = static_cast<int>(elapsedTime) % 60;
+
+	std::ostringstream oss;
+	oss << std::setfill('0') << std::setw(2) << minutes << ":" << std::setw(2) << seconds;
+	timerText.setString(oss.str());
+}
+
+
 void Game::updateBullets()
 {
 	unsigned counter = 0;
@@ -191,30 +203,48 @@ void Game::updateCollision()
 
 void Game::updateEnemies()
 {
-
 	// Spawning
 	this->spawnTimer += 2.f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
+		this->laneRandomizer = rand() % 4 + 1;
+
+		switch(laneRandomizer)
+		{
+		case 1:
+			this->lanePos = 200.f;
+			break;
+		case 2:
+			this->lanePos = 400.f;
+			break;
+		case 3:
+			this->lanePos = 600.f;
+			break;
+		case 4:
+			this->lanePos = 800.f;
+			break;
+		}
+
+
 		int enemyRandomizer = rand() % 3;
 
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], float(rand() % 500), -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - 44.f, -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], float(rand() % 500), -200.f, 2));
+			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], lanePos - 44.f, -200.f, 2));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], float(rand() % 500), -200.f, 1));
+			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], lanePos - 44.f, -200.f, 1));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], float(rand() % 500), -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos, -44.f, 3));
 			this->spawnTimer = 0;
 			break;
 

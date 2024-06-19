@@ -5,6 +5,7 @@ void Game::renderGUI()
 	this->window->draw(this->pointText);
 	this->window->draw(this->playerHpBarBack);
 	this->window->draw(this->playerHpBar);
+	this->window->draw(this->timerText);
 }
 
 void Game::renderWorld()

@@ -49,23 +49,15 @@ void Player::initializeSprite()
 
     // Resize
     this->ship.scale(2.25f, 2.25f);
-
-    this->ship.setPosition(450.f, 900.f);
+    this->ship.setPosition(765.5f, 660.f);
 
     this->engine.setScale(2.25f, 2.25f);
-    this->engine.setPosition(
-        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height
-    );
 
     this->fire.setTexture(this->shipEngine1Fire);
     this->fireFrame = sf::IntRect(0, 0, 48, 48);
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
-    this->fire.setPosition(
-        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 20.f
-    );
+
 }
 
 void Player::initializeAnimation()
@@ -82,6 +74,16 @@ Player::Player()
     this->initializeTexture();
     this->initializeSprite();
     this->initializeAnimation();
+
+    this->engine.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
+    );
+
+    this->fire.setPosition(
+        this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
 }
 
 Player::~Player()
