@@ -153,6 +153,7 @@ private:
     sf::Text quitText;
 
     // Pause Menu options
+    sf::RectangleShape pausesettingsBackground;
     sf::Text resumeText;
     sf::Text pausesettingsText;
     sf::Text mainmenuText;
@@ -203,4 +204,5 @@ public:
     void renderPauseMenu();
     void renderSettingsMenu();
     void renderGameOverMenu();
+    void renderGameElements();
 };

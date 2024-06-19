@@ -389,6 +389,9 @@ void Game::initializeStartMenu()
 
 void Game::initializePauseMenu()
 {
+	this->pausesettingsBackground.setSize(sf::Vector2f(1000.f, 800.f));
+	this->pausesettingsBackground.setFillColor(sf::Color(0, 0, 0, 150));
+
 	this->pauseTitle.setPosition
 	(
 		this->window->getSize().x / 2.f - this->pauseTitle.getGlobalBounds().width / 2.f,

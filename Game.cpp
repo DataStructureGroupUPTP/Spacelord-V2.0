@@ -319,33 +319,8 @@ void Game::render()
 
 	if (this->gameState == GAMEPLAY)
 	{
-		// Draw world
 		this->renderWorld();
-
-
-		// Draw game elements
-		this->window->draw(this->line1, 2, sf::Lines);
-		this->window->draw(this->line2, 2, sf::Lines);
-		this->window->draw(this->line3, 2, sf::Lines);
-		this->window->draw(this->line4, 2, sf::Lines);
-
-		for (auto* bullet : this->bullets)
-		{
-			bullet->render(this->window);
-		}
-
-		for (auto* enemy : this->enemies)
-		{
-			enemy->render(*this->window);
-		}
-
-		this->player->render(*this->window);
-		this->renderGUI();
-	}
-
-	if (this->gameState == PAUSED)
-	{
-		this->renderPauseMenu();
+		this->renderGameElements();
 	}
 
 	if(this->gameState == GAME_OVER)
@@ -353,8 +328,23 @@ void Game::render()
 		this->renderGameOverMenu();
 	}
 
-	if (this->gameState == SETTINGS)
+	if (this->gameState == PAUSED)
 	{
+		this->renderWorld();
+		this->renderGameElements();
+		this->renderPauseMenu();
+	}
+
+	if (this->gameState == SETTINGS && prevgameState == PAUSED)
+	{
+		this->renderWorld();
+		this->renderGameElements();
+		this->renderSettingsMenu();
+	}
+
+	if (this->gameState == SETTINGS && prevgameState == MAIN_MENU)
+	{
+		this->window->draw(this->startMenuBackground);
 		this->renderSettingsMenu();
 	}
 

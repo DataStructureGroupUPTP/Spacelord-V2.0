@@ -15,6 +15,28 @@ void Game::renderWorld()
 	this->window->draw(this->stageBackground2);
 }
 
+void Game::renderGameElements()
+{
+	// Draw game elements
+	this->window->draw(this->line1, 2, sf::Lines);
+	this->window->draw(this->line2, 2, sf::Lines);
+	this->window->draw(this->line3, 2, sf::Lines);
+	this->window->draw(this->line4, 2, sf::Lines);
+
+	for (auto* bullet : this->bullets)
+	{
+		bullet->render(this->window);
+	}
+
+	for (auto* enemy : this->enemies)
+	{
+		enemy->render(*this->window);
+	}
+
+	this->player->render(*this->window);
+	this->renderGUI();
+}
+
 void Game::renderStartMenu()
 {
 	this->window->draw(this->startMenuBackground);
@@ -61,6 +83,7 @@ void Game::renderStartMenu()
 
 void Game::renderPauseMenu()
 {
+	this->window->draw(this->pausesettingsBackground);
 	// Reset the color of all menu items
 	this->resumeText.setFillColor(sf::Color::White);
 	this->pausesettingsText.setFillColor(sf::Color::White);
@@ -100,6 +123,7 @@ void Game::renderGameOverMenu()
 
 void Game::renderSettingsMenu()
 {
+	this->window->draw(this->pausesettingsBackground);
 	this->musicvolumeText.setFillColor(sf::Color::White);
 	this->soundfxText.setFillColor(sf::Color::White);
 	this->backText.setFillColor(sf::Color::White);
