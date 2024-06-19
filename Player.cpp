@@ -165,7 +165,7 @@ void Player::setPosition(const float x, const float y)
 
 void Player::setHp(const int newhp)
 {
-    this->hp = hp;
+    this->hp = newhp;
 }
 
 void Player::loseHp(const int value)

@@ -145,6 +145,9 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Initializers.cpp" />
+    <ClCompile Include="Renders.cpp" />
+    <ClCompile Include="Updates.cpp" />
     <ClCompile Include="Spacelord.cpp" />
   </ItemGroup>
   <ItemGroup>

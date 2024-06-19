@@ -100,6 +100,7 @@ private:
     GameState prevgameState;
 
     // Private functions
+    void initialize();
     void initializeWindow();
     void initializeLines();
     void initializeTextures();
@@ -152,6 +153,7 @@ public:
 
     // Functions
     void run();
+    void reset();
 
     void updatePollEvents();
     void updateInput();
