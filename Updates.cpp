@@ -204,13 +204,14 @@ void Game::updateCollision()
 void Game::updateEnemies()
 {
 	// Spawning
-	this->spawnTimer += 2.f;
+	this->spawnTimer += 1.5f;
+	this->horizontalSpawnTimer += 1.f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
 		this->laneRandomizer = rand() % 4 + 1;
 
-		switch(laneRandomizer)
+		switch (laneRandomizer)
 		{
 		case 1:
 			this->lanePos = 200.f;
@@ -244,41 +245,71 @@ void Game::updateEnemies()
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos, -44.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - 44.f, -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 
 		}
 
 
+		if (this->horizontalSpawnTimer >= horizontalSpawnTimerMax)
+		{
+			int enemyRandomizer = rand() % 3;
+			int sideRandomizer = 0;
+
+			if (sideRandomizer == 1)
+			{
+				this->horizontalPos = 200.f;
+			}
+			else
+			{
+				this->horizontalPos = -200.f;
+			}
+
+			switch (enemyRandomizer)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], horizontalPos, rand() % 750, 4));
+				this->horizontalSpawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], horizontalPos, rand() % 750, 5));
+				this->horizontalSpawnTimer = 0;
+				break;
+			case 2:
+				this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], horizontalPos, rand() % 750, 6));
+				this->horizontalSpawnTimer = 0;
+				break;
+
+			}
+		}
+
 	}
 
 	unsigned counter = 0;
-	for (auto* enemy : this->enemies)
+	for (auto it = this->enemies.begin(); it != this->enemies.end();)
 	{
+		auto* enemy = *it;
 		enemy->update();
 
-		if (enemy->getBounds().top > this->window->getSize().y)
+		if (enemy->getBounds().top > this->window->getSize().y ||
+			enemy->getBounds().left > this->window->getSize().x)
 		{
-			// Delete enemies at bottom screen
-			delete this->enemies.at(counter);
-			this->enemies.erase(this->enemies.begin() + counter);
-			--counter;
-
-
+			// Delete enemies at bottom or right screen
+			delete enemy;
+			it = this->enemies.erase(it);
 		}
-
 		else if (enemy->getBounds().intersects(this->player->getBounds()))
 		{
-			this->player->loseHp(this->enemies.at(counter)->getDamage());
-			delete this->enemies.at(counter);
-			this->enemies.erase(this->enemies.begin() + counter);
-			--counter;
+			this->player->loseHp(enemy->getDamage());
+			delete enemy;
+			it = this->enemies.erase(it);
 			this->playerHit.play();
-
 		}
-
-		++counter;
+		else
+		{
+			++it;
+		}
 	}
 
 }

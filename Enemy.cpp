@@ -2,6 +2,7 @@
 
 void Enemy::initializeVariables()
 {
+	this->type = 1;
 	this->hpMax = 5;
 	this->hp = 0;
 	this->damage = 1;
@@ -21,6 +22,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
+		this->type = type;
 		this->hpMax = 3;
 		this->hp = 2;
 		this->damage = 1;
@@ -34,6 +36,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
+		this->type = type;
 		this->hpMax = 4;
 		this->hp = 3;
 		this->damage = 1;
@@ -47,8 +50,51 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 
 		this->enemyOne.setPosition(pos_x, pos_y);
 
+		this->type = type;
 		this->hpMax = 10;
 		this->hp = 3;
+		this->damage = 1;
+		this->points = 200;
+		this->speed = 7.5f;
+		break;
+
+	case 4:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(0.75f, 0.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hpMax = 3;
+		this->hp = 1;
+		this->damage = 1;
+		this->points = 300;
+		this->speed = 12.5f;
+		break;
+
+	case 5:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(0.75f, 0.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hpMax = 4;
+		this->hp = 1;
+		this->damage = 1;
+		this->points = 250;
+		this->speed = 10.f;
+		break;
+
+	case 6:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(0.75f, 0.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hpMax = 10;
+		this->hp = 1;
 		this->damage = 1;
 		this->points = 200;
 		this->speed = 7.5f;
@@ -99,10 +145,16 @@ void Enemy::reduceHp(const int value)
 	}
 }
 
-
 void Enemy::update()
 {
-	this->enemyOne.move(0.f, this->speed);
+	if (type > 3 && type < 7) 
+	{
+		this->enemyOne.move(this->speed, 0.f);
+	}
+	else if (type <= 3)
+	{
+		this->enemyOne.move(0.f, this->speed);
+	}
 }
 
 void Enemy::render(sf::RenderTarget& target)

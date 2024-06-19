@@ -498,6 +498,9 @@ void Game::initializeEnemy()
 {
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;
+
+	this->horizontalSpawnTimerMax = 120.f;
+	this->horizontalSpawnTimer = horizontalSpawnTimerMax;
 }
 
 void Game::initializePlayer()

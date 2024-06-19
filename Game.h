@@ -75,6 +75,9 @@ private:
     // Enemies
     float spawnTimer;
     float spawnTimerMax;
+    float horizontalSpawnTimer;
+    float horizontalSpawnTimerMax;
+
     std::vector<Enemy*> enemies;
 
     // Sound Settings
@@ -112,6 +115,7 @@ private:
     float lanePos;
     bool leftKeyPressed;
     bool rightKeyPressed;
+    float horizontalPos;
 
     // Game state
     GameState gameState; // New game state variable
