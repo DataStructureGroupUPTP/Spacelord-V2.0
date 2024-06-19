@@ -62,6 +62,8 @@ void Game::initializeTextures()
 
 void Game::initializeSounds()
 {
+	this->soundfxVolume = 5.f;
+	this->musicVolume = 5.f;
 
 	if (!this->laserBuffer.loadFromFile("Sounds/Shiplaser.wav"))
 	{
@@ -69,7 +71,7 @@ void Game::initializeSounds()
 	}
 	this->laserSound.setBuffer(this->laserBuffer);
 
-	this->laserSound.setVolume(12.5);
+	this->laserSound.setVolume(this->soundfxVolume * 2.5f); // 12.5
 
 	if (!this->menuClick.loadFromFile("Sounds/Menu.wav"))
 	{
@@ -78,7 +80,7 @@ void Game::initializeSounds()
 
 	this->menuSound.setBuffer(this->menuClick);
 
-	this->menuSound.setVolume(50);
+	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
 
 	if (!this->playerHitBuffer.loadFromFile("Sounds/Playerhit.flac"))
 	{
@@ -87,7 +89,7 @@ void Game::initializeSounds()
 
 	this->playerHit.setBuffer(this->playerHitBuffer);
 
-	this->playerHit.setVolume(35);
+	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
 
 	if (!this->alienHitBuffer.loadFromFile("Sounds/Enemyhit.wav"))
 	{
@@ -95,8 +97,8 @@ void Game::initializeSounds()
 	}
 
 	this->alienHit.setBuffer(this->alienHitBuffer);
-
-	this->alienHit.setVolume(30);
+	
+	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
 
 	if (!this->pauseBuffer.loadFromFile("Sounds/PauseSound.wav"))
 	{
@@ -105,10 +107,7 @@ void Game::initializeSounds()
 
 	this->pauseSound.setBuffer(this->pauseBuffer);
 
-	this->pauseSound.setVolume(50);
-
-
-
+	this->pauseSound.setVolume(this->soundfxVolume * 10); // 50
 }
 
 void Game::initializeMusic()
@@ -118,7 +117,7 @@ void Game::initializeMusic()
 		std::cout << "ERROR::BATTLEINTHESTARS::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->stageMusic.setVolume(30);
+	this->stageMusic.setVolume(this->musicVolume * 6); // 30
 	// Play the music
 	this->stageMusic.play();
 
@@ -127,7 +126,7 @@ void Game::initializeMusic()
 		std::cout << "ERROR::YELLOW_GAME_OVER_THEME::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->gameOverMusic.setVolume(30);
+	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
 
 }
 
@@ -195,6 +194,39 @@ void Game::initializeGUI()
 	this->timerText.setCharacterSize(36);
 	this->timerText.setFillColor(sf::Color::White);
 	timerText.setPosition(this->window->getSize().x - 75.f, 0.f);
+
+	// Initialize Music volume border bar
+	this->musicvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
+	this->musicvolumeBorder.setOutlineThickness(-5.f);
+	this->musicvolumeBorder.setFillColor(sf::Color::Black);
+	this->musicvolumeBorder.setPosition(
+		this->window->getSize().x / 2.f - this->musicvolumeBorder.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->musicvolumeBorder.getGlobalBounds().height / 2.f - 25.f
+	);
+
+	// Initialize Music volume indicator bar
+	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
+	this->musicvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
+	this->musicvolumeIndicator.setPosition(
+		this->window->getSize().x / 2.f - this->musicvolumeIndicator.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->musicvolumeIndicator.getGlobalBounds().height / 2.f - 25.f
+	);
+
+	// Initialize Sound FX volume border bar
+	this->soundfxvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
+	this->soundfxvolumeBorder.setOutlineThickness(-5.f);
+	this->soundfxvolumeBorder.setFillColor(sf::Color::Black);
+	this->soundfxvolumeBorder.setPosition(
+		this->window->getSize().x / 2.f - this->soundfxvolumeBorder.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->soundfxvolumeBorder.getGlobalBounds().height / 2.f + 75.f
+	);
+	// Initialize Sound FX volume indicator bar
+	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
+	this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
+	this->soundfxvolumeIndicator.setPosition(
+		this->window->getSize().x / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().height / 2.f + 75.f
+	);
 }
 
 void Game::initializeBackground()
@@ -292,8 +324,7 @@ void Game::initializeStartMenu()
 	{
 		std::cout << "ERROR::SKYFIRE::FAILED_TO_LOAD" << "\n";
 	}
-
-	this->menuMusic.setVolume(30);
+	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 	// Play the music
 	this->menuMusic.play();
 
@@ -413,12 +444,15 @@ void Game::initializeGameOverMenu()
 
 void Game::initializeSettingsMenu()
 {
+	updateMusicVolume();
+	updateSoundFXVolume();
+
 	this->settingsTitle.setPosition
 	(
 		this->window->getSize().x / 2.f - this->settingsTitle.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->settingsTitle.getGlobalBounds().height / 2.f - 250.f
 	);
-	// Initialize Resume menu item
+	// Initialize Music Volume menu item
 	this->musicvolumeText.setFont(this->font);
 	this->musicvolumeText.setCharacterSize(48);
 	this->musicvolumeText.setFillColor(sf::Color::White);
@@ -427,14 +461,14 @@ void Game::initializeSettingsMenu()
 		this->window->getSize().x / 2.f - this->musicvolumeText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->musicvolumeText.getGlobalBounds().height / 2.f - 100.f
 	);
-	// Initialize Pause Settings menu item
+	// Initialize Sound FX menu item
 	this->soundfxText.setFont(this->font);
 	this->soundfxText.setCharacterSize(48);
 	this->soundfxText.setFillColor(sf::Color::White);
 	this->soundfxText.setString("Sound FX");
 	this->soundfxText.setPosition(
 		this->window->getSize().x / 2.f - this->soundfxText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->soundfxText.getGlobalBounds().height / 2.f - 50.f
+		this->window->getSize().y / 2.f - this->soundfxText.getGlobalBounds().height / 2.f
 	);
 	// Initialize Back to Main Menu menu item
 	this->backText.setFont(this->font);
@@ -443,7 +477,7 @@ void Game::initializeSettingsMenu()
 	this->backText.setString("Back");
 	this->backText.setPosition(
 		this->window->getSize().x / 2.f - this->backText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->backText.getGlobalBounds().height / 2.f
+		this->window->getSize().y / 2.f - this->backText.getGlobalBounds().height / 2.f + 100.f
 	);
 }
 

@@ -77,6 +77,10 @@ private:
     float spawnTimerMax;
     std::vector<Enemy*> enemies;
 
+    // Sound Settings
+    float soundfxVolume;
+    float musicVolume;
+
     // Sound effects
     sf::SoundBuffer laserBuffer;
     sf::Sound laserSound;
@@ -154,7 +158,11 @@ private:
 
     // Settings Menu options
     sf::Text musicvolumeText;
+    sf::RectangleShape musicvolumeBorder;
+    sf::RectangleShape musicvolumeIndicator;
     sf::Text soundfxText;
+    sf::RectangleShape soundfxvolumeBorder;
+    sf::RectangleShape soundfxvolumeIndicator;
     sf::Text backText;
 
 
@@ -177,6 +185,8 @@ public:
     void updateTimer();
     void updateBullets();
     void updateCollision();
+    void updateSoundFXVolume();
+    void updateMusicVolume();
  
     void updateEnemies();
     void updateCombat();

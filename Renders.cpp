@@ -103,16 +103,24 @@ void Game::renderSettingsMenu()
 	this->musicvolumeText.setFillColor(sf::Color::White);
 	this->soundfxText.setFillColor(sf::Color::White);
 	this->backText.setFillColor(sf::Color::White);
+	this->musicvolumeBorder.setOutlineColor(sf::Color::White);
+	this->musicvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
+	this->soundfxvolumeBorder.setOutlineColor(sf::Color::White);
+	this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
 
 	// Highlight the selected menu item
 	switch (this->selectedMenuItem)
 	{
 	case 0:
 		this->musicvolumeText.setFillColor(sf::Color::Yellow);
+		this->musicvolumeBorder.setOutlineColor(sf::Color::Yellow);
+		this->musicvolumeIndicator.setFillColor(sf::Color(255, 255, 0, 75));
 		break;
 
 	case 1:
 		this->soundfxText.setFillColor(sf::Color::Yellow);
+		this->soundfxvolumeBorder.setOutlineColor(sf::Color::Yellow);
+		this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 0, 75));
 		break;
 
 	case 2:
@@ -123,6 +131,10 @@ void Game::renderSettingsMenu()
 	// Draw menu items
 	this->window->draw(this->settingsTitle);
 	this->window->draw(this->musicvolumeText);
+	this->window->draw(this->musicvolumeBorder);
+	this->window->draw(this->musicvolumeIndicator);
 	this->window->draw(this->soundfxText);
+	this->window->draw(this->soundfxvolumeBorder);
+	this->window->draw(this->soundfxvolumeIndicator);
 	this->window->draw(this->backText);
 }

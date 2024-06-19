@@ -247,27 +247,44 @@ void Game::handleSettingsMenuInput(const sf::Event & ev)
 			this->selectedMenuItem++;
 		}
 	}
-	if (ev.key.code == sf::Keyboard::Return)
+	switch (this->selectedMenuItem)
 	{
-		switch (this->selectedMenuItem)
+	case 0:
+		if (ev.key.code == sf::Keyboard::Left)
 		{
-		case 0:
-			// Implement changing music volume
-			break;
-
-		case 1:
-			// Implement changing sound fx volume
-			break;
-		case 2:
+			musicVolume = std::max(musicVolume - 0.5f, 0.0f);
+			updateMusicVolume();
+		}
+		if (ev.key.code == sf::Keyboard::Right)
+		{
+			musicVolume = std::min(musicVolume + 0.5f, 10.0f);
+			updateMusicVolume();
+		}
+		break;
+	case 1:
+		if (ev.key.code == sf::Keyboard::Left)
+		{
+			soundfxVolume = std::max(soundfxVolume - 0.5f, 0.0f);
+			updateSoundFXVolume();
+		}
+		if (ev.key.code == sf::Keyboard::Right)
+		{
+			soundfxVolume = std::min(soundfxVolume + 0.5f, 10.0f);
+			updateSoundFXVolume();
+		}
+		break;
+	case 2:
+		if (ev.key.code == sf::Keyboard::Return)
+		{
 			this->gameState = this->prevgameState;
 			if (this->prevgameState == GAMEPLAY)
 			{
 				this->stageMusic.play();
 			}
-			break;
-		default:
-			break;
 		}
+		break;
+	default:
+		break;
 	}
 }
 
@@ -338,7 +355,6 @@ void Game::render()
 
 	if (this->gameState == SETTINGS)
 	{
-		std::cout << "Rendering settings menu\n";
 		this->renderSettingsMenu();
 	}
 

@@ -315,3 +315,23 @@ void Game::updateCombat()
 		}
 	}
 }
+
+void Game::updateSoundFXVolume() 
+{
+	this->laserSound.setVolume(this->soundfxVolume * 2.5);
+	this->menuSound.setVolume(this->soundfxVolume * 10);
+	this->playerHit.setVolume(this->soundfxVolume * 7);
+	this->alienHit.setVolume(this->soundfxVolume * 6); 
+	this->pauseSound.setVolume(this->soundfxVolume * 10);
+	float soundfxvolumePercent = static_cast<float>(this->soundfxVolume / static_cast<float>(10));
+	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f * soundfxvolumePercent, this->soundfxvolumeIndicator.getSize().y));
+}
+
+void Game::updateMusicVolume()
+{
+	this->stageMusic.setVolume(this->musicVolume * 6);
+	this->gameOverMusic.setVolume(this->musicVolume * 6);
+	this->menuMusic.setVolume(this->musicVolume * 6);
+	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
+	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
+}
