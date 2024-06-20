@@ -58,6 +58,7 @@ public:
 	const sf::FloatRect getBounds() const;
 	const int& getHp() const;
 	const int& getHpMax() const;
+	const int& getMoveSpeed() const;
 
 	// Functions
 	void move(const float dirX, const float dirY);

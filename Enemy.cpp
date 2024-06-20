@@ -22,7 +22,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 2;
+		this->hp = 1;
 		this->damage = 1;
 		this->points = 300;
 		this->speed = 10.f;
@@ -35,7 +35,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 3;
+		this->hp = 1;
 		this->damage = 1;
 		this->points = 250;
 		this->speed = 7.5f;
@@ -48,13 +48,38 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 3;
+		this->hp = 1;
 		this->damage = 1;
 		this->points = 200;
 		this->speed = 5.0f;
 		break;
 
 	case 4:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(3.f, 3.f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 1;
+		this->damage = 1;
+		this->points = 300;
+		this->speed = 2.5f;
+		break;
+
+	case 5:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(3.f, 3.f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 1;
+		this->damage = 1;
+		this->points = 300;
+		this->speed = 4.f;
+		break;
+	case 6:
 		this->enemyOne.setTexture(*texture);
 		this->enemyOne.scale(0.75f, 0.75f);
 
@@ -66,8 +91,19 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->points = 300;
 		this->speed = 6.5f;
 		break;
+	case 7:
+		this->enemyOne.setTexture(*texture);
+		this->enemyOne.scale(0.75f, 0.75f);
 
-	case 5:
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 1;
+		this->damage = 1;
+		this->points = 300;
+		this->speed = 6.5f;
+		break;
+	case 8:
 		this->enemyOne.setTexture(*texture);
 
 		this->enemyOne.setPosition(pos_x, pos_y);
@@ -128,7 +164,7 @@ void Enemy::reduceHp(const int value)
 
 void Enemy::update()
 {
-	if (type == 4) 
+	if (type == 4 or type == 5) 
 	{
 		this->enemyOne.move(this->speed, 0.f);
 	}

@@ -8,7 +8,7 @@ void Game::updateInput()
 
 		if (lane > 1) 
 		{
-			this->player->move(-26.65f, 0.f);
+			this->player->move(-26.65f*7.5, 0.f);
 			lane--;
 		}
 	}
@@ -24,7 +24,7 @@ void Game::updateInput()
 
 		if (lane < 4) 
 		{
-			this->player->move(26.65f, 0.f);
+			this->player->move(26.65f*7.5, 0.f);
 			lane++;
 		}
 	}
@@ -37,13 +37,13 @@ void Game::updateInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
 
-		this->player->move(0.f, -1.f);
+		this->player->move(0.f, -this->player->getMoveSpeed());
 
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
 
-		this->player->move(0.f, 1.f);
+		this->player->move(0.f, this->player->getMoveSpeed());
 
 	}
 
@@ -204,9 +204,9 @@ void Game::updateCollision()
 void Game::updateEnemies()
 {
 	// Spawning
-	this->spawnTimer += 1.5f;
+	this->spawnTimer += 2.f;
 	this->meteorSpawnTimer += 1.f;
-	this->horizontalSpawnTimer += 0.5f;
+	this->horizontalSpawnTimer += 0.25f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -255,7 +255,7 @@ void Game::updateEnemies()
 
 	if (this->horizontalSpawnTimer >= horizontalSpawnTimerMax)
 	{
-		int enemyRandomizer = rand() % 3;
+		int enemyRandomizer = rand() % 2;
 		int sideRandomizer = 0;
 
 		if (sideRandomizer == 1)
@@ -270,46 +270,105 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], horizontalPos, rand() % 400 + 300, 4));
+			this->enemies.push_back(new Enemy(this->textures["REDBALL"], horizontalPos, rand() % 400 + 300, 4));
 			this->horizontalSpawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], horizontalPos, rand() % 400 + 300, 4));
+			this->enemies.push_back(new Enemy(this->textures["BLUEBALL"], horizontalPos, rand() % 400 + 300, 5));
 			this->horizontalSpawnTimer = 0;
 			break;
-		case 2:
-			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], horizontalPos, rand() % 400 + 300, 4));
-			this->horizontalSpawnTimer = 0;
-			break;
+
 
 		}
 
 	}
 
-	if(this->meteorSpawnTimer >= meteorSpawnTimerMax)
+	if (this->meteorSpawnTimer >= meteorSpawnTimerMax)
 	{
-		this->laneRandomizer = rand() % 4 + 1;
-
-		switch (laneRandomizer)
-		{
-		case 1:
-			this->lanePos = 200.f;
-			break;
-		case 2:
-			this->lanePos = 400.f;
-			break;
-		case 3:
-			this->lanePos = 600.f;
-			break;
-		case 4:
-			this->lanePos = 800.f;
-			break;
-		}
-
-		this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x / 2) * 2.25f, -200.f, 5));
+		// Reset the meteor spawn timer
 		this->meteorSpawnTimer = 0;
-		
+
+		// Randomize the lane
+
+		int meteorChance = rand() % 100 + 1;
+
+		if (meteorChance <= 10)
+		{
+			// Triple meteor spawn (on three separate lanes)
+			std::vector<int> lanes = { 1, 2, 3, 4 };
+			std::random_shuffle(lanes.begin(), lanes.end());
+
+			for (int i = 0; i < 3; ++i)
+			{
+				switch (lanes[i])
+				{
+				case 1:
+					lanePos = line1Pos;
+					break;
+				case 2:
+					lanePos = line2Pos;
+					break;
+				case 3:
+					lanePos = line3Pos;
+					break;
+				case 4:
+					lanePos = line4Pos;
+					break;
+				}
+				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+			}
+		}
+		else if (meteorChance > 10 && meteorChance <= 40)
+		{
+			// Double Meteor Spawn (on two separate lanes)
+			std::vector<int> lanes = { 1, 2, 3, 4 };
+			std::random_shuffle(lanes.begin(), lanes.end());
+
+			for (int i = 0; i < 2; ++i)
+			{
+
+				switch (lanes[i])
+				{
+				case 1:
+					lanePos = line1Pos;
+					break;
+				case 2:
+					lanePos = line2Pos;
+					break;
+				case 3:
+					lanePos = line3Pos;
+					break;
+				case 4:
+					lanePos = line4Pos;
+					break;
+				}
+				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+			}
+		}
+		else // Singular meteor
+		{
+			this->laneRandomizer = rand() % 4 + 1;
+
+			switch (laneRandomizer)
+			{
+			case 1:
+				lanePos = line1Pos;
+				break;
+			case 2:
+				lanePos = line2Pos;
+				break;
+			case 3:
+				lanePos = line3Pos;
+				break;
+			case 4:
+				lanePos = line4Pos;
+				break;
+			}
+
+			this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+		}
 	}
+
 
 	unsigned counter = 0;
 	for (auto it = this->enemies.begin(); it != this->enemies.end();)

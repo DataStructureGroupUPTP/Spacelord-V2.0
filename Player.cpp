@@ -2,7 +2,7 @@
 
 void Player::initializeVariables()
 {
-    this->movementSpeed = 7.5f;
+    this->movementSpeed = 10.f;
 
     this->attackCooldownMax = 15.f;
     this->attackCooldown = this->attackCooldownMax;
@@ -110,9 +110,14 @@ const int& Player::getHpMax() const
     return this->hpMax;
 }
 
+const int& Player::getMoveSpeed() const
+{
+    return this->movementSpeed;
+}
+
 void Player::move(const float dirX, const float dirY)
 {
-    this->ship.move(this->movementSpeed * dirX, this->movementSpeed * dirY);
+    this->ship.move(dirX, dirY);
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,

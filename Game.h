@@ -119,6 +119,11 @@ private:
     bool rightKeyPressed;
     float horizontalPos;
 
+    int line1Pos;
+    int line2Pos;
+    int line3Pos;
+    int line4Pos;
+
     // Game state
     GameState gameState; // New game state variable
     GameState prevgameState;

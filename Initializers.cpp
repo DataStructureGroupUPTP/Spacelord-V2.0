@@ -8,6 +8,11 @@ void Game::initializeLines()
 	this->laneRandomizer = 1;
 	this->lanePos = 200.f;
 
+	this->line1Pos = 200.f;
+	this->line2Pos = 400.f;
+	this->line3Pos = 600.f;
+	this->line4Pos = 800.f;
+
 	this->line1[0] = sf::Vertex(sf::Vector2f(200, 0), sf::Color::White);
 	this->line1[1] = sf::Vertex(sf::Vector2f(200, 1000), sf::Color::White);
 
@@ -57,6 +62,30 @@ void Game::initializeTextures()
 	if (!this->textures["HEALTH"]->loadFromFile("Textures/Heart.png"))
 	{
 		std::cout << "TEXTURE::HEART::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["REDBALL"] = new sf::Texture();
+	if(!this->textures["REDBALL"]->loadFromFile("Textures/Ball1.png"))
+	{
+		std::cout << "TEXTURE::BALL1::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["BLUEBALL"] = new sf::Texture();
+	if (!this->textures["BLUEBALL"]->loadFromFile("Textures/Ball2.png"))
+	{
+		std::cout << "TEXTURE::BALL2::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["YELLOWBALL"] = new sf::Texture();
+	if (!this->textures["YELLOWBALL"]->loadFromFile("Textures/Ball3.png"))
+	{
+		std::cout << "TEXTURE::BALL3::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["PURPLEBALL"] = new sf::Texture();
+	if (!this->textures["PURPLEBALL"]->loadFromFile("Textures/Ball4.png"))
+	{
+		std::cout << "TEXTURE::BALL4::FAILED_TO_LOAD" << "\n";
 	}
 
 }
