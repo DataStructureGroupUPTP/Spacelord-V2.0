@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Item.h"
 #include <map>
 #include <string>
 #include <sstream>
@@ -82,6 +83,12 @@ private:
 
     std::vector<Enemy*> enemies;
 
+    // Items
+    float pointsItemSpawnTimer;
+    float pointsItemSpawnTimerMax;
+
+    std::vector<Item*> items;
+
     // Sound Settings
     float soundfxVolume;
     float musicVolume;
@@ -146,6 +153,7 @@ private:
     void initializeSettingsMenu();
 
     void initializeEnemy();
+    void initializeItems();
     void initializePlayer();
     void handleMainMenuInput(const sf::Event& ev);
     void handlePauseMenuInput(const sf::Event& ev);
@@ -201,6 +209,7 @@ public:
     void updateMusicVolume();
  
     void updateEnemies();
+    void updateItems();
     void updateCombat();
     void update();
 

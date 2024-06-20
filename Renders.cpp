@@ -33,6 +33,11 @@ void Game::renderGameElements()
 		enemy->render(*this->window);
 	}
 
+	for (auto* item : this->items)
+	{
+		item->render(*this->window);
+	}
+
 	this->player->render(*this->window);
 	this->renderGUI();
 }

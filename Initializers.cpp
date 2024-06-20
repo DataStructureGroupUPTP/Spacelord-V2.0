@@ -539,6 +539,12 @@ void Game::initializeEnemy()
 	this->meteorSpawnTimer = meteorSpawnTimerMax;
 }
 
+void Game::initializeItems()
+{
+	this->pointsItemSpawnTimerMax = 60.f;
+	this->pointsItemSpawnTimer = this->pointsItemSpawnTimerMax;
+}
+
 void Game::initializePlayer()
 {
 	this->player = new Player;

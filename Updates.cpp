@@ -205,8 +205,8 @@ void Game::updateEnemies()
 {
 	// Spawning
 	this->spawnTimer += 2.f;
-	this->meteorSpawnTimer += 1.f;
-	this->horizontalSpawnTimer += 0.25f;
+	this->meteorSpawnTimer += 1.5f;
+	this->horizontalSpawnTimer += 0.1f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -397,6 +397,71 @@ void Game::updateEnemies()
 	}
 
 }
+
+void Game::updateItems()
+{
+	this->pointsItemSpawnTimer += 0.1f;
+
+	if (this->pointsItemSpawnTimer >= this->pointsItemSpawnTimerMax)
+	{
+		pointsItemSpawnTimer = 0.f;
+		this->laneRandomizer = rand() % 4 + 1;
+
+		switch (laneRandomizer)
+		{
+		case 1:
+			this->lanePos = 200.f;
+			break;
+		case 2:
+			this->lanePos = 400.f;
+			break;
+		case 3:
+			this->lanePos = 600.f;
+			break;
+		case 4:
+			this->lanePos = 800.f;
+			break;
+		}
+
+		int itemRandomizer = 0;
+
+		switch (itemRandomizer)
+		{
+		case 0:
+			this->items.push_back(new Item(this->textures["PURPLEBALL"], lanePos - (this->textures["PURPLEBALL"]->getSize().x / 2) * 0.75, 150.f, 1));
+			break;
+
+		}
+	}
+
+	unsigned counter = 0;
+	for (auto it = this->items.begin(); it != this->items.end();)
+	{
+		auto* item = *it;
+		item->update();
+
+		if (item->getBounds().top > this->window->getSize().y ||
+			item->getBounds().left > this->window->getSize().x)
+		{
+			// Delete enemies at bottom or right screen
+			delete item;
+			it = this->items.erase(it);
+		}
+		else if (item->getBounds().intersects(this->player->getBounds()))
+		{
+			this->points = this->points + item->getPoints();
+			delete item;
+			it = this->items.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+
+		std::cout << "Items: " << this->items.size() << "\n";
+	}
+}
+
 
 void Game::updateCombat()
 {

@@ -77,7 +77,7 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->hp = 1;
 		this->damage = 1;
 		this->points = 300;
-		this->speed = 4.f;
+		this->speed = 3.f;
 		break;
 	case 6:
 		this->enemyOne.setTexture(*texture);
