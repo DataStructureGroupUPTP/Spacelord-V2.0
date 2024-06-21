@@ -5,7 +5,7 @@ void Game::updateInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed)
 	{
 		leftKeyPressed = true;
-
+		
 		if (lane > 1) 
 		{
 			this->player->move(static_cast<float>( -26.65f * 7.5), 0.f);
@@ -401,7 +401,7 @@ void Game::updateEnemies()
 void Game::updateItems()
 {
 	this->healthItemSpawnTimer += 0.0167f;
-	this->dpsItemSpawnTimer += 0.05f;
+	this->dpsItemSpawnTimer += 0.1f;
 
 	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{
