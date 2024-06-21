@@ -138,6 +138,24 @@ void Game::initializeSounds()
 	this->pauseSound.setBuffer(this->pauseBuffer);
 
 	this->pauseSound.setVolume(this->soundfxVolume * 10); // 50
+
+	if(!this->healBuffer.loadFromFile("Sounds/heal.wav"))
+	{
+		std::cout << "SOUND::HEAL::FAILED_TO_LOAD";
+	}
+
+	this->healSound.setBuffer(this->healBuffer);
+
+	this->healSound.setVolume(this->soundfxVolume * 5);
+
+	if(!this->powerUpBuffer.loadFromFile("Sounds/Powerup1.wav"))
+	{
+		std::cout << "SOUND::POWERUP1::FAILED_TO_LOAD";
+	}
+
+	this->powerUpSound.setBuffer(this->powerUpBuffer);
+
+	this->powerUpSound.setVolume(this->soundfxVolume * 5);
 }
 
 void Game::initializeMusic()

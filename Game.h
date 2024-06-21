@@ -111,6 +111,12 @@ private:
     sf::SoundBuffer pauseBuffer;
     sf::Sound pauseSound;
 
+    sf::SoundBuffer healBuffer;
+    sf::Sound healSound;
+
+    sf::SoundBuffer powerUpBuffer;
+    sf::Sound powerUpSound;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;

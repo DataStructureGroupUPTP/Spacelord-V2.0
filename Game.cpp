@@ -90,6 +90,13 @@ void Game::reset()
 	}
 	this->enemies.clear();
 
+	// Clear items
+	for (auto* item : this->items)
+	{
+		delete item;
+	}
+	this->enemies.clear();
+
 	// Reset other game stats if necessary
 	// Example: this->currentLevel = 1;
 }

@@ -480,16 +480,19 @@ void Game::updateItems()
 			{
 				this->points = this->points + item->getPoints();
 				this->player->setHp(this->player->getHp() + 1);
+				this->healSound.play();
 			}
 			else if (item->getType() == 2)
 			{
 				this->points = this->points + item->getPoints();
 				this->player->upgradeDamage();
+				this->powerUpSound.play();
 			}
 			else if (item->getType() == 3)
 			{
 				this->points = this->points + item->getPoints();
 				this->player->upgradeAttackSpeed();
+				this->powerUpSound.play();
 			}
 			delete item;
 			it = this->items.erase(it);
