@@ -84,8 +84,10 @@ private:
     std::vector<Enemy*> enemies;
 
     // Items
-    float pointsItemSpawnTimer;
-    float pointsItemSpawnTimerMax;
+    float healthItemSpawnTimer;
+    float healthItemSpawnTimerMax;
+    float dpsItemSpawnTimer;
+    float dpsItemSpawnTimerMax;
 
     std::vector<Item*> items;
 

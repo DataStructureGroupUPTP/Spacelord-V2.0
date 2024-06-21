@@ -17,7 +17,7 @@ private:
 	sf::Sprite itemSprite;
 
 	int type;
-	int speed;
+	float speed;
 	int points;
 
 	void initializeVariables();
@@ -30,6 +30,7 @@ public:
 
 	const int& getPoints() const;
 	const sf::FloatRect getBounds() const;
+	const int& getType() const;
 
 	void update();
 	void render(sf::RenderTarget& target);

@@ -16,13 +16,36 @@ Item::Item(sf::Texture* texture, float pos_x, float pos_y, int type)
 	{
 	case 1:
 		this->itemSprite.setTexture(*texture);
+		this->itemSprite.scale(1.5f, 1.5f);
 
 		this->itemSprite.setPosition(pos_x, pos_y);
 
 		this->type = type;
 		this->points = 5000;
-		this->speed = 7.5f;
+		this->speed = 2.5f;
 		break;
+	case 2:
+		this->itemSprite.setTexture(*texture);
+		this->itemSprite.scale(1.5f, 1.5f);
+
+		this->itemSprite.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->points = 2000;
+		this->speed = 3.5f;
+		break;
+
+	case 3:
+		this->itemSprite.setTexture(*texture);
+		this->itemSprite.scale(1.5f, 1.5f);
+
+		this->itemSprite.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->points = 2000;
+		this->speed = 3.5f;
+		break;
+
 	}
 }
 
@@ -43,6 +66,11 @@ const int& Item::getPoints() const
 const sf::FloatRect Item::getBounds() const
 {
 	return this->itemSprite.getGlobalBounds();
+}
+
+const int& Item::getType() const
+{
+	return this->type;
 }
 
 void Item::update()

@@ -19,7 +19,7 @@ private:
 
 	// Stats
 	int type;
-	int hp;
+	float hp;
 	int damage;
 	int points;
 	float speed;
@@ -39,8 +39,8 @@ public:
 	const sf::FloatRect getBounds() const;
 	const int& getPoints() const;
 	const int& getDamage() const;
-	const int& getHp() const;
-	void reduceHp(const int value);
+	const float& getHp() const;
+	void reduceHp(const float value);
 
 	void update();
 	void render(sf::RenderTarget& target);

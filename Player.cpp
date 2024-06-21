@@ -3,8 +3,10 @@
 void Player::initializeVariables()
 {
     this->movementSpeed = 10.f;
+    this->damage = 1.f;
 
-    this->attackCooldownMax = 15.f;
+
+    this->attackCooldownMax = 25.f;
     this->attackCooldown = this->attackCooldownMax;
 
     this->hpMax = 5;
@@ -110,9 +112,14 @@ const int& Player::getHpMax() const
     return this->hpMax;
 }
 
-const int& Player::getMoveSpeed() const
+const float& Player::getMoveSpeed() const
 {
     return this->movementSpeed;
+}
+
+const float& Player::getDamage() const
+{
+    return this->damage;
 }
 
 void Player::move(const float dirX, const float dirY)
@@ -173,6 +180,11 @@ void Player::setPosition(const float x, const float y)
 void Player::setHp(const int newhp)
 {
     this->hp = newhp;
+
+    if (this->hp >= 6)
+    {
+        this->hp = 5;
+    }
 }
 
 void Player::loseHp(const int value)
@@ -184,6 +196,16 @@ void Player::loseHp(const int value)
     }
 
     this->updateSprite();
+}
+
+void Player::upgradeDamage()
+{
+    this->damage = this->damage + 0.5f;
+}
+
+void Player::upgradeAttackSpeed()
+{
+    this->attackCooldownMax = this->attackCooldownMax - 2.f;
 }
 
 void Player::updateAttackCooldown()

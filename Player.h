@@ -32,6 +32,7 @@ private:
 
 	float attackCooldown;
 	float attackCooldownMax;
+	float damage;
 
 	int hp;
 	int hpMax;
@@ -58,7 +59,8 @@ public:
 	const sf::FloatRect getBounds() const;
 	const int& getHp() const;
 	const int& getHpMax() const;
-	const int& getMoveSpeed() const;
+	const float& getMoveSpeed() const;
+	const float& getDamage() const;
 
 	// Functions
 	void move(const float dirX, const float dirY);
@@ -69,6 +71,9 @@ public:
 	void setPosition(const float x, const float y);
 	void setHp(const int hp);
 	void loseHp(const int value);
+
+	void upgradeDamage();
+	void upgradeAttackSpeed();
 	
 	
 	void updateAttackCooldown();

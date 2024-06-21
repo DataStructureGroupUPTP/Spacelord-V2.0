@@ -8,7 +8,7 @@ void Game::updateInput()
 
 		if (lane > 1) 
 		{
-			this->player->move(-26.65f*7.5, 0.f);
+			this->player->move(static_cast<float>( -26.65f * 7.5), 0.f);
 			lane--;
 		}
 	}
@@ -24,7 +24,7 @@ void Game::updateInput()
 
 		if (lane < 4) 
 		{
-			this->player->move(26.65f*7.5, 0.f);
+			this->player->move(static_cast<float>(26.65f*7.5), 0.f);
 			lane++;
 		}
 	}
@@ -204,9 +204,9 @@ void Game::updateCollision()
 void Game::updateEnemies()
 {
 	// Spawning
-	this->spawnTimer += 2.f;
-	this->meteorSpawnTimer += 1.5f;
-	this->horizontalSpawnTimer += 0.1f;
+	this->spawnTimer += 2.5f;
+	this->meteorSpawnTimer += 0.f;
+	this->horizontalSpawnTimer += 0.f;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -234,19 +234,19 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - (this->textures["GREENALIEN"]->getSize().x / 2)*0.75, -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], static_cast<float> (lanePos - (this->textures["GREENALIEN"]->getSize().x / 2)*0.75), -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], lanePos - (this->textures["BLUEALIEN"]->getSize().x / 2) * 0.75, -200.f, 2));
+			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], static_cast<float> (lanePos - (this->textures["BLUEALIEN"]->getSize().x / 2) * 0.75), -200.f, 2));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], lanePos - (this->textures["YELLOWALIEN"]->getSize().x / 2) * 0.75, -200.f, 1));
+			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], static_cast<float> (lanePos - (this->textures["YELLOWALIEN"]->getSize().x / 2) * 0.75), -200.f, 1));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], lanePos - (this->textures["GREENALIEN"]->getSize().x / 2) * 0.75, -200.f, 3));
+			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], static_cast<float> (lanePos - (this->textures["GREENALIEN"]->getSize().x / 2) * 0.75), -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 
@@ -270,11 +270,11 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["REDBALL"], horizontalPos, rand() % 400 + 300, 4));
+			this->enemies.push_back(new Enemy(this->textures["REDBALL"], horizontalPos, static_cast<float> (rand() % 400 + 300), 4));
 			this->horizontalSpawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEBALL"], horizontalPos, rand() % 400 + 300, 5));
+			this->enemies.push_back(new Enemy(this->textures["BLUEBALL"], horizontalPos, static_cast <float> (rand() % 400 + 300), 5));
 			this->horizontalSpawnTimer = 0;
 			break;
 
@@ -303,16 +303,16 @@ void Game::updateEnemies()
 				switch (lanes[i])
 				{
 				case 1:
-					lanePos = line1Pos;
+					lanePos = static_cast<float> (line1Pos);
 					break;
 				case 2:
-					lanePos = line2Pos;
+					lanePos = static_cast<float> (line2Pos);
 					break;
 				case 3:
-					lanePos = line3Pos;
+					lanePos = static_cast<float> (line3Pos);
 					break;
 				case 4:
-					lanePos = line4Pos;
+					lanePos = static_cast<float> (line4Pos);
 					break;
 				}
 				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
@@ -330,16 +330,16 @@ void Game::updateEnemies()
 				switch (lanes[i])
 				{
 				case 1:
-					lanePos = line1Pos;
+					lanePos = static_cast<float> (line1Pos);
 					break;
 				case 2:
-					lanePos = line2Pos;
+					lanePos = static_cast<float> (line2Pos);
 					break;
 				case 3:
-					lanePos = line3Pos;
+					lanePos = static_cast<float> (line3Pos);
 					break;
 				case 4:
-					lanePos = line4Pos;
+					lanePos = static_cast<float> (line4Pos);
 					break;
 				}
 				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
@@ -352,16 +352,16 @@ void Game::updateEnemies()
 			switch (laneRandomizer)
 			{
 			case 1:
-				lanePos = line1Pos;
+				lanePos = static_cast<float> (line1Pos);
 				break;
 			case 2:
-				lanePos = line2Pos;
+				lanePos = static_cast<float> (line2Pos);
 				break;
 			case 3:
-				lanePos = line3Pos;
+				lanePos = static_cast<float> (line3Pos);
 				break;
 			case 4:
-				lanePos = line4Pos;
+				lanePos = static_cast<float> (line4Pos);
 				break;
 			}
 
@@ -400,11 +400,12 @@ void Game::updateEnemies()
 
 void Game::updateItems()
 {
-	this->pointsItemSpawnTimer += 0.1f;
+	this->healthItemSpawnTimer += 0.0167f;
+	this->dpsItemSpawnTimer += 0.05f;
 
-	if (this->pointsItemSpawnTimer >= this->pointsItemSpawnTimerMax)
+	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{
-		pointsItemSpawnTimer = 0.f;
+		healthItemSpawnTimer = 0.f;
 		this->laneRandomizer = rand() % 4 + 1;
 
 		switch (laneRandomizer)
@@ -423,14 +424,40 @@ void Game::updateItems()
 			break;
 		}
 
-		int itemRandomizer = 0;
+		this->items.push_back(new Item(this->textures["REDBALL"], static_cast<float> (lanePos - (this->textures["REDBALL"]->getSize().x / 2) * 1.5), -200.f, 1));
+	}
 
-		switch (itemRandomizer)
+	if (this->dpsItemSpawnTimer >= this->dpsItemSpawnTimerMax)
+	{
+		dpsItemSpawnTimer = 0.f;
+		this->laneRandomizer = rand() % 4 + 1;
+
+		switch (laneRandomizer)
+		{
+		case 1:
+			this->lanePos = 200.f;
+			break;
+		case 2:
+			this->lanePos = 400.f;
+			break;
+		case 3:
+			this->lanePos = 600.f;
+			break;
+		case 4:
+			this->lanePos = 800.f;
+			break;
+		}
+
+		int randomizer = rand() % 2;
+
+		switch (randomizer)
 		{
 		case 0:
-			this->items.push_back(new Item(this->textures["PURPLEBALL"], lanePos - (this->textures["PURPLEBALL"]->getSize().x / 2) * 0.75, 150.f, 1));
+			this->items.push_back(new Item(this->textures["YELLOWBALL"], static_cast<float> (lanePos - (this->textures["YELLOWBALL"]->getSize().x / 2) * 1.5), -200.f, 2));
 			break;
-
+		case 1:
+			this->items.push_back(new Item(this->textures["PURPLEBALL"], static_cast<float> (lanePos - (this->textures["PURPLEBALL"]->getSize().x / 2) * 1.5), -200.f, 3));
+			break;
 		}
 	}
 
@@ -449,7 +476,21 @@ void Game::updateItems()
 		}
 		else if (item->getBounds().intersects(this->player->getBounds()))
 		{
-			this->points = this->points + item->getPoints();
+			if (item->getType() == 1)
+			{
+				this->points = this->points + item->getPoints();
+				this->player->setHp(this->player->getHp() + 1);
+			}
+			else if (item->getType() == 2)
+			{
+				this->points = this->points + item->getPoints();
+				this->player->upgradeDamage();
+			}
+			else if (item->getType() == 3)
+			{
+				this->points = this->points + item->getPoints();
+				this->player->upgradeAttackSpeed();
+			}
 			delete item;
 			it = this->items.erase(it);
 		}
@@ -458,7 +499,6 @@ void Game::updateItems()
 			++it;
 		}
 
-		std::cout << "Items: " << this->items.size() << "\n";
 	}
 }
 
@@ -473,13 +513,13 @@ void Game::updateCombat()
 		{
 			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds()))
 			{
-				enemies[i]->reduceHp(1);
+				enemies[i]->reduceHp(this->player->getDamage());
 				delete this->bullets[k];
 				this->bullets.erase(this->bullets.begin() + (int)k);
 				this->alienHit.play();
 
 
-				if (enemies[i]->getHp() == 0)
+				if (enemies[i]->getHp() <= 0)
 				{
 					this->points = this->points + this->enemies[i]->getPoints();
 
@@ -498,7 +538,7 @@ void Game::updateCombat()
 
 void Game::updateSoundFXVolume() 
 {
-	this->laserSound.setVolume(this->soundfxVolume * 2.5);
+	this->laserSound.setVolume(this->soundfxVolume * 2.5f);
 	this->menuSound.setVolume(this->soundfxVolume * 10);
 	this->playerHit.setVolume(this->soundfxVolume * 7);
 	this->alienHit.setVolume(this->soundfxVolume * 6); 

@@ -6,12 +6,12 @@ void Game::initializeLines()
 	this->rightKeyPressed = false;
 	this->leftKeyPressed = false;
 	this->laneRandomizer = 1;
-	this->lanePos = 200.f;
+	this->lanePos = 200;
 
-	this->line1Pos = 200.f;
-	this->line2Pos = 400.f;
-	this->line3Pos = 600.f;
-	this->line4Pos = 800.f;
+	this->line1Pos = 200;
+	this->line2Pos = 400;
+	this->line3Pos = 600;
+	this->line4Pos = 800;
 
 	this->line1[0] = sf::Vertex(sf::Vector2f(200, 0), sf::Color::White);
 	this->line1[1] = sf::Vertex(sf::Vector2f(200, 1000), sf::Color::White);
@@ -533,16 +533,18 @@ void Game::initializeEnemy()
 	this->spawnTimer = this->spawnTimerMax;
 
 	this->horizontalSpawnTimerMax = 60.f;
-	this->horizontalSpawnTimer = horizontalSpawnTimerMax;
+	this->horizontalSpawnTimer = 0.f;
 
 	this->meteorSpawnTimerMax = 60.f;
-	this->meteorSpawnTimer = meteorSpawnTimerMax;
+	this->meteorSpawnTimer = 0.f;
 }
 
 void Game::initializeItems()
 {
-	this->pointsItemSpawnTimerMax = 60.f;
-	this->pointsItemSpawnTimer = this->pointsItemSpawnTimerMax;
+	this->healthItemSpawnTimerMax = 60.f;
+	this->healthItemSpawnTimer = 0.f;
+	this->dpsItemSpawnTimerMax = 60.f;
+	this->dpsItemSpawnTimer = 0.f;
 }
 
 void Game::initializePlayer()

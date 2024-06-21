@@ -22,9 +22,9 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 1;
+		this->hp = 1.f;
 		this->damage = 1;
-		this->points = 300;
+		this->points = 500;
 		this->speed = 10.f;
 		break;
 
@@ -35,9 +35,9 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 1;
+		this->hp = 1.5f;
 		this->damage = 1;
-		this->points = 250;
+		this->points = 350;
 		this->speed = 7.5f;
 		break;
 
@@ -48,9 +48,9 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 1;
+		this->hp = 2.f;
 		this->damage = 1;
-		this->points = 200;
+		this->points = 250;
 		this->speed = 5.0f;
 		break;
 
@@ -147,12 +147,12 @@ const int& Enemy::getDamage() const
 	return this->damage;
 }
 
-const int& Enemy::getHp() const
+const float& Enemy::getHp() const
 {
 	return this->hp;
 }
 
-void Enemy::reduceHp(const int value)
+void Enemy::reduceHp(const float value)
 {
 	this->hp = this->hp - value;
 
