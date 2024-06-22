@@ -21,7 +21,7 @@ Item::Item(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->itemSprite.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->points = 5000;
+		this->points = 7500;
 		this->speed = 2.5f;
 		break;
 	case 2:
@@ -46,6 +46,16 @@ Item::Item(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->speed = 3.5f;
 		break;
 
+	case 4:
+		this->itemSprite.setTexture(*texture);
+		this->itemSprite.scale(1.5f, 1.5f);
+
+		this->itemSprite.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->points = 5000;
+		this->speed = 3.5f;
+		break;
 	}
 }
 

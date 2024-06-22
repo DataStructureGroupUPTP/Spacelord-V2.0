@@ -197,6 +197,13 @@ void Game::initializeGUI()
 	this->pointText.setFillColor(sf::Color::White);
 	this->pointText.setString("ERROR");
 
+	//Initialize point text
+	this->currencyText.setFont(this->font);
+	this->currencyText.setCharacterSize(36);
+	this->currencyText.setFillColor(sf::Color::White);
+	this->currencyText.setString("ERROR");
+	this->currencyText.setPosition(30.f, 750.f);
+
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
 	this->gameTitle.setCharacterSize(100);
@@ -351,6 +358,7 @@ void Game::initializeBackground()
 void Game::initializeSystems()
 {
 	this->points = 0;
+	this->currency = 0;
 
 }
 

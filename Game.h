@@ -34,6 +34,7 @@ private:
     sf::Font font;
     sf::Text pointText;
     sf::Text startText; // New text for the start menu
+    sf::Text currencyText;
 
     sf::Font titleFont;
     sf::Text gameTitle;
@@ -62,6 +63,7 @@ private:
 
     // Systems
     unsigned points;
+    unsigned currency;
 
     // Player
     Player* player;

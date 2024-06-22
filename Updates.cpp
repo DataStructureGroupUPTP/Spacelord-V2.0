@@ -124,6 +124,14 @@ void Game::updateGUI()
 
 	this->pointText.setString(ss.str());
 
+	// Update Currency
+
+	std::stringstream ss2;
+
+	ss2 << "Money: " << this->currency << "$";
+
+	this->currencyText.setString(ss2.str());
+
 	// Update Player GUI
 	float hpPercent = static_cast<float>(this->player->getHp()) / static_cast<float>(this->player->getHpMax());
 	this->playerHpBar.setSize(sf::Vector2f(150.f * hpPercent, this->playerHpBar.getSize().y));
@@ -401,7 +409,7 @@ void Game::updateEnemies()
 void Game::updateItems()
 {
 	this->healthItemSpawnTimer += 0.0167f;
-	this->dpsItemSpawnTimer += 0.1f;
+	this->dpsItemSpawnTimer += 2.1f;
 
 	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{
@@ -448,15 +456,19 @@ void Game::updateItems()
 			break;
 		}
 
-		int randomizer = rand() % 2;
+		int randomizer = rand() % 3;
 
 		switch (randomizer)
 		{
 		case 0:
-			this->items.push_back(new Item(this->textures["YELLOWBALL"], static_cast<float> (lanePos - (this->textures["YELLOWBALL"]->getSize().x / 2) * 1.5), -200.f, 2));
+			this->items.push_back(new Item(this->textures["PURPLEBALL"], static_cast<float> (lanePos - (this->textures["PURPLEBALL"]->getSize().x / 2) * 1.5), -200.f, 2));
 			break;
 		case 1:
-			this->items.push_back(new Item(this->textures["PURPLEBALL"], static_cast<float> (lanePos - (this->textures["PURPLEBALL"]->getSize().x / 2) * 1.5), -200.f, 3));
+			this->items.push_back(new Item(this->textures["BLUEBALL"], static_cast<float> (lanePos - (this->textures["BLUEBALL"]->getSize().x / 2) * 1.5), -200.f, 3));
+			break;
+		case 2:
+			this->items.push_back(new Item(this->textures["YELLOWBALL"], static_cast<float> (lanePos - (this->textures["YELLOWBALL"]->getSize().x / 2) * 1.5), -200.f, 4));
+			dpsItemSpawnTimer = dpsItemSpawnTimer + 30.f;
 			break;
 		}
 	}
@@ -494,6 +506,12 @@ void Game::updateItems()
 				this->player->upgradeAttackSpeed();
 				this->powerUpSound.play();
 			}
+			else if (item->getType() == 4)
+			{
+				this->points = this->points + item->getPoints();
+				this->currency = this->currency + 200;
+				this->powerUpSound.play();
+			}
 			delete item;
 			it = this->items.erase(it);
 		}
@@ -525,7 +543,7 @@ void Game::updateCombat()
 				if (enemies[i]->getHp() <= 0)
 				{
 					this->points = this->points + this->enemies[i]->getPoints();
-
+					this->currency = this->currency + 5;
 
 					delete this->enemies[i];
 					this->enemies.erase(this->enemies.begin() + (int)i);
