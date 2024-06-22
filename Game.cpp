@@ -9,6 +9,7 @@ void Game::initialize()
 	this->initializeTextures();
 	this->initializeSounds();
 	this->initializePlayer();
+	this->initializeSpawnRates();
 	this->initializeEnemy();
 	this->initializeItems();
 	this->initializeGUI();
@@ -158,6 +159,7 @@ void Game::update()
 		this->updateCombat();
 		this->updateGUI();
 		this->updateTimer();
+		this->updateDifficulty();
 	}
 }
 

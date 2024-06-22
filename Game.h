@@ -65,6 +65,13 @@ private:
     unsigned points;
     unsigned currency;
 
+    // Spawnrates
+    float enemySpawnRate;
+    float meteorSpawnRate;
+    float horizontalEnemySpawnRate;
+    float healthItemSpawnRate;
+    float dpsItemSpawnRate;
+
     // Player
     Player* player;
 
@@ -82,6 +89,8 @@ private:
     float horizontalSpawnTimerMax;
     float meteorSpawnTimer;
     float meteorSpawnTimerMax;
+    int tripleMeteorChance;
+    int doubleMeteorChance;
 
     std::vector<Enemy*> enemies;
 
@@ -163,6 +172,7 @@ private:
     void initializeSettingsMenu();
 
     void initializeEnemy();
+    void initializeSpawnRates();
     void initializeItems();
     void initializePlayer();
     void handleMainMenuInput(const sf::Event& ev);
@@ -195,9 +205,7 @@ private:
     sf::RectangleShape soundfxvolumeIndicator;
     sf::Text backText;
 
-
     int selectedMenuItem;
-
 
 public:
     Game();
@@ -221,6 +229,9 @@ public:
     void updateEnemies();
     void updateItems();
     void updateCombat();
+
+    void updateDifficulty();
+
     void update();
 
     void renderGUI();

@@ -88,6 +88,25 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::BALL4::FAILED_TO_LOAD" << "\n";
 	}
 
+	this->textures["SMALLENEMY"] = new sf::Texture();
+	if (!this->textures["SMALLENEMY"]->loadFromFile("Textures/Smallenemy.png"))
+	{
+		std::cout << "TEXTURE::SMALL_ENEMY::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["MEDIUMENEMY"] = new sf::Texture();
+	if (!this->textures["MEDIUMENEMY"]->loadFromFile("Textures/Mediumenemy.png"))
+	{
+		std::cout << "TEXTURE::MEDIUM_ENEMY::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["BIGENEMY"] = new sf::Texture();
+	if (!this->textures["BIGENEMY"]->loadFromFile("Textures/Bigenemy.png"))
+	{
+		std::cout << "TEXTURE::BIG_ENEMY::FAILED_TO_LOAD" << "\n";
+	}
+
+
 }
 
 void Game::initializeSounds()
@@ -245,6 +264,7 @@ void Game::initializeGUI()
 	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 
 	// Initialize timer
+	this->elapsedTime = 0.f;
 	this->timerText.setFont(this->font);
 	this->timerText.setCharacterSize(36);
 	this->timerText.setFillColor(sf::Color::White);
@@ -563,6 +583,18 @@ void Game::initializeEnemy()
 
 	this->meteorSpawnTimerMax = 60.f;
 	this->meteorSpawnTimer = 0.f;
+	this->tripleMeteorChance = 10.f;
+	this->doubleMeteorChance = 40.f;
+
+}
+
+void Game::initializeSpawnRates()
+{
+	this->enemySpawnRate = 2.0f;
+	this->meteorSpawnRate = 0.f;
+	this->horizontalEnemySpawnRate = 0.f;
+	this->healthItemSpawnRate = 0.0167f;
+	this->dpsItemSpawnRate = 0.1f;
 }
 
 void Game::initializeItems()

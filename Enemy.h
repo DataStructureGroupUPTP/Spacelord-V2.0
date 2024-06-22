@@ -24,6 +24,8 @@ private:
 	int points;
 	float speed;
 
+	float meteorSpeedIncrease;
+
 	// Private functions
 	void initializeVariables();
 
@@ -41,6 +43,7 @@ public:
 	const int& getDamage() const;
 	const float& getHp() const;
 	void reduceHp(const float value);
+	void increaseMeteorSpeed(const float value);
 
 	void update();
 	void render(sf::RenderTarget& target);

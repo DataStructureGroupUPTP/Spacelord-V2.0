@@ -8,7 +8,7 @@ void Game::updateInput()
 		
 		if (lane > 1) 
 		{
-			this->player->move(static_cast<float>( -26.65f * 7.5), 0.f);
+			this->player->move(static_cast<float>(-26.65f * 7.5), 0.f);
 			lane--;
 		}
 	}
@@ -212,9 +212,9 @@ void Game::updateCollision()
 void Game::updateEnemies()
 {
 	// Spawning
-	this->spawnTimer += 2.5f;
-	this->meteorSpawnTimer += 0.f;
-	this->horizontalSpawnTimer += 0.f;
+	this->spawnTimer += enemySpawnRate;
+	this->meteorSpawnTimer += meteorSpawnRate;
+	this->horizontalSpawnTimer += horizontalEnemySpawnRate;
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -300,7 +300,7 @@ void Game::updateEnemies()
 
 		int meteorChance = rand() % 100 + 1;
 
-		if (meteorChance <= 10)
+		if (meteorChance <= tripleMeteorChance)
 		{
 			// Triple meteor spawn (on three separate lanes)
 			std::vector<int> lanes = { 1, 2, 3, 4 };
@@ -326,7 +326,7 @@ void Game::updateEnemies()
 				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
 			}
 		}
-		else if (meteorChance > 10 && meteorChance <= 40)
+		else if (meteorChance > tripleMeteorChance && meteorChance <= doubleMeteorChance)
 		{
 			// Double Meteor Spawn (on two separate lanes)
 			std::vector<int> lanes = { 1, 2, 3, 4 };
@@ -408,8 +408,8 @@ void Game::updateEnemies()
 
 void Game::updateItems()
 {
-	this->healthItemSpawnTimer += 0.0167f;
-	this->dpsItemSpawnTimer += 2.1f;
+	this->healthItemSpawnTimer += healthItemSpawnRate;
+	this->dpsItemSpawnTimer += dpsItemSpawnRate;
 
 	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{

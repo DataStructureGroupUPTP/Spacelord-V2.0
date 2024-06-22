@@ -7,7 +7,10 @@ void Enemy::initializeVariables()
 	this->damage = 1;
 	this->points = 5;
 	this->speed = 10.f;
+
+	this->meteorSpeedIncrease = 0.f;
 }
+
 
 Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 {
@@ -112,8 +115,8 @@ Enemy::Enemy(sf::Texture* texture, float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 999;
 		this->damage = 1;
-		this->points = 250;
-		this->speed = 12.5f;
+		this->points = 0.f;
+		this->speed = 7.5f + meteorSpeedIncrease;
 		break;
 
 	}
@@ -160,6 +163,11 @@ void Enemy::reduceHp(const float value)
 	{
 		this->hp = 0;
 	}
+}
+
+void Enemy::increaseMeteorSpeed(const float value)
+{
+	this->meteorSpeedIncrease = meteorSpeedIncrease + value;
 }
 
 void Enemy::update()
