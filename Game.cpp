@@ -76,6 +76,11 @@ void Game::reset()
 	points = 0;
 	lane = 4;
 
+	this->elapsedTime = 0.f;
+	this->clock.restart();
+	this->minutes = 0;
+	this->seconds = 0;
+
 	// Clear bullets
 	for (auto* bullet : this->bullets)
 	{
