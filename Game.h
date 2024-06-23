@@ -3,11 +3,13 @@
 #include "Bullet.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Boss.h"
 #include <map>
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+
 
 enum GameState
 {
@@ -94,6 +96,9 @@ private:
 
     std::vector<Enemy*> enemies;
 
+    // Boss
+    Boss* boss;
+
     // Items
     float healthItemSpawnTimer;
     float healthItemSpawnTimerMax;
@@ -128,10 +133,14 @@ private:
     sf::SoundBuffer powerUpBuffer;
     sf::Sound powerUpSound;
 
+    sf::SoundBuffer swooshBuffer;
+    sf::Sound swooshSound;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;
     sf::Music gameOverMusic;
+    sf::Music bossMusic;
 
     // Line Mechanic
     sf::Vertex line1[2];
@@ -207,6 +216,8 @@ private:
 
     int selectedMenuItem;
 
+    bool bossIsActive;
+
 public:
     Game();
     virtual ~Game();
@@ -229,6 +240,7 @@ public:
     void updateEnemies();
     void updateItems();
     void updateCombat();
+    void updateBoss();
 
     void updateDifficulty();
 

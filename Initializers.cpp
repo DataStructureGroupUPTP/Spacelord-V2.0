@@ -2,6 +2,8 @@
 
 void Game::initializeLines()
 {
+	this->bossIsActive = false;
+	
 	this->lane = 4;
 	this->rightKeyPressed = false;
 	this->leftKeyPressed = false;
@@ -52,12 +54,6 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::YELLOW_ALIEN::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->textures["METEOR"] = new sf::Texture();
-	if (!this->textures["METEOR"]->loadFromFile("Textures/Meteor.png"))
-	{
-		std::cout << "TEXTURE::METEOR::FAILED_TO_LOAD" << "\n";
-	}
-
 	this->textures["HEALTH"] = new sf::Texture();
 	if (!this->textures["HEALTH"]->loadFromFile("Textures/Heart.png"))
 	{
@@ -88,25 +84,29 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::BALL4::FAILED_TO_LOAD" << "\n";
 	}
 
+	this->textures["METEOR"] = new sf::Texture();
+	if (!this->textures["METEOR"]->loadFromFile("Textures/Meteor.png"))
+	{
+		std::cout << "TEXTURE::METEOR::FAILED_TO_LOAD" << "\n";
+	}
+
 	this->textures["SMALLENEMY"] = new sf::Texture();
-	if (!this->textures["SMALLENEMY"]->loadFromFile("Textures/Smallenemy.png"))
+	if (!this->textures["SMALLENEMY"]->loadFromFile("Textures/Smallenemyf1.png"))
 	{
 		std::cout << "TEXTURE::SMALL_ENEMY::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->textures["MEDIUMENEMY"] = new sf::Texture();
-	if (!this->textures["MEDIUMENEMY"]->loadFromFile("Textures/Mediumenemy.png"))
+	if (!this->textures["MEDIUMENEMY"]->loadFromFile("Textures/Mediumenemyf1.png"))
 	{
 		std::cout << "TEXTURE::MEDIUM_ENEMY::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->textures["BIGENEMY"] = new sf::Texture();
-	if (!this->textures["BIGENEMY"]->loadFromFile("Textures/Bigenemy.png"))
+	if (!this->textures["BIGENEMY"]->loadFromFile("Textures/Bigenemyf1.png"))
 	{
 		std::cout << "TEXTURE::BIG_ENEMY::FAILED_TO_LOAD" << "\n";
 	}
-
-
 }
 
 void Game::initializeSounds()
@@ -175,6 +175,15 @@ void Game::initializeSounds()
 	this->powerUpSound.setBuffer(this->powerUpBuffer);
 
 	this->powerUpSound.setVolume(this->soundfxVolume * 5);
+
+	if (!this->swooshBuffer.loadFromFile("Sounds/Swoosh.mp3"))
+	{
+		std::cout << "SOUND::SWOOSH::FAILED_TO_LOAD";
+	}
+
+	this->swooshSound.setBuffer(this->swooshBuffer);
+
+	this->swooshSound.setVolume(this->soundfxVolume * 50);
 }
 
 void Game::initializeMusic()
@@ -194,6 +203,13 @@ void Game::initializeMusic()
 	}
 
 	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
+
+	if(!this->bossMusic.openFromFile("Music/BossMusic.ogg"))
+	{
+		std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->bossMusic.setVolume(this->musicVolume * 6);
 
 }
 
@@ -221,7 +237,7 @@ void Game::initializeGUI()
 	this->currencyText.setCharacterSize(36);
 	this->currencyText.setFillColor(sf::Color::White);
 	this->currencyText.setString("ERROR");
-	this->currencyText.setPosition(30.f, 750.f);
+	this->currencyText.setPosition(0.f, 750.f);
 
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
@@ -264,11 +280,14 @@ void Game::initializeGUI()
 	this->playerHpBarBack.setFillColor(sf::Color(25, 25, 25, 200));
 
 	// Initialize timer
-	this->elapsedTime = 0.f;
 	this->timerText.setFont(this->font);
 	this->timerText.setCharacterSize(36);
 	this->timerText.setFillColor(sf::Color::White);
 	timerText.setPosition(this->window->getSize().x - 75.f, 0.f);
+	this->elapsedTime = 0.f;
+	this->clock.restart();
+	this->minutes = 0;
+	this->seconds = 0;
 
 	// Initialize Music volume border bar
 	this->musicvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
@@ -575,6 +594,8 @@ void Game::initializeWindow()
 
 void Game::initializeEnemy()
 {
+	this->boss = new Boss(100.f, 10.f);
+
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;
 

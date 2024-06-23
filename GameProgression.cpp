@@ -10,9 +10,19 @@ void Game::updateDifficulty()
 		this->tripleMeteorChance = 0.f;
 	}
 
-	if(elapsedTime >= 105 && elapsedTime <= 106)
+	if (elapsedTime >= 105.f && elapsedTime <= 106.f)
 	{
-	
+		this->meteorSpawnRate = 0.f;
+		this->dpsItemSpawnRate = 0.f;
+		this->enemySpawnRate = 0.f;
+	}
+
+	if(elapsedTime >= 108.f && elapsedTime <= 109.f)
+	{
+		stageMusic.stop();
+		bossMusic.play();
+		bossIsActive = true;
+		this->boss->spawn(sf::Vector2f(700.f,-200.f));
 	}
 
 }

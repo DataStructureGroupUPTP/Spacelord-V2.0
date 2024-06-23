@@ -16,6 +16,9 @@ class Enemy
 private:
 	sf::Texture texture;
 	sf::Sprite enemyOne;
+	sf::Sprite enemyTwo;
+	sf::Sprite enemyThree;
+	sf::Sprite meteor;
 
 	// Stats
 	int type;
@@ -26,14 +29,23 @@ private:
 
 	float meteorSpeedIncrease;
 
+	// Texture vector
+	std::map<std::string, sf::Texture*> textures;
+
 	// Private functions
 	void initializeVariables();
+	void initializeTextures();
+
+	// Animation
+	int currentFrame;
+	float animationTimer;
+	float animationInterval;
 
 
 public:
 
 	Enemy();
-	Enemy(sf::Texture* texture, float pos_x, float pos_y, int type);
+	Enemy(float pos_x, float pos_y, int type);
 
 	virtual ~Enemy();
 
@@ -46,6 +58,7 @@ public:
 	void increaseMeteorSpeed(const float value);
 
 	void update();
+	void updateAnimation();
 	void render(sf::RenderTarget& target);
 };
 

@@ -8,6 +8,7 @@ void Game::updateInput()
 		
 		if (lane > 1) 
 		{
+			swooshSound.play();
 			this->player->move(static_cast<float>(-26.65f * 7.5), 0.f);
 			lane--;
 		}
@@ -24,6 +25,7 @@ void Game::updateInput()
 
 		if (lane < 4) 
 		{
+			swooshSound.play();
 			this->player->move(static_cast<float>(26.65f*7.5), 0.f);
 			lane++;
 		}
@@ -242,19 +244,19 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], static_cast<float> (lanePos - (this->textures["GREENALIEN"]->getSize().x / 2)*0.75), -200.f, 3));
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["SMALLENEMY"]->getSize().x / 2) * 2.75), -200.f, 1));
 			this->spawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEALIEN"], static_cast<float> (lanePos - (this->textures["BLUEALIEN"]->getSize().x / 2) * 0.75), -200.f, 2));
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["MEDIUMENEMY"]->getSize().x / 2) * 2.75) , -200.f, 2));
 			this->spawnTimer = 0;
 			break;
 		case 2:
-			this->enemies.push_back(new Enemy(this->textures["YELLOWALIEN"], static_cast<float> (lanePos - (this->textures["YELLOWALIEN"]->getSize().x / 2) * 0.75), -200.f, 1));
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["BIGENEMY"]->getSize().x / 2) * 2.75) , -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 		default:
-			this->enemies.push_back(new Enemy(this->textures["GREENALIEN"], static_cast<float> (lanePos - (this->textures["GREENALIEN"]->getSize().x / 2) * 0.75), -200.f, 3));
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos) , -200.f, 3));
 			this->spawnTimer = 0;
 			break;
 
@@ -278,11 +280,11 @@ void Game::updateEnemies()
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(this->textures["REDBALL"], horizontalPos, static_cast<float> (rand() % 400 + 300), 4));
+			this->enemies.push_back(new Enemy(horizontalPos, static_cast<float> (rand() % 400 + 300), NULL));
 			this->horizontalSpawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(this->textures["BLUEBALL"], horizontalPos, static_cast <float> (rand() % 400 + 300), 5));
+			this->enemies.push_back(new Enemy(horizontalPos, static_cast <float> (rand() % 400 + 300), NULL));
 			this->horizontalSpawnTimer = 0;
 			break;
 
@@ -323,7 +325,7 @@ void Game::updateEnemies()
 					lanePos = static_cast<float> (line4Pos);
 					break;
 				}
-				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+				this->enemies.push_back(new Enemy(lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 4));
 			}
 		}
 		else if (meteorChance > tripleMeteorChance && meteorChance <= doubleMeteorChance)
@@ -350,7 +352,7 @@ void Game::updateEnemies()
 					lanePos = static_cast<float> (line4Pos);
 					break;
 				}
-				this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+				this->enemies.push_back(new Enemy(lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 4));
 			}
 		}
 		else // Singular meteor
@@ -373,7 +375,7 @@ void Game::updateEnemies()
 				break;
 			}
 
-			this->enemies.push_back(new Enemy(this->textures["METEOR"], lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 8));
+			this->enemies.push_back(new Enemy(lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 4));
 		}
 	}
 
@@ -509,7 +511,7 @@ void Game::updateItems()
 			else if (item->getType() == 4)
 			{
 				this->points = this->points + item->getPoints();
-				this->currency = this->currency + 200;
+				this->currency = this->currency + 50;
 				this->powerUpSound.play();
 			}
 			delete item;
@@ -555,6 +557,11 @@ void Game::updateCombat()
 
 		}
 	}
+}
+
+void Game::updateBoss()
+{
+	this->boss->update(0.05f);
 }
 
 void Game::updateSoundFXVolume() 

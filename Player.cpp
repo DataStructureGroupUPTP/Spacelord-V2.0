@@ -47,7 +47,9 @@ void Player::initializeSprite()
     // Set texture to sprite
     this->ship.setTexture(this->shipFull);
 
+
     this->engine.setTexture(this->shipEngine1);
+
 
     // Resize
     this->ship.scale(2.25f, 2.25f);
@@ -59,6 +61,8 @@ void Player::initializeSprite()
     this->fireFrame = sf::IntRect(0, 0, 48, 48);
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
+
+    this->fire.setColor(sf::Color::Green);
 
 }
 
@@ -185,6 +189,7 @@ void Player::setHp(const int newhp)
     {
         this->hp = 5;
     }
+    updateSprite();
 }
 
 void Player::loseHp(const int value)
@@ -200,12 +205,12 @@ void Player::loseHp(const int value)
 
 void Player::upgradeDamage()
 {
-    this->damage = this->damage + 0.5f;
+    this->damage = this->damage + 0.25f;
 }
 
 void Player::upgradeAttackSpeed()
 {
-    this->attackCooldownMax = this->attackCooldownMax - 2.f;
+    this->attackCooldownMax = this->attackCooldownMax - 1.f;
 }
 
 void Player::updateAttackCooldown()

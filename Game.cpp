@@ -160,6 +160,11 @@ void Game::update()
 		this->updateGUI();
 		this->updateTimer();
 		this->updateDifficulty();
+
+		if(bossIsActive)
+		{
+			this->updateBoss();
+		}
 	}
 }
 
@@ -176,6 +181,11 @@ void Game::render()
 	{
 		this->renderWorld();
 		this->renderGameElements();
+
+		if(bossIsActive)
+		{
+			this->boss->render(*window);
+		}
 	}
 
 	if(this->gameState == GAME_OVER)
