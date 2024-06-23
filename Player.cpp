@@ -5,12 +5,16 @@ void Player::initializeVariables()
     this->movementSpeed = 10.f;
     this->damage = 1.f;
 
+    this->invincible = false;
+    this-> invincibilityDuration = 1.f; // Total duration of invincibility
+    this-> invincibilityTimer = 0.0f;    // Timer to track the elapsed time
 
     this->attackCooldownMax = 25.f;
     this->attackCooldown = this->attackCooldownMax;
 
     this->hpMax = 5;
     this->hp = this->hpMax;
+
 }
 
 void Player::initializeTexture()
@@ -62,7 +66,6 @@ void Player::initializeSprite()
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
 
-    this->fire.setColor(sf::Color::Green);
 
 }
 
@@ -73,7 +76,7 @@ void Player::initializeAnimation()
     this->animationSpeed = 0.1f; // Speed of the animation
 }
 
-//Merge
+
 // Constructors
 Player::Player()
 {
@@ -195,13 +198,28 @@ void Player::setHp(const int newhp)
 
 void Player::loseHp(const int value)
 {
-    this->hp = this->hp - value;
-    if (this->hp < 0)
-    {
-        this->hp = 0;
+
+    if (!invincible) {
+        this->hp = this->hp - value;
+        if (this->hp < 0)
+        {
+            this->hp = 0;
+        }
+        startInvincibility();
     }
 
     this->updateSprite();
+}
+
+bool Player::isInvincible() const
+{
+    return invincible;
+}
+
+void Player::startInvincibility() 
+{
+    invincible = true;
+    invincibilityTimer = 0.0f;
 }
 
 void Player::upgradeDamage()
@@ -258,6 +276,15 @@ void Player::update()
 {
     this->updateAttackCooldown();
     this->updateAnimation();
+
+    if (isInvincible())
+    {
+        invincibilityTimer += 0.01667f;
+        if (invincibilityTimer >= invincibilityDuration)
+        {
+            invincible = false;
+        }
+    }
 }
 
 void Player::render(sf::RenderTarget& target)

@@ -15,14 +15,19 @@ void Game::updateDifficulty()
 		this->meteorSpawnRate = 0.f;
 		this->dpsItemSpawnRate = 0.f;
 		this->enemySpawnRate = 0.f;
+		this->backgroundScrollSpeed = 1.5f;
 	}
 
-	if(elapsedTime >= 108.f && elapsedTime <= 109.f)
+	if(elapsedTime >= 109.f && elapsedTime <= 110.f)
 	{
-		stageMusic.stop();
-		bossMusic.play();
+		if (!this->stageMusic.openFromFile("Music/BossMusic.ogg"))
+		{
+			std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+		}
+		this->stageMusic.play();
+
 		bossIsActive = true;
-		this->boss->spawn(sf::Vector2f(700.f,-200.f));
+		this->boss->spawn(sf::Vector2f(550.f,-200.f));
 	}
 
 }

@@ -2,7 +2,7 @@
 
 void Game::initializeLines()
 {
-	this->bossIsActive = false;
+	
 	
 	this->lane = 4;
 	this->rightKeyPressed = false;
@@ -120,7 +120,7 @@ void Game::initializeSounds()
 	}
 	this->laserSound.setBuffer(this->laserBuffer);
 
-	this->laserSound.setVolume(this->soundfxVolume * 2.5f); // 12.5
+	this->laserSound.setVolume(this->soundfxVolume * 3.0f); // 12.5
 
 	if (!this->menuClick.loadFromFile("Sounds/Menu.wav"))
 	{
@@ -184,6 +184,24 @@ void Game::initializeSounds()
 	this->swooshSound.setBuffer(this->swooshBuffer);
 
 	this->swooshSound.setVolume(this->soundfxVolume * 50);
+
+	if (!this->clangBuffer.loadFromFile("Sounds/Bosshit.wav"))
+	{
+		std::cout << "SOUND::BOSS_HIT::FAILED_TO_LOAD";
+	}
+
+	this->clangHit.setBuffer(this->clangBuffer);
+
+	this->clangHit.setVolume(this->soundfxVolume * 15);
+
+	if (!this->criticalBuffer.loadFromFile("Sounds/CriticalHit.wav"))
+	{
+		std::cout << "SOUND::CRITICAL_HIT::FAILED_TO_LOAD";
+	}
+
+	this->criticalHit.setBuffer(this->criticalBuffer);
+
+	this->criticalHit.setVolume(75);
 }
 
 void Game::initializeMusic()
@@ -203,13 +221,6 @@ void Game::initializeMusic()
 	}
 
 	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
-
-	if(!this->bossMusic.openFromFile("Music/BossMusic.ogg"))
-	{
-		std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
-	}
-
-	this->bossMusic.setVolume(this->musicVolume * 6);
 
 }
 
@@ -396,6 +407,7 @@ void Game::initializeBackground()
 
 void Game::initializeSystems()
 {
+	this->bulletSpeed = 5.f;
 	this->points = 0;
 	this->currency = 0;
 
@@ -594,7 +606,8 @@ void Game::initializeWindow()
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(100.f, 10.f);
+	this->boss = new Boss(200.f, 10.f);
+	this->bossIsActive = false;
 
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;

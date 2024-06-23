@@ -44,6 +44,11 @@ private:
 	float animationTimer;
 	float animationSpeed;
 
+	// Invincibility
+	bool invincible;
+	float invincibilityDuration; // Total duration of invincibility
+	float invincibilityTimer;    // Timer to track the elapsed time
+
 	// Private functions
 	void initializeVariables();
 	void initializeTexture();
@@ -71,6 +76,10 @@ public:
 	void setPosition(const float x, const float y);
 	void setHp(const int hp);
 	void loseHp(const int value);
+
+	// Invincibility frames
+	bool isInvincible() const;
+	void startInvincibility();
 
 	void upgradeDamage();
 	void upgradeAttackSpeed();

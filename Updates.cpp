@@ -54,7 +54,7 @@ void Game::updateInput()
 	{
 		this->laserSound.play();
 		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
-			this->player->getPos().y, 0.f, -1.5f, 5.f));
+			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed));
 	}
 
 	// FUTURE PAUSE
@@ -411,7 +411,7 @@ void Game::updateEnemies()
 void Game::updateItems()
 {
 	this->healthItemSpawnTimer += healthItemSpawnRate;
-	this->dpsItemSpawnTimer += dpsItemSpawnRate;
+	this->dpsItemSpawnTimer +=dpsItemSpawnRate;
 
 	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{
@@ -512,6 +512,7 @@ void Game::updateItems()
 			{
 				this->points = this->points + item->getPoints();
 				this->currency = this->currency + 50;
+				this->bulletSpeed = this->bulletSpeed + 0.2f;
 				this->powerUpSound.play();
 			}
 			delete item;
@@ -555,6 +556,36 @@ void Game::updateCombat()
 
 			}
 
+		}
+	}
+
+	bool boss_defeated = false;
+	if(this->bossIsActive)
+	{
+		for (size_t j = 0; j < this->bullets.size() && boss_defeated == false; j++)
+		{
+			if (this->boss->getBounds().intersects(this->bullets[j]->getBounds()))
+			{
+				boss->takeDamage(this->player->getDamage());
+				delete this->bullets[j];
+				this->bullets.erase(this->bullets.begin() + (int)j);
+				this->clangHit.play();
+
+				if(!boss->isAlive())
+				{
+					delete this->boss;
+					boss_defeated = true;
+					bossIsActive = false;
+				}
+			}
+		}
+
+		if(this->boss->getBounds().intersects(this->player->getBounds()))
+		{
+			if (!this->player->isInvincible()) {
+				this->player->loseHp(2);
+				criticalHit.play();
+			}
 		}
 	}
 }

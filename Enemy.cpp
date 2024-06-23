@@ -78,8 +78,8 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 1.f;
 		this->damage = 1;
-		this->points = 500;
-		this->speed = 5.f;
+		this->points = 100;
+		this->speed = 6.0f;
 		break;
 
 	case 2:
@@ -91,8 +91,8 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 1.5f;
 		this->damage = 1;
-		this->points = 350;
-		this->speed = 5.0f;
+		this->points = 250;
+		this->speed = 5.5f;
 		break;
 
 	case 3:
@@ -104,7 +104,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 3.f;
 		this->damage = 1;
-		this->points = 250;
+		this->points = 500;
 		this->speed = 5.0f;
 		break;
 

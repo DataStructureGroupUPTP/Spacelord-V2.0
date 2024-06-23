@@ -31,6 +31,7 @@ private:
     // Resources
     std::map<std::string, sf::Texture*> textures;
     std::vector<Bullet*> bullets;
+    float bulletSpeed;
 
     // GUI
     sf::Font font;
@@ -136,11 +137,16 @@ private:
     sf::SoundBuffer swooshBuffer;
     sf::Sound swooshSound;
 
+    sf::SoundBuffer clangBuffer;
+    sf::Sound clangHit;
+
+    sf::SoundBuffer criticalBuffer;
+    sf::Sound criticalHit;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;
     sf::Music gameOverMusic;
-    sf::Music bossMusic;
 
     // Line Mechanic
     sf::Vertex line1[2];

@@ -41,18 +41,18 @@ Game::~Game()
 	delete this->player;
 
 	// Delete textures
-	for(auto &i : this->textures)
+	for (auto& i : this->textures)
 	{
 		delete i.second; // Deletes second part of textures array, which is the actual texture (not the string portion)
 	}
 
 	// Delete bullets
-	for(auto *i : this->bullets)
+	for (auto* i : this->bullets)
 	{
 		delete i;
 	}
 
-	for (auto *i : this->enemies)
+	for (auto* i : this->enemies)
 	{
 		delete i;
 	}
@@ -73,7 +73,11 @@ void Game::reset()
 {  
 	// Reset player stats
 	delete player;
+	delete boss;
+	bossIsActive = false;
 	this->initializePlayer();
+	this->initializeEnemy();
+
 	points = 0;
 	lane = 4;
 
@@ -103,8 +107,7 @@ void Game::reset()
 	}
 	this->items.clear();
 
-	// Reset other game stats if necessary
-	// Example: this->currentLevel = 1;
+
 }
 
 void Game::updatePollEvents()
@@ -197,7 +200,14 @@ void Game::render()
 	{
 		this->renderWorld();
 		this->renderGameElements();
+
+		if (bossIsActive) 
+		{
+			this->boss->render(*window);
+		}
 		this->renderPauseMenu();
+
+		
 	}
 
 	if (this->gameState == SETTINGS && prevgameState == PAUSED)
