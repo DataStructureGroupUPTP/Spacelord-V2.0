@@ -73,6 +73,7 @@ void Player::initializeAnimation()
     this->animationSpeed = 0.1f; // Speed of the animation
 }
 
+//Merge
 // Constructors
 Player::Player()
 {
