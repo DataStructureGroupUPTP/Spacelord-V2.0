@@ -74,6 +74,7 @@ void Game::reset()
 	// Reset player stats
 	delete player;
 	delete boss;
+	this->bulletSpeed = 5.f;
 	bossIsActive = false;
 	this->initializePlayer();
 	this->initializeEnemy();

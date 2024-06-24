@@ -22,6 +22,8 @@ private:
     sf::Vector2f loopCenter;
     float loopRadius;
     float angle;
+    bool isDefeated;
+    float defeatTimer;
 
     sf::Texture bossFire;
     sf::Sprite fire;
@@ -31,13 +33,18 @@ private:
     float animationTimer;
     float animationSpeed;
 
+    bool movingDown;
+
     void moveInLoop(float deltaTime); // Move in a looping pattern
+    void updateDefeatedState(float deltaTime);
 
 public:
     Boss(float initialHealth, float initialMoveSpeed);
     ~Boss();
 
     const sf::FloatRect getBounds() const;
+    const sf::Vector2f& getPos() const;
+
     void spawn(sf::Vector2f position); // Initialize boss at a given position
     void updateAnimation();
     void update(float deltaTime);      // Update boss logic

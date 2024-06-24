@@ -99,6 +99,10 @@ private:
 
     // Boss
     Boss* boss;
+    float bossAttackCooldown;
+    float bossAttackCooldownMax;
+    bool startShooting;
+    bool bossDefeated;
 
     // Items
     float healthItemSpawnTimer;
@@ -142,6 +146,9 @@ private:
 
     sf::SoundBuffer criticalBuffer;
     sf::Sound criticalHit;
+
+    sf::SoundBuffer explosionBuffer;
+    sf::Sound explosionSound;
 
     // Music
     sf::Music stageMusic;

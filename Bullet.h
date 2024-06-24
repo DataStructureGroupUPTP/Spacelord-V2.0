@@ -19,15 +19,17 @@ private:
 	sf::Vector2f direction;
 
 	float bulletSpeed;
+	bool enemyBullet;
 
 
 public:
 	Bullet();
-	Bullet(sf::Texture* texture, float pos_x, float pos_y, float dir_x, float dir_y, float moveSpeed);
+	Bullet(sf::Texture* texture, float pos_x, float pos_y, float dir_x, float dir_y, float moveSpeed, bool enemyBullet, int type);
 	virtual ~Bullet();
 
 	// Accessor
 	const sf::FloatRect getBounds() const;
+	const bool bulletChecker() const;
 
 	void update();
 	void render(sf::RenderTarget* target);

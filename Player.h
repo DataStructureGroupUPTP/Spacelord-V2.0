@@ -86,6 +86,7 @@ public:
 	
 	
 	void updateAttackCooldown();
+	void setAttackCooldownMax(float max);
 	void updateSprite();
 	void updateAnimation();
 	void update();

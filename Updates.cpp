@@ -54,7 +54,7 @@ void Game::updateInput()
 	{
 		this->laserSound.play();
 		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
-			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed));
+			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
 	}
 
 	// FUTURE PAUSE
@@ -93,6 +93,7 @@ void Game::updateInput()
 		{
 			std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
 		}
+		elapsedTime = elapsedTime + 5.f;
 	}
 }
 
@@ -168,20 +169,20 @@ void Game::updateBullets()
 	{
 		bullet->update();
 
-		// Bullet culling (top)
-		if (bullet->getBounds().top + bullet->getBounds().height < 0.f)
+		// Bullet culling (top and bottom)
+		if (bullet->getBounds().top + bullet->getBounds().height < 0.f ||
+			bullet->getBounds().top > this->window->getSize().y)
 		{
 			// Delete bullets
 			delete this->bullets.at(counter);
 			this->bullets.erase(this->bullets.begin() + counter);
 			--counter;
-
-
 		}
 
 		++counter;
 	}
 }
+
 
 void Game::updateCollision()
 {
@@ -559,40 +560,67 @@ void Game::updateCombat()
 		}
 	}
 
-	bool boss_defeated = false;
-	if(this->bossIsActive)
+	if (this->bossIsActive)
 	{
-		for (size_t j = 0; j < this->bullets.size() && boss_defeated == false; j++)
+		for (size_t j = 0; j < this->bullets.size() && bossDefeated == false; j++)
 		{
-			if (this->boss->getBounds().intersects(this->bullets[j]->getBounds()))
+			if (this->boss->getBounds().intersects(this->bullets[j]->getBounds()) && !this->bullets[j]->bulletChecker())
 			{
+				// Player's bullet hits the boss
 				boss->takeDamage(this->player->getDamage());
 				delete this->bullets[j];
-				this->bullets.erase(this->bullets.begin() + (int)j);
+				this->bullets.erase(this->bullets.begin() + j);
 				this->clangHit.play();
 
-				if(!boss->isAlive())
+				if (!boss->isAlive())
 				{
-					delete this->boss;
-					boss_defeated = true;
-					bossIsActive = false;
+					std::cout << "DEAD";
+					bossDefeated = true;
 				}
+
+				--j; // Adjust index after erasing
+			}
+			else if (this->bullets[j]->bulletChecker() && this->bullets[j]->getBounds().intersects(this->player->getBounds()))
+			{
+				// Enemy's bullet hits the player
+				if (!this->player->isInvincible()) {
+					this->player->loseHp(2);
+					this->criticalHit.play();
+				}
+				delete this->bullets[j];
+				this->bullets.erase(this->bullets.begin() + j);
+				--j; // Adjust index after erasing
 			}
 		}
 
-		if(this->boss->getBounds().intersects(this->player->getBounds()))
+		if (this->boss->getBounds().intersects(this->player->getBounds()))
 		{
+			// Boss hits the player
 			if (!this->player->isInvincible()) {
 				this->player->loseHp(2);
-				criticalHit.play();
+				this->criticalHit.play();
 			}
 		}
 	}
 }
 
+
 void Game::updateBoss()
 {
 	this->boss->update(0.05f);
+
+	if (startShooting) {
+		bossAttackCooldown += 1.2f;
+		if (this->bossAttackCooldown >= this->bossAttackCooldownMax && !bossDefeated)
+		{
+			this->bossAttackCooldown = 0.f;
+			this->laserSound.play();
+			this->bullets.push_back(new Bullet(this->textures["BOSSBULLET"], (this->boss->getPos().x - (this->boss->getBounds().width / 2))-15.f,
+				this->boss->getPos().y - 17.5f, 0.f, 1.5f, 4.5f, true, 2));
+		}
+	}
+
+
 }
 
 void Game::updateSoundFXVolume() 

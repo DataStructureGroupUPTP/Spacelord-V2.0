@@ -26,6 +26,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->initializeMusic();
 			this->gameState = GAMEPLAY;
 			this->menuMusic.stop();
+			this->clock.restart();
 			break;
 		case 1:
 			// Handle shop selection

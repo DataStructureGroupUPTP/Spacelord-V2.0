@@ -147,11 +147,13 @@ void Player::move(const float dirX, const float dirY)
 
 const bool Player::canAttack()
 {
+
     if (this->attackCooldown >= this->attackCooldownMax)
     {
         this->attackCooldown = 0.f;
         return true;
     }
+
     return false;
 }
 
@@ -238,6 +240,11 @@ void Player::updateAttackCooldown()
     {
         this->attackCooldown += 1.f;
     }
+}
+
+void Player::setAttackCooldownMax(float max)
+{
+    this->attackCooldownMax = max;
 }
 
 void Player::updateSprite()

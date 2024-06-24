@@ -107,6 +107,13 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::BIG_ENEMY::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->textures["BOSSBULLET"] = new sf::Texture();
+	if (!this->textures["BOSSBULLET"]->loadFromFile("Textures/Bossbullet.png"))
+	{
+		std::cout << "TEXTURE::BOSS_BULLET::FAILED_TO_LOAD" << "\n";
+	}
+
 }
 
 void Game::initializeSounds()
@@ -202,6 +209,15 @@ void Game::initializeSounds()
 	this->criticalHit.setBuffer(this->criticalBuffer);
 
 	this->criticalHit.setVolume(75);
+
+	if (!this->explosionBuffer.loadFromFile("Sounds/ExplosionEnd.mp3"))
+	{
+		std::cout << "SOUND::EXPLOSION::FAILED_TO_LOAD";
+	}
+
+	this->explosionSound.setBuffer(this->explosionBuffer);
+
+	this->explosionSound.setVolume(75);
 }
 
 void Game::initializeMusic()
@@ -606,8 +622,12 @@ void Game::initializeWindow()
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(200.f, 10.f);
+	this->boss = new Boss(100.f, 10.f);
 	this->bossIsActive = false;
+	this->bossAttackCooldown = 0.f;
+	this->bossAttackCooldownMax = 60.f;
+	this->startShooting = false;
+	this->bossDefeated = false;
 
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;
