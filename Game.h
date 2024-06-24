@@ -39,6 +39,7 @@ private:
     sf::Text pointText;
     sf::Text startText; // New text for the start menu
     sf::Text currencyText;
+    sf::Text killCounterText;
 
     sf::Font titleFont;
     sf::Text gameTitle;
@@ -68,6 +69,7 @@ private:
     // Systems
     unsigned points;
     unsigned currency;
+    unsigned enemyKillCounter;
 
     // Spawnrates
     float enemySpawnRate;

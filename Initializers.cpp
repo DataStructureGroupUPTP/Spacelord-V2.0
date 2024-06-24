@@ -266,6 +266,13 @@ void Game::initializeGUI()
 	this->currencyText.setString("ERROR");
 	this->currencyText.setPosition(0.f, 750.f);
 
+	// Initialize kill counter text
+	this->killCounterText.setFont(this->font);
+	this->killCounterText.setCharacterSize(36);
+	this->killCounterText.setFillColor(sf::Color::White);
+	this->killCounterText.setString("ERROR");
+	this->killCounterText.setPosition(0.f, 600.f);
+
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
 	this->gameTitle.setCharacterSize(100);
@@ -425,6 +432,7 @@ void Game::initializeSystems()
 {
 	this->bulletSpeed = 5.f;
 	this->points = 0;
+	this->enemyKillCounter = 0;
 	this->currency = 0;
 
 }
@@ -637,8 +645,8 @@ void Game::initializeEnemy()
 
 	this->meteorSpawnTimerMax = 60.f;
 	this->meteorSpawnTimer = 0.f;
-	this->tripleMeteorChance = 10.f;
-	this->doubleMeteorChance = 40.f;
+	this->tripleMeteorChance = 0.f;
+	this->doubleMeteorChance = 0.f;
 
 }
 
@@ -648,7 +656,7 @@ void Game::initializeSpawnRates()
 	this->meteorSpawnRate = 0.f;
 	this->horizontalEnemySpawnRate = 0.f;
 	this->healthItemSpawnRate = 0.0167f;
-	this->dpsItemSpawnRate = 0.1f;
+	this->dpsItemSpawnRate = 0.15f;
 }
 
 void Game::initializeItems()

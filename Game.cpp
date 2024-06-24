@@ -78,6 +78,8 @@ void Game::reset()
 	bossIsActive = false;
 	this->initializePlayer();
 	this->initializeEnemy();
+	this->initializeSpawnRates();
+	this->backgroundScrollSpeed = 1.0f;
 
 	points = 0;
 	lane = 4;
@@ -150,6 +152,7 @@ void Game::updatePollEvents()
 void Game::update()
 {
 	this->updatePollEvents();
+	this->updateTimer();
 
 	if (this->gameState == GAMEPLAY)
 	{
@@ -162,7 +165,6 @@ void Game::update()
 		this->updateItems();
 		this->updateCombat();
 		this->updateGUI();
-		this->updateTimer();
 		this->updateDifficulty();
 
 		if(bossIsActive)

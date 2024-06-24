@@ -145,12 +145,41 @@ void Game::updateGUI()
 		this->gameOverMusic.play();
 		this->gameState = GAME_OVER;
 	}
+	
+	// Update Kill Counter
+	std::stringstream ss3;
+
+	if (enemyKillCounter < 50) 
+	{
+		ss3 << "Kills: " << this->enemyKillCounter << "/50";
+
+		this->killCounterText.setString(ss3.str());
+	}
+
+	if(enemyKillCounter >= 50 && enemyKillCounter <= 149)
+	{
+		ss3 << "Kills: " << this->enemyKillCounter << "/150";
+
+		this->killCounterText.setString(ss3.str());
+	}
+
+	if (enemyKillCounter == 150)
+	{
+		ss3 << "Kills: " << this->enemyKillCounter << "/MAXED";
+
+		this->killCounterText.setString(ss3.str());
+	}
 }
 
 void Game::updateTimer()
 {
 	sf::Time dt = clock.restart();
 	elapsedTime += dt.asSeconds();
+
+	if(gameState == PAUSED)
+	{
+		elapsedTime -= dt.asSeconds();
+	}
 
 	// Update timer text
 	minutes = static_cast<int>(elapsedTime) / 60;
@@ -553,6 +582,7 @@ void Game::updateCombat()
 					this->enemies.erase(this->enemies.begin() + (int)i);
 
 					enemy_deleted = true;
+					this->enemyKillCounter++;
 				}
 
 			}
