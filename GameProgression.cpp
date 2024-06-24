@@ -50,7 +50,7 @@ void Game::updateDifficulty()
 		this->player->setAttackCooldownMax(25);
 	}
 
-	if(elapsedTime >= 170.f && elapsedTime <= 171.f)
+	if(elapsedTime >= 185.f && elapsedTime <= 186.f)
 	{
 		this->meteorSpawnRate = 0.25f;
 	}

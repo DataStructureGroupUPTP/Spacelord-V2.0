@@ -80,6 +80,7 @@ void Game::reset()
 	this->initializeEnemy();
 	this->initializeSpawnRates();
 	this->backgroundScrollSpeed = 1.0f;
+	this->initializeItems();
 
 	points = 0;
 	lane = 4;
