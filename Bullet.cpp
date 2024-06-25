@@ -47,7 +47,6 @@ const bool Bullet::bulletChecker() const
 void Bullet::update()
 {
 	this->bullet.move(this->bulletSpeed * this->direction);
-	std::cout << "Bullet Y: " << this->bullet.getPosition().y << std::endl;
 }
 
 void Bullet::render(sf::RenderTarget* target)

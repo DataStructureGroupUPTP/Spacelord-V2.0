@@ -24,9 +24,12 @@ private:
 	sf::Texture shipEngine1;
 	sf::Texture shipEngine1Fire;
 
+	sf::Texture shieldTexture;
+
 	sf::Sprite ship;
 	sf::Sprite engine;
 	sf::Sprite fire;
+	sf::Sprite shield;
 
 	float movementSpeed;
 
@@ -39,16 +42,25 @@ private:
 	int hpMax;
 
 	// Animation
-
 	sf::IntRect fireFrame;
 	int currentFrame;
 	float animationTimer;
 	float animationSpeed;
 
+	sf::IntRect shieldFrame;
+	int currentFrameShield;
+	float animationTimerShield;
+	float animationSpeedShield;
+
 	// Invincibility
 	bool invincible;
 	float invincibilityDuration; // Total duration of invincibility
 	float invincibilityTimer;    // Timer to track the elapsed time
+
+	// Shield mechanic
+	bool shieldActive;
+	float shieldDuration;
+	float shieldTimer;
 
 	// Private functions
 	void initializeVariables();
@@ -81,6 +93,7 @@ public:
 	// Invincibility frames
 	bool isInvincible() const;
 	void startInvincibility();
+	void activateShield();
 
 	void upgradeDamage();
 	void upgradeAttackSpeed();
@@ -90,6 +103,7 @@ public:
 	void setAttackCooldownMax(float max);
 	void updateSprite();
 	void updateAnimation();
+	void updateAnimationShield();
 	void update();
 
 

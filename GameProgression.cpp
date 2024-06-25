@@ -71,7 +71,7 @@ void Game::updateDifficulty()
 		bossDefeated = false;
 		this->points = points + 50000;
 		this->currency = currency + 500;
-		this->enemyKillCounter = enemyKillCounter + 75;
+		this->enemyKillCounter = enemyKillCounter + 40;
 
 	}
 

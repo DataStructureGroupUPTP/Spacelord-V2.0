@@ -52,22 +52,16 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack())
 	{
-		if(shipLevel == 2)
-		{
-			this->laserSound.play();
-			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
-				this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
-		}
-		else if(shipLevel == 1)
-		{
-			this->laserSound.play();
-			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 12.5f,
-			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
-			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 + 1.5f,
-			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
-		}
-		
 
+		this->laserSound.play();
+		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
+			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
+
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+		this->player->activateShield();
 	}
 
 	// FUTURE PAUSE
@@ -162,22 +156,36 @@ void Game::updateGUI()
 	// Update Kill Counter
 	std::stringstream ss3;
 
-	if (enemyKillCounter < 150) 
+	if (enemyKillCounter < 50) 
 	{
+		ss3 << "Kills: " << this->enemyKillCounter << "/50";
+
+		this->killCounterText.setString(ss3.str());
+	}
+
+	if(enemyKillCounter >= 50 && enemyKillCounter < 150)
+	{
+
 		ss3 << "Kills: " << this->enemyKillCounter << "/150";
 
 		this->killCounterText.setString(ss3.str());
 	}
 
-	if(enemyKillCounter >= 150 && enemyKillCounter <= 500)
+	if (enemyKillCounter >= 150 && enemyKillCounter < 300)
 	{
-		this->shipLevel = 2;
+		ss3 << "Kills: " << this->enemyKillCounter << "/300";
+
+		this->killCounterText.setString(ss3.str());
+	}
+
+	if (enemyKillCounter >= 300 && enemyKillCounter < 500)
+	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/500";
 
 		this->killCounterText.setString(ss3.str());
 	}
 
-	if (enemyKillCounter > 500)
+	if (enemyKillCounter >= 500)
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/MAX";
 
@@ -556,7 +564,7 @@ void Game::updateItems()
 			{
 				this->points = this->points + item->getPoints();
 				this->currency = this->currency + 50;
-				this->bulletSpeed = this->bulletSpeed + 0.2f;
+				this->bulletSpeed = this->bulletSpeed + 0.15f;
 				this->powerUpSound.play();
 			}
 			delete item;

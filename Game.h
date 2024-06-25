@@ -70,7 +70,7 @@ private:
     unsigned points;
     unsigned currency;
     unsigned enemyKillCounter;
-    int shipLevel;
+    unsigned bombs;
 
     // Spawnrates
     float enemySpawnRate;

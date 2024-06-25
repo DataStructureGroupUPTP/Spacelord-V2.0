@@ -3,11 +3,11 @@
 void Player::initializeVariables()
 {
     this->movementSpeed = 10.f;
-    this->damage = 50.f;
+    this->damage = 1.f;
 
     this->invincible = false;
-    this-> invincibilityDuration = 1.f; // Total duration of invincibility
-    this-> invincibilityTimer = 0.0f;    // Timer to track the elapsed time
+    this->invincibilityDuration = 1.f;
+    this->invincibilityTimer = 0.0f;
 
     this->attackCooldownMax = 25.f;
     this->attackCooldown = this->attackCooldownMax;
@@ -15,6 +15,9 @@ void Player::initializeVariables()
     this->hpMax = 5;
     this->hp = this->hpMax;
 
+    this->shieldActive = false;
+    this->shieldDuration = 5.0f; // Shield lasts for 5 seconds
+    this->shieldTimer = 0.0f;
 }
 
 void Player::initializeTexture()
@@ -44,6 +47,11 @@ void Player::initializeTexture()
     {
         std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
     }
+
+    if (!this->shieldTexture.loadFromFile("Animations/Shield.png"))
+    {
+        std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+    }
 }
 
 void Player::initializeSprite()
@@ -51,9 +59,7 @@ void Player::initializeSprite()
     // Set texture to sprite
     this->ship.setTexture(this->shipFull);
 
-
     this->engine.setTexture(this->shipEngine1);
-
 
     // Resize
     this->ship.scale(2.25f, 2.25f);
@@ -66,7 +72,10 @@ void Player::initializeSprite()
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
 
-
+    this->shield.setTexture(this->shieldTexture);
+    this->shieldFrame = sf::IntRect(0, 0, 64, 64);
+    this->shield.setTextureRect(this->shieldFrame);
+    this->shield.setScale(2.25f, 2.25f);
 }
 
 void Player::initializeAnimation()
@@ -74,8 +83,11 @@ void Player::initializeAnimation()
     this->currentFrame = 0;
     this->animationTimer = 0.f;
     this->animationSpeed = 0.1f; // Speed of the animation
-}
 
+    this->currentFrameShield = 0;
+    this->animationTimerShield = 0.f;
+    this->animationSpeedShield = 0.075f;
+}
 
 // Constructors
 Player::Player()
@@ -93,6 +105,11 @@ Player::Player()
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
         this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
+
+    this->shield.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->shield.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 90.f
     );
 }
 
@@ -143,11 +160,15 @@ void Player::move(const float dirX, const float dirY)
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
         this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
     );
+
+    this->shield.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->shield.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 90.f
+    );
 }
 
 const bool Player::canAttack()
 {
-
     if (this->attackCooldown >= this->attackCooldownMax)
     {
         this->attackCooldown = 0.f;
@@ -170,6 +191,11 @@ void Player::setPosition(const sf::Vector2f pos)
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
         this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
     );
+
+    this->shield.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->shield.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 90.f
+    );
 }
 
 void Player::setPosition(const float x, const float y)
@@ -184,6 +210,11 @@ void Player::setPosition(const float x, const float y)
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
         this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+    );
+
+    this->shield.setPosition(
+        this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->shield.getGlobalBounds().width / 2,
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 90.f
     );
 }
 
@@ -200,8 +231,8 @@ void Player::setHp(const int newhp)
 
 void Player::loseHp(const int value)
 {
-
-    if (!invincible) {
+    if (!invincible)
+    {
         this->hp = this->hp - value;
         if (this->hp < 0)
         {
@@ -218,7 +249,7 @@ bool Player::isInvincible() const
     return invincible;
 }
 
-void Player::startInvincibility() 
+void Player::startInvincibility()
 {
     invincible = true;
     invincibilityTimer = 0.0f;
@@ -231,7 +262,7 @@ void Player::upgradeDamage()
 
 void Player::upgradeAttackSpeed()
 {
-    this->attackCooldownMax = this->attackCooldownMax - 1.f;
+    this->attackCooldownMax = this->attackCooldownMax - 1.25f;
 }
 
 void Player::updateAttackCooldown()
@@ -277,19 +308,51 @@ void Player::updateAnimation()
         this->fireFrame.left = this->currentFrame * 48; // Frame width is 48
         this->fire.setTextureRect(this->fireFrame);
     }
+
+}
+
+void Player::updateAnimationShield()
+{
+    if (this->shieldActive)
+    {
+        this->animationTimerShield += this->animationSpeedShield;
+        if (this->animationTimerShield >= 1.f)
+        {
+            this->animationTimerShield = 0.f;
+            this->currentFrameShield++;
+            if (this->currentFrameShield >= 8) // 8 frames
+            {
+                this->currentFrameShield = 0;
+            }
+            this->shieldFrame.left = this->currentFrameShield * 64; // Frame width is 64
+            this->shield.setTextureRect(this->shieldFrame);
+        }
+    }
 }
 
 void Player::update()
 {
     this->updateAttackCooldown();
     this->updateAnimation();
+    this->updateAnimationShield();
 
-    if (isInvincible())
+    if (this->isInvincible() && !this->shieldActive)
     {
         invincibilityTimer += 0.01667f;
         if (invincibilityTimer >= invincibilityDuration)
         {
             invincible = false;
+        }
+    }
+
+    if (this->shieldActive)
+    {
+        this->shieldTimer += 0.01667f; // Assuming update is called at approximately 60 FPS
+        if (this->shieldTimer >= this->shieldDuration)
+        {
+            this->shieldActive = false;
+            this->invincible = false;
+
         }
     }
 }
@@ -299,4 +362,18 @@ void Player::render(sf::RenderTarget& target)
     target.draw(this->fire);
     target.draw(this->engine);
     target.draw(this->ship);
+    if (this->shieldActive) // Render shield only if active
+    {
+        target.draw(this->shield);
+    }
+}
+
+void Player::activateShield()
+{
+    if (!this->shieldActive) // Ensure shield can only be activated if not already active
+    {
+        this->shieldActive = true;
+        this->shieldTimer = 0.0f;
+        this->invincible = true;
+    }
 }

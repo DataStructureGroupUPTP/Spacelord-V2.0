@@ -442,7 +442,7 @@ void Game::initializeSystems()
 	this->points = 0;
 
 	this->enemyKillCounter = 0;
-	this->shipLevel = 1;
+	this->bombs = 0;
 
 	this->timeStamp = 0;
 
