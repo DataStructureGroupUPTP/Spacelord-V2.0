@@ -39,15 +39,14 @@ void Game::updateDifficulty()
 		}
 	}
 
-	if(elapsedTime >= 111.f && elapsedTime <= 112.f)
+	if(elapsedTime >= 111.f && elapsedTime <= 124.f)
 	{
-		this->player->setAttackCooldownMax(10000);
+		this->player->setAttackCooldown(0);
 	}
 
 	if(elapsedTime >= 125.f && elapsedTime <= 126.f)
 	{
 		startShooting = true;
-		this->player->setAttackCooldownMax(25);
 	}
 
 	if(elapsedTime >= 185.f && elapsedTime <= 186.f && startShooting)

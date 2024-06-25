@@ -666,7 +666,7 @@ void Game::updateBoss()
 		if (this->bossAttackCooldown >= this->bossAttackCooldownMax && !bossDefeated)
 		{
 			this->bossAttackCooldown = 0.f;
-			this->laserSound.play();
+			this->bossLaser.play();
 			this->bullets.push_back(new Bullet(this->textures["BOSSBULLET"], (this->boss->getPos().x - (this->boss->getBounds().width / 2))-15.f,
 				this->boss->getPos().y - 17.5f, 0.f, 1.5f, 4.5f, true, 2));
 		}

@@ -273,9 +273,9 @@ void Player::updateAttackCooldown()
     }
 }
 
-void Player::setAttackCooldownMax(float max)
+void Player::setAttackCooldown(float val)
 {
-    this->attackCooldownMax = max;
+    this->attackCooldown = val;
 }
 
 void Player::updateSprite()

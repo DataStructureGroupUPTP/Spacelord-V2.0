@@ -208,7 +208,7 @@ void Game::initializeSounds()
 
 	this->criticalHit.setBuffer(this->criticalBuffer);
 
-	this->criticalHit.setVolume(75);
+	this->criticalHit.setVolume(this->soundfxVolume * 15);
 
 	if (!this->explosionBuffer.loadFromFile("Sounds/ExplosionEnd.mp3"))
 	{
@@ -217,7 +217,18 @@ void Game::initializeSounds()
 
 	this->explosionSound.setBuffer(this->explosionBuffer);
 
-	this->explosionSound.setVolume(75);
+	this->explosionSound.setVolume(this->soundfxVolume * 15);
+
+	if (!this->bossLaserBuffer.loadFromFile("Sounds/Bosslaser.mp3"))
+	{
+		std::cout << "SOUND::BOSS_LASER::FAILED_TO_LOAD";
+	}
+
+	this->bossLaser.setBuffer(this->bossLaserBuffer);
+
+	this->bossLaser.setVolume(this->soundfxVolume * 3);
+
+
 }
 
 void Game::initializeMusic()
@@ -278,7 +289,7 @@ void Game::initializeGUI()
 	this->killCounterText.setCharacterSize(36);
 	this->killCounterText.setFillColor(sf::Color::White);
 	this->killCounterText.setString("ERROR");
-	this->killCounterText.setPosition(0.f, 600.f);
+	this->killCounterText.setPosition(0.f, 720.f);
 
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);

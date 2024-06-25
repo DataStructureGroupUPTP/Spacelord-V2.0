@@ -154,6 +154,9 @@ private:
     sf::SoundBuffer explosionBuffer;
     sf::Sound explosionSound;
 
+    sf::SoundBuffer bossLaserBuffer;
+    sf::Sound bossLaser;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;

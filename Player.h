@@ -100,7 +100,7 @@ public:
 	
 	
 	void updateAttackCooldown();
-	void setAttackCooldownMax(float max);
+	void setAttackCooldown(float val);
 	void updateSprite();
 	void updateAnimation();
 	void updateAnimationShield();
