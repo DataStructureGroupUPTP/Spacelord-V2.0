@@ -32,6 +32,7 @@ private:
 
 	float attackCooldown;
 	float attackCooldownMax;
+
 	float damage;
 
 	int hp;

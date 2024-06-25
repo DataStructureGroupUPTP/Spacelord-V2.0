@@ -238,6 +238,13 @@ void Game::initializeMusic()
 
 	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
 
+	if (!this->victoryTune.openFromFile("Music/Victory.ogg"))
+	{
+		std::cout << "ERROR::VICTORY_THEME::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->victoryTune.setVolume(this->musicVolume * 6); // 30
+
 }
 
 void Game::initializeGUI()
@@ -431,9 +438,18 @@ void Game::initializeBackground()
 void Game::initializeSystems()
 {
 	this->bulletSpeed = 5.f;
+
 	this->points = 0;
+
 	this->enemyKillCounter = 0;
+	this->shipLevel = 1;
+
+	this->timeStamp = 0;
+
 	this->currency = 0;
+
+	this->stageTransition = false;
+	this->stage1End = false;
 
 }
 

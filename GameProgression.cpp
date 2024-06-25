@@ -50,12 +50,12 @@ void Game::updateDifficulty()
 		this->player->setAttackCooldownMax(25);
 	}
 
-	if(elapsedTime >= 185.f && elapsedTime <= 186.f)
+	if(elapsedTime >= 185.f && elapsedTime <= 186.f && startShooting)
 	{
 		this->meteorSpawnRate = 0.25f;
 	}
 
-	if(elapsedTime >= 230.f && elapsedTime <= 231.f)
+	if(elapsedTime >= 230.f && elapsedTime <= 231.f && startShooting)
 	{
 		this->meteorSpawnRate = 0.75f;
 	}
@@ -65,7 +65,41 @@ void Game::updateDifficulty()
 		this->stageMusic.stop();
 		this->explosionSound.play();
 		this->startShooting = false;
-		bossDefeated = false;
 		this->meteorSpawnRate = 0.f;
+		this->timeStamp = elapsedTime;
+		this->stageTransition = true;
+		bossDefeated = false;
+		this->points = points + 50000;
+		this->currency = currency + 500;
+		this->enemyKillCounter = enemyKillCounter + 75;
+
+	}
+
+	if(elapsedTime >= timeStamp + 5.f && stageTransition)
+	{
+		this->healthItemSpawnTimer = 0.f;
+		this->dpsItemSpawnRate = 0.f;
+		this->healthItemSpawnRate = 0.5f;
+		this->dpsItemSpawnRate = 1.5f;
+		bossIsActive = false;
+		stageTransition = false;
+		delete this->boss;
+		victoryTune.play();
+		stage1End = true;
+	}
+
+	if(elapsedTime >= timeStamp + 10.f && stage1End) 
+	{
+		this->healthItemSpawnRate = 0.f;
+		this->dpsItemSpawnRate = 0.f;
+	}
+
+	if(elapsedTime >= timeStamp + 15.f && stage1End)
+	{
+		std::cout << "Single tester";
+		// Transition
+		// Stage = 2
+
+		stage1End = false;
 	}
 }

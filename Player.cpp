@@ -3,7 +3,7 @@
 void Player::initializeVariables()
 {
     this->movementSpeed = 10.f;
-    this->damage = 1.f;
+    this->damage = 50.f;
 
     this->invincible = false;
     this-> invincibilityDuration = 1.f; // Total duration of invincibility

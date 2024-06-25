@@ -70,6 +70,7 @@ private:
     unsigned points;
     unsigned currency;
     unsigned enemyKillCounter;
+    int shipLevel;
 
     // Spawnrates
     float enemySpawnRate;
@@ -157,6 +158,7 @@ private:
     sf::Music stageMusic;
     sf::Music menuMusic;
     sf::Music gameOverMusic;
+    sf::Music victoryTune;
 
     // Line Mechanic
     sf::Vertex line1[2];
@@ -232,7 +234,11 @@ private:
 
     int selectedMenuItem;
 
+    // Other
     bool bossIsActive;
+    float timeStamp;
+    bool stageTransition;
+    bool stage1End;
 
 public:
     Game();

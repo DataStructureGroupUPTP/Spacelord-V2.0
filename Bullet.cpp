@@ -2,6 +2,7 @@
 
 Bullet::Bullet(sf::Texture* texture, float pos_x, float pos_y, float dir_x, float dir_y, float moveSpeed, bool enemyBullet, int type)
 {
+
 	switch (type)
 	{
 	case 1:
@@ -46,6 +47,7 @@ const bool Bullet::bulletChecker() const
 void Bullet::update()
 {
 	this->bullet.move(this->bulletSpeed * this->direction);
+	std::cout << "Bullet Y: " << this->bullet.getPosition().y << std::endl;
 }
 
 void Bullet::render(sf::RenderTarget* target)
