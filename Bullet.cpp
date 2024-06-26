@@ -25,6 +25,16 @@ Bullet::Bullet(sf::Texture* texture, float pos_x, float pos_y, float dir_x, floa
 		this->direction.y = dir_y;
 		this->bulletSpeed = moveSpeed;
 		break;
+	case 3:
+		this->bullet.setTexture(*texture);
+		this->bullet.scale(0.425f, 0.425f);
+		this->enemyBullet = enemyBullet;
+
+		this->bullet.setPosition(pos_x, pos_y);
+		this->direction.x = dir_x;
+		this->direction.y = dir_y;
+		this->bulletSpeed = moveSpeed;
+		break;
 
 	}
 }

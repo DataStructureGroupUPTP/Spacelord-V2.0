@@ -59,7 +59,7 @@ void Game::updateDifficulty()
 		this->meteorSpawnRate = 0.75f;
 	}
 
-	if(bossDefeated)
+	if(bossDefeated && checkerOne)
 	{
 		this->stageMusic.stop();
 		this->explosionSound.play();
@@ -71,6 +71,7 @@ void Game::updateDifficulty()
 		this->points = points + 50000;
 		this->currency = currency + 500;
 		this->enemyKillCounter = enemyKillCounter + 40;
+		checkerOne = false;
 
 	}
 
@@ -82,7 +83,6 @@ void Game::updateDifficulty()
 		this->dpsItemSpawnRate = 1.5f;
 		bossIsActive = false;
 		stageTransition = false;
-		delete this->boss;
 		victoryTune.play();
 		stage1End = true;
 	}

@@ -228,6 +228,24 @@ void Game::initializeSounds()
 
 	this->bossLaser.setVolume(this->soundfxVolume * 3);
 
+	if (!this->shieldBuffer.loadFromFile("Sounds/ShieldSound.wav"))
+	{
+		std::cout << "SOUND::SHIELD::FAILED_TO_LOAD";
+	}
+
+	this->shield.setBuffer(this->shieldBuffer);
+
+	this->shield.setVolume(this->soundfxVolume * 50);
+
+	if (!this->levelUpBuffer.loadFromFile("Sounds/killPower.wav"))
+	{
+		std::cout << "SOUND::KILL_LEVEL_UP::FAILED_TO_LOAD";
+	}
+
+	this->levelup.setBuffer(this->levelUpBuffer);
+
+	this->levelup.setVolume(this->soundfxVolume * 25);
+
 
 }
 
@@ -290,6 +308,13 @@ void Game::initializeGUI()
 	this->killCounterText.setFillColor(sf::Color::White);
 	this->killCounterText.setString("ERROR");
 	this->killCounterText.setPosition(0.f, 720.f);
+
+	// Initialize kill counter text
+	this->bombsText.setFont(this->font);
+	this->bombsText.setCharacterSize(36);
+	this->bombsText.setFillColor(sf::Color::White);
+	this->bombsText.setString("ERROR");
+	this->bombsText.setPosition(0.f, 80.f);
 
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
@@ -453,7 +478,8 @@ void Game::initializeSystems()
 	this->points = 0;
 
 	this->enemyKillCounter = 0;
-	this->bombs = 0;
+	this->bombs = 1;
+	this->lastKillThreshold = 0;
 
 	this->timeStamp = 0;
 
@@ -461,6 +487,7 @@ void Game::initializeSystems()
 
 	this->stageTransition = false;
 	this->stage1End = false;
+	this->checkerOne = true;
 
 }
 

@@ -52,16 +52,29 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack())
 	{
+		if (enemyKillCounter < 500)
+		{
+			this->laserSound.play();
+			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
+				this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
 
-		this->laserSound.play();
-		this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
-			this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 1));
+
+		}
+
+		else
+		{
+			this->laserSound.play();
+			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 8.0f,
+				this->player->getPos().y, 0.f, -1.5f, this->bulletSpeed, false, 3));
+		}
 
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && this->bombs > 0 && !this->player->isInvincible())
 	{
+		this->shield.play();
 		this->player->activateShield();
+		bombs--;
 	}
 
 	// FUTURE PAUSE
@@ -71,6 +84,7 @@ void Game::updateInput()
 		this->gameState = PAUSED;
 		this->stageMusic.pause();
 	}
+	
 
 	// COLOR TESTS
 
@@ -127,71 +141,86 @@ void Game::updateBackground()
 void Game::updateGUI()
 {
 	// Update Score
-
 	std::stringstream ss;
-
 	ss << "Score: " << this->points;
-
 	this->pointText.setString(ss.str());
 
 	// Update Currency
-
 	std::stringstream ss2;
-
 	ss2 << "Money: " << this->currency << "$";
-
 	this->currencyText.setString(ss2.str());
 
 	// Update Player GUI
 	float hpPercent = static_cast<float>(this->player->getHp()) / static_cast<float>(this->player->getHpMax());
 	this->playerHpBar.setSize(sf::Vector2f(150.f * hpPercent, this->playerHpBar.getSize().y));
 
-	if (this->player->getHp() == 0)
+	if (this->player->getHp() <= 0)
 	{
 		this->stageMusic.stop();
 		this->gameOverMusic.play();
 		this->gameState = GAME_OVER;
 	}
-	
+
+	// Update bombs
+	std::stringstream ssBombs;
+	ssBombs << "Bombs: " << this->bombs;
+	this->bombsText.setString(ssBombs.str());
+
 	// Update Kill Counter
 	std::stringstream ss3;
-
-	if (enemyKillCounter < 50) 
+	if (enemyKillCounter < 50)
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/50";
-
 		this->killCounterText.setString(ss3.str());
-	}
 
-	if(enemyKillCounter >= 50 && enemyKillCounter < 150)
+	}
+	else if (enemyKillCounter < 150)
 	{
-
 		ss3 << "Kills: " << this->enemyKillCounter << "/150";
-
 		this->killCounterText.setString(ss3.str());
+		if (lastKillThreshold < 50 && enemyKillCounter >= 50)
+		{
+			levelup.play();
+			this->bombs++;
+			lastKillThreshold = 50;
+		}
 	}
-
-	if (enemyKillCounter >= 150 && enemyKillCounter < 300)
+	else if (enemyKillCounter < 300)
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/300";
-
 		this->killCounterText.setString(ss3.str());
+		if (lastKillThreshold < 150 && enemyKillCounter >= 150)
+		{
+			levelup.play();
+			this->bombs++;
+			lastKillThreshold = 150;
+		}
 	}
-
-	if (enemyKillCounter >= 300 && enemyKillCounter < 500)
+	else if (enemyKillCounter < 500)
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/500";
-
 		this->killCounterText.setString(ss3.str());
+		if (lastKillThreshold < 300 && enemyKillCounter >= 300)
+		{
+			levelup.play();
+			this->bombs++;
+			lastKillThreshold = 300;
+		}
 	}
-
-	if (enemyKillCounter >= 500)
+	else
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/MAX";
-
 		this->killCounterText.setString(ss3.str());
+		if (lastKillThreshold < 500 && enemyKillCounter >= 500)
+		{
+			levelup.play();
+			this->bombs++;
+			lastKillThreshold = 500;
+		}
 	}
 }
+
+
 
 void Game::updateTimer()
 {

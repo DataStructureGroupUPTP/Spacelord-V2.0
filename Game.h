@@ -40,6 +40,7 @@ private:
     sf::Text startText; // New text for the start menu
     sf::Text currencyText;
     sf::Text killCounterText;
+    sf::Text bombsText;
 
     sf::Font titleFont;
     sf::Text gameTitle;
@@ -71,6 +72,7 @@ private:
     unsigned currency;
     unsigned enemyKillCounter;
     unsigned bombs;
+    int lastKillThreshold;
 
     // Spawnrates
     float enemySpawnRate;
@@ -157,6 +159,12 @@ private:
     sf::SoundBuffer bossLaserBuffer;
     sf::Sound bossLaser;
 
+    sf::SoundBuffer shieldBuffer;
+    sf::Sound shield;
+
+    sf::SoundBuffer levelUpBuffer;
+    sf::Sound levelup;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;
@@ -242,6 +250,7 @@ private:
     float timeStamp;
     bool stageTransition;
     bool stage1End;
+    bool checkerOne;
 
 public:
     Game();

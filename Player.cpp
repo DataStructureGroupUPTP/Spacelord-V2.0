@@ -262,7 +262,7 @@ void Player::upgradeDamage()
 
 void Player::upgradeAttackSpeed()
 {
-    this->attackCooldownMax = this->attackCooldownMax - 1.25f;
+    this->attackCooldownMax = this->attackCooldownMax - 1.f;
 }
 
 void Player::updateAttackCooldown()
