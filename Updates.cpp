@@ -723,3 +723,35 @@ void Game::updateMusicVolume()
 	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
 	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
 }
+
+void Game::updateFadeEffect()
+{
+	const float fadeSpeed = 100.f; // Alpha units per second
+
+	switch (fadeState) {
+	case FADING_OUT:
+		fadeAlpha += fadeSpeed * fadeClock.restart().asSeconds();
+		if (fadeAlpha >= 255.f) {
+			fadeAlpha = 255.f;
+			fadeState = BLACK_SCREEN;
+			fadeClock.restart();
+		}
+		break;
+	case BLACK_SCREEN:
+		if (fadeClock.getElapsedTime().asSeconds() >= 1.f) {
+			fadeState = FADING_IN;
+		}
+		break;
+	case FADING_IN:
+		fadeAlpha -= fadeSpeed * fadeClock.restart().asSeconds();
+		if (fadeAlpha <= 0.f) {
+			fadeAlpha = 0.f;
+			fadeState = NONE;
+		}
+		break;
+	default:
+		break;
+	}
+
+	fadeOverlay.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(fadeAlpha)));
+}

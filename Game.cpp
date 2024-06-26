@@ -6,6 +6,7 @@ void Game::initialize()
 {
 	this->initializeWindow();
 	this->initializeLines();
+	this->initializeStage();
 	this->initializeTextures();
 	this->initializeSounds();
 	this->initializePlayer();
@@ -20,6 +21,7 @@ void Game::initialize()
 	this->initializeGameOverMenu();
 	this->initializeMenuBackgrounds();
 	this->initializeSettingsMenu();
+	this->initializeFadeEffects();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;
@@ -27,6 +29,8 @@ void Game::initialize()
 }
 
 // Constructor
+
+
 
 Game::Game()
 {
@@ -114,6 +118,12 @@ void Game::reset()
 
 }
 
+void Game::triggerFadeEffect() {
+	fadeState = FADING_OUT;
+	fadeAlpha = 0.f;
+	fadeClock.restart();
+}
+
 void Game::updatePollEvents()
 {
 	sf::Event ev;
@@ -173,6 +183,8 @@ void Game::update()
 			this->updateBoss();
 		}
 	}
+
+	this->updateFadeEffect();
 }
 
 void Game::render()
@@ -227,6 +239,11 @@ void Game::render()
 		this->renderSettingsMenu();
 	}
 
+	if (fadeState != NONE) {
+		this->window->draw(fadeOverlay);
+	}
+
 	this->window->display();
 }
+
 

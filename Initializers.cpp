@@ -3,7 +3,6 @@
 void Game::initializeLines()
 {
 	
-	
 	this->lane = 4;
 	this->rightKeyPressed = false;
 	this->leftKeyPressed = false;
@@ -407,6 +406,11 @@ void Game::initializeBackground()
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
 
+	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space2.png"))
+	{
+		std::cout << "TEXTURE::SPACE2::FAILED_TO_LOAD" << "\n";
+	}
+
 	this->stageBackground.setTexture(this->stageBackgroundTexture);
 	this->stageBackground2.setTexture(this->stageBackgroundTexture);
 
@@ -469,6 +473,9 @@ void Game::initializeBackground()
 		break;
 
 	}
+
+
+
 }
 
 void Game::initializeSystems()
@@ -481,14 +488,16 @@ void Game::initializeSystems()
 	this->bombs = 1;
 	this->lastKillThreshold = 0;
 
-	this->timeStamp = 0;
-
 	this->currency = 0;
 
-	this->stageTransition = false;
-	this->stage1End = false;
-	this->checkerOne = true;
+}
 
+void Game::initializeFadeEffects()
+{
+	fadeState = NONE;
+	fadeAlpha = 0.f;
+	fadeOverlay.setSize(sf::Vector2f(this->window->getSize()));
+	fadeOverlay.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(fadeAlpha)));
 }
 
 void Game::initializeMenuBackgrounds()
@@ -679,6 +688,18 @@ void Game::initializeWindow()
 
 	this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(false);
+
+}
+
+void Game::initializeStage()
+{
+	this->timeStamp = 0;
+	this->timeStamp2 = 0;
+	this->stageTransition = false;
+	this->stage1End = false;
+	this->checkerOne = true;
+	this->Stage = 1;
+
 
 }
 

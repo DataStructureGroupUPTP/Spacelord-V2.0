@@ -59,8 +59,10 @@ private:
     sf::Sprite startMenuBackground;
 
     sf::Texture stageBackgroundTexture;
+    sf::Texture stage2BackgroundTexture;
     sf::Sprite stageBackground;
     sf::Sprite stageBackground2;
+
     float backgroundScrollSpeed;
 
     // Menu Backgrounds
@@ -195,6 +197,7 @@ private:
     // Private functions
     void initialize();
     void initializeWindow();
+    void initializeStage();
     void initializeLines();
     void initializeTextures();
     void initializeSounds();
@@ -247,10 +250,25 @@ private:
 
     // Other
     bool bossIsActive;
-    float timeStamp;
+    bool checkerOne;
+
+    // Stages
     bool stageTransition;
     bool stage1End;
-    bool checkerOne;
+    unsigned Stage;
+    float timeStamp;
+    float timeStamp2;
+
+    // Fade effect
+
+    enum FadeState { NONE, FADING_OUT, BLACK_SCREEN, FADING_IN };
+    FadeState fadeState;
+    sf::RectangleShape fadeOverlay;
+    float fadeAlpha;
+    sf::Clock fadeClock;
+    void initializeFadeEffects();
+   
+
 
 public:
     Game();
@@ -259,6 +277,7 @@ public:
     // Functions
     void run();
     void reset();
+    void triggerFadeEffect();
 
     void updatePollEvents();
     void updateInput();
@@ -277,6 +296,7 @@ public:
     void updateBoss();
 
     void updateDifficulty();
+    void updateFadeEffect();
 
     void update();
 
