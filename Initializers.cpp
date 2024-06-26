@@ -406,7 +406,7 @@ void Game::initializeBackground()
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
 
-	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space2.png"))
+	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space3.png"))
 	{
 		std::cout << "TEXTURE::SPACE2::FAILED_TO_LOAD" << "\n";
 	}
@@ -698,6 +698,10 @@ void Game::initializeStage()
 	this->stageTransition = false;
 	this->stage1End = false;
 	this->checkerOne = true;
+	this->checkerTwo = true;
+	this->checkerThree = true;
+	this->checkerFour = true;
+	this->checkerFive = true;
 	this->Stage = 1;
 
 

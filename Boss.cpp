@@ -5,12 +5,17 @@ Boss::Boss(float initialHealth, float initialMoveSpeed)
     : health(initialHealth), moveSpeed(initialMoveSpeed), isMovingInLoop(false), angle(0.f), isDefeated(false), defeatTimer(0.f)
 {
     // Load textures
-    if (!bossTexture.loadFromFile("Textures/Boss1.png"))
+    if (!this->bossTexture.loadFromFile("Textures/Boss1.png"))
     {
         std::cerr << "TEXTURE::BOSS::FAILED_TO_LOAD" << std::endl;
     }
 
     if (!this->bossFire.loadFromFile("Animations/Bossfireidle.png"))
+    {
+        std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+    }
+
+    if (!this->defeatAnimation.loadFromFile("Animations/bossDefeat.png"))
     {
         std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
     }

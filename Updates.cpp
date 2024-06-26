@@ -227,7 +227,7 @@ void Game::updateTimer()
 	sf::Time dt = clock.restart();
 	elapsedTime += dt.asSeconds();
 
-	if(gameState == PAUSED)
+	if(gameState == PAUSED or gameState == SETTINGS)
 	{
 		elapsedTime -= dt.asSeconds();
 	}
@@ -655,7 +655,6 @@ void Game::updateCombat()
 
 				if (!boss->isAlive())
 				{
-					std::cout << "DEAD";
 					bossDefeated = true;
 				}
 

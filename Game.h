@@ -251,6 +251,10 @@ private:
     // Other
     bool bossIsActive;
     bool checkerOne;
+    bool checkerTwo;
+    bool checkerThree;
+    bool checkerFour;
+    bool checkerFive;
 
     // Stages
     bool stageTransition;
@@ -258,6 +262,7 @@ private:
     unsigned Stage;
     float timeStamp;
     float timeStamp2;
+
 
     // Fade effect
 

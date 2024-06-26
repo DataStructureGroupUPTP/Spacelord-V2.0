@@ -41,22 +41,22 @@ void Game::updateDifficulty()
 			}
 		}
 
-		if (elapsedTime >= 113.f && elapsedTime <= 124.f)
+		if (elapsedTime >= 112.f && elapsedTime <= 126.5f)
 		{
 			this->player->setAttackCooldown(0);
 		}
 
-		if (elapsedTime >= 125.f && elapsedTime <= 126.f)
+		if (elapsedTime >= 126.5f && elapsedTime <= 128.f)
 		{
 			startShooting = true;
 		}
 
-		if (elapsedTime >= 185.f && elapsedTime <= 186.f && startShooting)
+		if (elapsedTime >= 175.f && elapsedTime <= 176.f && startShooting)
 		{
 			this->meteorSpawnRate = 0.25f;
 		}
 
-		if (elapsedTime >= 230.f && elapsedTime <= 231.f && startShooting)
+		if (elapsedTime >= 220.f && elapsedTime <= 221.f && startShooting)
 		{
 			this->meteorSpawnRate = 0.75f;
 		}
@@ -88,38 +88,58 @@ void Game::updateDifficulty()
 			stageTransition = false;
 			victoryTune.play();
 			stage1End = true;
-			this->backgroundScrollSpeed = 1.5f;
+			this->backgroundScrollSpeed = 1.f;
 		}
 
-		if (elapsedTime >= timeStamp + 10.f && stage1End)
+		if (elapsedTime >= timeStamp + 10.f && checkerThree && stage1End)
 		{
 			this->healthItemSpawnRate = 0.f;
 			this->dpsItemSpawnRate = 0.f;
+			checkerThree = false;
+
+		}
+
+		if (elapsedTime >= timeStamp + 12.f && checkerTwo && stage1End)
+		{
+			this->triggerFadeEffect();
+			checkerTwo = false;
 			
 		}
 
-		if (elapsedTime >= timeStamp + 11.f && stage1End)
+		if (elapsedTime >= timeStamp + 13.f && stage1End && checkerFour)
 		{
-			this->triggerFadeEffect();
+			std::cout << "IT HAPPENED";
+			this->backgroundScrollSpeed = 90.f;
+			this->checkerFour = false;
+
 		}
 
-		if (elapsedTime >= timeStamp + 15.f && stage1End)
+		if (elapsedTime >= timeStamp + 15.f && stage1End && checkerFour)
 		{
+			this->stageBackground.setTexture(this->stage2BackgroundTexture);
+			this->stageBackground2.setTexture(this->stage2BackgroundTexture);
+			this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
+			this->checkerFour = false;
 
+		}
+
+		if (elapsedTime >= timeStamp + 16.f && stage1End)
+		{
+			this->backgroundScrollSpeed = 1.5f;
 			timeStamp2 = elapsedTime;
 			stage1End = false;
 			Stage = 2;
-			this->stageBackground.setTexture(this->stage2BackgroundTexture);
-			this->stageBackground2.setTexture(this->stage2BackgroundTexture);
+	
 
-			this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
 
 		}
+
+		
 	}
 
 	if(Stage == 2)
 	{
 		this->meteorSpawnRate = 1.5f;
-		this->backgroundScrollSpeed = 4.0f;
+		this->backgroundScrollSpeed = 1.5f;
 	}
 }

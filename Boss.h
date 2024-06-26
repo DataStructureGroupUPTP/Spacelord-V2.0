@@ -25,13 +25,21 @@ private:
     bool isDefeated;
     float defeatTimer;
 
+    sf::Texture defeatAnimation;
     sf::Texture bossFire;
     sf::Sprite fire;
+
 
     sf::IntRect fireFrame;
     int currentFrame;
     float animationTimer;
     float animationSpeed;
+
+    sf::IntRect defeatFrame;
+    int defeatCurrentFrame;
+    float defeatAnimationTimer;
+    float defeatAnimationSpeed;
+
 
     bool movingDown;
 
