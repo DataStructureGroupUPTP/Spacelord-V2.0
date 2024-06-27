@@ -29,7 +29,6 @@ private:
     sf::Texture bossFire;
     sf::Sprite fire;
 
-
     sf::IntRect fireFrame;
     int currentFrame;
     float animationTimer;

@@ -321,25 +321,60 @@ void Game::updateEnemies()
 
 
 		int enemyRandomizer = rand() % 3;
+		int enemyRandomizerStage2 = rand() % 6;
 
-		switch (enemyRandomizer)
+		if (Stage == 1) {
+			switch (enemyRandomizer)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["SMALLENEMY"]->getSize().x / 2) * 2.75), -200.f, 1));
+				this->spawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["MEDIUMENEMY"]->getSize().x / 2) * 2.75), -200.f, 2));
+				this->spawnTimer = 0;
+				break;
+			case 2:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["BIGENEMY"]->getSize().x / 2) * 2.75), -200.f, 3));
+				this->spawnTimer = 0;
+				break;
+			default:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos), -200.f, 3));
+				this->spawnTimer = 0;
+				break;
+
+			}
+		}
+		if (Stage == 2)
 		{
-		case 0:
-			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["SMALLENEMY"]->getSize().x / 2) * 2.75), -200.f, 1));
-			this->spawnTimer = 0;
-			break;
-		case 1:
-			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["MEDIUMENEMY"]->getSize().x / 2) * 2.75) , -200.f, 2));
-			this->spawnTimer = 0;
-			break;
-		case 2:
-			this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["BIGENEMY"]->getSize().x / 2) * 2.75) , -200.f, 3));
-			this->spawnTimer = 0;
-			break;
-		default:
-			this->enemies.push_back(new Enemy(static_cast<float> (lanePos) , -200.f, 3));
-			this->spawnTimer = 0;
-			break;
+			switch(enemyRandomizerStage2)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY1"]->getSize().x / 2) * 2.75), -200.f, 5));
+				this->spawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY2"]->getSize().x / 2) * 2.75), -200.f, 6));
+				this->spawnTimer = 0;
+				break;
+			case 2:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY3"]->getSize().x / 2) * 2.75), -200.f, 7));
+				this->spawnTimer = 0;
+				break;
+			case 3:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY4"]->getSize().x / 2) * 2.75), -200.f, 8));
+				this->spawnTimer = 0;
+				break;
+			case 4:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY5"]->getSize().x / 2) * 2.75), -200.f, 9));
+				this->spawnTimer = 0;
+				break;
+			case 5:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY6"]->getSize().x / 2) * 2.75), -200.f, 10));
+				this->spawnTimer = 0;
+				break;
+			}
+
 
 		}
 	}
@@ -608,38 +643,38 @@ void Game::updateItems()
 }
 
 
-void Game::updateCombat()
+void Game::updateCombat() 
 {
-
-	for (size_t i = 0; i < this->enemies.size(); ++i)
+	for (size_t i = 0; i < this->enemies.size(); ++i) 
 	{
 		bool enemy_deleted = false;
-		for (size_t k = 0; k < this->bullets.size() && enemy_deleted == false; k++)
+		for (size_t k = 0; k < this->bullets.size() && enemy_deleted == false; k++) 
 		{
-			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds()))
+			if (this->enemies[i]->getBounds().intersects(this->bullets[k]->getBounds())) 
 			{
 				enemies[i]->reduceHp(this->player->getDamage());
 				delete this->bullets[k];
-				this->bullets.erase(this->bullets.begin() + (int)k);
+				this->bullets.erase(this->bullets.begin() + k);
 				this->alienHit.play();
 
-
-				if (enemies[i]->getHp() <= 0)
+				if (enemies[i]->getHp() <= 0) 
 				{
-					this->points = this->points + this->enemies[i]->getPoints();
-					this->currency = this->currency + 5;
+					this->points += this->enemies[i]->getPoints();
+					this->currency += 5;
+
+					// Create explosion at the enemy's position
+					this->explosions.push_back(new Explosion(this->enemies[i]->getPos().x, this->enemies[i]->getPos().y, this->enemies[i]->getBounds().getSize()));
 
 					delete this->enemies[i];
-					this->enemies.erase(this->enemies.begin() + (int)i);
+					this->enemies.erase(this->enemies.begin() + i);
 
 					enemy_deleted = true;
 					this->enemyKillCounter++;
 				}
-
 			}
-
 		}
 	}
+
 
 	if (this->bossIsActive)
 	{
@@ -753,4 +788,16 @@ void Game::updateFadeEffect()
 	}
 
 	fadeOverlay.setFillColor(sf::Color(0, 0, 0, static_cast<sf::Uint8>(fadeAlpha)));
+}
+
+void Game::updateExplosionEffect()
+{
+	for (size_t i = 0; i < this->explosions.size(); ++i) {
+		this->explosions[i]->update();
+		if (this->explosions[i]->isFinished()) {
+			delete this->explosions[i];
+			this->explosions.erase(this->explosions.begin() + i);
+			--i;
+		}
+	}
 }

@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "Item.h"
 #include "Boss.h"
+#include "Explosion.h"
 #include <map>
 #include <string>
 #include <sstream>
@@ -104,6 +105,9 @@ private:
     int doubleMeteorChance;
 
     std::vector<Enemy*> enemies;
+
+    // Explosions
+    std::vector<Explosion*> explosions;
 
     // Boss
     Boss* boss;
@@ -302,6 +306,7 @@ public:
 
     void updateDifficulty();
     void updateFadeEffect();
+    void updateExplosionEffect();
 
     void update();
 
@@ -313,4 +318,5 @@ public:
     void renderSettingsMenu();
     void renderGameOverMenu();
     void renderGameElements();
+    void renderExplosion(sf::RenderTarget& target);
 };

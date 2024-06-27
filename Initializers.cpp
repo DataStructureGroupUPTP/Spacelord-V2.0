@@ -113,6 +113,41 @@ void Game::initializeTextures()
 		std::cout << "TEXTURE::BOSS_BULLET::FAILED_TO_LOAD" << "\n";
 	}
 
+	this->textures["STAGE2ENEMY1"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY1"]->loadFromFile("Textures/Stage2e1.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY1::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY2"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY2"]->loadFromFile("Textures/Stage2e2.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY2::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY3"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY3"]->loadFromFile("Textures/Stage2e3.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY3::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY4"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY4"]->loadFromFile("Textures/Stage2e4.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY4::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY5"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY5"]->loadFromFile("Textures/Stage2e5.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY5::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY6"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY6"]->loadFromFile("Textures/Stage2e6.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY6::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 void Game::initializeSounds()
@@ -406,7 +441,7 @@ void Game::initializeBackground()
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
 
-	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space3.png"))
+	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space4.png"))
 	{
 		std::cout << "TEXTURE::SPACE2::FAILED_TO_LOAD" << "\n";
 	}
@@ -709,7 +744,7 @@ void Game::initializeStage()
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(100.f, 10.f);
+	this->boss = new Boss(125.f, 10.f);
 	this->bossIsActive = false;
 	this->bossAttackCooldown = 0.f;
 	this->bossAttackCooldownMax = 60.f;

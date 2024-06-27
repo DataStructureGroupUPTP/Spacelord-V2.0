@@ -59,6 +59,43 @@ void Enemy::initializeTextures()
 	{
 		std::cout << "TEXTURE::METEOR::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->textures["STAGE2ENEMY1"] = new sf::Texture();
+	if(!this->textures["STAGE2ENEMY1"]->loadFromFile("Textures/Stage2e1.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY1::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY2"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY2"]->loadFromFile("Textures/Stage2e2.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY2::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY3"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY3"]->loadFromFile("Textures/Stage2e3.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY3::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY4"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY4"]->loadFromFile("Textures/Stage2e4.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY4::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY5"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY5"]->loadFromFile("Textures/Stage2e5.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY5::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE2ENEMY6"] = new sf::Texture();
+	if (!this->textures["STAGE2ENEMY6"]->loadFromFile("Textures/Stage2e6.png"))
+	{
+		std::cout << "TEXTURE::STAGE2ENEMY6::FAILED_TO_LOAD" << "\n";
+	}
+
 }
 
 
@@ -83,10 +120,10 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		break;
 
 	case 2:
-		this->enemyTwo.setTexture(*this->textures["MEDIUMENEMY"]);
-		this->enemyTwo.scale(2.75f, 2.75f);
+		this->enemyOne.setTexture(*this->textures["MEDIUMENEMY"]);
+		this->enemyOne.scale(2.75f, 2.75f);
 
-		this->enemyTwo.setPosition(pos_x, pos_y);
+		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
 		this->hp = 1.5f;
@@ -96,10 +133,10 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		break;
 
 	case 3:
-		this->enemyThree.setTexture(*this->textures["BIGENEMY"]);
-		this->enemyThree.scale(2.75f, 2.75f);
+		this->enemyOne.setTexture(*this->textures["BIGENEMY"]);
+		this->enemyOne.scale(2.75f, 2.75f);
 
-		this->enemyThree.setPosition(pos_x, pos_y);
+		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
 		this->hp = 3.f;
@@ -109,23 +146,105 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		break;
 
 	case 4:
-		this->meteor.setTexture(*this->textures["METEOR"]);
+		this->enemyOne.setTexture(*this->textures["METEOR"]);
 
-		this->meteor.setPosition(pos_x, pos_y);
-		this->meteor.setScale(2.25f, 2.25f);
+		this->enemyOne.setPosition(pos_x, pos_y);
+		this->enemyOne.setScale(2.25f, 2.25f);
 
 		this->type = type;
 		this->hp = 999;
 		this->damage = 1;
 		this->points = 0.f;
 		this->speed = 7.5f + meteorSpeedIncrease;
+
 		break;
+
+	case 5:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY1"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500; 
+		this->speed = 5.0f;
+		break;
+
+	case 6:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY2"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500;
+		this->speed = 5.0f;
+		break;
+
+	case 7:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY3"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500;
+		this->speed = 5.0f;
+		break;
+
+	case 8:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY4"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500;
+		this->speed = 5.0f;
+		break;
+
+	case 9:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY5"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500;
+		this->speed = 5.0f;
+		break;
+
+	case 10:
+		this->enemyOne.setTexture(*this->textures["STAGE2ENEMY6"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 6.f;
+		this->damage = 1;
+		this->points = 500;
+		this->speed = 5.0f;
+		break;
+
+
 
 	}
 
 
-}
 
+
+}
 
 Enemy::Enemy()
 {
@@ -139,22 +258,8 @@ Enemy::~Enemy()
 
 const sf::FloatRect Enemy::getBounds() const
 {
-	if(type == 1)
-	{
-		return this->enemyOne.getGlobalBounds();
-	}
-	if(type == 2)
-	{
-		return this->enemyTwo.getGlobalBounds();
-	}
-	if(type == 3)
-	{
-		return this->enemyThree.getGlobalBounds();
-	}
-	if(type == 4)
-	{
-		return this->meteor.getGlobalBounds();
-	}
+
+	return this->enemyOne.getGlobalBounds();
 	
 }
 
@@ -188,41 +293,19 @@ void Enemy::increaseMeteorSpeed(const float value)
 	this->meteorSpeedIncrease = meteorSpeedIncrease + value;
 }
 
+const sf::Vector2f& Enemy::getPos() const
+{
+	return this->enemyOne.getPosition();
+}
+
 void Enemy::update()
 {
 	updateAnimation();
 
-	if (type == 5 or type == 6) 
-	{
-		this->enemyOne.move(this->speed, 0.f);
+	this->enemyOne.move(0.f, this->speed);
 
-	}
-	else
-	{
-
-		if (type == 1)
-		{
-			this->enemyOne.move(0.f, this->speed);
-		}
-		
-		if(type == 2)
-		{
-			this->enemyTwo.move(0.f, this->speed);
-		}
-		
-		if(type == 3)
-		{
-			this->enemyThree.move(0.f, this->speed);
-		}
-		
-		if(type == 4)
-		{
-			this->meteor.move(0.f, this->speed);
-		}
-
-
-	}
 }
+
 
 void Enemy::updateAnimation()
 {
@@ -253,12 +336,12 @@ void Enemy::updateAnimation()
 		case 2:
 			if (this->currentFrame == 0)
 			{
-				this->enemyTwo.setTexture(*this->textures["MEDIUMENEMY2"]);
+				this->enemyOne.setTexture(*this->textures["MEDIUMENEMY2"]);
 				this->currentFrame = 1;
 			}
 			else
 			{
-				this->enemyTwo.setTexture(*this->textures["MEDIUMENEMY"]);
+				this->enemyOne.setTexture(*this->textures["MEDIUMENEMY"]);
 				this->currentFrame = 0;
 			}
 			break;
@@ -266,12 +349,12 @@ void Enemy::updateAnimation()
 		case 3:
 			if (this->currentFrame == 0)
 			{
-				this->enemyThree.setTexture(*this->textures["BIGENEMY2"]);
+				this->enemyOne.setTexture(*this->textures["BIGENEMY2"]);
 				this->currentFrame = 1;
 			}
 			else
 			{
-				this->enemyThree.setTexture(*this->textures["BIGENEMY"]);
+				this->enemyOne.setTexture(*this->textures["BIGENEMY"]);
 				this->currentFrame = 0;
 			}
 			break;
@@ -284,22 +367,9 @@ void Enemy::updateAnimation()
 
 void Enemy::render(sf::RenderTarget& target)
 {
-	switch (this->type)
-	{
-	case 1:
-		target.draw(this->enemyOne);
-		break;
-	case 2:
-		target.draw(this->enemyTwo);
-		break;
-	case 3:
-		target.draw(this->enemyThree);
-		break;
-	case 4:
-		target.draw(this->meteor);
-		break;
-	default:
-		break;
-	}
+
+	target.draw(this->enemyOne);
+
+
 }
 

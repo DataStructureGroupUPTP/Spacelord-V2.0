@@ -85,6 +85,7 @@ void Game::reset()
 	this->initializeSpawnRates();
 	this->backgroundScrollSpeed = 1.0f;
 	this->initializeItems();
+	this->initializeBackground();
 
 	points = 0;
 	lane = 4;
@@ -177,6 +178,7 @@ void Game::update()
 		this->updateCombat();
 		this->updateGUI();
 		this->updateDifficulty();
+		this->updateExplosionEffect();
 
 		if(bossIsActive)
 		{
@@ -200,6 +202,7 @@ void Game::render()
 	{
 		this->renderWorld();
 		this->renderGameElements();
+		this->renderExplosion(*this->window);
 
 		if(bossIsActive)
 		{
@@ -242,6 +245,7 @@ void Game::render()
 	if (fadeState != NONE) {
 		this->window->draw(fadeOverlay);
 	}
+
 
 	this->window->display();
 }

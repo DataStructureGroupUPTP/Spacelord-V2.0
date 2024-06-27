@@ -45,6 +45,13 @@ void Game::renderGameElements()
 	this->renderGUI();
 }
 
+void Game::renderExplosion(sf::RenderTarget& target)
+{
+	for (size_t i = 0; i < this->explosions.size(); ++i) {
+		this->explosions[i]->render(target);
+	}
+}
+
 void Game::renderStartMenu()
 {
 	this->window->draw(this->startMenuBackground);

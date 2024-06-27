@@ -16,8 +16,6 @@ class Enemy
 private:
 	sf::Texture texture;
 	sf::Sprite enemyOne;
-	sf::Sprite enemyTwo;
-	sf::Sprite enemyThree;
 	sf::Sprite meteor;
 
 	// Stats
@@ -56,6 +54,7 @@ public:
 	const float& getHp() const;
 	void reduceHp(const float value);
 	void increaseMeteorSpeed(const float value);
+	const sf::Vector2f& getPos() const;
 
 	void update();
 	void updateAnimation();

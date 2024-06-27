@@ -58,6 +58,7 @@ void Player::initializeSprite()
 {
     // Set texture to sprite
     this->ship.setTexture(this->shipFull);
+    this->ship.setColor(sf::Color::Yellow);
 
     this->engine.setTexture(this->shipEngine1);
 
@@ -258,6 +259,7 @@ void Player::startInvincibility()
 void Player::upgradeDamage()
 {
     this->damage = this->damage + 0.25f;
+    std::cout << this->damage << "\n";
 }
 
 void Player::upgradeAttackSpeed()

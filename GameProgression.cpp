@@ -4,7 +4,6 @@ void Game::updateDifficulty()
 {
 	if (Stage == 1) {
 
-
 		if (elapsedTime >= 30.f && elapsedTime <= 31.f)
 		{
 			this->meteorSpawnRate = 0.3f;
@@ -89,6 +88,12 @@ void Game::updateDifficulty()
 			victoryTune.play();
 			stage1End = true;
 			this->backgroundScrollSpeed = 1.f;
+
+			if (!this->stageMusic.openFromFile("Music/empty.mp3"))
+			{
+				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";
+			}
+			this->stageMusic.play();
 		}
 
 		if (elapsedTime >= timeStamp + 10.f && checkerThree && stage1End)
@@ -99,18 +104,16 @@ void Game::updateDifficulty()
 
 		}
 
-		if (elapsedTime >= timeStamp + 12.f && checkerTwo && stage1End)
+		if (elapsedTime >= timeStamp + 13.f && checkerTwo && stage1End)
 		{
 			this->triggerFadeEffect();
 			checkerTwo = false;
 			
 		}
 
-		if (elapsedTime >= timeStamp + 13.f && stage1End && checkerFour)
+		if (elapsedTime >= timeStamp + 14.f && stage1End && checkerFour)
 		{
-			std::cout << "IT HAPPENED";
-			this->backgroundScrollSpeed = 90.f;
-			this->checkerFour = false;
+			this->backgroundScrollSpeed = 75.f;
 
 		}
 
@@ -139,7 +142,26 @@ void Game::updateDifficulty()
 
 	if(Stage == 2)
 	{
-		this->meteorSpawnRate = 1.5f;
 		this->backgroundScrollSpeed = 1.5f;
+		if(elapsedTime >= timeStamp2 + 1.f  && elapsedTime <= timeStamp2 + 2.f)
+		{
+			checkerOne = true;
+			checkerTwo = true;
+			checkerThree = true;
+			checkerFour = true;
+			checkerFive = true;
+		}
+
+		if(elapsedTime >= timeStamp2 + 7.f && checkerOne)
+		{
+			this->enemySpawnRate = 1.5f;
+			std::cout << "I HAPPEN";
+			if (!this->stageMusic.openFromFile("Music/WithoutFear.ogg"))
+			{
+				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";
+			}
+			this->stageMusic.play();
+			checkerOne = false;
+		}
 	}
 }
