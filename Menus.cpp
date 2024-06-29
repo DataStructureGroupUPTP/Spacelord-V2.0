@@ -82,6 +82,7 @@ void Game::handlePauseMenuInput(const sf::Event& ev)
 			this->gameState = SETTINGS;
 			break;
 		case 2:
+			this->updateGameData();
 			this->reset();
 			this->gameState = MAIN_MENU;
 			this->stageMusic.stop();
@@ -97,6 +98,7 @@ void Game::handleGameOverMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Return)
 	{
+		this->updateGameData();
 		this->reset();
 		this->gameState = MAIN_MENU;
 		this->menuMusic.play();

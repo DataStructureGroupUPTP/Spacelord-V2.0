@@ -330,11 +330,11 @@ void Game::initializeGUI()
 	this->pointText.setString("ERROR");
 
 	//Initialize point text
-	this->currencyText.setFont(this->font);
-	this->currencyText.setCharacterSize(36);
-	this->currencyText.setFillColor(sf::Color::White);
-	this->currencyText.setString("ERROR");
-	this->currencyText.setPosition(0.f, 750.f);
+	this->coinText.setFont(this->font);
+	this->coinText.setCharacterSize(36);
+	this->coinText.setFillColor(sf::Color::White);
+	this->coinText.setString("ERROR");
+	this->coinText.setPosition(0.f, 750.f);
 
 	// Initialize kill counter text
 	this->killCounterText.setFont(this->font);
@@ -524,9 +524,6 @@ void Game::initializeSystems()
 	this->enemyKillCounter = 0;
 	this->bombs = 1;
 	this->lastKillThreshold = 0;
-
-	this->currency = 0;
-
 }
 
 void Game::initializeFadeEffects()
@@ -546,6 +543,15 @@ void Game::initializeMenuBackgrounds()
 
 	this->gameOverBackground.setTexture(this->gameOverBackgroundTexture);
 
+}
+
+void Game::initializeGameData()
+{
+	GameData readData = readFromFile();
+	gameData.coins = readData.coins;
+	gameData.highScore = readData.coins;
+	gameData.coins = readData.coins;
+	gameData.coins = readData.coins;
 }
 
 void Game::initializeStartMenu()

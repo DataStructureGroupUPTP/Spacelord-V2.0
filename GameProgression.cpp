@@ -72,7 +72,7 @@ void Game::updateDifficulty()
 			this->stageTransition = true;
 			bossDefeated = false;
 			this->points = points + 50000;
-			this->currency = currency + 500;
+			this->gameData.coins = gameData.coins + 500;
 			this->enemyKillCounter = enemyKillCounter + 40;
 			checkerOne = false;
 			this->backgroundScrollSpeed = 2.0f;

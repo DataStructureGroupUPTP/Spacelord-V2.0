@@ -1,0 +1,4 @@
+coins = 40
+high-score = 0
+item1 = not
+item2 = not
