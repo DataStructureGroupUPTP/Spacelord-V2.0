@@ -56,7 +56,7 @@ void Game::updateDifficulty()
 			this->bossAttackCooldownMax = 50.f;
 		}
 
-		if (elapsedTime >= 190.f && elapsedTime <= 191.f && startShooting)
+		if (elapsedTime >= 195.f && elapsedTime <= 196.f && startShooting)
 		{
 			this->meteorSpawnRate = 0.8f;
 			this->bossAttackCooldownMax = 30.f;
@@ -81,8 +81,6 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp + 5.f && stageTransition)
 		{
-			this->healthItemSpawnTimer = 0.f;
-			this->dpsItemSpawnRate = 0.f;
 			this->healthItemSpawnRate = 0.5f;
 			this->dpsItemSpawnRate = 1.5f;
 			bossIsActive = false;
@@ -156,8 +154,7 @@ void Game::updateDifficulty()
 
 		if(elapsedTime >= timeStamp2 + 7.f && checkerOne)
 		{
-			this->enemySpawnRate = 1.5f;
-			std::cout << "I HAPPEN";
+			this->enemySpawnRate = 0.f;
 			if (!this->stageMusic.openFromFile("Music/WithoutFear.ogg"))
 			{
 				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";

@@ -321,7 +321,7 @@ void Game::updateEnemies()
 
 
 		int enemyRandomizer = rand() % 3;
-		int enemyRandomizerStage2 = rand() % 6;
+		int enemyRandomizerStage2 = rand() % 4;
 
 		if (Stage == 1) {
 			switch (enemyRandomizer)
@@ -379,28 +379,19 @@ void Game::updateEnemies()
 		}
 	}
 
+
 	if (this->horizontalSpawnTimer >= horizontalSpawnTimerMax)
 	{
 		int enemyRandomizer = rand() % 2;
-		int sideRandomizer = 0;
-
-		if (sideRandomizer == 1)
-		{
-			this->horizontalPos = 200.f;
-		}
-		else
-		{
-			this->horizontalPos = -200.f;
-		}
 
 		switch (enemyRandomizer)
 		{
 		case 0:
-			this->enemies.push_back(new Enemy(horizontalPos, static_cast<float> (rand() % 400 + 300), NULL));
+			this->enemies.push_back(new Enemy(-200.f, static_cast<float> (rand() % 400 + 300), 9));
 			this->horizontalSpawnTimer = 0;
 			break;
 		case 1:
-			this->enemies.push_back(new Enemy(horizontalPos, static_cast <float> (rand() % 400 + 300), NULL));
+			this->enemies.push_back(new Enemy(1200.f, static_cast <float> (rand() % 400 + 300), 10));
 			this->horizontalSpawnTimer = 0;
 			break;
 
@@ -503,7 +494,7 @@ void Game::updateEnemies()
 		enemy->update();
 
 		if (enemy->getBounds().top > this->window->getSize().y ||
-			enemy->getBounds().left > this->window->getSize().x)
+			enemy->getBounds().left > this->window->getSize().x + 350.f || enemy->getBounds().left < -350.f)
 		{
 			// Delete enemies at bottom or right screen
 			delete enemy;
@@ -520,6 +511,7 @@ void Game::updateEnemies()
 		{
 			++it;
 		}
+		std::cout << this->enemies.size() << "\n";
 	}
 
 }

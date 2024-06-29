@@ -436,7 +436,7 @@ void Game::initializeGUI()
 
 void Game::initializeBackground()
 {
-	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
+	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space4.png"))
 	{
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
@@ -739,7 +739,7 @@ void Game::initializeStage()
 	this->checkerThree = true;
 	this->checkerFour = true;
 	this->checkerFive = true;
-	this->Stage = 1;
+	this->Stage = 2;
 
 
 }
@@ -770,7 +770,7 @@ void Game::initializeSpawnRates()
 {
 	this->enemySpawnRate = 2.0f;
 	this->meteorSpawnRate = 0.f;
-	this->horizontalEnemySpawnRate = 0.f;
+	this->horizontalEnemySpawnRate = 0.5f;
 	this->healthItemSpawnRate = 0.0167f;
 	this->dpsItemSpawnRate = 0.125f;
 }
