@@ -756,6 +756,11 @@ void Game::updateMusicVolume()
 	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
 }
 
+void Game::updateGameData()
+{
+	writeToFile(gameData);
+}
+
 void Game::updateFadeEffect()
 {
 	const float fadeSpeed = 100.f; // Alpha units per second

@@ -513,6 +513,15 @@ void Game::initializeGameData()
 {
 	GameData readData = readFromFile();
 	gameData.coins = readData.coins;
+	gameData.highScore = readData.coins;
+	gameData.coins = readData.coins;
+	gameData.coins = readData.coins;
+}
+
+void Game::initializeGameData()
+{
+	GameData readData = readFromFile();
+	gameData.coins = readData.coins;
 	gameData.highScore = readData.highScore;
 	gameData.equipedbullet = readData.equipedbullet;
 	gameData.redbullet = readData.redbullet;
