@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include "gameData.h"
 
 // BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING
 
@@ -39,7 +40,7 @@ private:
     sf::Font font;
     sf::Text pointText;
     sf::Text startText; // New text for the start menu
-    sf::Text currencyText;
+    sf::Text coinText;
     sf::Text killCounterText;
     sf::Text bombsText;
 
@@ -72,7 +73,6 @@ private:
 
     // Systems
     unsigned points;
-    unsigned currency;
     unsigned enemyKillCounter;
     unsigned bombs;
     int lastKillThreshold;
@@ -210,6 +210,7 @@ private:
     void initializeBackground();
     void initializeSystems();
     void initializeMenuBackgrounds();
+    void initializeGameData();
 
     void initializeStartMenu(); // New function for initializing the start menu
     void initializePauseMenu();
@@ -267,6 +268,8 @@ private:
     float timeStamp;
     float timeStamp2;
 
+    // Game Data
+    GameData gameData;
 
     // Fade effect
 
@@ -298,7 +301,7 @@ public:
     void updateCollision();
     void updateSoundFXVolume();
     void updateMusicVolume();
- 
+    void updateGameData();
     void updateEnemies();
     void updateItems();
     void updateCombat();

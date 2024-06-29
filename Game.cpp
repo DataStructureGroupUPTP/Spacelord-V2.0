@@ -22,6 +22,7 @@ void Game::initialize()
 	this->initializeMenuBackgrounds();
 	this->initializeSettingsMenu();
 	this->initializeFadeEffects();
+	this->initializeGameData();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;

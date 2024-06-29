@@ -3,7 +3,7 @@
 void Game::renderGUI()
 {
 	this->window->draw(this->pointText);
-	this->window->draw(this->currencyText);
+	this->window->draw(this->coinText);
 	this->window->draw(this->killCounterText);
 	this->window->draw(this->playerHpBarBack);
 	this->window->draw(this->playerHpBar);

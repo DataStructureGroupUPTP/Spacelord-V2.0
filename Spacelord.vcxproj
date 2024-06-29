@@ -146,6 +146,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Explosion.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="gameData.cpp" />
     <ClCompile Include="GameProgression.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Menus.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Explosion.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="gameData.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

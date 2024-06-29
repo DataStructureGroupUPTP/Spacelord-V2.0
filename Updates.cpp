@@ -145,10 +145,10 @@ void Game::updateGUI()
 	ss << "Score: " << this->points;
 	this->pointText.setString(ss.str());
 
-	// Update Currency
+	// Update Coins
 	std::stringstream ss2;
-	ss2 << "Money: " << this->currency << "$";
-	this->currencyText.setString(ss2.str());
+	ss2 << "Money: " << this->gameData.coins << "$";
+	this->coinText.setString(ss2.str());
 
 	// Update Player GUI
 	float hpPercent = static_cast<float>(this->player->getHp()) / static_cast<float>(this->player->getHpMax());
@@ -159,6 +159,10 @@ void Game::updateGUI()
 		this->stageMusic.stop();
 		this->gameOverMusic.play();
 		this->gameState = GAME_OVER;
+		if (gameData.highScore < points)
+		{
+			gameData.highScore = points;
+		}
 	}
 
 	// Update bombs
@@ -619,7 +623,7 @@ void Game::updateItems()
 			else if (item->getType() == 4)
 			{
 				this->points = this->points + item->getPoints();
-				this->currency = this->currency + 50;
+				this->gameData.coins = this->gameData.coins + 50;
 				this->bulletSpeed = this->bulletSpeed + 0.15f;
 				this->powerUpSound.play();
 			}
@@ -652,7 +656,7 @@ void Game::updateCombat()
 				if (enemies[i]->getHp() <= 0) 
 				{
 					this->points += this->enemies[i]->getPoints();
-					this->currency += 5;
+					this->gameData.coins += 5;
 
 					// Create explosion at the enemy's position
 					this->explosions.push_back(new Explosion(this->enemies[i]->getPos().x, this->enemies[i]->getPos().y, this->enemies[i]->getBounds().getSize()));
@@ -748,6 +752,11 @@ void Game::updateMusicVolume()
 	this->menuMusic.setVolume(this->musicVolume * 6);
 	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
 	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
+}
+
+void Game::updateGameData()
+{
+	writeToFile(gameData);
 }
 
 void Game::updateFadeEffect()
