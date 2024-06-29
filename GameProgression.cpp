@@ -50,14 +50,16 @@ void Game::updateDifficulty()
 			startShooting = true;
 		}
 
-		if (elapsedTime >= 175.f && elapsedTime <= 176.f && startShooting)
+		if ((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 50 && elapsedTime <= 189.f))
 		{
 			this->meteorSpawnRate = 0.25f;
+			this->bossAttackCooldownMax = 50.f;
 		}
 
-		if (elapsedTime >= 220.f && elapsedTime <= 221.f && startShooting)
+		if (elapsedTime >= 190.f && elapsedTime <= 191.f && startShooting)
 		{
-			this->meteorSpawnRate = 0.75f;
+			this->meteorSpawnRate = 0.8f;
+			this->bossAttackCooldownMax = 30.f;
 		}
 
 		if (bossDefeated && checkerOne)

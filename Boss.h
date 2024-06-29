@@ -51,6 +51,7 @@ public:
 
     const sf::FloatRect getBounds() const;
     const sf::Vector2f& getPos() const;
+    const float getHp() const;
 
     void spawn(sf::Vector2f position); // Initialize boss at a given position
     void updateAnimation();

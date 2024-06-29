@@ -75,6 +75,11 @@ const sf::Vector2f& Boss::getPos() const
     return this->bossSprite.getPosition();
 }
 
+const float Boss::getHp() const
+{
+    return this->health;
+}
+
 void Boss::spawn(sf::Vector2f position)
 {
     bossSprite.setPosition(position);
@@ -160,6 +165,7 @@ void Boss::takeDamage(float damage)
         isDefeated = true;
         defeatTimer = 0.f;
     }
+    std::cout << "Health remaining: " << health <<"\n";
 }
 
 bool Boss::isAlive() const
@@ -177,7 +183,7 @@ void Boss::moveInLoop(float deltaTime)
 
     bossSprite.setPosition(x, y);
 
-    if (bossSprite.getPosition().y >= 850)
+    if (bossSprite.getPosition().y >= 900)
     {
         this->movingDown = false;
     }

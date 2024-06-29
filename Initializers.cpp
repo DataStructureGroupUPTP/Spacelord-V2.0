@@ -449,6 +449,8 @@ void Game::initializeBackground()
 	this->stageBackground.setTexture(this->stageBackgroundTexture);
 	this->stageBackground2.setTexture(this->stageBackgroundTexture);
 
+	this->stageBackground.setPosition(0, 0);
+
 	this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
 
 	this->backgroundScrollSpeed = 1.f;
@@ -744,7 +746,7 @@ void Game::initializeStage()
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(125.f, 10.f);
+	this->boss = new Boss(150.f, 10.f);
 	this->bossIsActive = false;
 	this->bossAttackCooldown = 0.f;
 	this->bossAttackCooldownMax = 60.f;
@@ -770,7 +772,7 @@ void Game::initializeSpawnRates()
 	this->meteorSpawnRate = 0.f;
 	this->horizontalEnemySpawnRate = 0.f;
 	this->healthItemSpawnRate = 0.0167f;
-	this->dpsItemSpawnRate = 0.15f;
+	this->dpsItemSpawnRate = 0.125f;
 }
 
 void Game::initializeItems()

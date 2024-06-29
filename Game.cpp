@@ -86,9 +86,13 @@ void Game::reset()
 	this->backgroundScrollSpeed = 1.0f;
 	this->initializeItems();
 	this->initializeBackground();
+	
 
-	points = 0;
-	lane = 4;
+	this->points = 0;
+	this->lane = 4;
+	this->enemyKillCounter = 0;
+	this->bombs = 1;
+	this->Stage = 1;
 
 	this->elapsedTime = 0.f;
 	this->clock.restart();
