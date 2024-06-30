@@ -1,4 +1,6 @@
-coins = 40
+coins = 0
 high-score = 0
-item1 = not
-item2 = not
+equipedbullet = red
+redbullet = ACQUIRED
+bluebullet = NULL
+greenbullet = NULL

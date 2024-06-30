@@ -10,6 +10,7 @@
 #include <sstream>
 #include <iostream>
 #include <iomanip>
+#include <random>
 #include "gameData.h"
 
 // BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING
@@ -19,6 +20,7 @@ enum GameState
     MAIN_MENU,
     GAMEPLAY,
     PAUSED,
+    SHOP,
     SETTINGS,
     GAME_OVER
 };
@@ -48,6 +50,7 @@ private:
     sf::Text gameTitle;
     sf::Text pauseTitle;
     sf::Text settingsTitle;
+    sf::Text shopTitle;
 
     // Timer GUI
     sf::Text timerText;
@@ -213,15 +216,18 @@ private:
     void initializeGameData();
 
     void initializeStartMenu(); // New function for initializing the start menu
+    void initializeShopMenu();
     void initializePauseMenu();
     void initializeGameOverMenu();
     void initializeSettingsMenu();
-
+    void initializeSoundFXVolume();
+    void initializeMusicVolume();
     void initializeEnemy();
     void initializeSpawnRates();
     void initializeItems();
     void initializePlayer();
     void handleMainMenuInput(const sf::Event& ev);
+    void handleShopMenuInput(const sf::Event& ev);
     void handlePauseMenuInput(const sf::Event& ev);
     void handleGameOverMenuInput(const sf::Event& ev);
     void handleSettingsMenuInput(const sf::Event& ev);
@@ -232,6 +238,31 @@ private:
     sf::Text settingsText;
     sf::Text creditsText;
     sf::Text quitText;
+    sf::Text resetText;
+
+    // Shop Menu options
+    sf::Text returnfromshopText;
+    sf::RectangleShape redbulletSelect;
+    sf::Texture redbullet;
+    sf::RectangleShape bluebulletSelect;
+    sf::Texture bluebullet;
+    sf::RectangleShape greenbulletSelect;
+    sf::Texture greenbullet;
+    sf::RectangleShape bullet4Select;
+    sf::RectangleShape bullet5Select;
+    sf::RectangleShape bullet6Select;
+    sf::RectangleShape ship1Select;
+    sf::RectangleShape ship2Select;
+    sf::RectangleShape ship3Select;
+    sf::RectangleShape ship4Select;
+    sf::RectangleShape ship5Select;
+    sf::RectangleShape ship6Select;
+    sf::RectangleShape fire1Select;
+    sf::RectangleShape fire2Select;
+    sf::RectangleShape fire3Select;
+    sf::RectangleShape fire4Select;
+    sf::RectangleShape fire5Select;
+    sf::RectangleShape fire6Select;
 
     // Pause Menu options
     sf::RectangleShape pausesettingsBackground;
@@ -252,6 +283,7 @@ private:
     sf::Text backText;
 
     int selectedMenuItem;
+    int shopselectedMenuItem = 0;
 
     // Other
     bool bossIsActive;
@@ -301,7 +333,6 @@ public:
     void updateCollision();
     void updateSoundFXVolume();
     void updateMusicVolume();
-    void updateGameData();
     void updateEnemies();
     void updateItems();
     void updateCombat();
@@ -317,6 +348,8 @@ public:
     void renderWorld();
     void render();
     void renderStartMenu(); // New function for rendering the start menu
+    void renderShopMenu();
+    void renderEquiped();
     void renderPauseMenu();
     void renderSettingsMenu();
     void renderGameOverMenu();

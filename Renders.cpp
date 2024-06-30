@@ -62,6 +62,7 @@ void Game::renderStartMenu()
 	this->settingsText.setFillColor(sf::Color::White);
 	this->creditsText.setFillColor(sf::Color::White);
 	this->quitText.setFillColor(sf::Color::White);
+	this->resetText.setFillColor(sf::Color::White);
 
 	// Highlight the selected menu item
 	switch (this->selectedMenuItem)
@@ -81,19 +82,161 @@ void Game::renderStartMenu()
 	case 3:
 		this->creditsText.setFillColor(sf::Color::Yellow);
 		break;
-
 	case 4:
+		this->resetText.setFillColor(sf::Color::Yellow);
+		break;
+	case 5:
 		this->quitText.setFillColor(sf::Color::Yellow);
 		break;
 	}
 
 	// Draw menu items
+	this->window->draw(this->resetText);
 	this->window->draw(this->gameTitle);
 	this->window->draw(this->playText);
 	this->window->draw(this->shopText);
 	this->window->draw(this->settingsText);
 	this->window->draw(this->creditsText);
 	this->window->draw(this->quitText);
+}
+
+void Game::renderShopMenu()
+{
+	this->window->draw(this->startMenuBackground);
+	this->window->draw(this->pausesettingsBackground);
+	this->window->draw(this->shopTitle);
+	this->returnfromshopText.setFillColor(sf::Color::White);
+	this->redbulletSelect.setOutlineColor(sf::Color::White);
+	this->bluebulletSelect.setOutlineColor(sf::Color::White);
+	this->greenbulletSelect.setOutlineColor(sf::Color::White);
+	this->bullet4Select.setOutlineColor(sf::Color::White);
+	this->bullet5Select.setOutlineColor(sf::Color::White);
+	this->bullet6Select.setOutlineColor(sf::Color::White);
+	this->ship1Select.setOutlineColor(sf::Color::White);
+	this->ship2Select.setOutlineColor(sf::Color::White);
+	this->ship3Select.setOutlineColor(sf::Color::White);
+	this->ship4Select.setOutlineColor(sf::Color::White);
+	this->ship5Select.setOutlineColor(sf::Color::White);
+	this->ship6Select.setOutlineColor(sf::Color::White);
+	this->fire1Select.setOutlineColor(sf::Color::White);
+	this->fire2Select.setOutlineColor(sf::Color::White);
+	this->fire3Select.setOutlineColor(sf::Color::White);
+	this->fire4Select.setOutlineColor(sf::Color::White);
+	this->fire5Select.setOutlineColor(sf::Color::White);
+	this->fire6Select.setOutlineColor(sf::Color::White);
+	renderEquiped();
+
+	switch (this->selectedMenuItem)
+	{
+	case 0:
+		switch (this->shopselectedMenuItem)
+		{
+		case 0:
+			this->redbulletSelect.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 1:
+			this->bluebulletSelect.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 2:
+			this->greenbulletSelect.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 3:
+			this->bullet4Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 4:
+			this->bullet5Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 5:
+			this->bullet6Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		}
+		break;
+	case 1:
+		switch (this->shopselectedMenuItem)
+		{
+		case 0:
+			this->ship1Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 1:
+			this->ship2Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 2:
+			this->ship3Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 3:
+			this->ship4Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 4:
+			this->ship5Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 5:
+			this->ship6Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		}
+		break;
+	case 2:
+		switch (this->shopselectedMenuItem)
+		{
+		case 0:
+			this->fire1Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 1:
+			this->fire2Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 2:
+			this->fire3Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 3:
+			this->fire4Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 4:
+			this->fire5Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		case 5:
+			this->fire6Select.setOutlineColor(sf::Color::Yellow);
+			break;
+		}
+		break;
+	case 3:
+		this->returnfromshopText.setFillColor(sf::Color::Yellow);
+		break;
+	}
+
+	this->window->draw(this->redbulletSelect);
+	this->window->draw(this->bluebulletSelect);
+	this->window->draw(this->greenbulletSelect);
+	this->window->draw(this->bullet4Select);
+	this->window->draw(this->bullet5Select);
+	this->window->draw(this->bullet6Select);
+	this->window->draw(this->ship1Select);
+	this->window->draw(this->ship2Select);
+	this->window->draw(this->ship3Select);
+	this->window->draw(this->ship4Select);
+	this->window->draw(this->ship5Select);
+	this->window->draw(this->ship6Select);
+	this->window->draw(this->fire1Select);
+	this->window->draw(this->fire2Select);
+	this->window->draw(this->fire3Select);
+	this->window->draw(this->fire4Select);
+	this->window->draw(this->fire5Select);
+	this->window->draw(this->fire6Select);
+	this->window->draw(this->returnfromshopText);
+}
+
+void Game::renderEquiped()
+{
+	if (gameData.equipedbullet == "red")
+	{
+		this->redbulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "blue")
+	{
+		this->bluebulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "green")
+	{
+		this->greenbulletSelect.setOutlineColor(sf::Color::Green);
+	}
 }
 
 void Game::renderPauseMenu()
@@ -161,7 +304,6 @@ void Game::renderSettingsMenu()
 		this->soundfxvolumeBorder.setOutlineColor(sf::Color::Yellow);
 		this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 0, 75));
 		break;
-
 	case 2:
 		this->backText.setFillColor(sf::Color::Yellow);
 		break;

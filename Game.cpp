@@ -23,6 +23,9 @@ void Game::initialize()
 	this->initializeSettingsMenu();
 	this->initializeFadeEffects();
 	this->initializeGameData();
+	this->initializeShopMenu();
+	this->initializeMusicVolume();
+	this->initializeSoundFXVolume();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;
@@ -156,6 +159,9 @@ void Game::updatePollEvents()
 			case GAME_OVER:
 				handleGameOverMenuInput(ev);
 				break;
+			case SHOP:
+				handleShopMenuInput(ev);
+				break;
 			case SETTINGS:
 				handleSettingsMenuInput(ev);
 				break;
@@ -213,6 +219,11 @@ void Game::render()
 		{
 			this->boss->render(*window);
 		}
+	}
+
+	if (this->gameState == SHOP)
+	{
+		this->renderShopMenu();
 	}
 
 	if(this->gameState == GAME_OVER)

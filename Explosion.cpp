@@ -5,7 +5,7 @@ Explosion::Explosion(float x, float y, const sf::Vector2f& enemySize) {
     this->sprite.setTexture(this->texture);
     this->sprite.setScale(2.75f, 2.75f);
     this->sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Set the initial frame
-    this->sprite.setPosition(x + enemySize.x / 2 - 8*2.75, y + enemySize.y / 2 - 8); // Center explosion
+    this->sprite.setPosition(x + enemySize.x / 2 - 8*2.75f, y + enemySize.y / 2 - 8); // Center explosion
     this->frame = 0;
     this->finished = false;
     this->animationTimer.restart();
