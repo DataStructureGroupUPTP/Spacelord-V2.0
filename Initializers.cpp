@@ -161,16 +161,12 @@ void Game::initializeSounds()
 	}
 	this->laserSound.setBuffer(this->laserBuffer);
 
-	this->laserSound.setVolume(this->soundfxVolume * 3.0f); // 12.5
-
 	if (!this->menuClick.loadFromFile("Sounds/Menu.wav"))
 	{
 		std::cout << "SOUND::MENU::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->menuSound.setBuffer(this->menuClick);
-
-	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
 
 	if (!this->playerHitBuffer.loadFromFile("Sounds/Playerhit.flac"))
 	{
@@ -179,16 +175,12 @@ void Game::initializeSounds()
 
 	this->playerHit.setBuffer(this->playerHitBuffer);
 
-	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
-
 	if (!this->alienHitBuffer.loadFromFile("Sounds/Enemyhit.wav"))
 	{
 		std::cout << "SOUND::ALIEN_HIT::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->alienHit.setBuffer(this->alienHitBuffer);
-	
-	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
 
 	if (!this->pauseBuffer.loadFromFile("Sounds/PauseSound.wav"))
 	{
@@ -197,16 +189,12 @@ void Game::initializeSounds()
 
 	this->pauseSound.setBuffer(this->pauseBuffer);
 
-	this->pauseSound.setVolume(this->soundfxVolume * 10); // 50
-
 	if(!this->healBuffer.loadFromFile("Sounds/heal.wav"))
 	{
 		std::cout << "SOUND::HEAL::FAILED_TO_LOAD";
 	}
 
 	this->healSound.setBuffer(this->healBuffer);
-
-	this->healSound.setVolume(this->soundfxVolume * 5);
 
 	if(!this->powerUpBuffer.loadFromFile("Sounds/Powerup1.wav"))
 	{
@@ -215,16 +203,12 @@ void Game::initializeSounds()
 
 	this->powerUpSound.setBuffer(this->powerUpBuffer);
 
-	this->powerUpSound.setVolume(this->soundfxVolume * 5);
-
 	if (!this->swooshBuffer.loadFromFile("Sounds/Swoosh.mp3"))
 	{
 		std::cout << "SOUND::SWOOSH::FAILED_TO_LOAD";
 	}
 
 	this->swooshSound.setBuffer(this->swooshBuffer);
-
-	this->swooshSound.setVolume(this->soundfxVolume * 50);
 
 	if (!this->clangBuffer.loadFromFile("Sounds/Bosshit.wav"))
 	{
@@ -233,16 +217,12 @@ void Game::initializeSounds()
 
 	this->clangHit.setBuffer(this->clangBuffer);
 
-	this->clangHit.setVolume(this->soundfxVolume * 15);
-
 	if (!this->criticalBuffer.loadFromFile("Sounds/CriticalHit.wav"))
 	{
 		std::cout << "SOUND::CRITICAL_HIT::FAILED_TO_LOAD";
 	}
 
 	this->criticalHit.setBuffer(this->criticalBuffer);
-
-	this->criticalHit.setVolume(this->soundfxVolume * 15);
 
 	if (!this->explosionBuffer.loadFromFile("Sounds/ExplosionEnd.mp3"))
 	{
@@ -251,16 +231,12 @@ void Game::initializeSounds()
 
 	this->explosionSound.setBuffer(this->explosionBuffer);
 
-	this->explosionSound.setVolume(this->soundfxVolume * 15);
-
 	if (!this->bossLaserBuffer.loadFromFile("Sounds/Bosslaser.mp3"))
 	{
 		std::cout << "SOUND::BOSS_LASER::FAILED_TO_LOAD";
 	}
 
 	this->bossLaser.setBuffer(this->bossLaserBuffer);
-
-	this->bossLaser.setVolume(this->soundfxVolume * 3);
 
 	if (!this->shieldBuffer.loadFromFile("Sounds/ShieldSound.wav"))
 	{
@@ -269,18 +245,30 @@ void Game::initializeSounds()
 
 	this->shield.setBuffer(this->shieldBuffer);
 
-	this->shield.setVolume(this->soundfxVolume * 50);
-
 	if (!this->levelUpBuffer.loadFromFile("Sounds/killPower.wav"))
 	{
 		std::cout << "SOUND::KILL_LEVEL_UP::FAILED_TO_LOAD";
 	}
 
 	this->levelup.setBuffer(this->levelUpBuffer);
+}
 
+void Game::initializeSoundFXVolume()
+{
+	this->laserSound.setVolume(this->soundfxVolume * 3.0f); // 12.5
 	this->levelup.setVolume(this->soundfxVolume * 25);
-
-
+	this->shield.setVolume(this->soundfxVolume * 50);
+	this->bossLaser.setVolume(this->soundfxVolume * 3);
+	this->explosionSound.setVolume(this->soundfxVolume * 15);
+	this->criticalHit.setVolume(this->soundfxVolume * 15);
+	this->clangHit.setVolume(this->soundfxVolume * 15);
+	this->healSound.setVolume(this->soundfxVolume * 5);
+	this->powerUpSound.setVolume(this->soundfxVolume * 5);
+	this->swooshSound.setVolume(this->soundfxVolume * 50);
+	this->pauseSound.setVolume(this->soundfxVolume * 10); // 50
+	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
+	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
+	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
 }
 
 void Game::initializeMusic()
@@ -290,7 +278,6 @@ void Game::initializeMusic()
 		std::cout << "ERROR::BATTLEINTHESTARS::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->stageMusic.setVolume(this->musicVolume * 6); // 30
 	// Play the music
 	this->stageMusic.play();
 
@@ -299,15 +286,19 @@ void Game::initializeMusic()
 		std::cout << "ERROR::YELLOW_GAME_OVER_THEME::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
-
 	if (!this->victoryTune.openFromFile("Music/Victory.ogg"))
 	{
 		std::cout << "ERROR::VICTORY_THEME::FAILED_TO_LOAD" << "\n";
 	}
 
-	this->victoryTune.setVolume(this->musicVolume * 6); // 30
+}
 
+void Game::initializeMusicVolume()
+{
+	this->stageMusic.setVolume(this->musicVolume * 6); // 30
+	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
+	this->victoryTune.setVolume(this->musicVolume * 6); // 30
+	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 }
 
 void Game::initializeGUI()
@@ -366,6 +357,14 @@ void Game::initializeGUI()
 	this->pauseTitle.setOutlineThickness(1);
 	this->pauseTitle.setString("PAUSED");
 
+	// Initialize Shop title
+	this->shopTitle.setFont(this->titleFont);
+	this->shopTitle.setCharacterSize(100);
+	this->shopTitle.setFillColor(sf::Color::White);
+	this->shopTitle.setStyle(sf::Text::Italic);
+	this->shopTitle.setOutlineThickness(1);
+	this->shopTitle.setString("SHOP");
+
 	// Initialize Settings title
 	this->settingsTitle.setFont(this->titleFont);
 	this->settingsTitle.setCharacterSize(100);
@@ -399,39 +398,6 @@ void Game::initializeGUI()
 	this->clock.restart();
 	this->minutes = 0;
 	this->seconds = 0;
-
-	// Initialize Music volume border bar
-	this->musicvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
-	this->musicvolumeBorder.setOutlineThickness(-5.f);
-	this->musicvolumeBorder.setFillColor(sf::Color::Black);
-	this->musicvolumeBorder.setPosition(
-		this->window->getSize().x / 2.f - this->musicvolumeBorder.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->musicvolumeBorder.getGlobalBounds().height / 2.f - 25.f
-	);
-
-	// Initialize Music volume indicator bar
-	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
-	this->musicvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
-	this->musicvolumeIndicator.setPosition(
-		this->window->getSize().x / 2.f - this->musicvolumeIndicator.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->musicvolumeIndicator.getGlobalBounds().height / 2.f - 25.f
-	);
-
-	// Initialize Sound FX volume border bar
-	this->soundfxvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
-	this->soundfxvolumeBorder.setOutlineThickness(-5.f);
-	this->soundfxvolumeBorder.setFillColor(sf::Color::Black);
-	this->soundfxvolumeBorder.setPosition(
-		this->window->getSize().x / 2.f - this->soundfxvolumeBorder.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->soundfxvolumeBorder.getGlobalBounds().height / 2.f + 75.f
-	);
-	// Initialize Sound FX volume indicator bar
-	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
-	this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
-	this->soundfxvolumeIndicator.setPosition(
-		this->window->getSize().x / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().height / 2.f + 75.f
-	);
 }
 
 void Game::initializeBackground()
@@ -549,9 +515,11 @@ void Game::initializeGameData()
 {
 	GameData readData = readFromFile();
 	gameData.coins = readData.coins;
-	gameData.highScore = readData.coins;
-	gameData.coins = readData.coins;
-	gameData.coins = readData.coins;
+	gameData.highScore = readData.highScore;
+	gameData.equipedbullet = readData.equipedbullet;
+	gameData.redbullet = readData.redbullet;
+	gameData.bluebullet = readData.bluebullet;
+	gameData.greenbullet = readData.greenbullet;
 }
 
 void Game::initializeStartMenu()
@@ -561,7 +529,6 @@ void Game::initializeStartMenu()
 	{
 		std::cout << "ERROR::SKYFIRE::FAILED_TO_LOAD" << "\n";
 	}
-	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 	// Play the music
 	this->menuMusic.play();
 
@@ -613,6 +580,16 @@ void Game::initializeStartMenu()
 		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f + 50.f
 	);
 
+	// Initialize Reset menu item
+	this->resetText.setFont(this->font);
+	this->resetText.setCharacterSize(48);
+	this->resetText.setFillColor(sf::Color::White);
+	this->resetText.setString("Reset Progress & Purchases");
+	this->resetText.setPosition(
+		this->window->getSize().x / 2.f - this->resetText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->resetText.getGlobalBounds().height / 2.f + 100.f
+	);
+
 	// Initialize Quit menu item
 	this->quitText.setFont(this->font);
 	this->quitText.setCharacterSize(48);
@@ -620,7 +597,187 @@ void Game::initializeStartMenu()
 	this->quitText.setString("Quit");
 	this->quitText.setPosition(
 		this->window->getSize().x / 2.f - this->quitText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 100.f
+		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 150.f
+	);
+}
+
+void Game::initializeShopMenu()
+{
+	// Red Bullet Select
+	if (!this->redbullet.loadFromFile("Textures/redbulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_REDBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->redbulletSelect.setTexture(&redbullet);
+	this->redbulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->redbulletSelect.setOutlineThickness(-5.f);
+	this->redbulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->redbulletSelect.getGlobalBounds().width / 2.f - 375.f,
+		this->window->getSize().y / 2.f - this->redbulletSelect.getGlobalBounds().height / 2.f - 85.f
+	);
+
+	// Blue Bullet select
+	if (!this->bluebullet.loadFromFile("Textures/bluebulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_BLUEBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->bluebulletSelect.setTexture(&bluebullet);
+	this->bluebulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->bluebulletSelect.setOutlineThickness(-5.f);
+	this->bluebulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->bluebulletSelect.getGlobalBounds().width / 2.f - 225,
+		this->window->getSize().y / 2.f - this->bluebulletSelect.getGlobalBounds().height / 2.f - 85.f
+	);
+
+	// Green Bullet select
+	if (!this->greenbullet.loadFromFile("Textures/greenbulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_GREENBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->greenbulletSelect.setTexture(&greenbullet);
+	this->greenbulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->greenbulletSelect.setOutlineThickness(-5.f);
+	this->greenbulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->greenbulletSelect.getGlobalBounds().width / 2.f - 75,
+		this->window->getSize().y / 2.f - this->greenbulletSelect.getGlobalBounds().height / 2.f - 85.f
+	);
+
+	// Bullet 4 select
+	this->bullet4Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->bullet4Select.setOutlineThickness(-5.f);
+	this->bullet4Select.setPosition(
+		this->window->getSize().x / 2.f - this->bullet4Select.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->bullet4Select.getGlobalBounds().height / 2.f - 85.f
+	);
+	this->bullet4Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Bullet 5 select
+	this->bullet5Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->bullet5Select.setOutlineThickness(-5.f);
+	this->bullet5Select.setPosition(
+		this->window->getSize().x / 2.f - this->bullet5Select.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->bullet5Select.getGlobalBounds().height / 2.f - 85.f
+	);
+	this->bullet5Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Bullet 6 select
+	this->bullet6Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->bullet6Select.setOutlineThickness(-5.f);
+	this->bullet6Select.setPosition(
+		this->window->getSize().x / 2.f - this->bullet6Select.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->bullet6Select.getGlobalBounds().height / 2.f - 85.f
+	);
+	this->bullet6Select.setFillColor(sf::Color(255, 255, 255, 75));
+
+	// Ship 1 select
+	this->ship1Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship1Select.setOutlineThickness(-5.f);
+	this->ship1Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship1Select.getGlobalBounds().width / 2.f - 375.f,
+		this->window->getSize().y / 2.f - this->ship1Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship1Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Ship 2 select
+	this->ship2Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship2Select.setOutlineThickness(-5.f);
+	this->ship2Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship2Select.getGlobalBounds().width / 2.f - 225.f,
+		this->window->getSize().y / 2.f - this->ship2Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship2Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Ship 3 select
+	this->ship3Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship3Select.setOutlineThickness(-5.f);
+	this->ship3Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship3Select.getGlobalBounds().width / 2.f - 75.f,
+		this->window->getSize().y / 2.f - this->ship3Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship3Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Ship 4 select
+	this->ship4Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship4Select.setOutlineThickness(-5.f);
+	this->ship4Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship4Select.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->ship4Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship4Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Ship 5 select
+	this->ship5Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship5Select.setOutlineThickness(-5.f);
+	this->ship5Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship5Select.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->ship5Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship5Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Ship 6 select
+	this->ship6Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->ship6Select.setOutlineThickness(-5.f);
+	this->ship6Select.setPosition(
+		this->window->getSize().x / 2.f - this->ship6Select.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->ship6Select.getGlobalBounds().height / 2.f + 65.f
+	);
+	this->ship6Select.setFillColor(sf::Color(255, 255, 255, 75));
+
+	// Fire 1 select
+	this->fire1Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire1Select.setOutlineThickness(-5.f);
+	this->fire1Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire1Select.getGlobalBounds().width / 2.f - 375.f,
+		this->window->getSize().y / 2.f - this->fire1Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire1Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Fire 2 select
+	this->fire2Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire2Select.setOutlineThickness(-5.f);
+	this->fire2Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire2Select.getGlobalBounds().width / 2.f - 225.f,
+		this->window->getSize().y / 2.f - this->fire2Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire2Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Fire 3 select
+	this->fire3Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire3Select.setOutlineThickness(-5.f);
+	this->fire3Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire3Select.getGlobalBounds().width / 2.f - 75.f,
+		this->window->getSize().y / 2.f - this->fire3Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire3Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Fire 4 select
+	this->fire4Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire4Select.setOutlineThickness(-5.f);
+	this->fire4Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire4Select.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->fire4Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire4Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Fire 5 select
+	this->fire5Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire5Select.setOutlineThickness(-5.f);
+	this->fire5Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire5Select.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->fire5Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire5Select.setFillColor(sf::Color(255, 255, 255, 75));
+	// Fire 6 select
+	this->fire6Select.setSize(sf::Vector2f(125.f, 125.f));
+	this->fire6Select.setOutlineThickness(-5.f);
+	this->fire6Select.setPosition(
+		this->window->getSize().x / 2.f - this->fire6Select.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->fire6Select.getGlobalBounds().height / 2.f + 215.f
+	);
+	this->fire6Select.setFillColor(sf::Color(255, 255, 255, 75));
+
+
+	this->shopTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->shopTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->shopTitle.getGlobalBounds().height / 2.f - 250.f
+	);
+	this->returnfromshopText.setFont(this->font);
+	this->returnfromshopText.setCharacterSize(48);
+	this->returnfromshopText.setFillColor(sf::Color::White);
+	this->returnfromshopText.setString("Return");
+	this->returnfromshopText.setPosition(
+		this->window->getSize().x / 2.f - this->returnfromshopText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->returnfromshopText.getGlobalBounds().height / 2.f + 300.f
 	);
 }
 
@@ -701,6 +858,7 @@ void Game::initializeSettingsMenu()
 		this->window->getSize().x / 2.f - this->musicvolumeText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->musicvolumeText.getGlobalBounds().height / 2.f - 100.f
 	);
+
 	// Initialize Sound FX menu item
 	this->soundfxText.setFont(this->font);
 	this->soundfxText.setCharacterSize(48);
@@ -710,6 +868,46 @@ void Game::initializeSettingsMenu()
 		this->window->getSize().x / 2.f - this->soundfxText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->soundfxText.getGlobalBounds().height / 2.f
 	);
+
+
+	// Initialize Music volume border bar
+	this->musicvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
+	this->musicvolumeBorder.setOutlineThickness(-5.f);
+	this->musicvolumeBorder.setFillColor(sf::Color::Transparent);
+	this->musicvolumeBorder.setPosition(
+		this->window->getSize().x / 2.f - this->musicvolumeBorder.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->musicvolumeBorder.getGlobalBounds().height / 2.f - 25.f
+	);
+
+
+	// Initialize Music volume indicator bar
+	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
+	this->musicvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
+	this->musicvolumeIndicator.setPosition(
+		this->window->getSize().x / 2.f - this->musicvolumeIndicator.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->musicvolumeIndicator.getGlobalBounds().height / 2.f - 25.f
+	);
+	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
+	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
+
+	// Initialize Sound FX volume border bar
+	this->soundfxvolumeBorder.setSize(sf::Vector2f(300.f, 35.f));
+	this->soundfxvolumeBorder.setOutlineThickness(-5.f);
+	this->soundfxvolumeBorder.setFillColor(sf::Color::Transparent);
+	this->soundfxvolumeBorder.setPosition(
+		this->window->getSize().x / 2.f - this->soundfxvolumeBorder.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->soundfxvolumeBorder.getGlobalBounds().height / 2.f + 75.f
+	);
+	// Initialize Sound FX volume indicator bar
+	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f, 35.f));
+	this->soundfxvolumeIndicator.setFillColor(sf::Color(255, 255, 255, 75));
+	this->soundfxvolumeIndicator.setPosition(
+		this->window->getSize().x / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->soundfxvolumeIndicator.getGlobalBounds().height / 2.f + 75.f
+	);
+	float soundfxvolumePercent = static_cast<float>(this->soundfxVolume / static_cast<float>(10));
+	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f * soundfxvolumePercent, this->soundfxvolumeIndicator.getSize().y));
+
 	// Initialize Back to Main Menu menu item
 	this->backText.setFont(this->font);
 	this->backText.setCharacterSize(48);
@@ -767,8 +965,8 @@ void Game::initializeEnemy()
 
 	this->meteorSpawnTimerMax = 60.f;
 	this->meteorSpawnTimer = 0.f;
-	this->tripleMeteorChance = 0.f;
-	this->doubleMeteorChance = 0.f;
+	this->tripleMeteorChance = 0;
+	this->doubleMeteorChance = 0;
 
 }
 

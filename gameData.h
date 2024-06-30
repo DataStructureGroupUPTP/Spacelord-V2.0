@@ -4,11 +4,14 @@
 
 struct GameData {
     int coins = 0;
-    int highScore = 0;
-    std::string item1 = "not";
-    std::string item2 = "not";
+    unsigned int highScore = 0;
+    std::string equipedbullet;
+    std::string redbullet;
+    std::string bluebullet;
+    std::string greenbullet;
 };
 
-void writeToFile(const GameData& data);
+void updateGameData(const GameData& data);
 GameData readFromFile();
+void resetGameData();
 

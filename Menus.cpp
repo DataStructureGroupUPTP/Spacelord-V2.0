@@ -12,7 +12,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 	}
 	if (ev.key.code == sf::Keyboard::Down)
 	{
-		if (this->selectedMenuItem < 4)
+		if (this->selectedMenuItem < 5)
 		{
 			this->menuSound.play();
 			this->selectedMenuItem++;
@@ -32,17 +32,145 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->seconds = 0;
 			break;
 		case 1:
-			// Handle shop selection
+			this->gameState = SHOP;
+			this->selectedMenuItem = 0;
 			break;
 		case 2:
 			this->prevgameState = this->gameState;
 			this->gameState = SETTINGS;
+			this->selectedMenuItem = 0;
 			break;
 		case 3:
 			// Handle credits selection
+			this->selectedMenuItem = 0;
 			break;
 		case 4:
+			resetGameData();
+			initializeGameData();
+			this->selectedMenuItem = 0;
+			break;
+		case 5:
 			this->window->close();
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Game::handleShopMenuInput(const sf::Event& ev)
+{
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->selectedMenuItem > 0)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->selectedMenuItem < 3)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem++;
+		}
+	}
+	if (this->selectedMenuItem != 3)
+	{
+		if (ev.key.code == sf::Keyboard::Left)
+		{
+			if (this->shopselectedMenuItem > 0)
+			{
+				this->menuSound.play();
+				this->shopselectedMenuItem--;
+			}
+		}
+		if (ev.key.code == sf::Keyboard::Right)
+		{
+			if (this->shopselectedMenuItem < 5)
+			{
+				this->menuSound.play();
+				this->shopselectedMenuItem++;
+			}
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			switch (this->shopselectedMenuItem)
+			{
+			case 0:
+				gameData.equipedbullet = "red";
+				updateGameData(gameData);
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
+				{
+					std::cout << "TEXTURE::BULLET_RED::FAILED_TO_LOAD" << "\n";
+				}
+				break;
+			case 1:
+				gameData.equipedbullet = "blue";
+				updateGameData(gameData);
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Bluebulletfix.png"))
+				{
+					std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
+				}
+				break;
+			case 2:
+				gameData.equipedbullet = "green";
+				updateGameData(gameData);
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Greenbulletfix.png"))
+				{
+					std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+				}
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			}
+			break;
+		case 1:
+			switch (this->shopselectedMenuItem)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			}
+			break;
+		case 2:
+			switch (this->shopselectedMenuItem)
+			{
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			}
+			break;
+		case 3:
+			this->gameState = MAIN_MENU;
+			this->selectedMenuItem = 0;
 			break;
 		default:
 			break;
@@ -76,17 +204,19 @@ void Game::handlePauseMenuInput(const sf::Event& ev)
 			this->gameState = GAMEPLAY;
 			this->menuMusic.stop();
 			this->stageMusic.play();
+			this->selectedMenuItem = 0;
 			break;
 		case 1:
 			this->prevgameState = this->gameState;
 			this->gameState = SETTINGS;
+			this->selectedMenuItem = 0;
 			break;
 		case 2:
-			this->updateGameData();
 			this->reset();
 			this->gameState = MAIN_MENU;
 			this->stageMusic.stop();
 			this->menuMusic.play();
+			this->selectedMenuItem = 0;
 			break;
 		default:
 			break;
@@ -98,7 +228,7 @@ void Game::handleGameOverMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Return)
 	{
-		this->updateGameData();
+		updateGameData(gameData);
 		this->reset();
 		this->gameState = MAIN_MENU;
 		this->menuMusic.play();
@@ -158,6 +288,7 @@ void Game::handleSettingsMenuInput(const sf::Event& ev)
 			{
 				this->stageMusic.play();
 			}
+			this->selectedMenuItem = 0;
 		}
 		break;
 	default:

@@ -154,7 +154,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 999;
 		this->damage = 1;
-		this->points = 0.f;
+		this->points = 0;
 		this->speed = 7.5f + meteorSpeedIncrease;
 
 		break;

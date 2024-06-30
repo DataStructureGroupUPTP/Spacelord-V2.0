@@ -90,30 +90,18 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
-
-		if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
-		{
-			std::cout << "TEXTURE::BULLET_RED::FAILED_TO_LOAD" << "\n";
-		}
-
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 
-		if (!this->textures["BULLET"]->loadFromFile("Textures/Bluebulletfix.png"))
-		{
-			std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
-		}
+
 
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	{
-		if (!this->textures["BULLET"]->loadFromFile("Textures/Greenbulletfix.png"))
-		{
-			std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
-		}
+
 		elapsedTime = elapsedTime + 5.f;
 	}
 }
@@ -162,6 +150,7 @@ void Game::updateGUI()
 		if (gameData.highScore < points)
 		{
 			gameData.highScore = points;
+			updateGameData(gameData);
 		}
 	}
 
@@ -415,6 +404,9 @@ void Game::updateEnemies()
 
 	if (this->meteorSpawnTimer >= meteorSpawnTimerMax)
 	{
+		std::random_device rd; // Obtain a random number from hardware
+		std::default_random_engine rng(rd()); // Seed the generator
+
 		// Reset the meteor spawn timer
 		this->meteorSpawnTimer = 0;
 
@@ -426,9 +418,9 @@ void Game::updateEnemies()
 		{
 			// Triple meteor spawn (on three separate lanes)
 			std::vector<int> lanes = { 1, 2, 3, 4 };
-			std::random_shuffle(lanes.begin(), lanes.end());
+			std::shuffle(lanes.begin(), lanes.end(), rng);
 
-			for (int i = 0; i < 3; ++i)
+			for (unsigned int i = 0; i < 3; ++i)
 			{
 				switch (lanes[i])
 				{
@@ -452,9 +444,9 @@ void Game::updateEnemies()
 		{
 			// Double Meteor Spawn (on two separate lanes)
 			std::vector<int> lanes = { 1, 2, 3, 4 };
-			std::random_shuffle(lanes.begin(), lanes.end());
+			std::shuffle(lanes.begin(), lanes.end(), rng);
 
-			for (int i = 0; i < 2; ++i)
+			for (unsigned int i = 0; i < 2; ++i)
 			{
 
 				switch (lanes[i])
@@ -500,7 +492,6 @@ void Game::updateEnemies()
 	}
 
 
-	unsigned counter = 0;
 	for (auto it = this->enemies.begin(); it != this->enemies.end();)
 	{
 		auto* enemy = *it;
@@ -595,7 +586,6 @@ void Game::updateItems()
 		}
 	}
 
-	unsigned counter = 0;
 	for (auto it = this->items.begin(); it != this->items.end();)
 	{
 		auto* item = *it;
@@ -658,7 +648,7 @@ void Game::updateCombat()
 			{
 				enemies[i]->reduceHp(this->player->getDamage());
 				delete this->bullets[k];
-				this->bullets.erase(this->bullets.begin() + k);
+				this->bullets.erase(this->bullets.begin() + unsigned(k));
 				this->alienHit.play();
 
 				if (enemies[i]->getHp() <= 0) 
@@ -670,7 +660,7 @@ void Game::updateCombat()
 					this->explosions.push_back(new Explosion(this->enemies[i]->getPos().x, this->enemies[i]->getPos().y, this->enemies[i]->getBounds().getSize()));
 
 					delete this->enemies[i];
-					this->enemies.erase(this->enemies.begin() + i);
+					this->enemies.erase(this->enemies.begin() + unsigned(i));
 
 					enemy_deleted = true;
 					this->enemyKillCounter++;
@@ -689,7 +679,7 @@ void Game::updateCombat()
 				// Player's bullet hits the boss
 				boss->takeDamage(this->player->getDamage());
 				delete this->bullets[j];
-				this->bullets.erase(this->bullets.begin() + j);
+				this->bullets.erase(this->bullets.begin() + unsigned(j));
 				this->clangHit.play();
 
 				if (!boss->isAlive())
@@ -707,7 +697,7 @@ void Game::updateCombat()
 					this->criticalHit.play();
 				}
 				delete this->bullets[j];
-				this->bullets.erase(this->bullets.begin() + j);
+				this->bullets.erase(this->bullets.begin() + unsigned(j));
 				--j; // Adjust index after erasing
 			}
 		}
@@ -744,27 +734,32 @@ void Game::updateBoss()
 
 void Game::updateSoundFXVolume() 
 {
-	this->laserSound.setVolume(this->soundfxVolume * 2.5f);
-	this->menuSound.setVolume(this->soundfxVolume * 10);
-	this->playerHit.setVolume(this->soundfxVolume * 7);
-	this->alienHit.setVolume(this->soundfxVolume * 6); 
-	this->pauseSound.setVolume(this->soundfxVolume * 10);
+	this->laserSound.setVolume(this->soundfxVolume * 3.0f); // 12.5
+	this->levelup.setVolume(this->soundfxVolume * 25);
+	this->shield.setVolume(this->soundfxVolume * 50);
+	this->bossLaser.setVolume(this->soundfxVolume * 3);
+	this->explosionSound.setVolume(this->soundfxVolume * 15);
+	this->criticalHit.setVolume(this->soundfxVolume * 15);
+	this->clangHit.setVolume(this->soundfxVolume * 15);
+	this->healSound.setVolume(this->soundfxVolume * 5);
+	this->powerUpSound.setVolume(this->soundfxVolume * 5);
+	this->swooshSound.setVolume(this->soundfxVolume * 50);
+	this->pauseSound.setVolume(this->soundfxVolume * 10); // 50
+	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
+	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
+	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
 	float soundfxvolumePercent = static_cast<float>(this->soundfxVolume / static_cast<float>(10));
 	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f * soundfxvolumePercent, this->soundfxvolumeIndicator.getSize().y));
 }
 
 void Game::updateMusicVolume()
 {
-	this->stageMusic.setVolume(this->musicVolume * 6);
-	this->gameOverMusic.setVolume(this->musicVolume * 6);
-	this->menuMusic.setVolume(this->musicVolume * 6);
+	this->stageMusic.setVolume(this->musicVolume * 6); // 30
+	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
+	this->victoryTune.setVolume(this->musicVolume * 6); // 30
+	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
 	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
-}
-
-void Game::updateGameData()
-{
-	writeToFile(gameData);
 }
 
 void Game::updateFadeEffect()
@@ -805,7 +800,7 @@ void Game::updateExplosionEffect()
 		this->explosions[i]->update();
 		if (this->explosions[i]->isFinished()) {
 			delete this->explosions[i];
-			this->explosions.erase(this->explosions.begin() + i);
+			this->explosions.erase(this->explosions.begin() + unsigned(i));
 			--i;
 		}
 	}
