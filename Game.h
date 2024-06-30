@@ -105,6 +105,7 @@ private:
     int doubleMeteorChance;
 
     std::vector<Enemy*> enemies;
+    Enemy enemy;
 
     // Explosions
     std::vector<Explosion*> explosions;

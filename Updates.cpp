@@ -511,7 +511,6 @@ void Game::updateEnemies()
 		{
 			++it;
 		}
-		std::cout << this->enemies.size() << "\n";
 	}
 
 }

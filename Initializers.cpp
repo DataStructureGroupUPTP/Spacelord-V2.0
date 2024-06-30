@@ -436,7 +436,7 @@ void Game::initializeGUI()
 
 void Game::initializeBackground()
 {
-	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space4.png"))
+	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
 	{
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
@@ -739,14 +739,14 @@ void Game::initializeStage()
 	this->checkerThree = true;
 	this->checkerFour = true;
 	this->checkerFive = true;
-	this->Stage = 2;
+	this->Stage = 1;
 
 
 }
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(150.f, 10.f);
+	this->boss = new Boss(125.f, 10.f);
 	this->bossIsActive = false;
 	this->bossAttackCooldown = 0.f;
 	this->bossAttackCooldownMax = 60.f;
@@ -770,7 +770,7 @@ void Game::initializeSpawnRates()
 {
 	this->enemySpawnRate = 2.0f;
 	this->meteorSpawnRate = 0.f;
-	this->horizontalEnemySpawnRate = 0.5f;
+	this->horizontalEnemySpawnRate = 0.f;
 	this->healthItemSpawnRate = 0.0167f;
 	this->dpsItemSpawnRate = 0.125f;
 }

@@ -72,6 +72,22 @@
 		float fighterAnimationTimer;
 		float fighterAnimationSpeed;
 
+		sf::Texture supportFireTexture;
+		sf::Sprite supportFire;
+
+		sf::IntRect supportFrame;
+		int supportCurrentFrame;
+		float supportAnimationTimer;
+		float supportAnimationSpeed;
+
+		sf::Texture torpedoFireTexture;
+		sf::Sprite torpedoFire;
+
+		sf::IntRect torpedoFrame;
+		int torpedoCurrentFrame;
+		float torpedoAnimationTimer;
+		float torpedoAnimationSpeed;
+
 
 	public:
 
@@ -95,6 +111,8 @@
 		void updateFrigateAnimation();
 		void updateScoutAnimation();
 		void updateFighterAnimation();
+		void updateSupportAnimation();
+		void updateTorpedoAnimation();
 
 		void render(sf::RenderTarget& target);
 	};
