@@ -116,6 +116,16 @@ void Enemy::initializeTextures()
 	{
 		std::cout << "TEXTURE::FIGHTER_FIRE::FAILED_TO_LOAD" << "\n";
 	}
+
+	if (!this->supportFireTexture.loadFromFile("Animations/Supportfire.png"))
+	{
+		std::cout << "TEXTURE::SUPPORT_FIRE::FAILED_TO_LOAD" << "\n";
+	}
+
+	if (!this->torpedoFireTexture.loadFromFile("Animations/Torpedofire.png"))
+	{
+		std::cout << "TEXTURE::TORPEDO_FIRE::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 
@@ -277,7 +287,18 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->hp = 6.f;
 		this->damage = 1;
 		this->points = 500;
-		this->speed = 5.0f;
+		this->speed = 3.0f;
+
+		this->supportFire.setTexture(this->supportFireTexture);
+		this->supportFrame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->supportFire.setTextureRect(this->supportFrame);
+		this->supportFire.setScale(2.5f, 2.5f);
+		this->supportFire.rotate(90);
+		this->supportFire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE2ENEMY5"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE2ENEMY5"]->getSize().y) * 2.75 + 45.f);
+		this->supportCurrentFrame = 0;
+		this->supportAnimationTimer = 0.f;
+		this->supportAnimationSpeed = 0.1f;
+
 		break;
 
 	case 10:
@@ -290,15 +311,22 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->hp = 6.f;
 		this->damage = 1;
 		this->points = 500;
-		this->speed = 5.0f;
+		this->speed = 3.5f;
+
+		this->torpedoFire.setTexture(this->torpedoFireTexture);
+		this->torpedoFrame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->torpedoFire.setTextureRect(this->torpedoFrame);
+		this->torpedoFire.setScale(2.75f, 2.75f);
+		this->torpedoFire.rotate(270);
+		this->torpedoFire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE2ENEMY6"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE2ENEMY6"]->getSize().y) * 2.75 + 45.f);
+		this->torpedoCurrentFrame = 0;
+		this->torpedoAnimationTimer = 0.f;
+		this->torpedoAnimationSpeed = 0.1f;
 		break;
 
 
 
 	}
-
-
-
 
 }
 
@@ -361,6 +389,8 @@ void Enemy::update()
 	updateFrigateAnimation();
 	updateScoutAnimation();
 	updateFighterAnimation();
+	updateSupportAnimation();
+	updateTorpedoAnimation();
 
 	if(this->type == 9)
 	{
@@ -534,6 +564,54 @@ void Enemy::updateFighterAnimation()
 	}
 }
 
+void Enemy::updateSupportAnimation()
+{
+	if (this->type == 9) // Only update for support type
+	{
+		this->supportAnimationTimer += 0.02f; // Adjust as necessary
+
+		if (this->supportAnimationTimer >= this->supportAnimationSpeed)
+		{
+			// Reset timer
+			this->supportAnimationTimer = 0.f;
+
+			// Update frame
+			this->supportCurrentFrame++;
+			if (this->supportCurrentFrame >= 10) // Assuming there are 10 frames
+				this->supportCurrentFrame = 0;
+
+			// Set texture rect
+			this->supportFrame.left = this->supportCurrentFrame * 64; // Assuming each frame is 64x64
+			this->supportFire.setTextureRect(this->supportFrame);
+			this->supportFire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE2ENEMY5"]->getSize().x / 2) * 2.75 + 155.f, this->enemyOne.getPosition().y - (this->textures["STAGE2ENEMY5"]->getSize().y) * 2.75 + 42.5f);
+		}
+	}
+}
+
+void Enemy::updateTorpedoAnimation()
+{
+	if (this->type == 10) // Only update for torpedo type
+	{
+		this->torpedoAnimationTimer += 0.025f; // Adjust as necessary
+
+		if (this->torpedoAnimationTimer >= this->torpedoAnimationSpeed)
+		{
+			// Reset timer
+			this->torpedoAnimationTimer = 0.f;
+
+			// Update frame
+			this->torpedoCurrentFrame++;
+			if (this->torpedoCurrentFrame >= 10) // Assuming there are 12 frames
+				this->torpedoCurrentFrame = 0;
+
+			// Set texture rect
+			this->torpedoFrame.left = this->torpedoCurrentFrame * 64; // Assuming each frame is 64x64
+			this->torpedoFire.setTextureRect(this->torpedoFrame);
+			this->torpedoFire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE2ENEMY6"]->getSize().x / 2) * 2.75 - 30.f, this->enemyOne.getPosition().y - (this->textures["STAGE2ENEMY6"]->getSize().y) * 2.75 + 327.f);
+		}
+	}
+}
+
 void Enemy::render(sf::RenderTarget& target)
 {
 
@@ -557,6 +635,17 @@ void Enemy::render(sf::RenderTarget& target)
 		target.draw(this->fighterFire);
 	}
 
+	if (this->type == 9) // Only render for support type
+	{
+		target.draw(this->supportFire);
+	}
+
+	if (this->type == 10) // Only render for torpedo type
+	{
+		target.draw(this->torpedoFire);
+	}
+
 	target.draw(this->enemyOne);
+
 }
 

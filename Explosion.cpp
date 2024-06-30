@@ -12,7 +12,7 @@ Explosion::Explosion(float x, float y, const sf::Vector2f& enemySize) {
 }
 
 void Explosion::update() {
-    if (this->animationTimer.getElapsedTime().asSeconds() > 0.1f) {
+    if (this->animationTimer.getElapsedTime().asSeconds() > 0.05f) {
         this->frame++;
         if (this->frame >= 5) {
             this->finished = true;
