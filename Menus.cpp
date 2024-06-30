@@ -127,10 +127,25 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				}
 				break;
 			case 3:
+				gameData.equipedbullet = "yellow";
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Yellowbullet.png"))
+				{
+					std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+				}
 				break;
 			case 4:
+				gameData.equipedbullet = "purple";
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Purplebullet.png"))
+				{
+					std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+				}
 				break;
 			case 5:
+				gameData.equipedbullet = "white";
+				if (!this->textures["BULLET"]->loadFromFile("Textures/Whitebullet.png"))
+				{
+					std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+				}
 				break;
 			}
 			break;

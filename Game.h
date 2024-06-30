@@ -249,9 +249,12 @@ private:
     sf::Texture bluebullet;
     sf::RectangleShape greenbulletSelect;
     sf::Texture greenbullet;
-    sf::RectangleShape bullet4Select;
-    sf::RectangleShape bullet5Select;
-    sf::RectangleShape bullet6Select;
+    sf::RectangleShape yellowbulletSelect;
+    sf::Texture yellowbullet;
+    sf::RectangleShape purplebulletSelect;
+    sf::Texture purplebullet;
+    sf::RectangleShape whitebulletSelect;
+    sf::Texture whitebullet;
     sf::RectangleShape ship1Select;
     sf::RectangleShape ship2Select;
     sf::RectangleShape ship3Select;

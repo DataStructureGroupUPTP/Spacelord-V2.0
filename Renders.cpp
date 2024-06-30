@@ -109,9 +109,9 @@ void Game::renderShopMenu()
 	this->redbulletSelect.setOutlineColor(sf::Color::White);
 	this->bluebulletSelect.setOutlineColor(sf::Color::White);
 	this->greenbulletSelect.setOutlineColor(sf::Color::White);
-	this->bullet4Select.setOutlineColor(sf::Color::White);
-	this->bullet5Select.setOutlineColor(sf::Color::White);
-	this->bullet6Select.setOutlineColor(sf::Color::White);
+	this->yellowbulletSelect.setOutlineColor(sf::Color::White);
+	this->purplebulletSelect.setOutlineColor(sf::Color::White);
+	this->whitebulletSelect.setOutlineColor(sf::Color::White);
 	this->ship1Select.setOutlineColor(sf::Color::White);
 	this->ship2Select.setOutlineColor(sf::Color::White);
 	this->ship3Select.setOutlineColor(sf::Color::White);
@@ -141,13 +141,13 @@ void Game::renderShopMenu()
 			this->greenbulletSelect.setOutlineColor(sf::Color::Yellow);
 			break;
 		case 3:
-			this->bullet4Select.setOutlineColor(sf::Color::Yellow);
+			this->yellowbulletSelect.setOutlineColor(sf::Color::Yellow);
 			break;
 		case 4:
-			this->bullet5Select.setOutlineColor(sf::Color::Yellow);
+			this->purplebulletSelect.setOutlineColor(sf::Color::Yellow);
 			break;
 		case 5:
-			this->bullet6Select.setOutlineColor(sf::Color::Yellow);
+			this->whitebulletSelect.setOutlineColor(sf::Color::Yellow);
 			break;
 		}
 		break;
@@ -205,9 +205,9 @@ void Game::renderShopMenu()
 	this->window->draw(this->redbulletSelect);
 	this->window->draw(this->bluebulletSelect);
 	this->window->draw(this->greenbulletSelect);
-	this->window->draw(this->bullet4Select);
-	this->window->draw(this->bullet5Select);
-	this->window->draw(this->bullet6Select);
+	this->window->draw(this->yellowbulletSelect);
+	this->window->draw(this->purplebulletSelect);
+	this->window->draw(this->whitebulletSelect);
 	this->window->draw(this->ship1Select);
 	this->window->draw(this->ship2Select);
 	this->window->draw(this->ship3Select);
@@ -236,6 +236,18 @@ void Game::renderEquiped()
 	else if (gameData.equipedbullet == "green")
 	{
 		this->greenbulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "yellow")
+	{
+		this->yellowbulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "purple")
+	{
+		this->purplebulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "white")
+	{
+		this->whitebulletSelect.setOutlineColor(sf::Color::Green);
 	}
 }
 

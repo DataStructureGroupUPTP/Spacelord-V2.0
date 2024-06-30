@@ -642,30 +642,44 @@ void Game::initializeShopMenu()
 		this->window->getSize().y / 2.f - this->greenbulletSelect.getGlobalBounds().height / 2.f - 85.f
 	);
 
-	// Bullet 4 select
-	this->bullet4Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->bullet4Select.setOutlineThickness(-5.f);
-	this->bullet4Select.setPosition(
-		this->window->getSize().x / 2.f - this->bullet4Select.getGlobalBounds().width / 2.f + 75.f,
-		this->window->getSize().y / 2.f - this->bullet4Select.getGlobalBounds().height / 2.f - 85.f
+	// Yellow Bullet select
+	if (!this->yellowbullet.loadFromFile("Textures/yellowbulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_YELLOWBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->yellowbulletSelect.setTexture(&yellowbullet);
+	this->yellowbulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->yellowbulletSelect.setOutlineThickness(-5.f);
+	this->yellowbulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->yellowbulletSelect.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->yellowbulletSelect.getGlobalBounds().height / 2.f - 85.f
 	);
-	this->bullet4Select.setFillColor(sf::Color(255, 255, 255, 75));
-	// Bullet 5 select
-	this->bullet5Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->bullet5Select.setOutlineThickness(-5.f);
-	this->bullet5Select.setPosition(
-		this->window->getSize().x / 2.f - this->bullet5Select.getGlobalBounds().width / 2.f + 225.f,
-		this->window->getSize().y / 2.f - this->bullet5Select.getGlobalBounds().height / 2.f - 85.f
+	
+	// Purple Bullet select
+	if (!this->purplebullet.loadFromFile("Textures/purplebulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_PURPLEBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->purplebulletSelect.setTexture(&purplebullet);
+	this->purplebulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->purplebulletSelect.setOutlineThickness(-5.f);
+	this->purplebulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->purplebulletSelect.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->purplebulletSelect.getGlobalBounds().height / 2.f - 85.f
 	);
-	this->bullet5Select.setFillColor(sf::Color(255, 255, 255, 75));
-	// Bullet 6 select
-	this->bullet6Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->bullet6Select.setOutlineThickness(-5.f);
-	this->bullet6Select.setPosition(
-		this->window->getSize().x / 2.f - this->bullet6Select.getGlobalBounds().width / 2.f + 375.f,
-		this->window->getSize().y / 2.f - this->bullet6Select.getGlobalBounds().height / 2.f - 85.f
+
+	// White Bullet select
+	if (!this->whitebullet.loadFromFile("Textures/whitebulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_WHITEBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->whitebulletSelect.setTexture(&whitebullet);
+	this->whitebulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->whitebulletSelect.setOutlineThickness(-5.f);
+	this->whitebulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->whitebulletSelect.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->whitebulletSelect.getGlobalBounds().height / 2.f - 85.f
 	);
-	this->bullet6Select.setFillColor(sf::Color(255, 255, 255, 75));
 
 	// Ship 1 select
 	this->ship1Select.setSize(sf::Vector2f(125.f, 125.f));
