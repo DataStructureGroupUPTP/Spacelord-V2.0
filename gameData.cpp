@@ -68,7 +68,6 @@ void resetGameData()
         outFile.close();
     }
     else {
-        std::cerr << "Unable to open file for reading\n";
+        std::cerr << "Unable to open file for writing\n";
     }
-    return data;
 }

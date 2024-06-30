@@ -227,7 +227,6 @@ void Game::handlePauseMenuInput(const sf::Event& ev)
 			this->selectedMenuItem = 0;
 			break;
 		case 2:
-			this->updateGameData();
 			this->reset();
 			this->gameState = MAIN_MENU;
 			this->stageMusic.stop();

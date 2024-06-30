@@ -99,6 +99,7 @@ void Game::updateInput()
 		this->player->upgradeAttackSpeed();
 
 
+
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
@@ -754,11 +755,6 @@ void Game::updateMusicVolume()
 	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 	float musicvolumePercent = static_cast<float>(this->musicVolume / static_cast<float>(10));
 	this->musicvolumeIndicator.setSize(sf::Vector2f(300.f * musicvolumePercent, this->musicvolumeIndicator.getSize().y));
-}
-
-void Game::updateGameData()
-{
-	writeToFile(gameData);
 }
 
 void Game::updateFadeEffect()

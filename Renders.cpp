@@ -202,55 +202,6 @@ void Game::renderShopMenu()
 		break;
 	}
 
-	this->window->draw(this->redbulletSelect);
-	this->window->draw(this->bluebulletSelect);
-	this->window->draw(this->greenbulletSelect);
-	this->window->draw(this->yellowbulletSelect);
-	this->window->draw(this->purplebulletSelect);
-	this->window->draw(this->whitebulletSelect);
-	this->window->draw(this->ship1Select);
-	this->window->draw(this->ship2Select);
-	this->window->draw(this->ship3Select);
-	this->window->draw(this->ship4Select);
-	this->window->draw(this->ship5Select);
-	this->window->draw(this->ship6Select);
-	this->window->draw(this->fire1Select);
-	this->window->draw(this->fire2Select);
-	this->window->draw(this->fire3Select);
-	this->window->draw(this->fire4Select);
-	this->window->draw(this->fire5Select);
-	this->window->draw(this->fire6Select);
-	this->window->draw(this->returnfromshopText);
-}
-
-void Game::renderEquiped()
-{
-	if (gameData.equipedbullet == "red")
-	{
-		this->redbulletSelect.setOutlineColor(sf::Color::Green);
-	}
-	else if (gameData.equipedbullet == "blue")
-	{
-		this->bluebulletSelect.setOutlineColor(sf::Color::Green);
-	}
-	else if (gameData.equipedbullet == "green")
-	{
-		this->greenbulletSelect.setOutlineColor(sf::Color::Green);
-	}
-	else if (gameData.equipedbullet == "yellow")
-	{
-		this->yellowbulletSelect.setOutlineColor(sf::Color::Green);
-	}
-	else if (gameData.equipedbullet == "purple")
-	{
-		this->purplebulletSelect.setOutlineColor(sf::Color::Green);
-	}
-	else if (gameData.equipedbullet == "white")
-	{
-		this->whitebulletSelect.setOutlineColor(sf::Color::Green);
-	}
-}
-
 void Game::renderPauseMenu()
 {
 	this->window->draw(this->pausesettingsBackground);

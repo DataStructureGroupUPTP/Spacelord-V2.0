@@ -336,7 +336,6 @@ public:
     void updateCollision();
     void updateSoundFXVolume();
     void updateMusicVolume();
-    void updateGameData();
     void updateEnemies();
     void updateItems();
     void updateCombat();
