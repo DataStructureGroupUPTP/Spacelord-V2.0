@@ -94,7 +94,9 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
-
+		this->player->setHp(5);
+		this->player->upgradeDamage();
+		this->player->upgradeAttackSpeed();
 
 
 	}
@@ -102,7 +104,7 @@ void Game::updateInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	{
 
-		elapsedTime = elapsedTime + 5.f;
+		elapsedTime = elapsedTime + 1.f;
 	}
 }
 
@@ -398,6 +400,7 @@ void Game::updateEnemies()
 		std::random_device rd; // Obtain a random number from hardware
 		std::default_random_engine rng(rd()); // Seed the generator
 
+		std::cout << meteorSpawnRate << "\n";
 		// Reset the meteor spawn timer
 		this->meteorSpawnTimer = 0;
 

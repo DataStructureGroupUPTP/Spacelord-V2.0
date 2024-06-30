@@ -64,6 +64,7 @@ void Player::initializeSprite()
     // Resize
     this->ship.scale(2.25f, 2.25f);
     this->ship.setPosition(765.5f, 660.f);
+    this->ship.setColor(sf::Color(6, 85, 53));
 
     this->engine.setScale(2.25f, 2.25f);
 
@@ -71,6 +72,7 @@ void Player::initializeSprite()
     this->fireFrame = sf::IntRect(0, 0, 48, 48);
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
+    this->fire.setColor(sf::Color::Green);
 
     this->shield.setTexture(this->shieldTexture);
     this->shieldFrame = sf::IntRect(0, 0, 64, 64);
@@ -99,12 +101,12 @@ Player::Player()
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 81.f
     );
 
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 101.f
     );
 
     this->shield.setPosition(
@@ -153,12 +155,12 @@ void Player::move(const float dirX, const float dirY)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 81.f
     );
 
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 101.f
     );
 
     this->shield.setPosition(
@@ -184,12 +186,12 @@ void Player::setPosition(const sf::Vector2f pos)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 81.f
     );
 
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 101.f
     );
 
     this->shield.setPosition(
@@ -204,12 +206,12 @@ void Player::setPosition(const float x, const float y)
 
     this->engine.setPosition(
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->engine.getGlobalBounds().width / 2,
-        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 80.f
+        this->ship.getPosition().y + this->ship.getGlobalBounds().height - 81.f
     );
 
     this->fire.setPosition(
         this->engine.getPosition().x + this->engine.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 100.f
+        this->engine.getPosition().y + this->engine.getGlobalBounds().height - 101.f
     );
 
     this->shield.setPosition(

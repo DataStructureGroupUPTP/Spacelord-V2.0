@@ -284,7 +284,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 6.f;
+		this->hp = 3.f;
 		this->damage = 1;
 		this->points = 500;
 		this->speed = 3.0f;
@@ -308,7 +308,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 6.f;
+		this->hp = 4.f;
 		this->damage = 1;
 		this->points = 500;
 		this->speed = 3.5f;

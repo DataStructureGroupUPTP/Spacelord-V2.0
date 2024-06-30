@@ -281,9 +281,9 @@ void Game::initializeMusic()
 	// Play the music
 	this->stageMusic.play();
 
-	if (!this->gameOverMusic.openFromFile("Music/Yellow.mp3"))
+	if (!this->gameOverMusic.openFromFile("Music/Defeated.ogg"))
 	{
-		std::cout << "ERROR::YELLOW_GAME_OVER_THEME::FAILED_TO_LOAD" << "\n";
+		std::cout << "ERROR::DEFEATED_THEME::FAILED_TO_LOAD" << "\n";
 	}
 
 	if (!this->victoryTune.openFromFile("Music/Victory.ogg"))
@@ -296,7 +296,7 @@ void Game::initializeMusic()
 void Game::initializeMusicVolume()
 {
 	this->stageMusic.setVolume(this->musicVolume * 6); // 30
-	this->gameOverMusic.setVolume(this->musicVolume * 6); // 30
+	this->gameOverMusic.setVolume(this->musicVolume * 12); // 30
 	this->victoryTune.setVolume(this->musicVolume * 6); // 30
 	this->menuMusic.setVolume(this->musicVolume * 6); // 30
 }
