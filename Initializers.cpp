@@ -398,6 +398,10 @@ void Game::initializeGUI()
 	this->clock.restart();
 	this->minutes = 0;
 	this->seconds = 0;
+
+	// Initialize title effect
+	this->titlePulseTime = 0.f;
+	this->titleScaleFactor = 1.0f;
 }
 
 void Game::initializeBackground()
@@ -534,8 +538,8 @@ void Game::initializeStartMenu()
 	// Initialize title
 	this->gameTitle.setPosition
 	(
-		this->window->getSize().x / 2.f - this->gameTitle.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->gameTitle.getGlobalBounds().height / 2.f - 250.f
+		this->window->getSize().x / 2.f - this->gameTitle.getGlobalBounds().width / 2.f + 335.f,
+		this->window->getSize().y / 2.f - this->gameTitle.getGlobalBounds().height / 2.f - 200.f
 	);
 
 

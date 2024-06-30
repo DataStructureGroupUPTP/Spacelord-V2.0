@@ -314,6 +314,11 @@ private:
     float fadeAlpha;
     sf::Clock fadeClock;
     void initializeFadeEffects();
+
+    // Title effect
+
+    float titlePulseTime;
+    float titleScaleFactor;
    
 
 
@@ -344,6 +349,7 @@ public:
     void updateDifficulty();
     void updateFadeEffect();
     void updateExplosionEffect();
+    void updateTitleEffect();
 
     void update();
 
@@ -354,7 +360,6 @@ public:
     void renderShopMenu();
     void renderEquiped();
     void renderPauseMenu();
-    void renderequiped();
     void renderSettingsMenu();
     void renderGameOverMenu();
     void renderGameElements();

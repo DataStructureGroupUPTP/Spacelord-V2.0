@@ -800,3 +800,21 @@ void Game::updateExplosionEffect()
 		}
 	}
 }
+
+void Game::updateTitleEffect()
+{
+	// Update the pulse time
+	this->titlePulseTime += 0.0167;
+
+	// Calculate a scale factor using a sine wave for smooth oscillation
+	float scale = 1.0f + 0.1f * std::sin(this->titlePulseTime * 2 * 3.14159f); // Adjust 0.1f for desired effect amplitude
+
+	// Get the local bounds of the title text
+	sf::FloatRect textBounds = this->gameTitle.getLocalBounds();
+
+	// Set the origin to the center of the text
+	this->gameTitle.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+
+	// Apply the scale to the game title
+	this->gameTitle.setScale(scale, scale);
+}

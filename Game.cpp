@@ -34,8 +34,6 @@ void Game::initialize()
 
 // Constructor
 
-
-
 Game::Game()
 {
 	this->initialize();
@@ -176,6 +174,11 @@ void Game::update()
 {
 	this->updatePollEvents();
 	this->updateTimer();
+
+	if(this->gameState == MAIN_MENU)
+	{
+		this->updateTitleEffect();
+	}
 
 	if (this->gameState == GAMEPLAY)
 	{
