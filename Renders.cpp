@@ -201,6 +201,23 @@ void Game::renderShopMenu()
 		this->returnfromshopText.setFillColor(sf::Color::Yellow);
 		break;
 	}
+}
+
+void Game::renderEquiped()
+{
+	if (gameData.equipedbullet == "red")
+	{
+		this->redbulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "blue")
+	{
+		this->bluebulletSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedbullet == "green")
+	{
+		this->greenbulletSelect.setOutlineColor(sf::Color::Green);
+	}
+}
 
 void Game::renderPauseMenu()
 {

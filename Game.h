@@ -354,6 +354,7 @@ public:
     void renderShopMenu();
     void renderEquiped();
     void renderPauseMenu();
+    void renderequiped();
     void renderSettingsMenu();
     void renderGameOverMenu();
     void renderGameElements();
