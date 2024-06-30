@@ -477,8 +477,6 @@ void Game::initializeBackground()
 
 	}
 
-
-
 }
 
 void Game::initializeSystems()
