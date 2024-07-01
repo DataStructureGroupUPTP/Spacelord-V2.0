@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Game.h"
 
 void Player::initializeVariables()
 {
@@ -64,7 +65,6 @@ void Player::initializeSprite()
     // Resize
     this->ship.scale(2.25f, 2.25f);
     this->ship.setPosition(765.5f, 660.f);
-    this->ship.setColor(sf::Color(6, 85, 53));
 
     this->engine.setScale(2.25f, 2.25f);
 
@@ -273,6 +273,31 @@ void Player::upgradeAttackSpeed()
     if(this->attackCooldownMax < 13)
     {
         this->attackCooldownMax = 12.5f;
+    }
+}
+
+void Player::setShipColor(int c)
+{
+    switch (c)
+    {
+    case 0:
+        this->ship.setColor(sf::Color(255, 255, 255));
+        break;
+    case 1:
+        this->ship.setColor(sf::Color(40, 132, 203));
+        break;
+    case 2:
+        this->ship.setColor(sf::Color(30, 162, 52));
+        break;
+    case 3:
+        this->ship.setColor(sf::Color(255, 177, 0));
+        break;
+    case 4:
+        this->ship.setColor(sf::Color(153, 102, 255));
+        break;
+    case 5:
+        this->ship.setColor(sf::Color(212, 44, 77));
+        break;
     }
 }
 

@@ -241,6 +241,8 @@ private:
     sf::Text resetText;
 
     // Shop Menu options
+    sf::Text objectPrice;
+    sf::Text coinAmount;
     sf::Text returnfromshopText;
     sf::RectangleShape redbulletSelect;
     sf::Texture redbullet;
@@ -254,12 +256,18 @@ private:
     sf::Texture purplebullet;
     sf::RectangleShape whitebulletSelect;
     sf::Texture whitebullet;
-    sf::RectangleShape ship1Select;
-    sf::RectangleShape ship2Select;
-    sf::RectangleShape ship3Select;
-    sf::RectangleShape ship4Select;
-    sf::RectangleShape ship5Select;
-    sf::RectangleShape ship6Select;
+    sf::RectangleShape normalshipSelect;
+    sf::Texture normalship;
+    sf::RectangleShape greenshipSelect;
+    sf::Texture greenship;
+    sf::RectangleShape blueshipSelect;
+    sf::Texture blueship;
+    sf::RectangleShape yellowshipSelect;
+    sf::Texture yellowship;
+    sf::RectangleShape purpleshipSelect;
+    sf::Texture purpleship;
+    sf::RectangleShape redshipSelect;
+    sf::Texture redship;
     sf::RectangleShape fire1Select;
     sf::RectangleShape fire2Select;
     sf::RectangleShape fire3Select;
