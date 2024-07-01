@@ -1128,4 +1128,5 @@ void Game::initializePlayer()
 	this->player = new Player;
 	this->player->setShipColor(gameData.equipedship);
 	this->player->setFireColor(gameData.equipedfire);
+	this->setBulletColor(gameData.equipedbullet);
 }

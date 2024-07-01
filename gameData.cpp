@@ -56,7 +56,7 @@ GameData readFromFile() {
             data.highScore = std::stoul(line.substr(13));
         }
         else if (line.find("equipedbullet = ") == 0) {
-            data.equipedbullet = line.substr(16);
+            data.equipedbullet = std::stoi(line.substr(16));
         }
         else if (line.find("redbullet = ") == 0) {
             data.redbullet = line.substr(12);
@@ -129,7 +129,7 @@ void resetGameData()
     if (outFile.is_open()) {
         outFile << "coins = " << "30000" << '\n';
         outFile << "high-score = " << 0 << '\n';
-        outFile << "equipedbullet = " << "red" << '\n';
+        outFile << "equipedbullet = " << 0 << '\n';
         outFile << "redbullet = " << "ACQUIRED" << '\n';
         outFile << "bluebullet = " << "NULL" << '\n';
         outFile << "greenbullet = " << "NULL" << '\n';

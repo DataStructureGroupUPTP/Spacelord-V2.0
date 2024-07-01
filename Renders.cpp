@@ -319,31 +319,31 @@ void Game::renderShopMenu()
 
 void Game::renderEquiped()
 {
-	if (gameData.equipedbullet == "red")
+	if (gameData.equipedbullet == 0)
 	{
 		this->redbulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "blue")
+	else if (gameData.equipedbullet == 1)
 	{
 		this->bluebulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "green")
+	else if (gameData.equipedbullet == 2)
 	{
 		this->greenbulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "yellow")
+	else if (gameData.equipedbullet == 3)
 	{
 		this->yellowbulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "purple")
+	else if (gameData.equipedbullet == 4)
 	{
 		this->purplebulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "white")
+	else if (gameData.equipedbullet == 5)
 	{
 		this->whitebulletSelect.setOutlineColor(sf::Color::Green);
 	}
-	else if (gameData.equipedbullet == "black")
+	else if (gameData.equipedbullet == 6)
 	{
 		this->blackbulletSelect.setOutlineColor(sf::Color::Green);
 	}

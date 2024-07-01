@@ -104,22 +104,16 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			switch (this->shopselectedMenuItem)
 			{
 			case 0:
-				gameData.equipedbullet = "red";
+				gameData.equipedbullet = 0;
 				updateGameData(gameData);
-				if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
-				{
-					std::cout << "TEXTURE::BULLET_RED::FAILED_TO_LOAD" << "\n";
-				}
+				setBulletColor(gameData.equipedbullet);
 				break;
 			case 1:
 				if (gameData.bluebullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "blue";
+					gameData.equipedbullet = 1;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Bluebulletfix.png"))
-					{
-						std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				else if (gameData.bluebullet == "NULL" && gameData.coins >= 5000)
 				{
@@ -130,12 +124,9 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			case 2:
 				if (gameData.greenbullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "green";
+					gameData.equipedbullet = 2;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Greenbulletfix.png"))
-					{
-						std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				else if (gameData.greenbullet == "NULL" && gameData.coins >= 5000)
 				{
@@ -146,12 +137,9 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			case 3:
 				if (gameData.yellowbullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "yellow";
+					gameData.equipedbullet = 3;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Yellowbullet.png"))
-					{
-						std::cout << "TEXTURE::BULLET_YELLOW::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				else if (gameData.yellowbullet == "NULL" && gameData.coins >= 5000)
 				{
@@ -162,12 +150,9 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			case 4:
 				if (gameData.purplebullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "purple";
+					gameData.equipedbullet = 4;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Purplebullet.png"))
-					{
-						std::cout << "TEXTURE::BULLET_PURPLE::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				else if (gameData.purplebullet == "NULL" && gameData.coins >= 5000)
 				{
@@ -178,12 +163,9 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			case 5:
 				if (gameData.whitebullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "white";
+					gameData.equipedbullet = 5;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Whitebullet.png"))
-					{
-						std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				if (gameData.whitebullet == "NULL" && gameData.coins >= 5000)
 				{
@@ -201,6 +183,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				updateGameData(gameData);
 				this->player->setShipColor(gameData.equipedship);
 				this->player->setFireColor(gameData.equipedfire);
+				this->setBulletColor(gameData.equipedbullet);
 				break;
 			case 1:
 				if (gameData.blueship == "ACQUIRED")
@@ -314,12 +297,9 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			case 4:
 				if (gameData.blackbullet == "ACQUIRED")
 				{
-					gameData.equipedbullet = "black";
+					gameData.equipedbullet = 6;
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Blackbullet.png"))
-					{
-						std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
-					}
+					setBulletColor(gameData.equipedbullet);
 				}
 				break;
 			case 5:

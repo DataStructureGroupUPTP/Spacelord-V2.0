@@ -89,6 +89,7 @@ private:
 
     // Player
     Player* player;
+    void setBulletColor(int c);
 
     // Player GUI
     sf::RectangleShape playerHpBar;

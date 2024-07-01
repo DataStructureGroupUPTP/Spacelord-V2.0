@@ -2,6 +2,8 @@
 
 // Private
 
+
+
 void Game::initialize()
 {
 	this->initializeWindow();
@@ -33,6 +35,55 @@ void Game::initialize()
 }
 
 // Constructor
+
+void Game::setBulletColor(int c)
+{
+	switch (c)
+	{
+	case 0:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Redbulletrfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_RED::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 1:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Bluebulletfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 2:
+		if(!this->textures["BULLET"]->loadFromFile("Textures/Greenbulletfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 3:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Yellowbulletfix.png"))
+		{
+			std::cout << "TEXTURE::BULLET_YELLOW::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 4:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Purplebullet.png"))
+		{
+			std::cout << "TEXTURE::BULLET_PURPLE::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 5:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Whitebullet.png"))
+		{
+			std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	case 6:
+		if (!this->textures["BULLET"]->loadFromFile("Textures/Blackbullet.png"))
+		{
+			std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
+		}
+		break;
+	}
+}
 
 Game::Game()
 {
