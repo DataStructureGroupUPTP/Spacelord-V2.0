@@ -193,10 +193,8 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp2 + 55.f && checkerTwo)
 		{
-			this->meteorSpawnRate = 1.f;
-			this->doubleMeteorChance = 40.f;
+			this->doubleMeteorChance = 25.f;
 			this->horizontalEnemySpawnRate = 0.6f;
-			this->enemySpawnRate = 1.6f;
 			checkerTwo = false;
 		}
 

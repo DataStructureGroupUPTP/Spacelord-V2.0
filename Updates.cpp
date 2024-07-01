@@ -807,7 +807,7 @@ void Game::updateTitleEffect()
 	this->titlePulseTime += 0.0167;
 
 	// Calculate a scale factor using a sine wave for smooth oscillation
-	float scale = 1.0f + 0.1f * std::sin(this->titlePulseTime * 2 * 3.14159f); // Adjust 0.1f for desired effect amplitude
+	float scale = 1.0f + 0.09f * std::sin(this->titlePulseTime * 2 * 3.14159f); // Adjust 0.1f for desired effect amplitude
 
 	// Get the local bounds of the title text
 	sf::FloatRect textBounds = this->gameTitle.getLocalBounds();
@@ -817,4 +817,5 @@ void Game::updateTitleEffect()
 
 	// Apply the scale to the game title
 	this->gameTitle.setScale(scale, scale);
+
 }

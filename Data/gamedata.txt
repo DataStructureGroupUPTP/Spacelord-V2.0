@@ -1,6 +1,6 @@
 coins = 25
 high-score = 0
-equipedbullet = green
+equipedbullet = red
 redbullet = ACQUIRED
 bluebullet = NULL
 greenbullet = NULL
