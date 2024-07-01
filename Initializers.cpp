@@ -836,7 +836,7 @@ void Game::initializeShopMenu()
 	);
 
 	// Black bullet select
-	if (!this->blackbullet.loadFromFile("Textures/whitebulletshop.png"))
+	if (!this->blackbullet.loadFromFile("Textures/blackbulletshop.png"))
 	{
 		std::cout << "TEXTURE::SHOP_BLACKBULLET::FAILED_TO_LOAD" << "\n";
 	}

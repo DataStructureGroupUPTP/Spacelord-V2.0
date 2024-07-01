@@ -316,7 +316,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				{
 					gameData.equipedbullet = "black";
 					updateGameData(gameData);
-					if (!this->textures["BULLET"]->loadFromFile("Textures/Whitebullet.png"))
+					if (!this->textures["BULLET"]->loadFromFile("Textures/Blackbullet.png"))
 					{
 						std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
 					}
