@@ -1,10 +1,10 @@
 coins = 25000
 high-score = 0
-equipedbullet = 1
+equipedbullet = 3
 redbullet = ACQUIRED
-bluebullet = ACQUIRED
+bluebullet = NULL
 greenbullet = NULL
-yellowbullet = NULL
+yellowbullet = ACQUIRED
 purplebullet = NULL
 whitebullet = NULL
 blackbullet = NULL

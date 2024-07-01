@@ -107,6 +107,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				gameData.equipedbullet = 0;
 				updateGameData(gameData);
 				setBulletColor(gameData.equipedbullet);
+				this->equipSound.play();
 				break;
 			case 1:
 				if (gameData.bluebullet == "ACQUIRED")
@@ -114,13 +115,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 1;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
 				else if (gameData.bluebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.bluebullet = "ACQUIRED";
 					gameData.coins -= 5000;
 					this->buySound.play();
-					std::cout << "I HAPPEN";
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 2:
@@ -129,11 +134,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 2;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
 				else if (gameData.greenbullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.greenbullet = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 3:
@@ -142,11 +153,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 3;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
 				else if (gameData.yellowbullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.yellowbullet = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 4:
@@ -155,11 +172,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 4;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
 				else if (gameData.purplebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.purplebullet = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 5:
@@ -168,11 +191,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 5;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
-				if (gameData.whitebullet == "NULL" && gameData.coins >= 5000)
+				else if (gameData.whitebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.whitebullet = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			}
@@ -186,6 +215,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				this->player->setShipColor(gameData.equipedship);
 				this->player->setFireColor(gameData.equipedfire);
 				this->setBulletColor(gameData.equipedbullet);
+				this->equipSound.play();
 				break;
 			case 1:
 				if (gameData.blueship == "ACQUIRED")
@@ -193,11 +223,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 1;
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
+					this->equipSound.play();
 				}
-				if (gameData.blueship == "NULL" && gameData.coins >= 10000)
+				else if (gameData.blueship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.blueship = "ACQUIRED";
 					gameData.coins -= 10000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 2:
@@ -206,11 +242,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 2;
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
+					this->equipSound.play();
 				}
-				if (gameData.greenship == "NULL" && gameData.coins >= 10000)
+				else if (gameData.greenship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.greenship = "ACQUIRED";
 					gameData.coins -= 10000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 3:
@@ -219,11 +261,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 3;
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
+					this->equipSound.play();
 				}
-				if (gameData.yellowship == "NULL" && gameData.coins >= 10000)
+				else if (gameData.yellowship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.yellowship = "ACQUIRED";
 					gameData.coins -= 10000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 4:
@@ -232,11 +280,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 4;
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
+					this->equipSound.play();
 				}
-				if (gameData.purpleship == "NULL" && gameData.coins >= 10000)
+				else if (gameData.purpleship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.purpleship = "ACQUIRED";
 					gameData.coins -= 10000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 5:
@@ -245,11 +299,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 5;
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
+					this->equipSound.play();
 				}
-				if (gameData.redship == "NULL" && gameData.coins >= 10000)
+				else if (gameData.redship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.redship = "ACQUIRED";
 					gameData.coins -= 10000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			}
@@ -261,6 +321,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				gameData.equipedfire = 0;
 				updateGameData(gameData);
 				this->player->setFireColor(gameData.equipedfire);
+				this->equipSound.play();
 				break;
 			case 1:
 				if (this->gameData.yellowfire == "ACQUIRED")
@@ -268,11 +329,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedfire = 1;
 					updateGameData(gameData);
 					this->player->setFireColor(gameData.equipedfire);
+					this->equipSound.play();
 				}
-				if (this->gameData.yellowfire == "NULL" && gameData.coins >= 5000)
+				else if (this->gameData.yellowfire == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.yellowfire = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 2:
@@ -281,11 +348,17 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedfire = 2;
 					updateGameData(gameData);
 					this->player->setFireColor(gameData.equipedfire);
+					this->equipSound.play();
 				}
-				if (this->gameData.greenfire == "NULL" && gameData.coins >= 5000)
+				else if (this->gameData.greenfire == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.greenfire = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+				}
+				else
+				{
+					this->noMoneySound.play();
 				}
 				break;
 			case 3:
@@ -294,6 +367,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedship = 6;
 					updateGameData(gameData);
 					this->player->setFireColor(gameData.equipedfire);
+					this->equipSound.play();
 				}
 				break;
 			case 4:
@@ -302,6 +376,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedbullet = 6;
 					updateGameData(gameData);
 					setBulletColor(gameData.equipedbullet);
+					this->equipSound.play();
 				}
 				break;
 			case 5:
@@ -310,6 +385,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					gameData.equipedfire = 3;
 					updateGameData(gameData);
 					this->player->setFireColor(gameData.equipedfire);
+					this->equipSound.play();
 				}
 				break;
 			}

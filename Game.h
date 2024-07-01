@@ -178,6 +178,12 @@ private:
     sf::SoundBuffer buySoundBuffer;
     sf::Sound buySound;
 
+    sf::SoundBuffer noMoneyBuffer;
+    sf::Sound noMoneySound;
+
+    sf::SoundBuffer equipBuffer;
+    sf::Sound equipSound;
+
 
     // Music
     sf::Music stageMusic;

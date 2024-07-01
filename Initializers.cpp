@@ -258,6 +258,20 @@ void Game::initializeSounds()
 	}
 
 	this->buySound.setBuffer(this->buySoundBuffer);
+
+	if (!this->noMoneyBuffer.loadFromFile("Sounds/Nomoney.mp3"))
+	{
+		std::cout << "SOUND::NO_BUY_SOUND::FAILED_TO_LOAD";
+	}
+
+	this->noMoneySound.setBuffer(this->noMoneyBuffer);
+
+	if (!this->equipBuffer.loadFromFile("Sounds/Equip.wav"))
+	{
+		std::cout << "SOUND::EQUIP::FAILED_TO_LOAD";
+	}
+
+	this->equipSound.setBuffer(this->equipBuffer);
 }
 
 void Game::initializeSoundFXVolume()
@@ -276,7 +290,9 @@ void Game::initializeSoundFXVolume()
 	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
 	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
 	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
-	this->buySound.setVolume(this->soundfxVolume * 10); // 50
+	this->buySound.setVolume(this->soundfxVolume * 50);
+	this->noMoneySound.setVolume(this->soundfxVolume * 25);
+	this->equipSound.setVolume(this->soundfxVolume * 15);
 }
 
 void Game::initializeMusic()
