@@ -72,7 +72,7 @@ void Player::initializeSprite()
     this->fireFrame = sf::IntRect(0, 0, 48, 48);
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(2.25f, 2.25f);
-    this->fire.setColor(sf::Color::Green);
+    this->fire.setColor(sf::Color::Color(230, 230, 250));
 
     this->shield.setTexture(this->shieldTexture);
     this->shieldFrame = sf::IntRect(0, 0, 64, 64);
@@ -297,6 +297,40 @@ void Player::setShipColor(int c)
         break;
     case 5:
         this->ship.setColor(sf::Color(212, 44, 77));
+        break;
+    case 6:
+        this->ship.setColor(sf::Color(65, 65, 65));
+        break;
+    }
+}
+
+void Player::setFireColor(int c)
+{
+    switch (c)
+    {
+    case 0:
+        if (!this->shipEngine1Fire.loadFromFile("Animations/Fireidle.png"))
+        {
+            std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
+        break;
+    case 1:
+        if (!this->shipEngine1Fire.loadFromFile("Animations/Fireidleyellow.png"))
+        {
+            std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
+        break;
+    case 2:
+        if (!this->shipEngine1Fire.loadFromFile("Animations/Fireidlegreen.png"))
+        {
+            std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
+        break;
+    case 3:
+        if (!this->shipEngine1Fire.loadFromFile("Animations/Fireidlewhite.png"))
+        {
+            std::cout << "TEXTURE::MAIN_SHIP_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
         break;
     }
 }

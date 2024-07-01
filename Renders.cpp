@@ -122,12 +122,12 @@ void Game::renderShopMenu()
 	this->yellowshipSelect.setOutlineColor(sf::Color::White);
 	this->purpleshipSelect.setOutlineColor(sf::Color::White);
 	this->redshipSelect.setOutlineColor(sf::Color::White);
-	this->fire1Select.setOutlineColor(sf::Color::White);
-	this->fire2Select.setOutlineColor(sf::Color::White);
-	this->fire3Select.setOutlineColor(sf::Color::White);
-	this->fire4Select.setOutlineColor(sf::Color::White);
-	this->fire5Select.setOutlineColor(sf::Color::White);
-	this->fire6Select.setOutlineColor(sf::Color::White);
+	this->normalfireSelect.setOutlineColor(sf::Color::White);
+	this->yellowfireSelect.setOutlineColor(sf::Color::White);
+	this->greenfireSelect.setOutlineColor(sf::Color::White);
+	this->blackshipSelect.setOutlineColor(sf::Color::White);
+	this->blackbulletSelect.setOutlineColor(sf::Color::White);
+	this->whitefireSelect.setOutlineColor(sf::Color::White);
 	renderEquiped();
 
 	switch (this->selectedMenuItem)
@@ -234,22 +234,48 @@ void Game::renderShopMenu()
 		switch (this->shopselectedMenuItem)
 		{
 		case 0:
-			this->fire1Select.setOutlineColor(sf::Color::Yellow);
+			this->normalfireSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Acquired");
 			break;
 		case 1:
-			this->fire2Select.setOutlineColor(sf::Color::Yellow);
+			this->yellowfireSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.yellowfire == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 2:
-			this->fire3Select.setOutlineColor(sf::Color::Yellow);
+			this->greenfireSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.greenfire == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 3:
-			this->fire4Select.setOutlineColor(sf::Color::Yellow);
+			this->blackshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Reach a Score of 500000");
+			if (gameData.blackship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 4:
-			this->fire5Select.setOutlineColor(sf::Color::Yellow);
+			this->blackbulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Reach a Score of 500000");
+			if (gameData.blackbullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 5:
-			this->fire6Select.setOutlineColor(sf::Color::Yellow);
+			this->whitefireSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Reach a Score of 500000");
+			if (gameData.whitefire == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		}
 		break;
@@ -274,12 +300,12 @@ void Game::renderShopMenu()
 	this->window->draw(this->yellowshipSelect);
 	this->window->draw(this->purpleshipSelect);
 	this->window->draw(this->redshipSelect);
-	this->window->draw(this->fire1Select);
-	this->window->draw(this->fire2Select);
-	this->window->draw(this->fire3Select);
-	this->window->draw(this->fire4Select);
-	this->window->draw(this->fire5Select);
-	this->window->draw(this->fire6Select);
+	this->window->draw(this->normalfireSelect);
+	this->window->draw(this->yellowfireSelect);
+	this->window->draw(this->greenfireSelect);
+	this->window->draw(this->blackshipSelect);
+	this->window->draw(this->blackbulletSelect);
+	this->window->draw(this->whitefireSelect);
 	this->window->draw(this->returnfromshopText);
 }
 
@@ -309,6 +335,10 @@ void Game::renderEquiped()
 	{
 		this->whitebulletSelect.setOutlineColor(sf::Color::Green);
 	}
+	else if (gameData.equipedbullet == "black")
+	{
+		this->blackbulletSelect.setOutlineColor(sf::Color::Green);
+	}
 
 	if (gameData.equipedship == 0)
 	{
@@ -333,6 +363,27 @@ void Game::renderEquiped()
 	else if (gameData.equipedship == 5)
 	{
 		this->redshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 6)
+	{
+		this->blackshipSelect.setOutlineColor(sf::Color::Green);
+	}
+
+	if (gameData.equipedfire == 0)
+	{
+		this->normalfireSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedfire == 1)
+	{
+		this->yellowfireSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedfire == 2)
+	{
+		this->greenfireSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedfire == 3)
+	{
+		this->whitefireSelect.setOutlineColor(sf::Color::Green);
 	}
 }
 

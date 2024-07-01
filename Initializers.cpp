@@ -521,6 +521,7 @@ void Game::initializeGameData()
 	gameData.yellowbullet = readData.yellowbullet;
 	gameData.purplebullet = readData.purplebullet;
 	gameData.whitebullet = readData.whitebullet;
+	gameData.blackbullet = readData.blackbullet;
 	gameData.equipedship = readData.equipedship;
 	gameData.normalship = readData.normalship;
 	gameData.blueship = readData.blueship;
@@ -528,6 +529,12 @@ void Game::initializeGameData()
 	gameData.yellowship = readData.yellowship;
 	gameData.purpleship = readData.purpleship;
 	gameData.redship = readData.redship;
+	gameData.blackship = readData.blackship;
+	gameData.equipedfire = readData.equipedfire;
+	gameData.normalfire = readData.normalfire;
+	gameData.yellowfire = readData.yellowfire;
+	gameData.greenfire = readData.greenfire;
+	gameData.whitefire = readData.whitefire;
 }
 
 void Game::initializeStartMenu()
@@ -774,53 +781,81 @@ void Game::initializeShopMenu()
 
 
 	// Fire 1 select
-	this->fire1Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire1Select.setOutlineThickness(-5.f);
-	this->fire1Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire1Select.getGlobalBounds().width / 2.f - 375.f,
-		this->window->getSize().y / 2.f - this->fire1Select.getGlobalBounds().height / 2.f + 215.f
+	if (!this->normalfire.loadFromFile("Textures/Fireidleshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_FIREIDLE::FAILED_TO_LOAD" << '\n';
+	}
+	this->normalfireSelect.setTexture(&normalfire);
+	this->normalfireSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->normalfireSelect.setOutlineThickness(-5.f);
+	this->normalfireSelect.setPosition(
+		this->window->getSize().x / 2.f - this->normalfireSelect.getGlobalBounds().width / 2.f - 375.f,
+		this->window->getSize().y / 2.f - this->normalfireSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire1Select.setFillColor(sf::Color(255, 255, 255, 75));
 	// Fire 2 select
-	this->fire2Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire2Select.setOutlineThickness(-5.f);
-	this->fire2Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire2Select.getGlobalBounds().width / 2.f - 225.f,
-		this->window->getSize().y / 2.f - this->fire2Select.getGlobalBounds().height / 2.f + 215.f
+	if (!this->yellowfire.loadFromFile("Textures/Fireidleyellowshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_FIREIDLE::FAILED_TO_LOAD" << '\n';
+	}
+	this->yellowfireSelect.setTexture(&yellowfire);
+	this->yellowfireSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->yellowfireSelect.setOutlineThickness(-5.f);
+	this->yellowfireSelect.setPosition(
+		this->window->getSize().x / 2.f - this->yellowfireSelect.getGlobalBounds().width / 2.f - 225.f,
+		this->window->getSize().y / 2.f - this->yellowfireSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire2Select.setFillColor(sf::Color(255, 255, 255, 75));
 	// Fire 3 select
-	this->fire3Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire3Select.setOutlineThickness(-5.f);
-	this->fire3Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire3Select.getGlobalBounds().width / 2.f - 75.f,
-		this->window->getSize().y / 2.f - this->fire3Select.getGlobalBounds().height / 2.f + 215.f
+	if (!this->greenfire.loadFromFile("Textures/Fireidleshopgreen.png"))
+	{
+		std::cout << "TEXTURE::SHOP_FIREIDLE::FAILED_TO_LOAD" << '\n';
+	}
+	this->greenfireSelect.setTexture(&greenfire);
+	this->greenfireSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->greenfireSelect.setOutlineThickness(-5.f);
+	this->greenfireSelect.setPosition(
+		this->window->getSize().x / 2.f - this->greenfireSelect.getGlobalBounds().width / 2.f - 75.f,
+		this->window->getSize().y / 2.f - this->greenfireSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire3Select.setFillColor(sf::Color(255, 255, 255, 75));
-	// Fire 4 select
-	this->fire4Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire4Select.setOutlineThickness(-5.f);
-	this->fire4Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire4Select.getGlobalBounds().width / 2.f + 75.f,
-		this->window->getSize().y / 2.f - this->fire4Select.getGlobalBounds().height / 2.f + 215.f
+
+	// Black ship select
+	if (!this->blackship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->blackshipSelect.setTexture(&blackship);
+	this->blackshipSelect.setFillColor(sf::Color::Color(65, 65, 65));
+	this->blackshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->blackshipSelect.setOutlineThickness(-5.f);
+	this->blackshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->blackshipSelect.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->blackshipSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire4Select.setFillColor(sf::Color(255, 255, 255, 75));
-	// Fire 5 select
-	this->fire5Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire5Select.setOutlineThickness(-5.f);
-	this->fire5Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire5Select.getGlobalBounds().width / 2.f + 225.f,
-		this->window->getSize().y / 2.f - this->fire5Select.getGlobalBounds().height / 2.f + 215.f
+
+	// Black bullet select
+	if (!this->blackbullet.loadFromFile("Textures/whitebulletshop.png"))
+	{
+		std::cout << "TEXTURE::SHOP_BLACKBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->blackbulletSelect.setTexture(&blackbullet);
+	this->blackbulletSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->blackbulletSelect.setOutlineThickness(-5.f);
+	this->blackbulletSelect.setPosition(
+		this->window->getSize().x / 2.f - this->blackbulletSelect.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->blackbulletSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire5Select.setFillColor(sf::Color(255, 255, 255, 75));
-	// Fire 6 select
-	this->fire6Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->fire6Select.setOutlineThickness(-5.f);
-	this->fire6Select.setPosition(
-		this->window->getSize().x / 2.f - this->fire6Select.getGlobalBounds().width / 2.f + 375.f,
-		this->window->getSize().y / 2.f - this->fire6Select.getGlobalBounds().height / 2.f + 215.f
+	
+	// White fire select
+	if (!this->whitefire.loadFromFile("Textures/Fireidleshopwhite.png"))
+	{
+		std::cout << "TEXTURE::SHOP_BLACKBULLET::FAILED_TO_LOAD" << "\n";
+	}
+	this->whitefireSelect.setTexture(&whitefire);
+	this->whitefireSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->whitefireSelect.setOutlineThickness(-5.f);
+	this->whitefireSelect.setPosition(
+		this->window->getSize().x / 2.f - this->whitefireSelect.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->whitefireSelect.getGlobalBounds().height / 2.f + 215.f
 	);
-	this->fire6Select.setFillColor(sf::Color(255, 255, 255, 75));
 
 	this->shopTitle.setPosition
 	(
@@ -1065,4 +1100,5 @@ void Game::initializePlayer()
 {
 	this->player = new Player;
 	this->player->setShipColor(gameData.equipedship);
+	this->player->setFireColor(gameData.equipedfire);
 }
