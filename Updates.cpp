@@ -155,6 +155,13 @@ void Game::updateGUI()
 			gameData.highScore = points;
 			updateGameData(gameData);
 		}
+		if (gameData.highScore >= 500000)
+		{
+			gameData.blackship = "ACQUIRED";
+			gameData.blackbullet = "ACQUIRED";
+			gameData.whitefire = "ACQUIRED";
+			updateGameData(gameData);
+		}
 	}
 
 	// Update bombs

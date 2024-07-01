@@ -268,12 +268,18 @@ private:
     sf::Texture purpleship;
     sf::RectangleShape redshipSelect;
     sf::Texture redship;
-    sf::RectangleShape fire1Select;
-    sf::RectangleShape fire2Select;
-    sf::RectangleShape fire3Select;
-    sf::RectangleShape fire4Select;
-    sf::RectangleShape fire5Select;
-    sf::RectangleShape fire6Select;
+    sf::RectangleShape normalfireSelect;
+    sf::Texture normalfire;
+    sf::RectangleShape yellowfireSelect;
+    sf::Texture yellowfire;
+    sf::RectangleShape greenfireSelect;
+    sf::Texture greenfire;
+    sf::RectangleShape blackshipSelect;
+    sf::Texture blackship;
+    sf::RectangleShape blackbulletSelect;
+    sf::Texture blackbullet;
+    sf::RectangleShape whitefireSelect;
+    sf::Texture whitefire;
 
     // Pause Menu options
     sf::RectangleShape pausesettingsBackground;

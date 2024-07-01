@@ -121,7 +121,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 						std::cout << "TEXTURE::BULLET_BLUE::FAILED_TO_LOAD" << "\n";
 					}
 				}
-				else if (gameData.bluebullet == "NULL" && gameData.coins > 5000)
+				else if (gameData.bluebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.bluebullet = "ACQUIRED";
 					gameData.coins -= 5000;
@@ -137,7 +137,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 						std::cout << "TEXTURE::BULLET_GREEN::FAILED_TO_LOAD" << "\n";
 					}
 				}
-				else if (gameData.greenbullet == "NULL" && gameData.coins > 5000)
+				else if (gameData.greenbullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.greenbullet = "ACQUIRED";
 					gameData.coins -= 5000;
@@ -153,7 +153,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 						std::cout << "TEXTURE::BULLET_YELLOW::FAILED_TO_LOAD" << "\n";
 					}
 				}
-				else if (gameData.yellowbullet == "NULL" && gameData.coins > 5000)
+				else if (gameData.yellowbullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.yellowbullet = "ACQUIRED";
 					gameData.coins -= 5000;
@@ -169,7 +169,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 						std::cout << "TEXTURE::BULLET_PURPLE::FAILED_TO_LOAD" << "\n";
 					}
 				}
-				else if (gameData.purplebullet == "NULL" && gameData.coins > 5000)
+				else if (gameData.purplebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.purplebullet = "ACQUIRED";
 					gameData.coins -= 5000;
@@ -185,7 +185,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 						std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
 					}
 				}
-				if (gameData.whitebullet == "NULL" && gameData.coins > 5000)
+				if (gameData.whitebullet == "NULL" && gameData.coins >= 5000)
 				{
 					gameData.whitebullet = "ACQUIRED";
 					gameData.coins -= 5000;
@@ -200,6 +200,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				gameData.equipedship = 0;
 				updateGameData(gameData);
 				this->player->setShipColor(gameData.equipedship);
+				this->player->setFireColor(gameData.equipedfire);
 				break;
 			case 1:
 				if (gameData.blueship == "ACQUIRED")
@@ -208,7 +209,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
 				}
-				if (gameData.blueship == "NULL" && gameData.coins > 10000)
+				if (gameData.blueship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.blueship = "ACQUIRED";
 					gameData.coins -= 10000;
@@ -221,7 +222,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
 				}
-				if (gameData.greenship == "NULL" && gameData.coins > 10000)
+				if (gameData.greenship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.greenship = "ACQUIRED";
 					gameData.coins -= 10000;
@@ -234,7 +235,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
 				}
-				if (gameData.yellowship == "NULL" && gameData.coins > 10000)
+				if (gameData.yellowship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.yellowship = "ACQUIRED";
 					gameData.coins -= 10000;
@@ -247,7 +248,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
 				}
-				if (gameData.purpleship == "NULL" && gameData.coins > 10000)
+				if (gameData.purpleship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.purpleship = "ACQUIRED";
 					gameData.coins -= 10000;
@@ -260,7 +261,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 					updateGameData(gameData);
 					this->player->setShipColor(gameData.equipedship);
 				}
-				if (gameData.redship == "NULL" && gameData.coins > 10000)
+				if (gameData.redship == "NULL" && gameData.coins >= 10000)
 				{
 					gameData.redship = "ACQUIRED";
 					gameData.coins -= 10000;
@@ -272,16 +273,62 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 			switch (this->shopselectedMenuItem)
 			{
 			case 0:
+				gameData.equipedfire = 0;
+				updateGameData(gameData);
+				this->player->setFireColor(gameData.equipedfire);
 				break;
 			case 1:
+				if (this->gameData.yellowfire == "ACQUIRED")
+				{
+					gameData.equipedfire = 1;
+					updateGameData(gameData);
+					this->player->setFireColor(gameData.equipedfire);
+				}
+				if (this->gameData.yellowfire == "NULL" && gameData.coins >= 5000)
+				{
+					gameData.yellowfire = "ACQUIRED";
+					gameData.coins -= 5000;
+				}
 				break;
 			case 2:
+				if (this->gameData.greenfire == "ACQUIRED")
+				{
+					gameData.equipedfire = 2;
+					updateGameData(gameData);
+					this->player->setFireColor(gameData.equipedfire);
+				}
+				if (this->gameData.greenfire == "NULL" && gameData.coins >= 5000)
+				{
+					gameData.greenfire = "ACQUIRED";
+					gameData.coins -= 5000;
+				}
 				break;
 			case 3:
+				if (this->gameData.blackship == "ACQUIRED")
+				{
+					gameData.equipedship = 6;
+					updateGameData(gameData);
+					this->player->setFireColor(gameData.equipedfire);
+				}
 				break;
 			case 4:
+				if (gameData.blackbullet == "ACQUIRED")
+				{
+					gameData.equipedbullet = "black";
+					updateGameData(gameData);
+					if (!this->textures["BULLET"]->loadFromFile("Textures/Whitebullet.png"))
+					{
+						std::cout << "TEXTURE::BULLET_WHITE::FAILED_TO_LOAD" << "\n";
+					}
+				}
 				break;
 			case 5:
+				if (this->gameData.whitefire == "ACQUIRED")
+				{
+					gameData.equipedfire = 3;
+					updateGameData(gameData);
+					this->player->setFireColor(gameData.equipedfire);
+				}
 				break;
 			}
 			break;

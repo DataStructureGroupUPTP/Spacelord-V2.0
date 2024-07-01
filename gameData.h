@@ -8,10 +8,12 @@ struct GameData {
     std::string equipedbullet;
     std::string redbullet;
     std::string bluebullet;
-    std::string greenbullet;
+    std::string greenbullet; 
+
     std::string yellowbullet;
     std::string purplebullet;
     std::string whitebullet;
+    std::string blackbullet;
     int equipedship;
     std::string normalship;
     std::string blueship;
@@ -19,6 +21,12 @@ struct GameData {
     std::string yellowship;
     std::string purpleship;
     std::string redship;
+    std::string blackship;
+    int equipedfire;
+    std::string normalfire;
+    std::string yellowfire;
+    std::string greenfire;
+    std::string whitefire;
 };
 
 void updateGameData(const GameData& data);
