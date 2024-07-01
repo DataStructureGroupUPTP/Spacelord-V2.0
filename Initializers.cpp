@@ -618,6 +618,13 @@ void Game::initializeStartMenu()
 		this->window->getSize().x / 2.f - this->quitText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 150.f
 	);
+
+	// Initialize Quit menu item
+	this->menuHighScore.setFont(this->font);
+	this->menuHighScore.setCharacterSize(48);
+	this->menuHighScore.setFillColor(sf::Color::White);
+	this->menuHighScore.setString("ERROR");
+	this->menuHighScore.setPosition(10.f, 675.f);
 }
 
 void Game::initializeShopMenu()
@@ -949,6 +956,22 @@ void Game::initializeGameOverMenu()
 	this->mainmenuText.setPosition(
 		this->window->getSize().x / 2.f - this->mainmenuText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->mainmenuText.getGlobalBounds().height / 2.f
+	);
+	this->scoreAchieved.setFont(this->font);
+	this->scoreAchieved.setCharacterSize(48);
+	this->scoreAchieved.setFillColor(sf::Color::White);
+	this->scoreAchieved.setString("ERROR");
+	this->scoreAchieved.setPosition(
+		this->window->getSize().x / 2.f - this->mainmenuText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->mainmenuText.getGlobalBounds().height / 2.f + 200.f
+	);
+	this->lastHighScore.setFont(this->font);
+	this->lastHighScore.setCharacterSize(48);
+	this->lastHighScore.setFillColor(sf::Color::White);
+	this->lastHighScore.setString("ERROR");
+	this->lastHighScore.setPosition(
+		this->window->getSize().x / 2.f - this->lastHighScore.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->lastHighScore.getGlobalBounds().height / 2.f + 225.f
 	);
 }
 

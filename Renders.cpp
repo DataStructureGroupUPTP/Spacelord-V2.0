@@ -98,6 +98,14 @@ void Game::renderStartMenu()
 	this->window->draw(this->settingsText);
 	this->window->draw(this->creditsText);
 	this->window->draw(this->quitText);
+	std::stringstream ss2;
+	ss2 << "Money: " << this->gameData.coins << "$";
+	this->coinAmount.setString(ss2.str());
+	this->window->draw(this->coinAmount);
+	std::stringstream ss5;
+	ss5 << "High Score: " << this->gameData.highScore;
+	this->menuHighScore.setString(ss5.str());
+	this->window->draw(this->menuHighScore);
 }
 
 void Game::renderShopMenu()
@@ -425,6 +433,8 @@ void Game::renderGameOverMenu()
 	this->window->draw(this->gameOverBackground);
 	this->window->draw(this->gameOverText);
 	this->window->draw(this->mainmenuText);
+	this->window->draw(this->scoreAchieved);
+	this->window->draw(this->lastHighScore);
 }
 
 void Game::renderSettingsMenu()

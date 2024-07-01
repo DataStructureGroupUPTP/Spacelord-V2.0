@@ -239,6 +239,7 @@ private:
     sf::Text creditsText;
     sf::Text quitText;
     sf::Text resetText;
+    sf::Text menuHighScore;
 
     // Shop Menu options
     sf::Text objectPrice;
@@ -289,6 +290,8 @@ private:
 
     // Game Over menu options
     sf::Text gameOverText;
+    sf::Text scoreAchieved;
+    sf::Text lastHighScore;
 
     // Settings Menu options
     sf::Text musicvolumeText;

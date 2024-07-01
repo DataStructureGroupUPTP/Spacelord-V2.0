@@ -149,7 +149,11 @@ void Game::updateGUI()
 	{
 		this->stageMusic.stop();
 		this->gameOverMusic.play();
-		this->gameState = GAME_OVER;
+		this->scoreAchieved.setString(ss.str());
+		this->scoreAchieved.setPosition(
+			this->window->getSize().x / 2.f - this->scoreAchieved.getGlobalBounds().width / 2.f,
+			this->window->getSize().y / 2.f - this->scoreAchieved.getGlobalBounds().height / 2.f + 200.f
+		);
 		if (gameData.highScore < points)
 		{
 			gameData.highScore = points;
@@ -162,6 +166,14 @@ void Game::updateGUI()
 			gameData.whitefire = "ACQUIRED";
 			updateGameData(gameData);
 		}
+		std::stringstream ss4;
+		ss4 << "High Score: " << gameData.highScore;
+		this->lastHighScore.setString(ss4.str());
+		this->lastHighScore.setPosition(
+			this->window->getSize().x / 2.f - this->lastHighScore.getGlobalBounds().width / 2.f,
+			this->window->getSize().y / 2.f - this->lastHighScore.getGlobalBounds().height / 2.f + 250.f
+		);
+		this->gameState = GAME_OVER;
 	}
 
 	// Update bombs
