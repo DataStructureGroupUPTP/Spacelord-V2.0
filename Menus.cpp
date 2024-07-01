@@ -119,6 +119,8 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 				{
 					gameData.bluebullet = "ACQUIRED";
 					gameData.coins -= 5000;
+					this->buySound.play();
+					std::cout << "I HAPPEN";
 				}
 				break;
 			case 2:

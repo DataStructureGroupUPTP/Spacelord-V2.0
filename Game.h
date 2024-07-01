@@ -175,6 +175,10 @@ private:
     sf::SoundBuffer levelUpBuffer;
     sf::Sound levelup;
 
+    sf::SoundBuffer buySoundBuffer;
+    sf::Sound buySound;
+
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;

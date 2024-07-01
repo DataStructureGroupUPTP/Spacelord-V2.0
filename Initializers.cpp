@@ -251,6 +251,13 @@ void Game::initializeSounds()
 	}
 
 	this->levelup.setBuffer(this->levelUpBuffer);
+
+	if (!this->buySoundBuffer.loadFromFile("Sounds/Buy.mp3"))
+	{
+		std::cout << "SOUND::BUY_SOUND::FAILED_TO_LOAD";
+	}
+
+	this->buySound.setBuffer(this->buySoundBuffer);
 }
 
 void Game::initializeSoundFXVolume()
@@ -269,6 +276,7 @@ void Game::initializeSoundFXVolume()
 	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
 	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
 	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
+	this->buySound.setVolume(this->soundfxVolume * 10); // 50
 }
 
 void Game::initializeMusic()
