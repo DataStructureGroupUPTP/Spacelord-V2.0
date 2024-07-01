@@ -1,6 +1,16 @@
-coins = 0
+coins = 20005
 high-score = 0
 equipedbullet = red
 redbullet = ACQUIRED
 bluebullet = NULL
 greenbullet = NULL
+yellowbullet = NULL
+purplebullet = NULL
+whitebullet = NULL
+equipedship = 0
+normalship = ACQUIRED
+blueship = NULL
+greenship = NULL
+yellowship = NULL
+purpleship = NULL
+redship = ACQUIRED

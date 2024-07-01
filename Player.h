@@ -97,7 +97,7 @@ public:
 
 	void upgradeDamage();
 	void upgradeAttackSpeed();
-	
+	void setShipColor(int c);
 	
 	void updateAttackCooldown();
 	void setAttackCooldown(float val);

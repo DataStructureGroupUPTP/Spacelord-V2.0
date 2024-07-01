@@ -518,6 +518,16 @@ void Game::initializeGameData()
 	gameData.redbullet = readData.redbullet;
 	gameData.bluebullet = readData.bluebullet;
 	gameData.greenbullet = readData.greenbullet;
+	gameData.yellowbullet = readData.yellowbullet;
+	gameData.purplebullet = readData.purplebullet;
+	gameData.whitebullet = readData.whitebullet;
+	gameData.equipedship = readData.equipedship;
+	gameData.normalship = readData.normalship;
+	gameData.blueship = readData.blueship;
+	gameData.greenship = readData.greenship;
+	gameData.yellowship = readData.yellowship;
+	gameData.purpleship = readData.purpleship;
+	gameData.redship = readData.redship;
 }
 
 void Game::initializeStartMenu()
@@ -679,54 +689,89 @@ void Game::initializeShopMenu()
 		this->window->getSize().y / 2.f - this->whitebulletSelect.getGlobalBounds().height / 2.f - 85.f
 	);
 
-	// Ship 1 select
-	this->ship1Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship1Select.setOutlineThickness(-5.f);
-	this->ship1Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship1Select.getGlobalBounds().width / 2.f - 375.f,
-		this->window->getSize().y / 2.f - this->ship1Select.getGlobalBounds().height / 2.f + 65.f
+	// Normal Ship select
+	if (!this->normalship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->normalshipSelect.setTexture(&normalship);
+	this->normalshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->normalshipSelect.setOutlineThickness(-5.f);
+	this->normalshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->normalshipSelect.getGlobalBounds().width / 2.f - 375.f,
+		this->window->getSize().y / 2.f - this->normalshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship1Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 	// Ship 2 select
-	this->ship2Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship2Select.setOutlineThickness(-5.f);
-	this->ship2Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship2Select.getGlobalBounds().width / 2.f - 225.f,
-		this->window->getSize().y / 2.f - this->ship2Select.getGlobalBounds().height / 2.f + 65.f
+	if (!this->blueship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->blueshipSelect.setTexture(&blueship);
+	this->blueshipSelect.setFillColor(sf::Color(40, 132, 203));
+	this->blueshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->blueshipSelect.setOutlineThickness(-5.f);
+	this->blueshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->blueshipSelect.getGlobalBounds().width / 2.f - 225.f,
+		this->window->getSize().y / 2.f - this->blueshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship2Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 	// Ship 3 select
-	this->ship3Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship3Select.setOutlineThickness(-5.f);
-	this->ship3Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship3Select.getGlobalBounds().width / 2.f - 75.f,
-		this->window->getSize().y / 2.f - this->ship3Select.getGlobalBounds().height / 2.f + 65.f
+	if (!this->greenship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->greenshipSelect.setTexture(&greenship);
+	this->greenshipSelect.setFillColor(sf::Color(30, 162, 52));
+	this->greenshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->greenshipSelect.setOutlineThickness(-5.f);
+	this->greenshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->greenshipSelect.getGlobalBounds().width / 2.f - 75.f,
+		this->window->getSize().y / 2.f - this->greenshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship3Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 	// Ship 4 select
-	this->ship4Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship4Select.setOutlineThickness(-5.f);
-	this->ship4Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship4Select.getGlobalBounds().width / 2.f + 75.f,
-		this->window->getSize().y / 2.f - this->ship4Select.getGlobalBounds().height / 2.f + 65.f
+	if (!this->yellowship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->yellowshipSelect.setTexture(&yellowship);
+	this->yellowshipSelect.setFillColor(sf::Color(255, 177, 0));
+	this->yellowshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->yellowshipSelect.setOutlineThickness(-5.f);
+	this->yellowshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->yellowshipSelect.getGlobalBounds().width / 2.f + 75.f,
+		this->window->getSize().y / 2.f - this->yellowshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship4Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 	// Ship 5 select
-	this->ship5Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship5Select.setOutlineThickness(-5.f);
-	this->ship5Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship5Select.getGlobalBounds().width / 2.f + 225.f,
-		this->window->getSize().y / 2.f - this->ship5Select.getGlobalBounds().height / 2.f + 65.f
+	if (!this->purpleship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->purpleshipSelect.setTexture(&purpleship);
+	this->purpleshipSelect.setFillColor(sf::Color(153, 102, 255));
+	this->purpleshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->purpleshipSelect.setOutlineThickness(-5.f);
+	this->purpleshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->purpleshipSelect.getGlobalBounds().width / 2.f + 225.f,
+		this->window->getSize().y / 2.f - this->purpleshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship5Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 	// Ship 6 select
-	this->ship6Select.setSize(sf::Vector2f(125.f, 125.f));
-	this->ship6Select.setOutlineThickness(-5.f);
-	this->ship6Select.setPosition(
-		this->window->getSize().x / 2.f - this->ship6Select.getGlobalBounds().width / 2.f + 375.f,
-		this->window->getSize().y / 2.f - this->ship6Select.getGlobalBounds().height / 2.f + 65.f
+	if (!this->redship.loadFromFile("Textures/Mainshipfix.png"))
+	{
+		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
+	}
+	this->redshipSelect.setTexture(&redship);
+	this->redshipSelect.setFillColor(sf::Color(212, 44, 77));
+	this->redshipSelect.setSize(sf::Vector2f(125.f, 125.f));
+	this->redshipSelect.setOutlineThickness(-5.f);
+	this->redshipSelect.setPosition(
+		this->window->getSize().x / 2.f - this->redshipSelect.getGlobalBounds().width / 2.f + 375.f,
+		this->window->getSize().y / 2.f - this->redshipSelect.getGlobalBounds().height / 2.f + 65.f
 	);
-	this->ship6Select.setFillColor(sf::Color(255, 255, 255, 75));
+
 
 	// Fire 1 select
 	this->fire1Select.setSize(sf::Vector2f(125.f, 125.f));
@@ -777,12 +822,12 @@ void Game::initializeShopMenu()
 	);
 	this->fire6Select.setFillColor(sf::Color(255, 255, 255, 75));
 
-
 	this->shopTitle.setPosition
 	(
 		this->window->getSize().x / 2.f - this->shopTitle.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->shopTitle.getGlobalBounds().height / 2.f - 250.f
+		this->window->getSize().y / 2.f - this->shopTitle.getGlobalBounds().height / 2.f - 350.f
 	);
+
 	this->returnfromshopText.setFont(this->font);
 	this->returnfromshopText.setCharacterSize(48);
 	this->returnfromshopText.setFillColor(sf::Color::White);
@@ -790,6 +835,23 @@ void Game::initializeShopMenu()
 	this->returnfromshopText.setPosition(
 		this->window->getSize().x / 2.f - this->returnfromshopText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->returnfromshopText.getGlobalBounds().height / 2.f + 300.f
+	);
+
+	std::stringstream ss2;
+	ss2 << "Money: " << this->gameData.coins << "$";
+	this->coinAmount.setString(ss2.str());
+	this->coinAmount.setFont(this->font);
+	this->coinAmount.setCharacterSize(48);
+	this->coinAmount.setFillColor(sf::Color::White);
+	this->coinAmount.setPosition(10.f, 725.f);
+
+	this->objectPrice.setFont(this->font);
+	this->objectPrice.setCharacterSize(48);
+	this->objectPrice.setFillColor(sf::Color::White);
+	this->objectPrice.setString("");
+	this->objectPrice.setPosition(
+		this->window->getSize().x / 2.f - this->objectPrice.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->objectPrice.getGlobalBounds().height / 2.f - 250.f
 	);
 }
 
@@ -1002,5 +1064,5 @@ void Game::initializeItems()
 void Game::initializePlayer()
 {
 	this->player = new Player;
-
+	this->player->setShipColor(gameData.equipedship);
 }

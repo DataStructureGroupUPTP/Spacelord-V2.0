@@ -105,6 +105,10 @@ void Game::renderShopMenu()
 	this->window->draw(this->startMenuBackground);
 	this->window->draw(this->pausesettingsBackground);
 	this->window->draw(this->shopTitle);
+	std::stringstream ss2;
+	ss2 << "Money: " << this->gameData.coins << "$";
+	this->coinAmount.setString(ss2.str());
+	this->window->draw(this->coinAmount);
 	this->returnfromshopText.setFillColor(sf::Color::White);
 	this->redbulletSelect.setOutlineColor(sf::Color::White);
 	this->bluebulletSelect.setOutlineColor(sf::Color::White);
@@ -112,12 +116,12 @@ void Game::renderShopMenu()
 	this->yellowbulletSelect.setOutlineColor(sf::Color::White);
 	this->purplebulletSelect.setOutlineColor(sf::Color::White);
 	this->whitebulletSelect.setOutlineColor(sf::Color::White);
-	this->ship1Select.setOutlineColor(sf::Color::White);
-	this->ship2Select.setOutlineColor(sf::Color::White);
-	this->ship3Select.setOutlineColor(sf::Color::White);
-	this->ship4Select.setOutlineColor(sf::Color::White);
-	this->ship5Select.setOutlineColor(sf::Color::White);
-	this->ship6Select.setOutlineColor(sf::Color::White);
+	this->normalshipSelect.setOutlineColor(sf::Color::White);
+	this->greenshipSelect.setOutlineColor(sf::Color::White);
+	this->blueshipSelect.setOutlineColor(sf::Color::White);
+	this->yellowshipSelect.setOutlineColor(sf::Color::White);
+	this->purpleshipSelect.setOutlineColor(sf::Color::White);
+	this->redshipSelect.setOutlineColor(sf::Color::White);
 	this->fire1Select.setOutlineColor(sf::Color::White);
 	this->fire2Select.setOutlineColor(sf::Color::White);
 	this->fire3Select.setOutlineColor(sf::Color::White);
@@ -133,21 +137,47 @@ void Game::renderShopMenu()
 		{
 		case 0:
 			this->redbulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Acquired");
 			break;
 		case 1:
 			this->bluebulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.bluebullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 2:
 			this->greenbulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.greenbullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 3:
 			this->yellowbulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.yellowbullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 4:
 			this->purplebulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.purplebullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 5:
 			this->whitebulletSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 5000$");
+			if (gameData.whitebullet == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		}
 		break;
@@ -155,22 +185,48 @@ void Game::renderShopMenu()
 		switch (this->shopselectedMenuItem)
 		{
 		case 0:
-			this->ship1Select.setOutlineColor(sf::Color::Yellow);
+			this->normalshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Acquired");
 			break;
 		case 1:
-			this->ship2Select.setOutlineColor(sf::Color::Yellow);
+			this->blueshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 10000$");
+			if (gameData.blueship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 2:
-			this->ship3Select.setOutlineColor(sf::Color::Yellow);
+			this->greenshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 10000$");
+			if (gameData.greenship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 3:
-			this->ship4Select.setOutlineColor(sf::Color::Yellow);
+			this->yellowshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 10000$");
+			if (gameData.yellowship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 4:
-			this->ship5Select.setOutlineColor(sf::Color::Yellow);
+			this->purpleshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 10000$");
+			if (gameData.purpleship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		case 5:
-			this->ship6Select.setOutlineColor(sf::Color::Yellow);
+			this->redshipSelect.setOutlineColor(sf::Color::Yellow);
+			this->objectPrice.setString("Price: 10000$");
+			if (gameData.redship == "ACQUIRED")
+			{
+				this->objectPrice.setString("Acquired");
+			}
 			break;
 		}
 		break;
@@ -201,18 +257,23 @@ void Game::renderShopMenu()
 		this->returnfromshopText.setFillColor(sf::Color::Yellow);
 		break;
 	}
+	this->objectPrice.setPosition(
+		this->window->getSize().x / 2.f - this->objectPrice.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->objectPrice.getGlobalBounds().height / 2.f - 250.f
+	);
+	this->window->draw(this->objectPrice);
 	this->window->draw(this->redbulletSelect);
 	this->window->draw(this->bluebulletSelect);
 	this->window->draw(this->greenbulletSelect);
 	this->window->draw(this->yellowbulletSelect);
 	this->window->draw(this->purplebulletSelect);
 	this->window->draw(this->whitebulletSelect);
-	this->window->draw(this->ship1Select);
-	this->window->draw(this->ship2Select);
-	this->window->draw(this->ship3Select);
-	this->window->draw(this->ship4Select);
-	this->window->draw(this->ship5Select);
-	this->window->draw(this->ship6Select);
+	this->window->draw(this->normalshipSelect);
+	this->window->draw(this->greenshipSelect);
+	this->window->draw(this->blueshipSelect);
+	this->window->draw(this->yellowshipSelect);
+	this->window->draw(this->purpleshipSelect);
+	this->window->draw(this->redshipSelect);
 	this->window->draw(this->fire1Select);
 	this->window->draw(this->fire2Select);
 	this->window->draw(this->fire3Select);
@@ -247,6 +308,31 @@ void Game::renderEquiped()
 	else if (gameData.equipedbullet == "white")
 	{
 		this->whitebulletSelect.setOutlineColor(sf::Color::Green);
+	}
+
+	if (gameData.equipedship == 0)
+	{
+		this->normalshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 1)
+	{
+		this->blueshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 2)
+	{
+		this->greenshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 3)
+	{
+		this->yellowshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 4)
+	{
+		this->purpleshipSelect.setOutlineColor(sf::Color::Green);
+	}
+	else if (gameData.equipedship == 5)
+	{
+		this->redshipSelect.setOutlineColor(sf::Color::Green);
 	}
 }
 
