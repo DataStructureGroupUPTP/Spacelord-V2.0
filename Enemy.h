@@ -96,6 +96,8 @@
 		float deathBeamAnimationSpeed;
 
 
+
+
 	public:
 
 		Enemy();

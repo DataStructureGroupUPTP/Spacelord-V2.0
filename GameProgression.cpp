@@ -174,7 +174,7 @@ void Game::updateDifficulty()
 			this->enemySpawnRate = 1.5f;
 			if (!this->stageMusic.openFromFile("Music/WithoutFear.ogg"))
 			{
-				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";
+				std::cout << "ERROR::WITHOUT_FEAR_MUSIC::FAILED_TO_LOAD" << "\n";
 			}
 			this->stageMusic.play();
 			checkerOne = false;
@@ -235,6 +235,7 @@ void Game::updateDifficulty()
 		if(bossIsActive && this->boss->getHp() <= 200 && !stageTransition)
 		{
 			this->horizontalEnemySpawnRate = 0.25f;
+			this->deathBeamSpawnRate = 0.15f;
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 50 && !stageTransition)
@@ -276,6 +277,7 @@ void Game::updateDifficulty()
 				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";
 			}
 			this->stageMusic.play();
+			this->stageMusic.setVolume(this->musicVolume * 12);
 		}
 
 		if (elapsedTime >= timeStamp + 10.f && checkerFive && stage2End)
@@ -304,8 +306,8 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp + 15.f && stage2End && checkerSeven)
 		{
-			this->stageBackground.setTexture(this->stage2BackgroundTexture);
-			this->stageBackground2.setTexture(this->stage2BackgroundTexture);
+			this->stageBackground.setTexture(this->stage3BackgroundTexture);
+			this->stageBackground2.setTexture(this->stage3BackgroundTexture);
 			this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
 			this->checkerFour = false;
 
@@ -324,6 +326,41 @@ void Game::updateDifficulty()
 		}
 
 
+	}
+
+	if (Stage == 3)
+	{
+		this->backgroundScrollSpeed = 1.5f;
+		if (elapsedTime >= timeStamp2 + 1.f && elapsedTime <= timeStamp2 + 2.f)
+		{
+			checkerOne = true;
+			checkerTwo = true;
+			checkerThree = true;
+			checkerFour = true;
+			checkerFive = true;
+			this->healthItemSpawnRate = 0.0167f;
+			this->enemySpawnRate = 0.f;
+			this->horizontalEnemySpawnRate = 0.f;
+			this->meteorSpawnRate = 0.f;
+			this->doubleMeteorChance = 0.f;
+			this->tripleMeteorChance = 0.f;
+			this->dpsItemSpawnRate = 0.075f;
+		}
+
+		if (elapsedTime >= timeStamp2 + 7.f && checkerOne)
+		{
+
+			this->enemySpawnRate = 1.5f;
+			if (!this->stageMusic.openFromFile("Music/Aloneagainstenemy.ogg"))
+			{
+				std::cout << "ERROR::ALONE_MUSIC::FAILED_TO_LOAD" << "\n";
+			}
+			this->stageMusic.play();
+			checkerOne = false;
+			this->meteorSpawnRate = 0.25f;
+			this->doubleMeteorChance = 25.f;
+			this->tripleMeteorChance = 5.f;
+		}
 	}
 }
 

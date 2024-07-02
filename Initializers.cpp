@@ -436,14 +436,19 @@ void Game::initializeGUI()
 
 void Game::initializeBackground()
 {
-	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
+	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space8.png"))
 	{
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
 
 	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space4.png"))
 	{
-		std::cout << "TEXTURE::SPACE2::FAILED_TO_LOAD" << "\n";
+		std::cout << "TEXTURE::SPACE4::FAILED_TO_LOAD" << "\n";
+	}
+
+	if (!this->stage3BackgroundTexture.loadFromFile("Textures/Space8.png"))
+	{
+		std::cout << "TEXTURE::SPACE6::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->stageBackground.setTexture(this->stageBackgroundTexture);
@@ -1112,7 +1117,7 @@ void Game::initializeStage()
 	this->checkerFive = true;
 	this->checkerSix = true;
 	this->checkerSeven = true;
-	this->Stage = 1;
+	this->Stage = 2;
 
 
 }

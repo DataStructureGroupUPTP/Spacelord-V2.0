@@ -293,8 +293,8 @@ void Boss::moveInLoop(float deltaTime)
         }
 
         // Erratic movement pattern
-        float speedX = 100.0f + Xincrease; // Adjust horizontal speed
-        float speedY = 50.0f + Yincrease; // Adjust vertical speed
+        float speedX = 110.0f + Xincrease; // Adjust horizontal speed
+        float speedY = 55.0f + Yincrease; // Adjust vertical speed
 
         std::cout << speedX << "\n";
 

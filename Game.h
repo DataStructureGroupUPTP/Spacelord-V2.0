@@ -65,6 +65,7 @@ private:
 
     sf::Texture stageBackgroundTexture;
     sf::Texture stage2BackgroundTexture;
+    sf::Texture stage3BackgroundTexture;
     sf::Sprite stageBackground;
     sf::Sprite stageBackground2;
 
