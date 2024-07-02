@@ -403,6 +403,14 @@ void Game::initializeGUI()
 	this->settingsTitle.setOutlineThickness(1);
 	this->settingsTitle.setString("SETTINGS");
 
+	// Initialize Credits title
+	this->creditsTitle.setFont(this->titleFont);
+	this->creditsTitle.setCharacterSize(100);
+	this->creditsTitle.setFillColor(sf::Color::White);
+	this->creditsTitle.setStyle(sf::Text::Italic);
+	this->creditsTitle.setOutlineThickness(1);
+	this->creditsTitle.setString("Credits");
+
 	// Initialize game over title
 	this->gameOverText.setFont(this->titleFont);
 	this->gameOverText.setCharacterSize(100);
@@ -1082,6 +1090,33 @@ void Game::initializeSettingsMenu()
 	this->backText.setPosition(
 		this->window->getSize().x / 2.f - this->backText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->backText.getGlobalBounds().height / 2.f + 100.f
+	);
+}
+
+void Game::initializeCreditsMenu()
+{
+	this->creditsTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->creditsTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->creditsTitle.getGlobalBounds().height / 2.f - 250.f
+	);
+
+	this->creditsText.setFont(this->font);
+	this->creditsText.setCharacterSize(48);
+	this->creditsText.setFillColor(sf::Color::White);
+	this->creditsText.setString("Developed by Sebastián Pérez & Alejandro Adorno\nASSETS\nVoid Main Ship: Foozlecc, Itch.io\nLaser 2020: Wenrexa, Itch.io\n");
+	this->creditsText.setPosition(
+		this->window->getSize().x / 2.f - this->creditsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f
+	);
+
+	this->returnfromcreditsText.setFont(this->font);
+	this->returnfromcreditsText.setCharacterSize(48);
+	this->returnfromcreditsText.setFillColor(sf::Color::Yellow);
+	this->returnfromcreditsText.setString("Return");
+	this->returnfromcreditsText.setPosition(
+		this->window->getSize().x / 2.f - this->returnfromcreditsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->returnfromcreditsText.getGlobalBounds().height / 2.f
 	);
 }
 

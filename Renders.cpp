@@ -1,5 +1,9 @@
 #include "Game.h"
 
+void Game::renderCreditsMenu()
+{
+}
+
 void Game::renderGUI()
 {
 	this->window->draw(this->pointText);
