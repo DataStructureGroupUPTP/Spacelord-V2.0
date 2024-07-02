@@ -51,6 +51,7 @@ private:
     sf::Text pauseTitle;
     sf::Text settingsTitle;
     sf::Text shopTitle;
+    sf::Text creditsTitle;
 
     // Timer GUI
     sf::Text timerText;
@@ -235,6 +236,7 @@ private:
     void initializePauseMenu();
     void initializeGameOverMenu();
     void initializeSettingsMenu();
+    void initializeCreditsMenu();
     void initializeSoundFXVolume();
     void initializeMusicVolume();
     void initializeEnemy();
@@ -302,6 +304,10 @@ private:
     sf::Text resumeText;
     sf::Text pausesettingsText;
     sf::Text mainmenuText;
+
+    // Credits Menu
+    sf::Text creditsText;
+    sf::Text returnfromcreditsText;
 
     // Game Over menu options
     sf::Text gameOverText;
@@ -388,6 +394,7 @@ public:
 
     void update();
 
+    void renderCreditsMenu();
     void renderGUI();
     void renderWorld();
     void render();
