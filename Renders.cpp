@@ -2,6 +2,14 @@
 
 void Game::renderCreditsMenu()
 {
+	this->window->draw(this->startMenuBackground);
+	this->window->draw(this->pausesettingsBackground);
+	this->window->draw(this->creditsTitle);
+	//this->window->draw(this->gamedevcreditsText);
+	this->window->draw(this->listofcredits1Text);
+	this->window->draw(this->listofcredits2Text);
+	this->window->draw(this->listofcredits3Text);
+	this->window->draw(this->returnfromcreditsText);
 }
 
 void Game::renderGUI()
