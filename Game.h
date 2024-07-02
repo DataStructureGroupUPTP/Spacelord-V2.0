@@ -21,6 +21,7 @@ enum GameState
     GAMEPLAY,
     PAUSED,
     SHOP,
+    CREDITS,
     SETTINGS,
     GAME_OVER
 };
@@ -242,6 +243,7 @@ private:
     void initializeSpawnRates();
     void initializeItems();
     void initializePlayer();
+    void handleCreditsMenuInput(const sf::Event& ev);
     void handleMainMenuInput(const sf::Event& ev);
     void handleShopMenuInput(const sf::Event& ev);
     void handlePauseMenuInput(const sf::Event& ev);
@@ -305,7 +307,10 @@ private:
     sf::Text mainmenuText;
 
     // Credits Menu
-    sf::Text creditsText;
+    sf::Text gamedevcreditsText;
+    sf::Text listofcredits1Text;
+    sf::Text listofcredits2Text;
+    sf::Text listofcredits3Text;
     sf::Text returnfromcreditsText;
 
     // Game Over menu options

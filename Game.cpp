@@ -216,6 +216,9 @@ void Game::updatePollEvents()
 			case SETTINGS:
 				handleSettingsMenuInput(ev);
 				break;
+			case CREDITS:
+				handleCreditsMenuInput(ev);
+				break;
 			default:
 				break;
 			}
@@ -316,6 +319,11 @@ void Game::render()
 
 	if (fadeState != NONE) {
 		this->window->draw(fadeOverlay);
+	}
+
+	if (this->gameState == CREDITS)
+	{
+		this->renderCreditsMenu();
 	}
 
 

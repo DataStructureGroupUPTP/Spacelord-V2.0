@@ -1098,16 +1098,43 @@ void Game::initializeCreditsMenu()
 	this->creditsTitle.setPosition
 	(
 		this->window->getSize().x / 2.f - this->creditsTitle.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->creditsTitle.getGlobalBounds().height / 2.f - 250.f
+		this->window->getSize().y / 2.f - this->creditsTitle.getGlobalBounds().height / 2.f - 350.f
 	);
 
-	this->creditsText.setFont(this->font);
-	this->creditsText.setCharacterSize(48);
-	this->creditsText.setFillColor(sf::Color::White);
-	this->creditsText.setString("Developed by Sebastián Pérez & Alejandro Adorno\nASSETS\nVoid Main Ship: Foozlecc, Itch.io\nLaser 2020: Wenrexa, Itch.io\n");
-	this->creditsText.setPosition(
-		this->window->getSize().x / 2.f - this->creditsText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f
+	this->gamedevcreditsText.setFont(this->font);
+	this->gamedevcreditsText.setCharacterSize(48);
+	this->gamedevcreditsText.setFillColor(sf::Color::White);
+	this->gamedevcreditsText.setString("Developed by Sebastian Perez & Alejandro Adorno");
+	this->gamedevcreditsText.setPosition(
+		this->window->getSize().x / 2.f - this->gamedevcreditsText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->gamedevcreditsText.getGlobalBounds().height / 2.f - 250.f
+	);
+
+	this->listofcredits1Text.setFont(this->font);
+	this->listofcredits1Text.setCharacterSize(24);
+	this->listofcredits1Text.setFillColor(sf::Color::White);
+	this->listofcredits1Text.setString("ASSETS\nVoid Main Ship:\nFoozle, Itch.io\nLaser 2020:\nWenrexa, Itch.io\nPixel Space Background Generator:\nDeep-Fold, Itch.io\nVoid Environment Pack:\nFoozle, Itch.io\nCelestial Objects Pixel Art:\nNorma2D, Itch.io\nSpaceship Shooter Environment:\nAnsimuz, Itch.io\nVoid - Feet Pack 2 - Nairan:\nFoozle, Itch.io\nVoid - Fleet Pack 1 - Kla'ed:\nFoozle, Itch.io\nSOUNDS\nMenu Sound 5:\nApenguin73, Freesound.org\nSword Hit:\nqubodup, Freesound.org");
+	this->listofcredits1Text.setPosition(
+		this->window->getSize().x / 2.f - this->listofcredits1Text.getGlobalBounds().width / 2.f - 300.f,
+		this->window->getSize().y / 2.f - this->listofcredits1Text.getGlobalBounds().height / 2.f + 40.f
+	);
+
+	this->listofcredits2Text.setFont(this->font);
+	this->listofcredits2Text.setCharacterSize(24);
+	this->listofcredits2Text.setFillColor(sf::Color::White);
+	this->listofcredits2Text.setString("Bouncing Power Up 1_5:\nJoao_Janz, Freesound.org\nLaser zap:\nPixabay, Pixabay.com\nPistol Shot:\nLeMudCrab, Freesound.org\nExplosion:\nqubodup, Freesound.otg\npauseStart:\nWagna, Freesound.org\nHeal - Rpg:\ncolorsCrimsonTears, Freesound.org\nPowerup 10:\nMATRIXXX_, Freesound.org\nswoosh-2:\nlesaucisson, Freesound.org\nmetal bowl - hit - with wooden spoon 01:\nAnthousai, Freesound.org\nSpace Shooter Music:\nOblidivm, Opengameart.org\nhttps://opengameart.org/content/space-shooter-music");
+	this->listofcredits2Text.setPosition(
+		this->window->getSize().x / 2.f - this->listofcredits2Text.getGlobalBounds().width / 2.f + 100.f,
+		this->window->getSize().y / 2.f - this->listofcredits2Text.getGlobalBounds().height / 2.f + 25.f
+	);
+
+	this->listofcredits3Text.setFont(this->font);
+	this->listofcredits3Text.setCharacterSize(26);
+	this->listofcredits3Text.setFillColor(sf::Color::White);
+	this->listofcredits3Text.setString("Spacey 1up/Power up:\nGameAudio, Freesound.org\nBuying Sounds:\nwobesound, Freesound.org\nWrong:\nRaclure, Freesound.org\nGeneric Rifle Cock:\nGameWithBepis, Freesound.org");
+	this->listofcredits3Text.setPosition(
+		this->window->getSize().x / 2.f - this->listofcredits3Text.getGlobalBounds().width / 2.f + 350.f,
+		this->window->getSize().y / 2.f - this->listofcredits3Text.getGlobalBounds().height / 2.f - 122.f
 	);
 
 	this->returnfromcreditsText.setFont(this->font);
@@ -1116,7 +1143,7 @@ void Game::initializeCreditsMenu()
 	this->returnfromcreditsText.setString("Return");
 	this->returnfromcreditsText.setPosition(
 		this->window->getSize().x / 2.f - this->returnfromcreditsText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->returnfromcreditsText.getGlobalBounds().height / 2.f
+		this->window->getSize().y / 2.f - this->returnfromcreditsText.getGlobalBounds().height / 2.f + 300.f
 	);
 }
 
@@ -1204,3 +1231,5 @@ void Game::initializePlayer()
 	this->player->setFireColor(gameData.equipedfire);
 	this->setBulletColor(gameData.equipedbullet);
 }
+
+
