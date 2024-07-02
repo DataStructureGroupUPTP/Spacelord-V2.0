@@ -154,6 +154,42 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::DEATH_BEAM::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->textures["STAGE3ENEMY1"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY1"]->loadFromFile("Textures/Stage3e1.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY1::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY2"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY2"]->loadFromFile("Textures/Stage3e2.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY2::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY3"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY3"]->loadFromFile("Textures/Stage3e3.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY3::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY4"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY4"]->loadFromFile("Textures/Stage3e4.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY4::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY5"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY5"]->loadFromFile("Textures/Stage3e5.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY5::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY6"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY6"]->loadFromFile("Textures/Stage3e6.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY6::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 void Game::initializeSounds()

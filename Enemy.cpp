@@ -168,6 +168,10 @@ void Enemy::initializeTextures()
 		std::cout << "TEXTURE::DEATHBEAM::FAILED_TO_LOAD" << "\n";
 	}
 
+	if (!this->stage3e1FireTexture.loadFromFile("Animations/Stage3e1fire.png"))
+	{
+		std::cout << "TEXTURE::DEATHBEAM::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 
@@ -394,10 +398,19 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 5.f;
 		this->damage = 1;
 		this->points = 0;
-		this->speed = 8.f;
+		this->speed = 12.f;
+
+		this->stage3e1Fire.setTexture(this->stage3e1FireTexture);
+		this->stage3e1Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->stage3e1Fire.setTextureRect(this->stage3e1Frame);
+		this->stage3e1Fire.setScale(2.75f, 2.75f);
+		this->stage3e1Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY1"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY1"]->getSize().y) * 2.75 + 45.f);
+		this->stage3e1CurrentFrame = 0;
+		this->stage3e1AnimationTimer = 0.f;
+		this->stage3e1AnimationSpeed = 0.1f;
 		break;
 
 	case 13:
@@ -536,6 +549,7 @@ void Enemy::update()
 	updateSupportAnimation();
 	updateTorpedoAnimation();
 	updateDeathBeamAnimation();
+	updateStage3Enemy1();
 
 	if(this->type == 9 or this->type == 16)
 	{
@@ -779,6 +793,31 @@ void Enemy::updateDeathBeamAnimation()
 	}
 }
 
+void Enemy::updateStage3Enemy1()
+{
+	if (this->type == 12) 
+	{
+		this->stage3e1AnimationTimer += 0.1f; // Adjust as necessary
+
+		if (this->stage3e1AnimationTimer >= this->stage3e1AnimationSpeed)
+		{
+			// Reset timer
+			this->stage3e1AnimationTimer = 0.f;
+
+			// Update frame
+			this->stage3e1CurrentFrame++;
+			if (this->stage3e1CurrentFrame >= 8) // Assuming there are 12 frames
+				this->stage3e1CurrentFrame = 0;
+
+			// Set texture rect
+			this->stage3e1Frame.left = this->stage3e1CurrentFrame * 64; // Assuming each frame is 64x64
+			this->stage3e1Fire.setTextureRect(this->stage3e1Frame);
+			this->stage3e1Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY1"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY1"]->getSize().y) * 2.75 + 35.f);
+		}
+	}
+
+}
+
 void Enemy::render(sf::RenderTarget& target)
 {
 
@@ -810,6 +849,11 @@ void Enemy::render(sf::RenderTarget& target)
 	if (this->type == 10) // Only render for torpedo type
 	{
 		target.draw(this->torpedoFire);
+	}
+
+	if (this->type == 12)
+	{
+		target.draw(this->stage3e1Fire);
 	}
 
 	target.draw(this->enemyOne);

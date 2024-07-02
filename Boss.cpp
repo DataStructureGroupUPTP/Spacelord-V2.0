@@ -281,8 +281,8 @@ void Boss::moveInLoop(float deltaTime)
 
         else if(health <= 10)
         {
-            Xincrease = Xincrease + 0.15f;
-            Yincrease = Yincrease + 0.15f;
+            Xincrease = Xincrease + 0.2f;
+            Yincrease = Yincrease + 0.2f;
             
         }
         

@@ -351,6 +351,7 @@ void Game::updateDifficulty()
 		{
 
 			this->enemySpawnRate = 1.5f;
+			this->horizontalEnemySpawnRate = 0.5f;
 			if (!this->stageMusic.openFromFile("Music/Aloneagainstenemy.ogg"))
 			{
 				std::cout << "ERROR::ALONE_MUSIC::FAILED_TO_LOAD" << "\n";

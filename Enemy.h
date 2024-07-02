@@ -95,6 +95,14 @@
 		float deathBeamAnimationTimer;
 		float deathBeamAnimationSpeed;
 
+		sf::Texture stage3e1FireTexture;
+		sf::Sprite stage3e1Fire;
+
+		sf::IntRect stage3e1Frame;
+		int stage3e1CurrentFrame;
+		float stage3e1AnimationTimer;
+		float stage3e1AnimationSpeed;
+
 
 
 
@@ -125,6 +133,7 @@
 		void updateSupportAnimation();
 		void updateTorpedoAnimation();
 		void updateDeathBeamAnimation();
+		void updateStage3Enemy1();
 
 		void render(sf::RenderTarget& target);
 	};

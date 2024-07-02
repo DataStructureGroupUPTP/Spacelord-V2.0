@@ -341,6 +341,7 @@ void Game::updateEnemies()
 
 		int enemyRandomizer = rand() % 3;
 		int enemyRandomizerStage2 = rand() % 4;
+		int enemyRandomizerStage3 = rand() % 4;
 
 		if (Stage == 1) {
 			switch (enemyRandomizer)
@@ -366,7 +367,7 @@ void Game::updateEnemies()
 		}
 		if (Stage == 2)
 		{
-			switch(enemyRandomizerStage2)
+			switch (enemyRandomizerStage2)
 			{
 			case 0:
 				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY1"]->getSize().x / 2) * 2.75), -200.f, 5));
@@ -384,17 +385,31 @@ void Game::updateEnemies()
 				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY4"]->getSize().x / 2) * 2.75), -200.f, 8));
 				this->spawnTimer = 0;
 				break;
-			case 4:
-				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY5"]->getSize().x / 2) * 2.75), -200.f, 9));
-				this->spawnTimer = 0;
-				break;
-			case 5:
-				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE2ENEMY6"]->getSize().x / 2) * 2.75), -200.f, 10));
-				this->spawnTimer = 0;
-				break;
+
 			}
+		}
+		if (Stage == 3)
+		{
+			switch (enemyRandomizerStage3)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE3ENEMY1"]->getSize().x / 2) * 2.75), -200.f, 12));
+				this->spawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE3ENEMY2"]->getSize().x / 2) * 2.75), -200.f, 13));
+				this->spawnTimer = 0;
+				break;
+			case 2:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE3ENEMY3"]->getSize().x / 2) * 2.75), -200.f, 14));
+				this->spawnTimer = 0;
+				break;
+			case 3:
+				this->enemies.push_back(new Enemy(static_cast<float> (lanePos - (this->textures["STAGE3ENEMY4"]->getSize().x / 2) * 2.75), -200.f, 15));
+				this->spawnTimer = 0;
+				break;
 
-
+			}
 		}
 	}
 
@@ -403,19 +418,36 @@ void Game::updateEnemies()
 	{
 		int enemyRandomizer = rand() % 2;
 
-		switch (enemyRandomizer)
-		{
-		case 0:
-			this->enemies.push_back(new Enemy(-200.f, static_cast<float> (rand() % 400 + 300), 9));
-			this->horizontalSpawnTimer = 0;
-			break;
-		case 1:
-			this->enemies.push_back(new Enemy(1200.f, static_cast <float> (rand() % 400 + 300), 10));
-			this->horizontalSpawnTimer = 0;
-			break;
-
+		if (Stage == 2){
+			switch (enemyRandomizer)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(-200.f, static_cast<float> (rand() % 400 + 300), 9));
+				this->horizontalSpawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(1200.f, static_cast <float> (rand() % 400 + 300), 10));
+				this->horizontalSpawnTimer = 0;
+				break;
+			}
 
 		}
+
+		if (Stage == 3) {
+			switch (enemyRandomizer)
+			{
+			case 0:
+				this->enemies.push_back(new Enemy(-200.f, static_cast<float> (rand() % 400 + 300), 16));
+				this->horizontalSpawnTimer = 0;
+				break;
+			case 1:
+				this->enemies.push_back(new Enemy(1200.f, static_cast <float> (rand() % 400 + 300), 17));
+				this->horizontalSpawnTimer = 0;
+				break;
+			}
+
+		}
+
 
 	}
 
