@@ -28,6 +28,7 @@ void Game::initialize()
 	this->initializeShopMenu();
 	this->initializeMusicVolume();
 	this->initializeSoundFXVolume();
+	this->initializeCreditsMenu();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;
@@ -215,6 +216,9 @@ void Game::updatePollEvents()
 			case SETTINGS:
 				handleSettingsMenuInput(ev);
 				break;
+			case CREDITS:
+				handleCreditsMenuInput(ev);
+				break;
 			default:
 				break;
 			}
@@ -315,6 +319,11 @@ void Game::render()
 
 	if (fadeState != NONE) {
 		this->window->draw(fadeOverlay);
+	}
+
+	if (this->gameState == CREDITS)
+	{
+		this->renderCreditsMenu();
 	}
 
 

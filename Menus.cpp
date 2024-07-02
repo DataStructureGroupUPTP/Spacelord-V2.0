@@ -42,7 +42,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->selectedMenuItem = 0;
 			break;
 		case 3:
-			// Handle credits selection
+			this->gameState = CREDITS;
 			this->selectedMenuItem = 0;
 			break;
 		case 4:
@@ -56,6 +56,14 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 		default:
 			break;
 		}
+	}
+}
+
+void Game::handleCreditsMenuInput(const sf::Event& ev)
+{
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		this->gameState = MAIN_MENU;
 	}
 }
 
