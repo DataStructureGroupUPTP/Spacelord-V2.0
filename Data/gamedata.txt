@@ -1,5 +1,5 @@
-coins = 6090
-high-score = 99800
+coins = 8310
+high-score = 284100
 equipedbullet = 3
 redbullet = ACQUIRED
 bluebullet = ACQUIRED

@@ -97,6 +97,42 @@ void Enemy::initializeTextures()
 		std::cout << "TEXTURE::STAGE2ENEMY6::FAILED_TO_LOAD" << "\n";
 	}
 
+	this->textures["STAGE3ENEMY1"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY1"]->loadFromFile("Textures/Stage3e1.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY1::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY2"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY2"]->loadFromFile("Textures/Stage3e2.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY2::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY3"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY3"]->loadFromFile("Textures/Stage3e3.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY3::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY4"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY4"]->loadFromFile("Textures/Stage3e4.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY4::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY5"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY5"]->loadFromFile("Textures/Stage3e5.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY5::FAILED_TO_LOAD" << "\n";
+	}
+
+	this->textures["STAGE3ENEMY6"] = new sf::Texture();
+	if (!this->textures["STAGE3ENEMY6"]->loadFromFile("Textures/Stage3e6.png"))
+	{
+		std::cout << "TEXTURE::STAGE3ENEMY6::FAILED_TO_LOAD" << "\n";
+	}
+
 	if (!this->bomberFireTexture.loadFromFile("Animations/Bomberfire.png"))
 	{
 		std::cout << "TEXTURE::BOMBER_FIRE::FAILED_TO_LOAD" << "\n";
@@ -349,6 +385,85 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->deathBeamCurrentFrame = 0;
 		this->deathBeamAnimationTimer = 0.f;
 		this->deathBeamAnimationSpeed = 0.1f;
+		break;
+
+	case 12:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY1"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
+
+	case 13:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY2"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
+
+	case 14:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY3"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
+
+	case 15:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY4"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
+
+	case 16:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY5"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
+
+	case 17:
+		this->enemyOne.setTexture(*this->textures["STAGE3ENEMY6"]);
+		this->enemyOne.scale(2.75f, 2.75f);
+
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+		break;
 
 	}
 
@@ -422,11 +537,11 @@ void Enemy::update()
 	updateTorpedoAnimation();
 	updateDeathBeamAnimation();
 
-	if(this->type == 9)
+	if(this->type == 9 or this->type == 16)
 	{
 		this->enemyOne.move(this->speed, 0.f);
 	}
-	else if(this->type == 10)
+	else if(this->type == 10 or this->type == 17)
 	{
 		this->enemyOne.move(-this->speed, 0.f);
 	}
