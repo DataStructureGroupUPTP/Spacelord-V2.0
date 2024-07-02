@@ -134,6 +134,7 @@ void Game::reset()
 	delete boss;
 
 	bossIsActive = false;
+
 	this->initializePlayer();
 	this->initializeEnemy();
 	this->initializeSpawnRates();
@@ -245,13 +246,13 @@ void Game::update()
 		this->updateDifficulty();
 		this->updateExplosionEffect();
 
-		if(bossIsActive)
+		if (bossIsActive)
 		{
 			this->updateBoss();
 		}
-	}
 
-	this->updateFadeEffect();
+		this->updateFadeEffect();
+	}
 }
 
 void Game::render()

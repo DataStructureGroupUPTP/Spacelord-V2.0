@@ -1,18 +1,43 @@
 #include "Boss.h"
 #include <iostream>
+#include <algorithm>
 
-Boss::Boss(float initialHealth, float initialMoveSpeed)
+Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
     : health(initialHealth), moveSpeed(initialMoveSpeed), isMovingInLoop(false), angle(0.f), isDefeated(false), defeatTimer(0.f)
 {
+
+    this->type = type;
+
     // Load textures
-    if (!this->bossTexture.loadFromFile("Textures/Boss1.png"))
-    {
-        std::cerr << "TEXTURE::BOSS::FAILED_TO_LOAD" << std::endl;
+    if (type == 1) {
+        if (!this->bossTexture.loadFromFile("Textures/Boss1.png"))
+        {
+            std::cout << "TEXTURE::BOSS::FAILED_TO_LOAD" << std::endl;
+        }
     }
 
-    if (!this->bossFire.loadFromFile("Animations/Bossfireidle.png"))
+    if(type == 2)
     {
-        std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        if (!this->bossTexture.loadFromFile("Textures/Boss2.png"))
+        {
+            std::cout << "TEXTURE::BOSS2::FAILED_TO_LOAD" << std::endl;
+        }
+        
+    }
+
+    if (type == 1) {
+        if (!this->bossFire.loadFromFile("Animations/Bossfireidle.png"))
+        {
+            std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
+    }
+
+    if(type == 2)
+    {
+        if (!this->bossFire.loadFromFile("Animations/Boss2fireidle.png"))
+        {
+            std::cout << "TEXTURE::BOSS2_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
     }
 
     if (!this->defeatAnimation.loadFromFile("Animations/bossDefeat.png"))
@@ -22,7 +47,9 @@ Boss::Boss(float initialHealth, float initialMoveSpeed)
 
     bossSprite.setTexture(bossTexture);
     bossSprite.setScale(3.0f, 3.0f);
-    bossSprite.rotate(180.f);
+    if (type == 1) {
+        bossSprite.rotate(180.f);
+    }
 
     startPosition = sf::Vector2f(400.f, -250.f); // Start just above the screen
     bossSprite.setPosition(startPosition);
@@ -33,12 +60,24 @@ Boss::Boss(float initialHealth, float initialMoveSpeed)
     this->fireFrame = sf::IntRect(0, 0, 128, 128);
     this->fire.setTextureRect(this->fireFrame);
     this->fire.setScale(3.0f, 3.0f);
-    this->fire.rotate(180.f);
+    if (type == 1) {
+        this->fire.rotate(180.f);
+    }
 
-    this->fire.setPosition(
-        this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
-        this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 100.f
-    );
+    if (type == 1) {
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+            this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 100.f
+        );
+    }
+
+    if(type == 2)
+    {
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+            this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 1000.f
+        );
+    }
 
     // Animation
     this->currentFrame = 0;
@@ -46,6 +85,8 @@ Boss::Boss(float initialHealth, float initialMoveSpeed)
     this->animationSpeed = 0.1f; // Speed of the animation
 
     this->movingDown = true;
+    this->Xincrease = 0.f;
+    this->Yincrease = 0.f;
 }
 
 Boss::~Boss()
@@ -80,27 +121,48 @@ const float Boss::getHp() const
     return this->health;
 }
 
-void Boss::spawn(sf::Vector2f position)
+void Boss::spawn(sf::Vector2f position, sf::Vector2f loopLocation)
 {
     bossSprite.setPosition(position);
-    isMovingInLoop = false; // Start with coming down from the top
+    loopCenter = loopLocation;
+
+    isMovingInLoop = false; // Start with coming down or up
     isDefeated = false;
     defeatTimer = 0.f;
 }
 
 void Boss::updateAnimation()
 {
-    this->animationTimer += this->animationSpeed;
-    if (this->animationTimer >= 1.f)
-    {
-        this->animationTimer = 0.f;
-        this->currentFrame++;
-        if (this->currentFrame >= 8) // 8 frames
+    if (type == 1) {
+        this->animationTimer += this->animationSpeed;
+        if (this->animationTimer >= 1.f)
         {
-            this->currentFrame = 0;
+            this->animationTimer = 0.f;
+            this->currentFrame++;
+            if (this->currentFrame >= 8) // 8 frames
+            {
+                this->currentFrame = 0;
+            }
+            this->fireFrame.left = this->currentFrame * 128; // Frame width is 128
+            this->fire.setTextureRect(this->fireFrame);
         }
-        this->fireFrame.left = this->currentFrame * 128; // Frame width is 128
-        this->fire.setTextureRect(this->fireFrame);
+    }
+
+    if(type == 2)
+    {
+        this->animationTimer += this->animationSpeed;
+        if (this->animationTimer >= 1.f)
+        {
+            this->animationTimer = 0.f;
+            this->currentFrame++;
+            if (this->currentFrame >= 12) // 12 frames
+            {
+                this->currentFrame = 0;
+            }
+            this->fireFrame.left = this->currentFrame * 128; // Frame width is 128
+            this->fire.setTextureRect(this->fireFrame);
+        }
+    
     }
 }
 
@@ -115,7 +177,7 @@ void Boss::update(float deltaTime)
     this->updateAnimation();
     if (!isMovingInLoop)
     {
-        // Move slowly down to the loop center
+        // Move slowly down/up to the loop center
         sf::Vector2f currentPosition = bossSprite.getPosition();
         sf::Vector2f direction = loopCenter - currentPosition;
         float distance = moveSpeed * deltaTime;
@@ -175,35 +237,100 @@ bool Boss::isAlive() const
 
 void Boss::moveInLoop(float deltaTime)
 {
-    // Move in a circular loop
-    angle += 0.5f * deltaTime; // Adjust loop speed as needed
+    if (type == 1) {
+        // Move in a circular loop
+        angle += 0.5f * deltaTime; // Adjust loop speed as needed
 
-    float x = loopCenter.x + (loopRadius + 50) * std::cos(angle);
-    float y = loopCenter.y + loopRadius * std::sin(angle);
+        float x = loopCenter.x + (loopRadius + 50) * std::cos(angle);
+        float y = loopCenter.y + loopRadius * std::sin(angle);
 
-    bossSprite.setPosition(x, y);
+        bossSprite.setPosition(x, y);
 
-    if (bossSprite.getPosition().y >= 900)
+        if (bossSprite.getPosition().y >= 900)
+        {
+            this->movingDown = false;
+        }
+
+        if (bossSprite.getPosition().y <= 200)
+        {
+            this->movingDown = true;
+        }
+
+        if (movingDown)
+        {
+            loopCenter.y++;
+        }
+        else
+        {
+            loopCenter.y--;
+        }
+
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - 17.f,
+            this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 277.f
+        );
+    }
+    else if(type == 2)
     {
-        this->movingDown = false;
+
+        if(health <= 150)
+        {
+            Xincrease = Xincrease + 0.02f;
+            Yincrease = Yincrease + 0.02f;
+        }
+
+        else if(health <= 10)
+        {
+            Xincrease = Xincrease + 0.15f;
+            Yincrease = Yincrease + 0.15f;
+            
+        }
+        
+        else 
+        {
+            Xincrease = Xincrease + 0.01f;
+            Yincrease = Yincrease + 0.01f;
+        }
+
+        // Erratic movement pattern
+        float speedX = 100.0f + Xincrease; // Adjust horizontal speed
+        float speedY = 50.0f + Yincrease; // Adjust vertical speed
+
+        std::cout << speedX << "\n";
+
+        static float directionX = 1.0f;
+        static float directionY = 1.0f;
+
+        sf::Vector2f currentPosition = bossSprite.getPosition();
+
+        // Change direction randomly
+        if (rand() % 800 < 1) { // >1% chance to change direction
+            directionX = -directionX;
+        }
+        if (rand() % 800 < 1) { // >1% chance to change direction
+            directionY = -directionY;
+        }
+
+        float newX = currentPosition.x + directionX * speedX * deltaTime;
+        float newY = currentPosition.y + directionY * speedY * deltaTime;
+
+        // Bounce off the screen edges
+        if (newX < 0 || newX > 1000 - bossSprite.getGlobalBounds().width) {
+            directionX = -directionX;
+        }
+        if (newY < 0 || newY > 800 - bossSprite.getGlobalBounds().height) {
+            directionY = -directionY;
+        }
+
+        bossSprite.setPosition(
+            std::clamp(newX, 0.0f, 1000.0f - bossSprite.getGlobalBounds().width),
+            std::clamp(newY, 0.0f, 800.0f - bossSprite.getGlobalBounds().height)
+        );
+
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - 191.f,
+            this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 340.f
+        );
     }
 
-    if (bossSprite.getPosition().y <= 200)
-    {
-        this->movingDown = true;
-    }
-
-    if (movingDown)
-    {
-        loopCenter.y++;
-    }
-    else
-    {
-        loopCenter.y--;
-    }
-
-    this->fire.setPosition(
-        this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - 17.f,
-        this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 277.f
-    );
 }

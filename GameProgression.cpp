@@ -36,7 +36,7 @@ void Game::updateDifficulty()
 				this->stageMusic.play();
 
 				bossIsActive = true;
-				this->boss->spawn(sf::Vector2f(560.f, -200.f));
+				this->boss->spawn(sf::Vector2f(560.f, -200.f), sf::Vector2f(600.f, 300.f));
 			}
 		}
 
@@ -53,7 +53,7 @@ void Game::updateDifficulty()
 		if (((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 50)) && checkerOne)
 		{
 			this->meteorSpawnRate = 0.35f;
-			this->bossAttackCooldownMax = 45.f;
+			this->bossAttackCooldownMax = 50.f;
 
 		}
 
@@ -138,6 +138,8 @@ void Game::updateDifficulty()
 			timeStamp2 = elapsedTime;
 			stage1End = false;
 			this->meteorSpawnRate = 0.f;
+			this->boss = new Boss(300.f, 10.5f, 2);
+			bossDefeated = false;
 			Stage = 2;
 	
 
@@ -149,9 +151,6 @@ void Game::updateDifficulty()
 
 	if(Stage == 2)
 	{
-
-
-
 		this->backgroundScrollSpeed = 1.5f;
 		if(elapsedTime >= timeStamp2 + 1.f  && elapsedTime <= timeStamp2 + 2.f)
 		{
@@ -198,7 +197,7 @@ void Game::updateDifficulty()
 			checkerTwo = false;
 		}
 
-		if (elapsedTime >= timeStamp2 + 107.f && checkerThree)
+		if (elapsedTime >= timeStamp2 + 107.f && elapsedTime <= timeStamp2 + 108.f)
 		{
 			this->meteorSpawnRate = 0.f;
 			this->horizontalEnemySpawnRate = 0.f;
@@ -209,15 +208,135 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp2 + 112.f && checkerThree)
 		{
+			if (!bossIsActive) {
+				if (!this->stageMusic.openFromFile("Music/BossMusic2.ogg"))
+				{
+					std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+				}
+				this->stageMusic.play();
+
+				bossIsActive = true;
+				this->meteorSpawnRate = 0.f;
+				this->doubleMeteorChance = 0.f;
+				this->tripleMeteorChance = 0.f;
+
+				this->boss->spawn(sf::Vector2f(560.f, 1000.f), sf::Vector2f(400.f, 600.f));
+			}
+			this->backgroundScrollSpeed = 3.0f;
+			this->checkerThree = false;
+		}
+
+		if(bossIsActive && this->boss->getHp() <= 290 && !stageTransition)
+		{
+			this->deathBeamSpawnRate = 0.12f;
+			this->horizontalEnemySpawnRate = 0.1f;
+		}
+
+		if(bossIsActive && this->boss->getHp() <= 200 && !stageTransition)
+		{
+			this->horizontalEnemySpawnRate = 0.25f;
+		}
+
+		if(bossIsActive && this->boss->getHp() <= 50 && !stageTransition)
+		{
+			this->horizontalEnemySpawnRate = 0.5f;
+		}
+
+		if (bossDefeated && checkerFour)
+		{
 			this->stageMusic.stop();
-			if (!this->stageMusic.openFromFile("Music/BossMusic2.ogg"))
+			this->explosionSound.play();
+			this->meteorSpawnRate = 0.f;
+			this->horizontalEnemySpawnRate = 0.f;
+			this->deathBeamSpawnRate = 0.f;
+			this->timeStamp = elapsedTime;
+			this->stageTransition = true;
+			bossDefeated = false;
+			this->points = points + 100000;
+			this->gameData.coins = gameData.coins + 1500;
+			this->enemyKillCounter = enemyKillCounter + 80;
+			checkerFour = false;
+			this->backgroundScrollSpeed = 2.0f;
+
+		}
+
+		if (elapsedTime >= timeStamp + 5.f && stageTransition)
+		{
+			this->healthItemSpawnRate = 1.f;
+			this->dpsItemSpawnRate = 3.f;
+			bossIsActive = false;
+			stageTransition = false;
+			victoryTune.play();
+			stage2End = true;
+			this->backgroundScrollSpeed = 1.f;
+			this->meteorSpawnRate = 0.f;
+
+			if (!this->stageMusic.openFromFile("Music/empty.mp3"))
 			{
 				std::cout << "ERROR::EMPTY::FAILED_TO_LOAD" << "\n";
 			}
 			this->stageMusic.play();
+		}
 
-			checkerThree = false;
+		if (elapsedTime >= timeStamp + 10.f && checkerFive && stage2End)
+		{
+			this->healthItemSpawnRate = 0.f;
+			this->dpsItemSpawnRate = 0.f;
+			checkerFive = false;
+			this->meteorSpawnRate = 0.f;
 
 		}
+
+		if (elapsedTime >= timeStamp + 13.f && checkerSix && stage2End)
+		{
+			this->triggerFadeEffect();
+			checkerSix = false;
+			this->meteorSpawnRate = 0.f;
+
+		}
+
+		if (elapsedTime >= timeStamp + 14.f && stage2End && checkerSeven)
+		{
+			this->backgroundScrollSpeed = 75.f;
+			this->meteorSpawnRate = 0.f;
+
+		}
+
+		if (elapsedTime >= timeStamp + 15.f && stage2End && checkerSeven)
+		{
+			this->stageBackground.setTexture(this->stage2BackgroundTexture);
+			this->stageBackground2.setTexture(this->stage2BackgroundTexture);
+			this->stageBackground2.setPosition(0, this->stageBackground.getGlobalBounds().height);
+			this->checkerFour = false;
+
+		}
+
+		if (elapsedTime >= timeStamp + 16.f && stage2End)
+		{
+			this->backgroundScrollSpeed = 1.5f;
+			timeStamp2 = elapsedTime;
+			stage2End = false;
+			this->meteorSpawnRate = 0.f;
+			Stage = 3;
+
+
+
+		}
+
+
 	}
 }
+
+//if (elapsedTime >= 110.f && elapsedTime <= 111.f)
+//{
+//	if (!bossIsActive) {
+//		if (!this->stageMusic.openFromFile("Music/BossMusic.ogg"))
+//		{
+//			std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+//		}
+//		this->stageMusic.play();
+//
+//		bossIsActive = true;
+//		this->boss->spawn(sf::Vector2f(560.f, -200.f), sf::Vector2f(600.f, 300.f));
+//	}
+//}

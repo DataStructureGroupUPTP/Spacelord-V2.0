@@ -84,6 +84,7 @@ private:
     float enemySpawnRate;
     float meteorSpawnRate;
     float horizontalEnemySpawnRate;
+    float deathBeamSpawnRate;
     float healthItemSpawnRate;
     float dpsItemSpawnRate;
 
@@ -107,6 +108,8 @@ private:
     float meteorSpawnTimerMax;
     int tripleMeteorChance;
     int doubleMeteorChance;
+    float deathBeamSpawnTimer;
+    float deathBeamSpawnTimerMax;
 
     std::vector<Enemy*> enemies;
 
@@ -323,10 +326,13 @@ private:
     bool checkerThree;
     bool checkerFour;
     bool checkerFive;
+    bool checkerSix;
+    bool checkerSeven;
 
     // Stages
     bool stageTransition;
     bool stage1End;
+    bool stage2End;
     unsigned Stage;
     float timeStamp;
     float timeStamp2;

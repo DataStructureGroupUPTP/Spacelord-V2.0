@@ -126,6 +126,12 @@ void Enemy::initializeTextures()
 	{
 		std::cout << "TEXTURE::TORPEDO_FIRE::FAILED_TO_LOAD" << "\n";
 	}
+
+	if (!this->deathBeamTexture.loadFromFile("Animations/Deathbeam.png"))
+	{
+		std::cout << "TEXTURE::DEATHBEAM::FAILED_TO_LOAD" << "\n";
+	}
+
 }
 
 
@@ -324,7 +330,25 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->torpedoAnimationSpeed = 0.1f;
 		break;
 
+	case 11:
+		this->enemyOne.setTexture(deathBeamTexture);
+		this->enemyOne.scale(2.75f, 2.75f);
 
+		this->enemyOne.setPosition(pos_x, pos_y);
+
+		this->type = type;
+		this->hp = 100.f;
+		this->damage = 1;
+		this->points = 0;
+		this->speed = 8.f;
+
+		this->deathBeamFrame = sf::IntRect(0, 0, 18, 950); // Set the initial frame (width = 64, height = 64)
+		this->enemyOne.setTextureRect(this->deathBeamFrame);
+		this->enemyOne.setScale(2.75f, 2.75f);
+		this->enemyOne.setPosition(this->enemyOne.getPosition().x - (deathBeamTexture.getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (deathBeamTexture.getSize().y) * 2.75 + 45.f);
+		this->deathBeamCurrentFrame = 0;
+		this->deathBeamAnimationTimer = 0.f;
+		this->deathBeamAnimationSpeed = 0.1f;
 
 	}
 
@@ -362,6 +386,11 @@ const float& Enemy::getHp() const
 	return this->hp;
 }
 
+const float& Enemy::getType() const
+{
+	return this->type;
+}
+
 void Enemy::reduceHp(const float value)
 {
 	this->hp = this->hp - value;
@@ -391,6 +420,7 @@ void Enemy::update()
 	updateFighterAnimation();
 	updateSupportAnimation();
 	updateTorpedoAnimation();
+	updateDeathBeamAnimation();
 
 	if(this->type == 9)
 	{
@@ -608,6 +638,28 @@ void Enemy::updateTorpedoAnimation()
 			this->torpedoFrame.left = this->torpedoCurrentFrame * 64; // Assuming each frame is 64x64
 			this->torpedoFire.setTextureRect(this->torpedoFrame);
 			this->torpedoFire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE2ENEMY6"]->getSize().x / 2) * 2.75 - 30.f, this->enemyOne.getPosition().y - (this->textures["STAGE2ENEMY6"]->getSize().y) * 2.75 + 327.f);
+		}
+	}
+}
+
+void Enemy::updateDeathBeamAnimation()
+{
+	if (this->type == 11)
+	{
+		this->deathBeamAnimationTimer += 0.03;
+		if (this->deathBeamAnimationTimer >= this->deathBeamAnimationSpeed)
+		{
+			// Reset timer
+			this->deathBeamAnimationTimer = 0.f;
+
+			// Update frame
+			this->deathBeamCurrentFrame++;
+			if (this->deathBeamCurrentFrame >= 4) // Assuming there are 12 frames
+				this->deathBeamCurrentFrame = 0;
+
+			// Set texture rect
+			this->deathBeamFrame.left = this->deathBeamCurrentFrame * 18; // Assuming each frame is 64x64
+			this->enemyOne.setTextureRect(this->deathBeamFrame);
 		}
 	}
 }

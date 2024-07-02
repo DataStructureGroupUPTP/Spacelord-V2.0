@@ -313,6 +313,10 @@ void Game::updateEnemies()
 	this->spawnTimer += enemySpawnRate;
 	this->meteorSpawnTimer += meteorSpawnRate;
 	this->horizontalSpawnTimer += horizontalEnemySpawnRate;
+	this->deathBeamSpawnTimer += deathBeamSpawnRate;
+
+
+
 
 	if (this->spawnTimer >= this->spawnTimerMax)
 	{
@@ -505,6 +509,30 @@ void Game::updateEnemies()
 		}
 	}
 
+	if (deathBeamSpawnTimer >= this->deathBeamSpawnTimerMax)
+	{
+		this->laneRandomizer = rand() % 4 + 1;
+
+		switch (laneRandomizer)
+		{
+		case 1:
+			this->lanePos = 200.f;
+			break;
+		case 2:
+			this->lanePos = 400.f;
+			break;
+		case 3:
+			this->lanePos = 600.f;
+			break;
+		case 4:
+			this->lanePos = 800.f;
+			break;
+		}
+
+		this->enemies.push_back(new Enemy(static_cast<float> (lanePos + 73.5f), -200.f, 11));
+		this->deathBeamSpawnTimer = 0.f;
+
+	}
 
 	for (auto it = this->enemies.begin(); it != this->enemies.end();)
 	{
@@ -518,12 +546,19 @@ void Game::updateEnemies()
 			delete enemy;
 			it = this->enemies.erase(it);
 		}
-		else if (enemy->getBounds().intersects(this->player->getBounds()))
+		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() != 11)
 		{
 			this->player->loseHp(enemy->getDamage());
 			delete enemy;
 			it = this->enemies.erase(it);
 			this->playerHit.play();
+		}
+		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() == 11 && !this->player->isInvincible())
+		{
+			// Handle collision for enemy type 11 without deleting the enemy
+			this->player->loseHp(enemy->getDamage());
+			this->playerHit.play();
+			++it; // Increment iterator
 		}
 		else
 		{
@@ -716,7 +751,7 @@ void Game::updateCombat()
 			}
 		}
 
-		if (this->boss->getBounds().intersects(this->player->getBounds()))
+		if (this->boss->getBounds().intersects(this->player->getBounds()) && this->boss->isAlive())
 		{
 			// Boss hits the player
 			if (!this->player->isInvincible()) {

@@ -88,6 +88,13 @@
 		float torpedoAnimationTimer;
 		float torpedoAnimationSpeed;
 
+		sf::Texture deathBeamTexture;
+
+		sf::IntRect deathBeamFrame;
+		int deathBeamCurrentFrame;
+		float deathBeamAnimationTimer;
+		float deathBeamAnimationSpeed;
+
 
 	public:
 
@@ -101,6 +108,7 @@
 		const int& getPoints() const;
 		const int& getDamage() const;
 		const float& getHp() const;
+		const float& getType() const;
 		void reduceHp(const float value);
 		void increaseMeteorSpeed(const float value);
 		const sf::Vector2f& getPos() const;
@@ -113,6 +121,7 @@
 		void updateFighterAnimation();
 		void updateSupportAnimation();
 		void updateTorpedoAnimation();
+		void updateDeathBeamAnimation();
 
 		void render(sf::RenderTarget& target);
 	};

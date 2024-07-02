@@ -148,6 +148,12 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::STAGE2ENEMY6::FAILED_TO_LOAD" << "\n";
 	}
+
+	this->textures["DEATHBEAM"] = new sf::Texture();
+	if (!this->textures["DEATHBEAM"]->loadFromFile("Animations/Deathbeam.png"))
+	{
+		std::cout << "TEXTURE::DEATH_BEAM::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 void Game::initializeSounds()
@@ -1098,11 +1104,14 @@ void Game::initializeStage()
 	this->timeStamp2 = 0;
 	this->stageTransition = false;
 	this->stage1End = false;
+	this->stage2End = false;
 	this->checkerOne = true;
 	this->checkerTwo = true;
 	this->checkerThree = true;
 	this->checkerFour = true;
 	this->checkerFive = true;
+	this->checkerSix = true;
+	this->checkerSeven = true;
 	this->Stage = 1;
 
 
@@ -1110,12 +1119,14 @@ void Game::initializeStage()
 
 void Game::initializeEnemy()
 {
-	this->boss = new Boss(125.f, 10.f);
+	this->boss = new Boss(125.f, 10.f, 1);
 	this->bossIsActive = false;
+	this->bossDefeated = false;
+
 	this->bossAttackCooldown = 0.f;
 	this->bossAttackCooldownMax = 60.f;
 	this->startShooting = false;
-	this->bossDefeated = false;
+
 
 	this->spawnTimerMax = 60.f;
 	this->spawnTimer = this->spawnTimerMax;
@@ -1128,6 +1139,9 @@ void Game::initializeEnemy()
 	this->tripleMeteorChance = 0;
 	this->doubleMeteorChance = 0;
 
+	this->deathBeamSpawnTimerMax = 60.f;
+	this->deathBeamSpawnTimer = 0.f;
+
 }
 
 void Game::initializeSpawnRates()
@@ -1137,6 +1151,7 @@ void Game::initializeSpawnRates()
 	this->horizontalEnemySpawnRate = 0.f;
 	this->healthItemSpawnRate = 0.0167f;
 	this->dpsItemSpawnRate = 0.125f;
+	this->deathBeamSpawnRate = 0.f;
 }
 
 void Game::initializeItems()

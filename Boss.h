@@ -17,6 +17,7 @@ private:
     sf::Texture bossTexture;
     float health;
     float moveSpeed;
+    int type;
     bool isMovingInLoop;
     sf::Vector2f startPosition;
     sf::Vector2f loopCenter;
@@ -41,19 +42,21 @@ private:
 
 
     bool movingDown;
+    float Xincrease;
+    float Yincrease;
 
     void moveInLoop(float deltaTime); // Move in a looping pattern
     void updateDefeatedState(float deltaTime);
 
 public:
-    Boss(float initialHealth, float initialMoveSpeed);
+    Boss(float initialHealth, float initialMoveSpeed, int type);
     ~Boss();
 
     const sf::FloatRect getBounds() const;
     const sf::Vector2f& getPos() const;
     const float getHp() const;
 
-    void spawn(sf::Vector2f position); // Initialize boss at a given position
+    void spawn(sf::Vector2f position, sf::Vector2f loopLocation); // Initialize boss at a given position
     void updateAnimation();
     void update(float deltaTime);      // Update boss logic
     void render(sf::RenderTarget& target); // Draw boss to render target
