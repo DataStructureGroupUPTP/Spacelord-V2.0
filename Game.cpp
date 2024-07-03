@@ -18,6 +18,7 @@ void Game::initialize()
 	this->initializeGUI();
 	this->initializeStartMenu(); // Initialize start menu
 	this->initializeBackground();
+	this->initializePlayerHealthBar();
 	this->initializeSystems();
 	this->initializePauseMenu();
 	this->initializeGameOverMenu();
@@ -26,6 +27,7 @@ void Game::initialize()
 	this->initializeFadeEffects();
 	this->initializeGameData();
 	this->initializeShopMenu();
+	this->initializeShieldDisplay();
 	this->initializeMusicVolume();
 	this->initializeSoundFXVolume();
 	this->initializeCreditsMenu();
@@ -250,6 +252,7 @@ void Game::update()
 		this->updateCombat();
 		this->updateDifficulty();
 		this->updateExplosionEffect();
+		this->updateHealthBar(this->player->getHp());
 
 		if (bossIsActive)
 		{

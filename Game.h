@@ -46,7 +46,7 @@ private:
     sf::Text startText; // New text for the start menu
     sf::Text coinText;
     sf::Text killCounterText;
-    sf::Text bombsText;
+    sf::Text shieldText;
 
     sf::Font titleFont;
     sf::Text gameTitle;
@@ -97,6 +97,8 @@ private:
     void setBulletColor(int c);
 
     // Player GUI
+    sf::Sprite playerHealthBar;
+    sf::Sprite shieldIcon;
     sf::RectangleShape playerHpBar;
     sf::RectangleShape playerHpBarBack;
     sf::Texture heartTexture;
@@ -243,6 +245,8 @@ private:
     void initializeMusicVolume();
     void initializeEnemy();
     void initializeSpawnRates();
+    void initializePlayerHealthBar();
+    void initializeShieldDisplay();
     void initializeItems();
     void initializePlayer();
     void handleCreditsMenuInput(const sf::Event& ev);
@@ -392,7 +396,7 @@ public:
     void updateItems();
     void updateCombat();
     void updateBoss();
-
+    void updateHealthBar(int hp);
     void updateDifficulty();
     void updateFadeEffect();
     void updateExplosionEffect();

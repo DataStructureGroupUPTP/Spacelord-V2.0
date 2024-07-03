@@ -17,10 +17,12 @@ void Game::renderGUI()
 	this->window->draw(this->pointText);
 	this->window->draw(this->coinText);
 	this->window->draw(this->killCounterText);
-	this->window->draw(this->playerHpBarBack);
-	this->window->draw(this->playerHpBar);
+	//this->window->draw(this->playerHpBarBack);
+	//this->window->draw(this->playerHpBar);
 	this->window->draw(this->timerText);
-	this->window->draw(this->bombsText);
+	this->window->draw(this->playerHealthBar);
+	this->window->draw(this->shieldIcon);
+	this->window->draw(this->shieldText);
 }
 
 void Game::renderWorld()

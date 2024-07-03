@@ -134,7 +134,7 @@ void Game::updateGUI()
 {
 	// Update Score
 	std::stringstream ss;
-	ss << "Score: " << this->points;
+	ss << "Score:\n" << this->points;
 	this->pointText.setString(ss.str());
 
 	// Update Coins
@@ -181,9 +181,13 @@ void Game::updateGUI()
 
 	// Update bombs
 	std::stringstream ssBombs;
-	ssBombs << "Bombs: " << this->bombs;
-	this->bombsText.setString(ssBombs.str());
-
+	ssBombs << this->bombs;
+	this->shieldText.setString(ssBombs.str());
+	this->shieldText.setPosition
+	(
+		this->shieldIcon.getPosition().x + this->shieldText.getGlobalBounds().width / 2.f,
+		this->shieldIcon.getPosition().y + this->shieldText.getGlobalBounds().height / 2.f
+	);
 	// Update Kill Counter
 	std::stringstream ss3;
 	if (enemyKillCounter < 50)
@@ -823,6 +827,37 @@ void Game::updateBoss()
 	}
 
 
+}
+
+void Game::updateHealthBar(int hp)
+{
+	switch (hp) 
+	{
+	case 0:
+		this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+		break;
+	case 1:
+		this->playerHealthBar.setTexture(*this->textures["1HPHEALTHBAR"]);
+		break;
+	case 2:
+		this->playerHealthBar.setTexture(*this->textures["2HPHEALTHBAR"]);
+		break;
+	case 3:
+		this->playerHealthBar.setTexture(*this->textures["3HPHEALTHBAR"]);
+		break;
+	case 4:
+		this->playerHealthBar.setTexture(*this->textures["4HPHEALTHBAR"]);
+		break;
+	case 5:
+		this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+		break;
+	case 6:
+		this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+		break;
+	default:
+		this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+		break;
+	}
 }
 
 void Game::updateSoundFXVolume() 

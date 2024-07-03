@@ -190,6 +190,41 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::STAGE3ENEMY6::FAILED_TO_LOAD" << "\n";
 	}
+	this->textures["EMPTYHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["EMPTYHEALTHBAR"]->loadFromFile("Textures/emptyhealthbar.png"))
+	{
+		std::cout << "TEXTURE::EMPTY_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["1HPHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["1HPHEALTHBAR"]->loadFromFile("Textures/1hphealthbar.png"))
+	{
+		std::cout << "TEXTURE::1HP_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["2HPHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["2HPHEALTHBAR"]->loadFromFile("Textures/2hphealthbar.png"))
+	{
+		std::cout << "TEXTURE::2HP_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["3HPHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["3HPHEALTHBAR"]->loadFromFile("Textures/3hphealthbar.png"))
+	{
+		std::cout << "TEXTURE::3HP_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["4HPHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["4HPHEALTHBAR"]->loadFromFile("Textures/4hphealthbar.png"))
+	{
+		std::cout << "TEXTURE::2HP_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["FULLHEALTHBAR"] = new sf::Texture();
+	if (!this->textures["FULLHEALTHBAR"]->loadFromFile("Textures/fullhealthbar.png"))
+	{
+		std::cout << "TEXTURE::FULL_HEALTHBAR::FAILED_TO_LOAD" << "\n";
+	}
+	this->textures["SHIELDICON"] = new sf::Texture();
+	if (!this->textures["SHIELDICON"]->loadFromFile("Textures/shieldicon.png"))
+	{
+		std::cout << "TEXTURE::SHIELD_ICON::FAILED_TO_LOAD" << "\n";
+	}
 }
 
 void Game::initializeSounds()
@@ -382,30 +417,46 @@ void Game::initializeGUI()
 
 	//Initialize point text
 	this->pointText.setFont(this->font);
-	this->pointText.setCharacterSize(36);
-	this->pointText.setFillColor(sf::Color::White);
+	this->pointText.setCharacterSize(48);
+	this->pointText.setStyle(sf::Text::Bold);
+	this->pointText.setFillColor(sf::Color::Black);
+	this->pointText.setOutlineColor(sf::Color::White);
+	this->pointText.setOutlineThickness(2.5f);
+	this->pointText.setPosition(25.f, 15.f);
 	this->pointText.setString("ERROR");
 
 	//Initialize point text
 	this->coinText.setFont(this->font);
 	this->coinText.setCharacterSize(36);
-	this->coinText.setFillColor(sf::Color::White);
+	this->coinText.setStyle(sf::Text::Bold);
+	this->coinText.setFillColor(sf::Color::Black);
+	this->coinText.setOutlineColor(sf::Color::White);
+	this->coinText.setOutlineThickness(2.5f);
 	this->coinText.setString("ERROR");
-	this->coinText.setPosition(0.f, 750.f);
+	this->coinText.setPosition(15.f, 740.f);
 
 	// Initialize kill counter text
 	this->killCounterText.setFont(this->font);
 	this->killCounterText.setCharacterSize(36);
-	this->killCounterText.setFillColor(sf::Color::White);
+	this->killCounterText.setStyle(sf::Text::Bold);
+	this->killCounterText.setFillColor(sf::Color::Black);
+	this->killCounterText.setOutlineColor(sf::Color::White);
+	this->killCounterText.setOutlineThickness(2.5f);
 	this->killCounterText.setString("ERROR");
-	this->killCounterText.setPosition(0.f, 720.f);
+	this->killCounterText.setPosition(15.f, 700.f);
 
 	// Initialize kill counter text
-	this->bombsText.setFont(this->font);
-	this->bombsText.setCharacterSize(36);
-	this->bombsText.setFillColor(sf::Color::White);
-	this->bombsText.setString("ERROR");
-	this->bombsText.setPosition(0.f, 80.f);
+	this->shieldText.setFont(this->font);
+	this->shieldText.setCharacterSize(72);
+	this->shieldText.setStyle(sf::Text::Bold);
+	this->shieldText.setFillColor(sf::Color::Black);
+	this->shieldText.setOutlineColor(sf::Color::White);
+	this->shieldText.setOutlineThickness(2.5f);
+	this->shieldText.setString("ERROR");
+	this->shieldText.setPosition(
+		this->shieldIcon.getPosition().x,
+		this->shieldIcon.getPosition().y
+	);
 
 	// Initialize game title
 	this->gameTitle.setFont(this->titleFont);
@@ -466,8 +517,11 @@ void Game::initializeGUI()
 	// Initialize timer
 	this->timerText.setFont(this->font);
 	this->timerText.setCharacterSize(36);
-	this->timerText.setFillColor(sf::Color::White);
-	timerText.setPosition(this->window->getSize().x - 75.f, 0.f);
+	this->timerText.setStyle(sf::Text::Bold);
+	this->timerText.setFillColor(sf::Color::Black);
+	this->timerText.setOutlineColor(sf::Color::White);
+	this->timerText.setOutlineThickness(2.5f);
+	timerText.setPosition(this->window->getSize().x - 85.f, 0.f);
 	this->elapsedTime = 0.f;
 	this->clock.restart();
 	this->minutes = 0;
@@ -1197,7 +1251,7 @@ void Game::initializeWindow()
 	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Default | sf::Style::Titlebar);
 
 	this->window->setFramerateLimit(60);
-	this->window->setVerticalSyncEnabled(false);
+	this->window->setVerticalSyncEnabled(true);
 
 }
 
@@ -1255,6 +1309,20 @@ void Game::initializeSpawnRates()
 	this->healthItemSpawnRate = 0.0167f;
 	this->dpsItemSpawnRate = 0.125f;
 	this->deathBeamSpawnRate = 0.f;
+}
+
+void Game::initializePlayerHealthBar()
+{
+	this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+	this->playerHealthBar.setScale(6, 6);
+	this->playerHealthBar.setPosition(35, 150);
+}
+
+void Game::initializeShieldDisplay()
+{
+	this->shieldIcon.setTexture(*this->textures["SHIELDICON"]);
+	this->shieldIcon.setScale(1.75f, 1.75f);
+	this->shieldIcon.setPosition(15, 475);
 }
 
 void Game::initializeItems()
