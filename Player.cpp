@@ -244,6 +244,7 @@ void Player::loseHp(const int value)
     }
 
     this->updateSprite();
+    
 }
 
 bool Player::isInvincible() const

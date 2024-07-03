@@ -173,7 +173,8 @@ void Game::updateGUI()
 			this->window->getSize().x / 2.f - this->lastHighScore.getGlobalBounds().width / 2.f,
 			this->window->getSize().y / 2.f - this->lastHighScore.getGlobalBounds().height / 2.f + 250.f
 		);
-		this->gameState = GAME_OVER;
+		this->gameState = DEATH_ANIMATION;
+		std::cout << "Death animation\n";
 	}
 
 	// Update bombs
@@ -254,6 +255,8 @@ void Game::updateTimer()
 	std::ostringstream oss;
 	oss << std::setfill('0') << std::setw(2) << minutes << ":" << std::setw(2) << seconds;
 	timerText.setString(oss.str());
+
+	// std::cout << elapsedTime << '\n';
 }
 
 
@@ -580,10 +583,12 @@ void Game::updateEnemies()
 		}
 		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() != 11)
 		{
+
 			this->player->loseHp(enemy->getDamage());
 			delete enemy;
 			it = this->enemies.erase(it);
 			this->playerHit.play();
+			std::cout << "Enemy deleted\n";
 		}
 		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() == 11 && !this->player->isInvincible())
 		{
@@ -777,9 +782,6 @@ void Game::updateCombat()
 					this->player->loseHp(2);
 					this->criticalHit.play();
 				}
-				delete this->bullets[j];
-				this->bullets.erase(this->bullets.begin() + unsigned(j));
-				--j; // Adjust index after erasing
 			}
 		}
 

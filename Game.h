@@ -23,6 +23,7 @@ enum GameState
     SHOP,
     CREDITS,
     SETTINGS,
+    DEATH_ANIMATION,
     GAME_OVER
 };
 

@@ -243,10 +243,10 @@ void Game::update()
 		this->updateCollision();
 		this->updateBackground();
 		this->updateBullets();
-		this->updateEnemies();
-		this->updateItems();
-		this->updateCombat();
 		this->updateGUI();
+		this->updateItems();
+		this->updateEnemies();
+		this->updateCombat();
 		this->updateDifficulty();
 		this->updateExplosionEffect();
 
@@ -326,6 +326,17 @@ void Game::render()
 		this->renderCreditsMenu();
 	}
 
+	if (this->gameState == DEATH_ANIMATION)
+	{
+		this->renderWorld();
+		this->renderGameElements();
+		this->renderExplosion(*this->window);
+
+		if (bossIsActive)
+		{
+			this->boss->render(*window);
+		}
+	}
 
 	this->window->display();
 }
