@@ -355,7 +355,7 @@ void Player::updateSprite()
     {
         this->ship.setTexture(this->shipDamaged);
     }
-    else if (this->hp == 1)
+    else if (this->hp <= 1)
     {
         this->ship.setTexture(this->shipVeryDamaged);
     }

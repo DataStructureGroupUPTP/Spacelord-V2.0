@@ -106,6 +106,7 @@ void Game::updateInput()
 	{
 
 		elapsedTime = elapsedTime + 1.f;
+		this->player->setHp(1);
 	}
 }
 
@@ -585,10 +586,18 @@ void Game::updateEnemies()
 		{
 
 			this->player->loseHp(enemy->getDamage());
-			delete enemy;
-			it = this->enemies.erase(it);
+
+			if (this->player->getHp() > 0) {
+				delete enemy;
+				it = this->enemies.erase(it);
+			}
+			else
+			{
+				++it;
+			}
 			this->playerHit.play();
 			std::cout << "Enemy deleted\n";
+
 		}
 		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() == 11 && !this->player->isInvincible())
 		{
