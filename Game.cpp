@@ -179,6 +179,7 @@ void Game::reset()
 }
 
 void Game::triggerFadeEffect() {
+	std::cout << "hello";
 	fadeState = FADING_OUT;
 	fadeAlpha = 0.f;
 	fadeClock.restart();
@@ -255,6 +256,14 @@ void Game::update()
 			this->updateBoss();
 		}
 
+		this->updateFadeEffect();
+	}
+	if (this->gameState == DEATH_ANIMATION)
+	{
+		this->updateFadeEffect();
+	}
+	if (this->gameState == GAME_OVER)
+	{
 		this->updateFadeEffect();
 	}
 }
@@ -336,6 +345,7 @@ void Game::render()
 		{
 			this->boss->render(*window);
 		}
+		this->window->draw(fadeOverlay);
 	}
 
 	this->window->display();

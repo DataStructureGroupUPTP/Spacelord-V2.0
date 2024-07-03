@@ -175,6 +175,7 @@ void Game::updateGUI()
 			this->window->getSize().y / 2.f - this->lastHighScore.getGlobalBounds().height / 2.f + 250.f
 		);
 		this->gameState = DEATH_ANIMATION;
+		this->triggerFadeEffect();
 		std::cout << "Death animation\n";
 	}
 
@@ -868,6 +869,10 @@ void Game::updateFadeEffect()
 		}
 		break;
 	case BLACK_SCREEN:
+		if (this->gameState == DEATH_ANIMATION)
+		{
+			this->gameState = GAME_OVER;
+		}
 		if (fadeClock.getElapsedTime().asSeconds() >= 1.f) {
 			fadeState = FADING_IN;
 		}
