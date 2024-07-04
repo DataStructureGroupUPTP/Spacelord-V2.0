@@ -18,6 +18,10 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->selectedMenuItem++;
 		}
 	}
+	if (ev.key.code == sf::Keyboard::Escape)
+		{
+			this->window->close();
+		}
 	if (ev.key.code == sf::Keyboard::Return)
 	{
 		switch (this->selectedMenuItem)
@@ -65,10 +69,18 @@ void Game::handleCreditsMenuInput(const sf::Event& ev)
 	{
 		this->gameState = MAIN_MENU;
 	}
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = MAIN_MENU;
+	}
 }
 
 void Game::handleShopMenuInput(const sf::Event& ev)
 {
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = MAIN_MENU;
+	}
 	if (ev.key.code == sf::Keyboard::Up)
 	{
 		if (this->selectedMenuItem > 0)
@@ -410,6 +422,10 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 
 void Game::handlePauseMenuInput(const sf::Event& ev)
 {
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = GAMEPLAY;
+	}
 	if (ev.key.code == sf::Keyboard::Up)
 	{
 		if (this->selectedMenuItem > 0)
@@ -456,6 +472,14 @@ void Game::handlePauseMenuInput(const sf::Event& ev)
 
 void Game::handleGameOverMenuInput(const sf::Event& ev)
 {
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		updateGameData(gameData);
+		this->reset();
+		this->gameState = MAIN_MENU;
+		this->menuMusic.play();
+		this->gameOverMusic.stop();
+	}
 	if (ev.key.code == sf::Keyboard::Return)
 	{
 		updateGameData(gameData);
@@ -468,6 +492,10 @@ void Game::handleGameOverMenuInput(const sf::Event& ev)
 
 void Game::handleSettingsMenuInput(const sf::Event& ev)
 {
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = this->prevgameState;
+	}
 	if (ev.key.code == sf::Keyboard::Up)
 	{
 		if (this->selectedMenuItem > 0)
