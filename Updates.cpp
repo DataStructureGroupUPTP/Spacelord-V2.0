@@ -103,6 +103,7 @@ void Game::updateInput()
 		this->player->setHp(5);
 		this->player->upgradeDamage();
 		this->player->upgradeAttackSpeed();
+		this->enemyKillCounter = enemyKillCounter + 10;
 
 
 
@@ -191,8 +192,7 @@ void Game::updateGUI()
 	this->shieldText.setString(ssBombs.str());
 	this->shieldText.setPosition
 	(
-		this->shieldIcon.getPosition().x + this->shieldText.getGlobalBounds().width / 2.f,
-		this->shieldIcon.getPosition().y + this->shieldText.getGlobalBounds().height / 2.f
+		58.5f, 475.f
 	);
 	// Update Kill Counter
 	std::stringstream ss3;
