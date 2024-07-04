@@ -25,12 +25,14 @@ void Game::initialize()
 	this->initializeMenuBackgrounds();
 	this->initializeSettingsMenu();
 	this->initializeFadeEffects();
+	this->initializeTutorialMenu();
 	this->initializeGameData();
 	this->initializeShopMenu();
 	this->initializeShieldDisplay();
 	this->initializeMusicVolume();
 	this->initializeSoundFXVolume();
 	this->initializeCreditsMenu();
+	this->initializeQuitConfirmationMenu();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;
@@ -201,7 +203,14 @@ void Game::updatePollEvents()
 			switch (this->gameState)
 			{
 			case MAIN_MENU:
-				handleMainMenuInput(ev);
+				if (!this->quitConfirmationScreenActive)
+				{
+					handleMainMenuInput(ev);
+				}
+				else
+				{
+					handleQuitConfirmationInput(ev);
+				}
 				break;
 			case PAUSED:
 				handlePauseMenuInput(ev);
@@ -217,6 +226,8 @@ void Game::updatePollEvents()
 				break;
 			case CREDITS:
 				handleCreditsMenuInput(ev);
+			case TUTORIAL:
+				handleTutorialMenuInput(ev);
 				break;
 			default:
 				break;
@@ -332,6 +343,12 @@ void Game::render()
 	if (this->gameState == CREDITS)
 	{
 		this->renderCreditsMenu();
+	}
+
+	if (this->gameState == TUTORIAL)
+	{
+		this->window->draw(this->startMenuBackground);
+		this->renderTutorialMenu();
 	}
 
 	if (this->gameState == DEATH_ANIMATION)

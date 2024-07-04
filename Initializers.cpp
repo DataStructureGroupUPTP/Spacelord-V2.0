@@ -723,13 +723,23 @@ void Game::initializeStartMenu()
 		this->window->getSize().y / 2.f - this->settingsText.getGlobalBounds().height / 2.f
 	);
 
+	// Initialize Settings menu item
+	this->tutorialText.setFont(this->font);
+	this->tutorialText.setCharacterSize(48);
+	this->tutorialText.setFillColor(sf::Color::White);
+	this->tutorialText.setString("Tutorial");
+	this->tutorialText.setPosition(
+		this->window->getSize().x / 2.f - this->tutorialText.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->tutorialText.getGlobalBounds().height / 2.f + 50.f
+	);
+
 	this->creditsText.setFont(this->font);
 	this->creditsText.setCharacterSize(48);
 	this->creditsText.setFillColor(sf::Color::White);
 	this->creditsText.setString("Credits");
 	this->creditsText.setPosition(
 		this->window->getSize().x / 2.f - this->creditsText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f + 50.f
+		this->window->getSize().y / 2.f - this->creditsText.getGlobalBounds().height / 2.f + 100.f
 	);
 
 	// Initialize Reset menu item
@@ -739,7 +749,7 @@ void Game::initializeStartMenu()
 	this->resetText.setString("Reset Progress & Purchases");
 	this->resetText.setPosition(
 		this->window->getSize().x / 2.f - this->resetText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->resetText.getGlobalBounds().height / 2.f + 100.f
+		this->window->getSize().y / 2.f - this->resetText.getGlobalBounds().height / 2.f + 150.f
 	);
 
 	// Initialize Quit menu item
@@ -749,7 +759,7 @@ void Game::initializeStartMenu()
 	this->quitText.setString("Quit");
 	this->quitText.setPosition(
 		this->window->getSize().x / 2.f - this->quitText.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 150.f
+		this->window->getSize().y / 2.f - this->quitText.getGlobalBounds().height / 2.f + 200.f
 	);
 
 	// Initialize Quit menu item
@@ -758,6 +768,38 @@ void Game::initializeStartMenu()
 	this->menuHighScore.setFillColor(sf::Color::White);
 	this->menuHighScore.setString("ERROR");
 	this->menuHighScore.setPosition(10.f, 675.f);
+
+	this->quitConfirmationScreenActive = false;
+}
+
+void Game::initializeQuitConfirmationMenu()
+{
+	this->areYouSureQuestion.setFont(this->font);
+	this->areYouSureQuestion.setCharacterSize(48);
+	this->areYouSureQuestion.setFillColor(sf::Color::White);
+	this->areYouSureQuestion.setString("Are you sure you want to quit?");
+	this->areYouSureQuestion.setPosition(
+		this->window->getSize().x / 2.f - this->areYouSureQuestion.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->areYouSureQuestion.getGlobalBounds().height / 2.f - 160.f
+	);
+
+	this->yesCloseApplication.setFont(this->font);
+	this->yesCloseApplication.setCharacterSize(48);
+	this->yesCloseApplication.setFillColor(sf::Color::White);
+	this->yesCloseApplication.setString("Yes");
+	this->yesCloseApplication.setPosition(
+		this->window->getSize().x / 2.f - this->yesCloseApplication.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->yesCloseApplication.getGlobalBounds().height / 2.f
+	);
+
+	this->noKeepPlaying.setFont(this->font);
+	this->noKeepPlaying.setCharacterSize(48);
+	this->noKeepPlaying.setFillColor(sf::Color::White);
+	this->noKeepPlaying.setString("No");
+	this->noKeepPlaying.setPosition(
+		this->window->getSize().x / 2.f - this->noKeepPlaying.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->noKeepPlaying.getGlobalBounds().height / 2.f + 50.f
+	);
 }
 
 void Game::initializeShopMenu()
@@ -1070,6 +1112,29 @@ void Game::initializePauseMenu()
 	this->mainmenuText.setPosition(
 		this->window->getSize().x / 2.f - this->mainmenuText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->mainmenuText.getGlobalBounds().height / 2.f
+	);
+}
+
+void Game::initializeTutorialMenu()
+{
+	this->tutorialTitle.setFont(this->titleFont);
+	this->tutorialTitle.setCharacterSize(100);
+	this->tutorialTitle.setFillColor(sf::Color::White);
+	this->tutorialTitle.setStyle(sf::Text::Italic);
+	this->tutorialTitle.setOutlineThickness(1);
+	this->tutorialTitle.setString("TUTORIAL");
+	this->tutorialTitle.setPosition
+	(
+		this->window->getSize().x / 2.f - this->tutorialTitle.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->tutorialTitle.getGlobalBounds().height / 2.f - 300.f
+	);
+	this->keybindingsExplanation.setFont(this->font);
+	this->keybindingsExplanation.setCharacterSize(48);
+	this->keybindingsExplanation.setFillColor(sf::Color::White);
+	this->keybindingsExplanation.setString(" Use the Arrow Keys to move between lanes\n\t\tand up and down within a lane\n\t\t\tHold Z to fire bullets\nPress X to activate a shield around your ship\n");
+	this->keybindingsExplanation.setPosition(
+		this->window->getSize().x / 2.f - this->keybindingsExplanation.getGlobalBounds().width / 2.f,
+		this->window->getSize().y / 2.f - this->keybindingsExplanation.getGlobalBounds().height / 2.f
 	);
 }
 

@@ -12,16 +12,12 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 	}
 	if (ev.key.code == sf::Keyboard::Down)
 	{
-		if (this->selectedMenuItem < 5)
+		if (this->selectedMenuItem < 6)
 		{
 			this->menuSound.play();
 			this->selectedMenuItem++;
 		}
 	}
-	if (ev.key.code == sf::Keyboard::Escape)
-		{
-			this->window->close();
-		}
 	if (ev.key.code == sf::Keyboard::Return)
 	{
 		switch (this->selectedMenuItem)
@@ -46,20 +42,75 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->selectedMenuItem = 0;
 			break;
 		case 3:
-			this->gameState = CREDITS;
+			this->gameState = TUTORIAL;
 			this->selectedMenuItem = 0;
 			break;
 		case 4:
+			this->gameState = CREDITS;
+			this->selectedMenuItem = 0;
+			break;
+		case 5:
 			resetGameData();
 			initializeGameData();
 			this->selectedMenuItem = 0;
 			break;
-		case 5:
+		case 6:
 			this->window->close();
 			break;
 		default:
 			break;
 		}
+	}
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->quitConfirmationScreenActive = true;
+		this->selectedMenuItem = 0;
+	}
+}
+
+void Game::handleTutorialMenuInput(const sf::Event& ev)
+{
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = MAIN_MENU;
+		this->selectedMenuItem = 0;
+	}
+}
+
+void Game::handleQuitConfirmationInput(const sf::Event& ev)
+{
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->selectedMenuItem > 0)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->selectedMenuItem < 1)
+		{
+			this->menuSound.play();
+			this->selectedMenuItem++;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			this->window->close();
+			break;
+		case 1:
+			this->quitConfirmationScreenActive = false;
+			this->selectedMenuItem = 0;
+			break;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->quitConfirmationScreenActive = false;
 	}
 }
 
