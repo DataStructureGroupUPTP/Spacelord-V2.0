@@ -198,10 +198,6 @@ void Game::updatePollEvents()
 		}
 		if (ev.type == sf::Event::KeyPressed)
 		{
-			if (ev.key.code == sf::Keyboard::Escape)
-			{
-				this->window->close();
-			}
 			switch (this->gameState)
 			{
 			case MAIN_MENU:
