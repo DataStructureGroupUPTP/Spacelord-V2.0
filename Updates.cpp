@@ -2,6 +2,12 @@
 
 void Game::updateInput()
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		this->pauseSound.play();
+		this->gameState = PAUSED;
+		this->stageMusic.pause();
+	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && !leftKeyPressed)
 	{
 		leftKeyPressed = true;

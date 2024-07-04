@@ -422,10 +422,6 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 
 void Game::handlePauseMenuInput(const sf::Event& ev)
 {
-	if (ev.key.code == sf::Keyboard::Escape)
-	{
-		this->gameState = GAMEPLAY;
-	}
 	if (ev.key.code == sf::Keyboard::Up)
 	{
 		if (this->selectedMenuItem > 0)
