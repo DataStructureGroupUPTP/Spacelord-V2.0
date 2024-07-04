@@ -10,7 +10,7 @@ void Player::initializeVariables()
     this->invincibilityDuration = 1.f;
     this->invincibilityTimer = 0.0f;
 
-    this->attackCooldownMax = 25.f;
+    this->attackCooldownMax = 24.f;
     this->attackCooldown = this->attackCooldownMax;
 
     this->hpMax = 5;
@@ -273,7 +273,7 @@ void Player::upgradeAttackSpeed()
     this->attackCooldownMax = this->attackCooldownMax - 1.f;
     if(this->attackCooldownMax < 13)
     {
-        this->attackCooldownMax = 12.5f;
+        this->attackCooldownMax = 11.5f;
     }
 }
 
