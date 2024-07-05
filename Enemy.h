@@ -127,6 +127,13 @@
 		float stage3e4AnimationTimer;
 		float stage3e4AnimationSpeed;
 
+		sf::Texture stage3e5FireTexture;
+		sf::Sprite stage3e5Fire;
+
+		sf::IntRect stage3e5Frame;
+		int stage3e5CurrentFrame;
+		float stage3e5AnimationTimer;
+		float stage3e5AnimationSpeed;
 
 
 	public:
@@ -159,6 +166,7 @@
 		void updateStage3Enemy2();
 		void updateStage3Enemy3();
 		void updateStage3Enemy4();
+		void updateStage3Enemy5();
 
 		void render(sf::RenderTarget& target);
 	};
