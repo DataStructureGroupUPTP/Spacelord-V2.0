@@ -1269,7 +1269,7 @@ void Game::initializeStage()
 	this->checkerFive = true;
 	this->checkerSix = true;
 	this->checkerSeven = true;
-	this->Stage = 1;
+	this->Stage = 3;
 
 
 }

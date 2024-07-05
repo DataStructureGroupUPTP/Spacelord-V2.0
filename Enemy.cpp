@@ -170,7 +170,23 @@ void Enemy::initializeTextures()
 
 	if (!this->stage3e1FireTexture.loadFromFile("Animations/Stage3e1fire.png"))
 	{
-		std::cout << "TEXTURE::DEATHBEAM::FAILED_TO_LOAD" << "\n";
+		std::cout << "TEXTURE::STAGE3_E1_FIRE::FAILED_TO_LOAD" << "\n";
+	}
+
+
+	if (!this->stage3e2FireTexture.loadFromFile("Animations/Stage3e2fire.png"))
+	{
+		std::cout << "TEXTURE::STAGE3_E2_FIRE::FAILED_TO_LOAD" << "\n";
+	}
+
+	if (!this->stage3e3FireTexture.loadFromFile("Animations/Stage3e3fire.png"))
+	{
+		std::cout << "TEXTURE::STAGE3_E3_FIRE::FAILED_TO_LOAD" << "\n";
+	}
+
+	if (!this->stage3e4FireTexture.loadFromFile("Animations/Stage3e4fire.png"))
+	{
+		std::cout << "TEXTURE::STAGE3_E4_FIRE::FAILED_TO_LOAD" << "\n";
 	}
 }
 
@@ -400,8 +416,8 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->type = type;
 		this->hp = 5.f;
 		this->damage = 1;
-		this->points = 0;
-		this->speed = 12.f;
+		this->points = 500;
+		this->speed = 14.f;
 
 		this->stage3e1Fire.setTexture(this->stage3e1FireTexture);
 		this->stage3e1Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
@@ -420,10 +436,19 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 16.f;
 		this->damage = 1;
-		this->points = 0;
+		this->points = 1000;
 		this->speed = 8.f;
+
+		this->stage3e2Fire.setTexture(this->stage3e2FireTexture);
+		this->stage3e2Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->stage3e2Fire.setTextureRect(this->stage3e2Frame);
+		this->stage3e2Fire.setScale(2.75f, 2.75f);
+		this->stage3e2Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY2"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY2"]->getSize().y) * 2.75 + 45.f);
+		this->stage3e2CurrentFrame = 0;
+		this->stage3e2AnimationTimer = 0.f;
+		this->stage3e2AnimationSpeed = 0.1f;
 		break;
 
 	case 14:
@@ -433,10 +458,19 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 20.f;
 		this->damage = 1;
-		this->points = 0;
-		this->speed = 8.f;
+		this->points = 2000;
+		this->speed = 7.5f;
+
+		this->stage3e3Fire.setTexture(this->stage3e3FireTexture);
+		this->stage3e3Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->stage3e3Fire.setTextureRect(this->stage3e3Frame);
+		this->stage3e3Fire.setScale(2.75f, 2.75f);
+		this->stage3e3Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY3"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY3"]->getSize().y) * 2.75 + 45.f);
+		this->stage3e3CurrentFrame = 0;
+		this->stage3e3AnimationTimer = 0.f;
+		this->stage3e3AnimationSpeed = 0.1f;
 		break;
 
 	case 15:
@@ -446,10 +480,19 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 24.f;
 		this->damage = 1;
-		this->points = 0;
-		this->speed = 8.f;
+		this->points = 4000;
+		this->speed = 6.5f;
+
+		this->stage3e4Fire.setTexture(this->stage3e4FireTexture);
+		this->stage3e4Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
+		this->stage3e4Fire.setTextureRect(this->stage3e4Frame);
+		this->stage3e4Fire.setScale(2.75f, 2.75f);
+		this->stage3e4Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY4"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY4"]->getSize().y) * 2.75 + 45.f);
+		this->stage3e4CurrentFrame = 0;
+		this->stage3e4AnimationTimer = 0.f;
+		this->stage3e4AnimationSpeed = 0.1f;
 		break;
 
 	case 16:
@@ -459,10 +502,10 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 7.f;
 		this->damage = 1;
-		this->points = 0;
-		this->speed = 8.f;
+		this->points = 1000;
+		this->speed = 4.5f;
 		break;
 
 	case 17:
@@ -472,10 +515,10 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setPosition(pos_x, pos_y);
 
 		this->type = type;
-		this->hp = 100.f;
+		this->hp = 8.f;
 		this->damage = 1;
-		this->points = 0;
-		this->speed = 8.f;
+		this->points = 1000;
+		this->speed = 4.f;
 		break;
 
 	}
@@ -550,6 +593,9 @@ void Enemy::update()
 	updateTorpedoAnimation();
 	updateDeathBeamAnimation();
 	updateStage3Enemy1();
+	updateStage3Enemy2();
+	updateStage3Enemy3();
+	updateStage3Enemy4();
 
 	if(this->type == 9 or this->type == 16)
 	{
@@ -812,11 +858,85 @@ void Enemy::updateStage3Enemy1()
 			// Set texture rect
 			this->stage3e1Frame.left = this->stage3e1CurrentFrame * 64; // Assuming each frame is 64x64
 			this->stage3e1Fire.setTextureRect(this->stage3e1Frame);
-			this->stage3e1Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY1"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY1"]->getSize().y) * 2.75 + 35.f);
+			this->stage3e1Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY1"]->getSize().x / 2) * 2.75, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY1"]->getSize().y) * 2.75 + 38.f);
 		}
 	}
 
 }
+
+void Enemy::updateStage3Enemy2()
+{
+	if (this->type == 13)
+	{
+		this->stage3e2AnimationTimer += 0.1f; // Adjust as necessary
+
+		if (this->stage3e2AnimationTimer >= this->stage3e2AnimationSpeed)
+		{
+			// Reset timer
+			this->stage3e2AnimationTimer = 0.f;
+
+			// Update frame
+			this->stage3e2CurrentFrame++;
+			if (this->stage3e2CurrentFrame >= 8) // Assuming there are 12 frames
+				this->stage3e2CurrentFrame = 0;
+
+			// Set texture rect
+			this->stage3e2Frame.left = this->stage3e2CurrentFrame * 64; // Assuming each frame is 64x64
+			this->stage3e2Fire.setTextureRect(this->stage3e2Frame);
+			this->stage3e2Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY2"]->getSize().x / 2) * 2.75 - 1.f, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY2"]->getSize().y) * 2.75 + 50.f);
+		}
+	}
+}
+
+void Enemy::updateStage3Enemy3()
+{
+	
+	if (this->type == 14)
+	{
+		this->stage3e3AnimationTimer += 0.1f; // Adjust as necessary
+
+		if (this->stage3e3AnimationTimer >= this->stage3e3AnimationSpeed)
+		{
+			// Reset timer
+			this->stage3e3AnimationTimer = 0.f;
+
+			// Update frame
+			this->stage3e3CurrentFrame++;
+			if (this->stage3e3CurrentFrame >= 8) // Assuming there are 12 frames
+				this->stage3e3CurrentFrame = 0;
+
+			// Set texture rect
+			this->stage3e3Frame.left = this->stage3e3CurrentFrame * 64; // Assuming each frame is 64x64
+			this->stage3e3Fire.setTextureRect(this->stage3e3Frame);
+			this->stage3e3Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY3"]->getSize().x / 2) * 2.75 + 71.f, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY3"]->getSize().y) * 2.75 + 10.f);
+		}
+	}
+}
+
+void Enemy::updateStage3Enemy4()
+{
+	if (this->type == 15)
+	{
+		this->stage3e4AnimationTimer += 0.1f; // Adjust as necessary
+
+		if (this->stage3e4AnimationTimer >= this->stage3e4AnimationSpeed)
+		{
+			// Reset timer
+			this->stage3e4AnimationTimer = 0.f;
+
+			// Update frame
+			this->stage3e4CurrentFrame++;
+			if (this->stage3e4CurrentFrame >= 8) // Assuming there are 12 frames
+				this->stage3e4CurrentFrame = 0;
+
+			// Set texture rect
+			this->stage3e4Frame.left = this->stage3e4CurrentFrame * 64; // Assuming each frame is 64x64
+			this->stage3e4Fire.setTextureRect(this->stage3e4Frame);
+			this->stage3e4Fire.setPosition(this->enemyOne.getPosition().x - (this->textures["STAGE3ENEMY4"]->getSize().x / 2) * 2.75 + 38.f, this->enemyOne.getPosition().y - (this->textures["STAGE3ENEMY4"]->getSize().y) * 2.75 + 62.f);
+		}
+	}
+}
+
 
 void Enemy::render(sf::RenderTarget& target)
 {
@@ -854,6 +974,21 @@ void Enemy::render(sf::RenderTarget& target)
 	if (this->type == 12)
 	{
 		target.draw(this->stage3e1Fire);
+	}
+
+	if (this->type == 13)
+	{
+		target.draw(this->stage3e2Fire);
+	}
+
+	if (this->type == 14)
+	{
+		target.draw(this->stage3e3Fire);
+	}
+
+	if (this->type == 15)
+	{
+		target.draw(this->stage3e4Fire);
 	}
 
 	target.draw(this->enemyOne);

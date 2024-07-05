@@ -103,7 +103,29 @@
 		float stage3e1AnimationTimer;
 		float stage3e1AnimationSpeed;
 
+		sf::Texture stage3e2FireTexture;
+		sf::Sprite stage3e2Fire;
 
+		sf::IntRect stage3e2Frame;
+		int stage3e2CurrentFrame;
+		float stage3e2AnimationTimer;
+		float stage3e2AnimationSpeed;
+
+		sf::Texture stage3e3FireTexture;
+		sf::Sprite stage3e3Fire;
+
+		sf::IntRect stage3e3Frame;
+		int stage3e3CurrentFrame;
+		float stage3e3AnimationTimer;
+		float stage3e3AnimationSpeed;
+
+		sf::Texture stage3e4FireTexture;
+		sf::Sprite stage3e4Fire;
+
+		sf::IntRect stage3e4Frame;
+		int stage3e4CurrentFrame;
+		float stage3e4AnimationTimer;
+		float stage3e4AnimationSpeed;
 
 
 
@@ -134,6 +156,9 @@
 		void updateTorpedoAnimation();
 		void updateDeathBeamAnimation();
 		void updateStage3Enemy1();
+		void updateStage3Enemy2();
+		void updateStage3Enemy3();
+		void updateStage3Enemy4();
 
 		void render(sf::RenderTarget& target);
 	};
