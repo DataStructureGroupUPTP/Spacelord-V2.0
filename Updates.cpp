@@ -157,6 +157,8 @@ void Game::updateGUI()
 	{
 		this->stageMusic.stop();
 		this->gameOverMusic.play();
+		ss.str("");
+		ss << "Score: " << this->points;
 		this->scoreAchieved.setString(ss.str());
 		this->scoreAchieved.setPosition(
 			this->window->getSize().x / 2.f - this->scoreAchieved.getGlobalBounds().width / 2.f,
