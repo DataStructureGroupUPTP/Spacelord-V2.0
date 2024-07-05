@@ -609,7 +609,6 @@ void Game::updateEnemies()
 				++it;
 			}
 			this->playerHit.play();
-			std::cout << "Enemy deleted\n";
 
 		}
 		else if (enemy->getBounds().intersects(this->player->getBounds()) && enemy->getType() == 11 && !this->player->isInvincible())
@@ -630,7 +629,7 @@ void Game::updateEnemies()
 void Game::updateItems()
 {
 	this->healthItemSpawnTimer += healthItemSpawnRate;
-	this->dpsItemSpawnTimer +=dpsItemSpawnRate;
+	this->dpsItemSpawnTimer += dpsItemSpawnRate;
 
 	if (this->healthItemSpawnTimer >= this->healthItemSpawnTimerMax)
 	{
