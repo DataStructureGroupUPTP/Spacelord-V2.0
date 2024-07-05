@@ -20,6 +20,7 @@ enum GameState
     MAIN_MENU,
     GAMEPLAY,
     PAUSED,
+    TUTORIAL,
     SHOP,
     CREDITS,
     SETTINGS,
@@ -236,8 +237,10 @@ private:
     void initializeGameData();
 
     void initializeStartMenu(); // New function for initializing the start menu
+    void initializeQuitConfirmationMenu();
     void initializeShopMenu();
     void initializePauseMenu();
+    void initializeTutorialMenu();
     void initializeGameOverMenu();
     void initializeSettingsMenu();
     void initializeCreditsMenu();
@@ -251,6 +254,8 @@ private:
     void initializePlayer();
     void handleCreditsMenuInput(const sf::Event& ev);
     void handleMainMenuInput(const sf::Event& ev);
+    void handleTutorialMenuInput(const sf::Event& ev);
+    void handleQuitConfirmationInput(const sf::Event& ev);
     void handleShopMenuInput(const sf::Event& ev);
     void handlePauseMenuInput(const sf::Event& ev);
     void handleGameOverMenuInput(const sf::Event& ev);
@@ -261,9 +266,14 @@ private:
     sf::Text shopText;
     sf::Text settingsText;
     sf::Text creditsText;
+    sf::Text tutorialText;
     sf::Text quitText;
     sf::Text resetText;
     sf::Text menuHighScore;
+    bool quitConfirmationScreenActive;
+    sf::Text areYouSureQuestion;
+    sf::Text yesCloseApplication;
+    sf::Text noKeepPlaying;
 
     // Shop Menu options
     sf::Text objectPrice;
@@ -305,6 +315,10 @@ private:
     sf::Texture blackbullet;
     sf::RectangleShape whitefireSelect;
     sf::Texture whitefire;
+
+    // Tutotial Menu
+    sf::Text tutorialTitle;
+    sf::Text keybindingsExplanation;
 
     // Pause Menu options
     sf::RectangleShape pausesettingsBackground;
@@ -409,8 +423,10 @@ public:
     void renderWorld();
     void render();
     void renderStartMenu(); // New function for rendering the start menu
+    void renderTutorialMenu();
     void renderShopMenu();
     void renderEquiped();
+    void renderQuitConfirmationMenu();
     void renderPauseMenu();
     void renderSettingsMenu();
     void renderGameOverMenu();

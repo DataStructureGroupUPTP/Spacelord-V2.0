@@ -76,35 +76,43 @@ void Game::renderStartMenu()
 	this->settingsText.setFillColor(sf::Color::White);
 	this->creditsText.setFillColor(sf::Color::White);
 	this->quitText.setFillColor(sf::Color::White);
-	this->resetText.setFillColor(sf::Color::White);
+	this->resetText.setFillColor(sf::Color::White); 
+	this->tutorialText.setFillColor(sf::Color::White);
 
 	// Highlight the selected menu item
-	switch (this->selectedMenuItem)
+	if (!this->quitConfirmationScreenActive)
 	{
-	case 0:
-		this->playText.setFillColor(sf::Color::Yellow);
-		break;
+		switch (this->selectedMenuItem)
+		{
+		case 0:
+			this->playText.setFillColor(sf::Color::Yellow);
+			break;
 
-	case 1:
-		this->shopText.setFillColor(sf::Color::Yellow);
-		break;
+		case 1:
+			this->shopText.setFillColor(sf::Color::Yellow);
+			break;
 
-	case 2:
-		this->settingsText.setFillColor(sf::Color::Yellow);
-		break;
+		case 2:
+			this->settingsText.setFillColor(sf::Color::Yellow);
+			break;
 
-	case 3:
-		this->creditsText.setFillColor(sf::Color::Yellow);
-		break;
-	case 4:
-		this->resetText.setFillColor(sf::Color::Yellow);
-		break;
-	case 5:
-		this->quitText.setFillColor(sf::Color::Yellow);
-		break;
+		case 3:
+			this->tutorialText.setFillColor(sf::Color::Yellow);
+			break;
+		case 4:
+			this->creditsText.setFillColor(sf::Color::Yellow);
+			break;
+		case 5:
+			this->resetText.setFillColor(sf::Color::Yellow);
+			break;
+		case 6:
+			this->quitText.setFillColor(sf::Color::Yellow);
+			break;
+		}
 	}
 
 	// Draw menu items
+	this->window->draw(this->tutorialText);
 	this->window->draw(this->resetText);
 	this->window->draw(this->gameTitle);
 	this->window->draw(this->playText);
@@ -120,6 +128,18 @@ void Game::renderStartMenu()
 	ss5 << "High Score: " << this->gameData.highScore;
 	this->menuHighScore.setString(ss5.str());
 	this->window->draw(this->menuHighScore);
+
+	if (this->quitConfirmationScreenActive)
+	{
+		this->renderQuitConfirmationMenu();
+	}
+}
+
+void Game::renderTutorialMenu()
+{
+	this->window->draw(pausesettingsBackground);
+	this->window->draw(tutorialTitle);
+	this->window->draw(keybindingsExplanation);
 }
 
 void Game::renderShopMenu()
@@ -407,6 +427,29 @@ void Game::renderEquiped()
 	{
 		this->whitefireSelect.setOutlineColor(sf::Color::Green);
 	}
+}
+
+void Game::renderQuitConfirmationMenu()
+{
+	this->window->draw(this->pausesettingsBackground);
+	this->window->draw(this->pausesettingsBackground);
+	this->yesCloseApplication.setFillColor(sf::Color::White);
+	this->noKeepPlaying.setFillColor(sf::Color::White);
+
+	switch (this->selectedMenuItem)
+	{
+	case 0:
+		this->yesCloseApplication.setFillColor(sf::Color::Yellow);
+		break;
+
+	case 1:
+		this->noKeepPlaying.setFillColor(sf::Color::Yellow);
+		break;
+	}
+
+	this->window->draw(areYouSureQuestion);
+	this->window->draw(yesCloseApplication);
+	this->window->draw(noKeepPlaying);
 }
 
 void Game::renderPauseMenu()
