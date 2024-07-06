@@ -135,6 +135,20 @@
 		float stage3e5AnimationTimer;
 		float stage3e5AnimationSpeed;
 
+		sf::Texture stage3e6FireTexture;
+		sf::Sprite stage3e6Fire;
+
+		sf::IntRect stage3e6Frame;
+		int stage3e6CurrentFrame;
+		float stage3e6AnimationTimer;
+		float stage3e6AnimationSpeed;
+
+		sf::Texture deathBeam2Texture;
+
+		sf::IntRect deathBeam2Frame;
+		int deathBeam2CurrentFrame;
+		float deathBeam2AnimationTimer;
+		float deathBeam2AnimationSpeed;
 
 	public:
 
@@ -148,7 +162,7 @@
 		const int& getPoints() const;
 		const int& getDamage() const;
 		const float& getHp() const;
-		const float& getType() const;
+		const int& getType() const;
 		void reduceHp(const float value);
 		void increaseMeteorSpeed(const float value);
 		const sf::Vector2f& getPos() const;
@@ -167,6 +181,7 @@
 		void updateStage3Enemy3();
 		void updateStage3Enemy4();
 		void updateStage3Enemy5();
+		void updateStage3Enemy6();
 
 		void render(sf::RenderTarget& target);
 	};

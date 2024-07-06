@@ -19,6 +19,9 @@ void Player::initializeVariables()
     this->shieldActive = false;
     this->shieldDuration = 5.0f; // Shield lasts for 5 seconds
     this->shieldTimer = 0.0f;
+
+    this->damageMAX = false;
+    this->fireRateMAX = false;
 }
 
 void Player::initializeTexture()
@@ -149,6 +152,12 @@ const float& Player::getDamage() const
     return this->damage;
 }
 
+const bool Player::getMAX() const
+{
+    bool playerMaxed = (damageMAX && fireRateMAX);
+    return playerMaxed;
+}
+
 void Player::move(const float dirX, const float dirY)
 {
     this->ship.move(dirX, dirY);
@@ -264,6 +273,7 @@ void Player::upgradeDamage()
     if(this->damage > 4.0)
     {
         this->damage = 4.0;
+        this->damageMAX = true;
     }
     std::cout << this->damage << "\n";
 }
@@ -274,6 +284,7 @@ void Player::upgradeAttackSpeed()
     if(this->attackCooldownMax < 13)
     {
         this->attackCooldownMax = 11.5f;
+        this->fireRateMAX = true;
     }
 }
 
@@ -288,7 +299,7 @@ void Player::setShipColor(int c)
         this->ship.setColor(sf::Color(40, 132, 203));
         break;
     case 2:
-        this->ship.setColor(sf::Color(30, 162, 52));
+        this->ship.setColor(sf::Color(53, 83, 10));
         break;
     case 3:
         this->ship.setColor(sf::Color(255, 177, 0));

@@ -13,7 +13,7 @@
 #include <random>
 #include "gameData.h"
 
-// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING
+// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING --> nvm
 
 enum GameState
 {
@@ -113,8 +113,8 @@ private:
     float horizontalSpawnTimerMax;
     float meteorSpawnTimer;
     float meteorSpawnTimerMax;
-    int tripleMeteorChance;
-    int doubleMeteorChance;
+    float tripleMeteorChance;
+    float doubleMeteorChance;
     float deathBeamSpawnTimer;
     float deathBeamSpawnTimerMax;
 
@@ -193,7 +193,9 @@ private:
 
     sf::SoundBuffer equipBuffer;
     sf::Sound equipSound;
-
+    
+    sf::SoundBuffer deathbeamSoundBuffer;
+    sf::Sound deathbeamSound;
 
     // Music
     sf::Music stageMusic;

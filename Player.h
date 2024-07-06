@@ -41,6 +41,9 @@ private:
 	int hp;
 	int hpMax;
 
+	bool damageMAX;
+	bool fireRateMAX;
+
 	// Animation
 	sf::IntRect fireFrame;
 	int currentFrame;
@@ -79,6 +82,7 @@ public:
 	const int& getHpMax() const;
 	const float& getMoveSpeed() const;
 	const float& getDamage() const;
+	const bool getMAX() const;
 
 	// Functions
 	void move(const float dirX, const float dirY);

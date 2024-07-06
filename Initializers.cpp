@@ -349,6 +349,13 @@ void Game::initializeSounds()
 	}
 
 	this->equipSound.setBuffer(this->equipBuffer);
+
+	if (!this->deathbeamSoundBuffer.loadFromFile("Sounds/deathbeamSound.wav"))
+	{
+		std::cout << "SOUND::DEATH_BEAM_SOUND::FAILED_TO_LOAD";
+	}
+
+	this->deathbeamSound.setBuffer(this->deathbeamSoundBuffer);
 }
 
 void Game::initializeSoundFXVolume()
@@ -370,6 +377,7 @@ void Game::initializeSoundFXVolume()
 	this->buySound.setVolume(this->soundfxVolume * 50);
 	this->noMoneySound.setVolume(this->soundfxVolume * 25);
 	this->equipSound.setVolume(this->soundfxVolume * 15);
+	this->deathbeamSound.setVolume(this->soundfxVolume * 15);
 }
 
 void Game::initializeMusic()
@@ -915,7 +923,7 @@ void Game::initializeShopMenu()
 		std::cout << "TEXTURE::SHOP_MAINSHIPFIX::FAILED_TO_LOAD" << "\n";
 	}
 	this->greenshipSelect.setTexture(&greenship);
-	this->greenshipSelect.setFillColor(sf::Color(30, 162, 52));
+	this->greenshipSelect.setFillColor(sf::Color(53, 83, 10));
 	this->greenshipSelect.setSize(sf::Vector2f(125.f, 125.f));
 	this->greenshipSelect.setOutlineThickness(-5.f);
 	this->greenshipSelect.setPosition(
@@ -1334,7 +1342,7 @@ void Game::initializeStage()
 	this->checkerFive = true;
 	this->checkerSix = true;
 	this->checkerSeven = true;
-	this->Stage = 3;
+	this->Stage = 1;
 
 
 }

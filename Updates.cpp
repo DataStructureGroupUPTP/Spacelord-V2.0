@@ -578,7 +578,15 @@ void Game::updateEnemies()
 			break;
 		}
 
-		this->enemies.push_back(new Enemy(static_cast<float> (lanePos + 73.5f), -200.f, 11));
+		if (Stage == 2) {
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos + 73.5f), -200.f, 11));
+			deathbeamSound.play();
+		}
+		else if (Stage == 3)
+		{
+			this->enemies.push_back(new Enemy(static_cast<float> (lanePos + 73.5f), -200.f, 18));
+			deathbeamSound.play();
+		}
 		this->deathBeamSpawnTimer = 0.f;
 
 	}
@@ -677,6 +685,11 @@ void Game::updateItems()
 		}
 
 		int randomizer = rand() % 3;
+
+		if(this->player->getMAX())
+		{
+			randomizer = 2;
+		}
 
 		switch (randomizer)
 		{
@@ -828,8 +841,8 @@ void Game::updateBoss()
 		{
 			this->bossAttackCooldown = 0.f;
 			this->bossLaser.play();
-			this->bullets.push_back(new Bullet(this->textures["BOSSBULLET"], (this->boss->getPos().x - (this->boss->getBounds().width / 2))-15.f,
-				this->boss->getPos().y - 17.5f, 0.f, 1.5f, 4.5f, true, 2));
+			this->bullets.push_back(new Bullet(this->textures["BOSSBULLET"], (this->boss->getPos().x - (this->boss->getBounds().width / 2) - 30.f),
+				this->boss->getPos().y - 45.f, 0.f, 1.5f, 4.5f, true, 2));
 		}
 	}
 
@@ -948,7 +961,7 @@ void Game::updateExplosionEffect()
 void Game::updateTitleEffect()
 {
 	// Update the pulse time
-	this->titlePulseTime += 0.0167;
+	this->titlePulseTime += 0.0167f;
 
 	// Calculate a scale factor using a sine wave for smooth oscillation
 	float scale = 1.0f + 0.09f * std::sin(this->titlePulseTime * 2 * 3.14159f); // Adjust 0.1f for desired effect amplitude
