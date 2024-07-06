@@ -1129,9 +1129,9 @@ void Game::initializeTutorialMenu()
 		this->window->getSize().y / 2.f - this->tutorialTitle.getGlobalBounds().height / 2.f - 300.f
 	);
 	this->keybindingsExplanation.setFont(this->font);
-	this->keybindingsExplanation.setCharacterSize(48);
+	this->keybindingsExplanation.setCharacterSize(34);
 	this->keybindingsExplanation.setFillColor(sf::Color::White);
-	this->keybindingsExplanation.setString(" Use the Arrow Keys to move between lanes\n\t\tand up and down within a lane\n\t\t\tHold Z to fire bullets\nPress X to activate a shield around your ship\n");
+	this->keybindingsExplanation.setString("Left/Right --> Move between lanes\nUp/Down --> Move vertically within a lane\nZ --> Fire bullets\nX --> Activate shield. Using a shield makes you invulnerable for 5 seconds.\nYou can get more shields by reaching the kills threshold in the left corner \nof the screen. \nRed orbs --> Heal for 1 hp, spawns every minute \nPurple orbs --> Damage upgrade \nBlue orbs --> Fire rate upgrade \nYellow orbs --> Bullet speed upgrade & Money\n");
 	this->keybindingsExplanation.setPosition(
 		this->window->getSize().x / 2.f - this->keybindingsExplanation.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->keybindingsExplanation.getGlobalBounds().height / 2.f
@@ -1371,9 +1371,11 @@ void Game::initializeSpawnRates()
 	this->enemySpawnRate = 2.0f;
 	this->meteorSpawnRate = 0.f;
 	this->horizontalEnemySpawnRate = 0.f;
+	this->deathBeamSpawnRate = 0.f;
+
 	this->healthItemSpawnRate = 0.0167f;
 	this->dpsItemSpawnRate = 0.125f;
-	this->deathBeamSpawnRate = 0.f;
+
 }
 
 void Game::initializePlayerHealthBar()
@@ -1392,7 +1394,7 @@ void Game::initializeShieldDisplay()
 
 void Game::initializeItems()
 {
-	this->healthItemSpawnTimerMax = 60.f;
+	this->healthItemSpawnTimerMax  = 60.f;
 	this->healthItemSpawnTimer = 0.f;
 	this->dpsItemSpawnTimerMax = 60.f;
 	this->dpsItemSpawnTimer = 0.f;

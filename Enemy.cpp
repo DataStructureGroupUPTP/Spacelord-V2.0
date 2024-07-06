@@ -439,7 +439,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->hp = 16.f;
 		this->damage = 1;
 		this->points = 1000;
-		this->speed = 8.f;
+		this->speed = 9.f;
 
 		this->stage3e2Fire.setTexture(this->stage3e2FireTexture);
 		this->stage3e2Frame = sf::IntRect(0, 0, 64, 64); // Set the initial frame (width = 64, height = 64)
@@ -459,7 +459,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 
 		this->type = type;
 		this->hp = 20.f;
-		this->damage = 1;
+		this->damage = 2;
 		this->points = 2000;
 		this->speed = 7.5f;
 

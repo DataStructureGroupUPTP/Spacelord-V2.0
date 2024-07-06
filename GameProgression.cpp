@@ -83,7 +83,7 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp + 5.f && stageTransition)
 		{
-			this->healthItemSpawnRate = 0.5f;
+			this->healthItemSpawnRate = 0.0167f;
 			this->dpsItemSpawnRate = 1.5f;
 			bossIsActive = false;
 			stageTransition = false;
@@ -254,7 +254,7 @@ void Game::updateDifficulty()
 			this->stageTransition = true;
 			bossDefeated = false;
 			this->points = points + 100000;
-			this->gameData.coins = gameData.coins + 1500;
+			this->gameData.coins = gameData.coins + 1000;
 			this->enemyKillCounter = enemyKillCounter + 80;
 			checkerFour = false;
 			this->backgroundScrollSpeed = 2.0f;
