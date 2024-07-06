@@ -1,4 +1,4 @@
-coins = 6850
+coins = 7005
 high-score = 240450
 equipedbullet = 0
 redbullet = ACQUIRED
