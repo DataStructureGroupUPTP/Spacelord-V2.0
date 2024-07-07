@@ -1338,6 +1338,7 @@ void Game::initializeWindow()
 	this->videoMode.width = 1000;
 
 	this->window = new sf::RenderWindow(this->videoMode, "Astral Attack", sf::Style::Default | sf::Style::Titlebar);
+	this->view = this->window->getDefaultView();
 
 	this->window->setFramerateLimit(60);
 	this->window->setVerticalSyncEnabled(true);

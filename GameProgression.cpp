@@ -493,7 +493,7 @@ void Game::updateDifficulty()
 			this->checkerThree = false;
 		}
 
-		if (bossIsActive && boss->getHp() <= 800 && boss->getHp() >= 800)
+		if (bossIsActive && boss->getHp() <= 800 && boss->getHp() >= 700)
 		{
 			this->deathBeamSpawnRate = 0.06f;
 			this->enemySpawnRate = 0.25f;
@@ -529,6 +529,11 @@ void Game::updateDifficulty()
 		if (bossIsActive && boss->getHp() <= 150 && boss->getHp() >= 50)
 		{
 			this->horizontalEnemySpawnRate = 1.0f;
+		}
+
+		if (bossIsActive && boss->getHp() <= 50 && boss->getHp() >= 1)
+		{
+		
 		}
 
 		if (bossDefeated && checkerFive)

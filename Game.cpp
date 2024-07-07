@@ -191,6 +191,23 @@ void Game::triggerFadeEffect() {
 	fadeClock.restart();
 }
 
+void Game::applyScreenShake(float intensity)
+{
+	// Get the original center of the view
+	sf::Vector2f originalCenter = this->window->getDefaultView().getCenter();
+
+	// Apply a random offset
+	float offsetX = static_cast<float>((rand() % 100 - 50) / 50.0f) * intensity;
+	float offsetY = static_cast<float>((rand() % 100 - 50) / 50.0f) * intensity;
+
+	// Create a temporary view with the new center
+	sf::View tempView = this->window->getDefaultView();
+	tempView.setCenter(originalCenter + sf::Vector2f(offsetX, offsetY));
+
+	// Set the temporary view
+	this->window->setView(tempView);
+}
+
 void Game::updatePollEvents()
 {
 	sf::Event ev;
@@ -270,6 +287,11 @@ void Game::update()
 		if (bossIsActive && Stage == 3)
 		{
 			boss->receivePos(this->player->getPos());
+		}
+		
+		if (bossIsActive && boss->getHp() < 60 && boss->getHp() >= 1 && Stage == 3)
+		{
+			this->applyScreenShake(5.0f); // Adjust intensity as needed
 		}
 
 		this->updateFadeEffect();
@@ -376,6 +398,11 @@ void Game::render()
 	if(this->gameState == END)
 	{
 		this->renderEndScreen();
+	}
+
+	if(bossIsActive && Stage == 3)
+	{
+		this->window->setView(this->window->getDefaultView());
 	}
 
 	this->window->display();

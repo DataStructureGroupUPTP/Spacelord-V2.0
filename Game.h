@@ -36,6 +36,7 @@ private:
     // Window
     sf::RenderWindow* window;
     sf::VideoMode videoMode;
+    sf::View view;
 
     // Resources
     std::map<std::string, sf::Texture*> textures;
@@ -402,6 +403,7 @@ public:
     void run();
     void reset();
     void triggerFadeEffect();
+    void applyScreenShake(float intensity);
 
     void updatePollEvents();
     void updateInput();
