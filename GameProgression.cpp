@@ -49,7 +49,7 @@ void Game::updateDifficulty()
 			startShooting = true;
 		}
 
-		if (((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 45)) && checkerOne)
+		if (((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 50)) && checkerOne)
 		{
 			this->meteorSpawnRate = 0.35f;
 			this->bossAttackCooldownMax = 50.f;
@@ -192,8 +192,8 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp2 + 55.f && checkerTwo)
 		{
-			this->doubleMeteorChance = 30.f;
-			this->horizontalEnemySpawnRate = 0.5f;
+			this->doubleMeteorChance = 40.f;
+			this->horizontalEnemySpawnRate = 0.55f;
 			checkerTwo = false;
 		}
 
@@ -236,12 +236,18 @@ void Game::updateDifficulty()
 		if(bossIsActive && this->boss->getHp() <= 200 && !stageTransition)
 		{
 			this->horizontalEnemySpawnRate = 0.25f;
-			this->deathBeamSpawnRate = 0.15f;
+			this->deathBeamSpawnRate = 0.16f;
+		}
+
+
+		if (bossIsActive && this->boss->getHp() <= 120 && !stageTransition)
+		{
+			this->horizontalEnemySpawnRate = 0.4f;
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 50 && !stageTransition)
 		{
-			this->horizontalEnemySpawnRate = 0.5f;
+			this->horizontalEnemySpawnRate = 0.6f;
 		}
 
 		if (bossDefeated && checkerFour)
@@ -265,7 +271,7 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp + 5.f && stageTransition)
 		{
 			this->healthItemSpawnRate = 1.f;
-			this->dpsItemSpawnRate = 3.f;
+			this->dpsItemSpawnRate = 2.5f;
 			bossIsActive = false;
 			stageTransition = false;
 			victoryTune.play();
@@ -348,6 +354,7 @@ void Game::updateDifficulty()
 			this->meteorSpawnRate = 0.f;
 			this->doubleMeteorChance = 0.f;
 			this->tripleMeteorChance = 0.f;
+			this->healthItemSpawnTimer = 25.f;
 			
 		}
 
@@ -424,7 +431,7 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp2 + 112.f && checkerTwo)
 		{
 			if (!bossIsActive) {
-				if (!this->stageMusic.openFromFile("Music/BossMusic2.ogg"))
+				if (!this->stageMusic.openFromFile("Music/Theend.mp3"))
 				{
 					std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
 				}

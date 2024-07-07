@@ -542,7 +542,7 @@ void Game::initializeGUI()
 
 void Game::initializeBackground()
 {
-	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space1.png"))
+	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space5.png"))
 	{
 		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
 	}
@@ -1382,7 +1382,7 @@ void Game::initializeSpawnRates()
 	this->deathBeamSpawnRate = 0.f;
 
 	this->healthItemSpawnRate = 0.0167f;
-	this->dpsItemSpawnRate = 0.125f;
+	this->dpsItemSpawnRate = 0.11f;
 
 }
 

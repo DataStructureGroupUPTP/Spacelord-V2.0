@@ -185,7 +185,7 @@ void Game::updateGUI()
 		);
 		this->gameState = DEATH_ANIMATION;
 		this->triggerFadeEffect();
-		std::cout << "Death animation\n";
+
 	}
 
 	// Update bombs
@@ -473,7 +473,6 @@ void Game::updateEnemies()
 		std::random_device rd; // Obtain a random number from hardware
 		std::default_random_engine rng(rd()); // Seed the generator
 
-		std::cout << meteorSpawnRate << "\n";
 		// Reset the meteor spawn timer
 		this->meteorSpawnTimer = 0;
 
@@ -629,6 +628,7 @@ void Game::updateEnemies()
 		else
 		{
 			++it;
+			std::cout << this->enemies.size() << "\n";
 		}
 	}
 

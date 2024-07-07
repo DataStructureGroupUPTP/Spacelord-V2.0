@@ -304,10 +304,10 @@ void Boss::moveInLoop(float deltaTime)
         sf::Vector2f currentPosition = bossSprite.getPosition();
 
         // Change direction randomly
-        if (rand() % 800 < 1) { // >1% chance to change direction
+        if (rand() % 600 < 1) { // >1% chance to change direction
             directionX = -directionX;
         }
-        if (rand() % 800 < 1) { // >1% chance to change direction
+        if (rand() % 600 < 1) { // >1% chance to change direction
             directionY = -directionY;
         }
 
