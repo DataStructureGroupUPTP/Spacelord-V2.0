@@ -494,6 +494,12 @@ void Game::renderGameOverMenu()
 	this->window->draw(this->lastHighScore);
 }
 
+void Game::renderEndScreen()
+{
+	this->window->draw(this->congratText);
+
+}
+
 void Game::renderSettingsMenu()
 {
 	this->window->draw(this->pausesettingsBackground);

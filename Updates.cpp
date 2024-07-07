@@ -2,7 +2,7 @@
 
 void Game::updateInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !cutscene)
 	{
 		this->pauseSound.play();
 		this->gameState = PAUSED;
@@ -84,7 +84,7 @@ void Game::updateInput()
 	}
 
 	// FUTURE PAUSE
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !cutscene)
 	{
 		this->pauseSound.play();
 		this->gameState = PAUSED;
@@ -270,7 +270,7 @@ void Game::updateTimer()
 	oss << std::setfill('0') << std::setw(2) << minutes << ":" << std::setw(2) << seconds;
 	timerText.setString(oss.str());
 
-	// std::cout << elapsedTime << '\n';
+
 }
 
 
@@ -290,6 +290,7 @@ void Game::updateBullets()
 			this->bullets.erase(this->bullets.begin() + counter);
 			--counter;
 		}
+
 
 		++counter;
 	}
@@ -480,33 +481,7 @@ void Game::updateEnemies()
 
 		int meteorChance = rand() % 100 + 1;
 
-		if (meteorChance <= tripleMeteorChance)
-		{
-			// Triple meteor spawn (on three separate lanes)
-			std::vector<int> lanes = { 1, 2, 3, 4 };
-			std::shuffle(lanes.begin(), lanes.end(), rng);
-
-			for (unsigned int i = 0; i < 3; ++i)
-			{
-				switch (lanes[i])
-				{
-				case 1:
-					lanePos = static_cast<float> (line1Pos);
-					break;
-				case 2:
-					lanePos = static_cast<float> (line2Pos);
-					break;
-				case 3:
-					lanePos = static_cast<float> (line3Pos);
-					break;
-				case 4:
-					lanePos = static_cast<float> (line4Pos);
-					break;
-				}
-				this->enemies.push_back(new Enemy(lanePos - (this->textures["METEOR"]->getSize().x * 1.125f), -200.f, 4));
-			}
-		}
-		else if (meteorChance > tripleMeteorChance && meteorChance <= doubleMeteorChance)
+		if (meteorChance <= doubleMeteorChance)
 		{
 			// Double Meteor Spawn (on two separate lanes)
 			std::vector<int> lanes = { 1, 2, 3, 4 };
@@ -628,7 +603,7 @@ void Game::updateEnemies()
 		else
 		{
 			++it;
-			std::cout << this->enemies.size() << "\n";
+
 		}
 	}
 
@@ -742,7 +717,7 @@ void Game::updateItems()
 			{
 				this->points = this->points + item->getPoints();
 				this->gameData.coins = this->gameData.coins + 50;
-				this->bulletSpeed = this->bulletSpeed + 0.15f;
+				this->bulletSpeed = this->bulletSpeed + 0.2f;
 				this->powerUpSound.play();
 			}
 			delete item;
@@ -976,3 +951,16 @@ void Game::updateTitleEffect()
 	this->gameTitle.setScale(scale, scale);
 
 }
+
+void Game::updateEndScreen()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+	{
+		this->reset();
+		this->endMusic.stop();
+		this->gameState = MAIN_MENU;
+		this->menuMusic.play();
+	}
+}
+
+

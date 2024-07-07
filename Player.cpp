@@ -256,6 +256,11 @@ void Player::loseHp(const int value)
     
 }
 
+void Player::setDamage(const float val)
+{
+    this->damage = val;
+}
+
 bool Player::isInvincible() const
 {
     return invincible;

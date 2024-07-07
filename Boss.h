@@ -5,10 +5,7 @@
 #include <sstream>
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
+
 
 class Boss
 {
@@ -39,7 +36,7 @@ private:
     int defeatCurrentFrame;
     float defeatAnimationTimer;
     float defeatAnimationSpeed;
-
+    sf::Vector2f playerPos;
 
     bool movingDown;
     float Xincrease;
@@ -59,6 +56,8 @@ public:
     void spawn(sf::Vector2f position, sf::Vector2f loopLocation); // Initialize boss at a given position
     void updateAnimation();
     void update(float deltaTime);      // Update boss logic
+    void receivePos(sf::Vector2f pos);
+
     void render(sf::RenderTarget& target); // Draw boss to render target
 
     void takeDamage(float damage); // Reduce boss health

@@ -2,6 +2,13 @@
 
 void Game::updateDifficulty()
 {
+
+	if(Stage == 0)
+	{
+	
+		this->meteorSpawnRate = 5.0f;
+	}
+
 	if (Stage == 1) {
 
 		if (elapsedTime >= 30.f && elapsedTime <= 31.f)
@@ -23,6 +30,7 @@ void Game::updateDifficulty()
 			this->dpsItemSpawnRate = 0.f;
 			this->enemySpawnRate = 0.f;
 			this->backgroundScrollSpeed = 3.0f;
+			cutscene = true;
 		}
 
 		if (elapsedTime >= 110.f && elapsedTime <= 111.f)
@@ -35,7 +43,7 @@ void Game::updateDifficulty()
 				this->stageMusic.play();
 
 				bossIsActive = true;
-				this->boss->spawn(sf::Vector2f(560.f, -200.f), sf::Vector2f(600.f, 300.f));
+				this->boss->spawn(sf::Vector2f(603.f, -200.f), sf::Vector2f(603.f, 300.f));
 			}
 		}
 
@@ -47,12 +55,13 @@ void Game::updateDifficulty()
 		if (elapsedTime >= 126.5f && elapsedTime <= 128.f)
 		{
 			startShooting = true;
+			cutscene = false;
 		}
 
 		if (((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 50)) && checkerOne)
 		{
-			this->meteorSpawnRate = 0.35f;
-			this->bossAttackCooldownMax = 50.f;
+			this->meteorSpawnRate = 0.25f;
+			this->bossAttackCooldownMax = 52.f;
 
 		}
 
@@ -77,6 +86,7 @@ void Game::updateDifficulty()
 			this->enemyKillCounter = enemyKillCounter + 40;
 			checkerOne = false;
 			this->backgroundScrollSpeed = 2.0f;
+			cutscene = true;
 
 		}
 
@@ -137,7 +147,7 @@ void Game::updateDifficulty()
 			timeStamp2 = elapsedTime;
 			stage1End = false;
 			this->meteorSpawnRate = 0.f;
-			this->boss = new Boss(300.f, 10.5f, 2);
+			this->boss = new Boss(320.f, 10.5f, 2);
 			bossDefeated = false;
 			Stage = 2;
 	
@@ -150,7 +160,6 @@ void Game::updateDifficulty()
 
 	if(Stage == 2)
 	{
-		this->backgroundScrollSpeed = 1.5f;
 		if(elapsedTime >= timeStamp2 + 1.f  && elapsedTime <= timeStamp2 + 2.f)
 		{
 			checkerOne = true;
@@ -166,6 +175,7 @@ void Game::updateDifficulty()
 			this->tripleMeteorChance = 0.f;
 			this->dpsItemSpawnRate = 0.075f;
 			this->healthItemSpawnTimer = 0.f;
+			cutscene = false;
 		}
 
 		if(elapsedTime >= timeStamp2 + 7.f && checkerOne)
@@ -203,6 +213,7 @@ void Game::updateDifficulty()
 			this->horizontalEnemySpawnRate = 0.f;
 			this->enemySpawnRate = 0.f;
 			this->dpsItemSpawnRate = 0.f;
+			cutscene = true;
 
 		}
 
@@ -225,9 +236,10 @@ void Game::updateDifficulty()
 			this->backgroundScrollSpeed = 3.0f;
 			this->checkerThree = false;
 			this->deathBeamSpawnTimer = 50.f;
+			cutscene = false;
 		}
 
-		if(bossIsActive && this->boss->getHp() <= 290 && !stageTransition)
+		if(bossIsActive && this->boss->getHp() <= 310 && !stageTransition)
 		{
 			this->deathBeamSpawnRate = 0.12f;
 			this->horizontalEnemySpawnRate = 0.1f;
@@ -265,6 +277,7 @@ void Game::updateDifficulty()
 			this->enemyKillCounter = enemyKillCounter + 80;
 			checkerFour = false;
 			this->backgroundScrollSpeed = 2.0f;
+			cutscene = true;
 
 		}
 
@@ -326,7 +339,6 @@ void Game::updateDifficulty()
 			timeStamp2 = elapsedTime;
 			stage2End = false;
 			this->meteorSpawnRate = 0.f;
-			this->boss = new Boss(800.f, 11.f, 2);
 			this->bossDefeated = false;
 			Stage = 3;
 
@@ -340,7 +352,6 @@ void Game::updateDifficulty()
 
 	if (Stage == 3)
 	{
-		this->backgroundScrollSpeed = 1.5f;
 		if (elapsedTime >= timeStamp2 + 1.f && elapsedTime <= timeStamp2 + 2.f)
 		{
 			checkerOne = true;
@@ -355,13 +366,16 @@ void Game::updateDifficulty()
 			this->doubleMeteorChance = 0.f;
 			this->tripleMeteorChance = 0.f;
 			this->healthItemSpawnTimer = 25.f;
+			this->backgroundScrollSpeed = 2.0f;
+			this->boss = new Boss(825.f, 10.f, 3);
+			cutscene = false;
 			
 		}
 
 		if (elapsedTime >= timeStamp2 + 6.f && checkerOne)
 		{
 
-			this->enemySpawnRate = 1.5f;
+			this->enemySpawnRate = 2.5f;
 			this->horizontalEnemySpawnRate = 0.f;
 			if (!this->stageMusic.openFromFile("Music/Aloneagainstenemy.ogg"))
 			{
@@ -371,7 +385,7 @@ void Game::updateDifficulty()
 			checkerOne = false;
 			this->meteorSpawnRate = 0.25f;
 			this->doubleMeteorChance = 25.f;
-			this->tripleMeteorChance = 5.f;
+			this->tripleMeteorChance = 0.f;
 			this->dpsItemSpawnRate = 0.08f;
 			this->healthItemSpawnTimer = 0.f;
 		}
@@ -379,30 +393,29 @@ void Game::updateDifficulty()
 		if(elapsedTime >= timeStamp2 + 20.f && elapsedTime <= timeStamp2 + 21.f)
 		{
 			this->enemySpawnRate = 0.25f;
-			this->meteorSpawnRate = 2.25f;
-			this->doubleMeteorChance = 35.f;
+			this->meteorSpawnRate = 1.5f;
+			this->doubleMeteorChance = 50.f;
 			this->tripleMeteorChance = 0.f;
 			this->horizontalSpawnTimer = 0.f;
 		}
 
 		if(elapsedTime >= timeStamp2 + 35.f && elapsedTime <= timeStamp2 + 36.f)
 		{
-			this->enemySpawnRate = 1.5f;
-			this->meteorSpawnRate = 0.5f;
+			this->enemySpawnRate = 1.25f;
+			this->meteorSpawnRate = 0.75f;
 			this->doubleMeteorChance = 90.f;
-			this->horizontalEnemySpawnRate = 1.f;
+			this->horizontalEnemySpawnRate = 1.25f;
 
 		}
 
-		if(elapsedTime >= timeStamp2 + 65.f && elapsedTime <= timeStamp + 66.f)
+		if(elapsedTime >= timeStamp2 + 65.f && elapsedTime <= timeStamp2 + 66.f)
 		{
-			this->horizontalEnemySpawnRate = 0.5f;
-			this->meteorSpawnRate = 0.75f;
+			this->enemySpawnRate = 1.0f;
 			this->deathBeamSpawnRate = 0.12f;
 			this->doubleMeteorChance = 0.f;
 		}
 
-		if (elapsedTime >= timeStamp2 + 88.f && elapsedTime <= timeStamp + 89.f)
+		if (elapsedTime >= timeStamp2 + 88.f && elapsedTime <= timeStamp2 + 89.f)
 		{
 			this->horizontalEnemySpawnRate = 0.25f;
 			this->deathBeamSpawnRate = 0.f;
@@ -410,14 +423,14 @@ void Game::updateDifficulty()
 			this->doubleMeteorChance = 0.f;
 		}
 
-		if (elapsedTime >= timeStamp2 + 90.f && elapsedTime <= timeStamp + 91.f)
+		if (elapsedTime >= timeStamp2 + 90.f && elapsedTime <= timeStamp2 + 91.f)
 		{
-			this->meteorSpawnRate = 2.5f;
+			this->meteorSpawnRate = 2.25f;
 			this->doubleMeteorChance = 50.f;
 
 		}
 
-		if (elapsedTime >= timeStamp2 + 105.f && elapsedTime <= timeStamp + 106.f)
+		if (elapsedTime >= timeStamp2 + 105.f && elapsedTime <= timeStamp2 + 106.f)
 		{
 			this->meteorSpawnRate = 0.f;
 			this->doubleMeteorChance = 0.f;
@@ -428,40 +441,135 @@ void Game::updateDifficulty()
 
 		}
 
-		if (elapsedTime >= timeStamp2 + 112.f && checkerTwo)
+		if(elapsedTime >= timeStamp2 + 109.8f && checkerFour)
+		{
+			if (!this->stageMusic.openFromFile("Music/Theendp1.wav"))
+			{
+				std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+			}
+			this->stageMusic.play();
+			this->stageMusic.setVolume(this->musicVolume * 20);
+
+			this->backgroundScrollSpeed = 4.0f;
+			checkerFour = false;
+		}
+
+		if(elapsedTime >= timeStamp2 + 110.f && elapsedTime <= timeStamp2 + 125.f)
+		{
+			this->player->setAttackCooldown(0);
+		}
+
+
+		if (elapsedTime >= timeStamp2 + 115.f && checkerTwo)
 		{
 			if (!bossIsActive) {
-				if (!this->stageMusic.openFromFile("Music/Theend.mp3"))
-				{
-					std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
-				}
-				this->stageMusic.play();
-
 				bossIsActive = true;
 				this->meteorSpawnRate = 0.f;
 				this->doubleMeteorChance = 0.f;
 				this->tripleMeteorChance = 0.f;
+				dpsItemSpawnRate = 0.f;
+				healthItemSpawnRate = 0.04f;
+				this->deathBeamSpawnTimer = 55.f;
+				this->player->setDamage(4.0f);
 
-				this->boss->spawn(sf::Vector2f(560.f, 1000.f), sf::Vector2f(400.f, 600.f));
+				this->boss->spawn(sf::Vector2f(355.f, -400.f), sf::Vector2f(355.f, -100.f));
 			}
-			this->backgroundScrollSpeed = 3.0f;
+			
+			this->checkerTwo = false;
+		}
+
+		if (elapsedTime >= timeStamp2 + 125.f && checkerThree)
+		{
+	
+			if (!this->stageMusic.openFromFile("Music/Theendp2.wav"))
+				{
+				std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
+			}
+			this->stageMusic.play();
+			this->stageMusic.setVolume(this->musicVolume * 20);
+			this->stageMusic.setLoop(true);
+
+
 			this->checkerThree = false;
+		}
+
+		if (bossIsActive && boss->getHp() <= 800 && boss->getHp() >= 800)
+		{
+			this->deathBeamSpawnRate = 0.06f;
+			this->enemySpawnRate = 0.25f;
+			this->horizontalEnemySpawnRate = 0.35f;
+		}
+
+		if (bossIsActive && boss->getHp() <= 700 && boss->getHp() >= 600)
+		{
+			this->meteorSpawnRate = 0.25f;
+		}
+
+
+		if(bossIsActive && boss->getHp() <= 600 && boss->getHp() >= 500)
+		{
+			this->enemySpawnRate = 0.5f;
+		}
+
+		if(bossIsActive && boss->getHp() <= 500 && boss->getHp() >= 400)
+		{
+			this->horizontalEnemySpawnRate = 0.5f;
+		}
+
+		if (bossIsActive && boss->getHp() <= 400 && boss->getHp() >= 300)
+		{
+			this->enemySpawnRate = 0.75f;
+		}
+
+		if (bossIsActive && boss->getHp() <= 200 && boss->getHp() >= 150)
+		{
+			this->deathBeamSpawnRate = 0.12f;
+		}
+
+		if (bossIsActive && boss->getHp() <= 150 && boss->getHp() >= 50)
+		{
+			this->horizontalEnemySpawnRate = 1.0f;
+		}
+
+		if (bossDefeated && checkerFive)
+		{
+			this->stageMusic.setLoop(false);
+			this->stageMusic.stop();
+			this->explosionSound.play();
+			this->meteorSpawnRate = 0.f;
+			this->horizontalEnemySpawnRate = 0.f;
+			this->deathBeamSpawnRate = 0.f;
+			this->enemySpawnRate = 0.f;
+			this->timeStamp = elapsedTime;
+			bossDefeated = false;
+			this->points = points + 250000;
+			this->gameData.coins = gameData.coins + 2500;
+			this->enemyKillCounter = enemyKillCounter + 200;
+			checkerFive = false;
+			this->backgroundScrollSpeed = 2.0f;
+			cutscene = true;
+
+		}
+
+		if (elapsedTime >= timeStamp + 5.f && checkerFive == false && checkerSix)
+		{
+			if (!this->endMusic.openFromFile("Music/Bravery.ogg"))
+			{
+				std::cout << "ERROR::BRAVERY::FAILED_TO_LOAD" << "\n";
+			}
+			this->endMusic.setVolume(this->musicVolume * 20);
+			this->endMusic.play();
+
+			checkerSix = false;
+			this->healthItemSpawnRate = 1.0f;
+		}
+
+		if(elapsedTime >= timeStamp + 25.f && checkerFive == false)
+		{
+			cutscene = false;
+			gameState = END;
 		}
 
 
 	}
 }
-
-//if (elapsedTime >= 110.f && elapsedTime <= 111.f)
-//{
-//	if (!bossIsActive) {
-//		if (!this->stageMusic.openFromFile("Music/BossMusic.ogg"))
-//		{
-//			std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
-//		}
-//		this->stageMusic.play();
-//
-//		bossIsActive = true;
-//		this->boss->spawn(sf::Vector2f(560.f, -200.f), sf::Vector2f(600.f, 300.f));
-//	}
-//}

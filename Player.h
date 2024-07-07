@@ -93,6 +93,8 @@ public:
 	void setPosition(const float x, const float y);
 	void setHp(const int hp);
 	void loseHp(const int value);
+	
+	void setDamage(const float val);
 
 	// Invincibility frames
 	bool isInvincible() const;

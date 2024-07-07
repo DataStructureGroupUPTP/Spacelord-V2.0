@@ -33,6 +33,7 @@ void Game::initialize()
 	this->initializeSoundFXVolume();
 	this->initializeCreditsMenu();
 	this->initializeQuitConfirmationMenu();
+	this->initializeEndScreen();
 
 	this->gameState = MAIN_MENU; // Set initial game state to MAIN_MENU
 	this->prevgameState = MAIN_MENU;
@@ -139,6 +140,7 @@ void Game::reset()
 	delete boss;
 
 	bossIsActive = false;
+	this->cutscene = false;
 
 	this->initializePlayer();
 	this->initializeEnemy();
@@ -265,6 +267,10 @@ void Game::update()
 		{
 			this->updateBoss();
 		}
+		if (bossIsActive && Stage == 3)
+		{
+			boss->receivePos(this->player->getPos());
+		}
 
 		this->updateFadeEffect();
 	}
@@ -275,6 +281,10 @@ void Game::update()
 	if (this->gameState == GAME_OVER)
 	{
 		this->updateFadeEffect();
+	}
+	if (this->gameState == END)
+	{
+		this->updateEndScreen();
 	}
 }
 
@@ -319,7 +329,6 @@ void Game::render()
 			this->boss->render(*window);
 		}
 		this->renderPauseMenu();
-
 		
 	}
 
@@ -362,6 +371,11 @@ void Game::render()
 			this->boss->render(*window);
 		}
 		this->window->draw(fadeOverlay);
+	}
+
+	if(this->gameState == END)
+	{
+		this->renderEndScreen();
 	}
 
 	this->window->display();

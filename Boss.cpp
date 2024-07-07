@@ -25,6 +25,16 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
         
     }
 
+    if (type == 3)
+    {
+        if (!this->bossTexture.loadFromFile("Textures/Boss3.png"))
+        {
+            std::cout << "TEXTURE::BOSS3::FAILED_TO_LOAD" << std::endl;
+        }
+
+
+    }
+
     if (type == 1) {
         if (!this->bossFire.loadFromFile("Animations/Bossfireidle.png"))
         {
@@ -40,6 +50,14 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
         }
     }
 
+    if (type == 3)
+    {
+        if (!this->bossFire.loadFromFile("Animations/Boss3fireidle.png"))
+        {
+            std::cout << "TEXTURE::BOSS3_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
+        }
+    }
+
     if (!this->defeatAnimation.loadFromFile("Animations/bossDefeat.png"))
     {
         std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
@@ -47,8 +65,14 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
 
     bossSprite.setTexture(bossTexture);
     bossSprite.setScale(3.0f, 3.0f);
+
     if (type == 1) {
         bossSprite.rotate(180.f);
+    }
+    if (type == 3)
+    {
+        bossSprite.setScale(4.0f, 4.0f);
+
     }
 
     startPosition = sf::Vector2f(400.f, -250.f); // Start just above the screen
@@ -77,6 +101,16 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
             this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
             this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 1000.f
         );
+    }
+
+    if(type == 3)
+    {
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - this->fire.getGlobalBounds().width / 2,
+            this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 1000.f
+        );
+        this->fire.setScale(4.0f,4.0f);
+    
     }
 
     // Animation
@@ -164,6 +198,24 @@ void Boss::updateAnimation()
         }
     
     }
+
+    if(type == 3)
+    {
+        this->animationTimer += this->animationSpeed;
+        if (this->animationTimer >= 1.f)
+        {
+            this->animationTimer = 0.f;
+            this->currentFrame++;
+            if (this->currentFrame >= 8) // 12 frames
+            {
+                this->currentFrame = 0;
+            }
+            this->fireFrame.left = this->currentFrame * 128; // Frame width is 128
+            this->fire.setTextureRect(this->fireFrame);
+        }
+    
+    
+    }
 }
 
 void Boss::update(float deltaTime)
@@ -197,6 +249,11 @@ void Boss::update(float deltaTime)
     }
 }
 
+void Boss::receivePos(sf::Vector2f pos)
+{
+    playerPos = pos;
+}
+
 void Boss::updateDefeatedState(float deltaTime)
 {
     defeatTimer += deltaTime;
@@ -211,12 +268,13 @@ void Boss::updateDefeatedState(float deltaTime)
 
 void Boss::render(sf::RenderTarget& target)
 {
-    target.draw(bossSprite);
 
     if (!isDefeated)
     {
         target.draw(this->fire);
     }
+
+    target.draw(bossSprite);
 }
 
 void Boss::takeDamage(float damage)
@@ -330,6 +388,94 @@ void Boss::moveInLoop(float deltaTime)
         this->fire.setPosition(
             this->bossSprite.getPosition().x + this->bossSprite.getGlobalBounds().width / 2 - 191.f,
             this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 340.f
+        );
+    }
+    else if (type == 3)
+    {
+        static float time = 0.0f;
+        static bool isCharging = false;
+        static bool isReturning = false;
+        static sf::Vector2f chargeDirection;
+        static float chargeDistance = 0.0f;
+        static float chargeSpeed = 300.0f;
+        static sf::Vector2f targetPosition; // New target position for returning
+        static float chargeTimer = 0.0f;
+        float chargeCooldown = 12.5f;
+        float A = 300.0f;
+        float B = 100.0f;
+
+        // Get the boss sprite dimensions
+        float bossWidth = bossSprite.getGlobalBounds().width;
+        float bossHeight = bossSprite.getGlobalBounds().height;
+
+        if (!isCharging && !isReturning)
+        {
+            // Infinity shape movement pattern
+            time += deltaTime;
+            float x = loopCenter.x + A * std::sin(time);
+            float y = loopCenter.y + B * std::sin(2 * time);
+            targetPosition = sf::Vector2f(x, y);
+            bossSprite.setPosition(targetPosition);
+        }
+
+        chargeTimer += deltaTime;
+
+        if(health <= 100)
+        {
+            chargeCooldown = 10.f;
+        }
+
+        if (chargeTimer >= chargeCooldown && !isCharging && !isReturning)
+        {
+            // Start charging
+            isCharging = true;
+            chargeTimer = 0.0f;
+
+            // Adjust the charge direction to aim from the center of the sprite
+            sf::Vector2f bossCenter = bossSprite.getPosition() + sf::Vector2f(bossWidth / 2, bossHeight / 2);
+            chargeDirection = playerPos - bossCenter;
+            chargeDistance = std::sqrt(chargeDirection.x * chargeDirection.x + chargeDirection.y * chargeDirection.y);
+
+            if (chargeDistance > 0.0f)
+                chargeDirection /= chargeDistance;
+        }
+
+        if (isCharging)
+        {
+            sf::Vector2f chargeStep = chargeDirection * chargeSpeed * deltaTime;
+            bossSprite.move(chargeStep);
+            chargeDistance -= std::sqrt(chargeStep.x * chargeStep.x + chargeStep.y * chargeStep.y);
+
+            if (chargeDistance <= 0.0f)
+            {
+                isCharging = false;
+                isReturning = true;
+            }
+        }
+        else if (isReturning)
+        {
+            sf::Vector2f currentPosition = bossSprite.getPosition();
+            sf::Vector2f returnDirection = targetPosition - currentPosition;
+            float returnDistance = std::sqrt(returnDirection.x * returnDirection.x + returnDirection.y * returnDirection.y);
+
+            if (returnDistance > 0.0f)
+                returnDirection /= returnDistance;
+
+            float returnSpeed = 200.0f;
+            sf::Vector2f returnStep = returnDirection * returnSpeed * deltaTime;
+            bossSprite.move(returnStep);
+
+            if (returnDistance <= std::sqrt(returnStep.x * returnStep.x + returnStep.y * returnStep.y))
+            {
+                isReturning = false;
+                time = 0.0f; // Reset time to start infinity movement smoothly
+            }
+        }
+
+        // Set fire position (adjust as needed)
+        this->fire.setPosition(
+            this->bossSprite.getPosition().x + bossWidth / 2 - 258.f,
+            this->bossSprite.getPosition().y + bossHeight - 430.f
         );
     }
 

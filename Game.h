@@ -25,7 +25,8 @@ enum GameState
     CREDITS,
     SETTINGS,
     DEATH_ANIMATION,
-    GAME_OVER
+    GAME_OVER,
+    END
 };
 
 
@@ -202,6 +203,7 @@ private:
     sf::Music menuMusic;
     sf::Music gameOverMusic;
     sf::Music victoryTune;
+    sf::Music endMusic;
 
     // Line Mechanic
     sf::Vertex line1[2];
@@ -244,6 +246,7 @@ private:
     void initializePauseMenu();
     void initializeTutorialMenu();
     void initializeGameOverMenu();
+    void initializeEndScreen();
     void initializeSettingsMenu();
     void initializeCreditsMenu();
     void initializeSoundFXVolume();
@@ -276,6 +279,7 @@ private:
     sf::Text areYouSureQuestion;
     sf::Text yesCloseApplication;
     sf::Text noKeepPlaying;
+    sf::Text congratText;
 
     // Shop Menu options
     sf::Text objectPrice;
@@ -369,6 +373,7 @@ private:
     unsigned Stage;
     float timeStamp;
     float timeStamp2;
+    bool cutscene;
 
     // Game Data
     GameData gameData;
@@ -417,6 +422,7 @@ public:
     void updateFadeEffect();
     void updateExplosionEffect();
     void updateTitleEffect();
+    void updateEndScreen();
 
     void update();
 
@@ -432,6 +438,7 @@ public:
     void renderPauseMenu();
     void renderSettingsMenu();
     void renderGameOverMenu();
+    void renderEndScreen();
     void renderGameElements();
     void renderExplosion(sf::RenderTarget& target);
 };

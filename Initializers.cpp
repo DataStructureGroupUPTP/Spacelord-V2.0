@@ -544,17 +544,17 @@ void Game::initializeBackground()
 {
 	if (!this->stageBackgroundTexture.loadFromFile("Textures/Space5.png"))
 	{
-		std::cout << "TEXTURE::SPACE1::FAILED_TO_LOAD" << "\n";
+		std::cout << "TEXTURE::SPACE5::FAILED_TO_LOAD" << "\n";
 	}
 
-	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space4.png"))
+	if (!this->stage2BackgroundTexture.loadFromFile("Textures/Space9.png"))
 	{
-		std::cout << "TEXTURE::SPACE4::FAILED_TO_LOAD" << "\n";
+		std::cout << "TEXTURE::SPACE9::FAILED_TO_LOAD" << "\n";
 	}
 
-	if (!this->stage3BackgroundTexture.loadFromFile("Textures/Space8.png"))
+	if (!this->stage3BackgroundTexture.loadFromFile("Textures/Space10.png"))
 	{
-		std::cout << "TEXTURE::SPACE6::FAILED_TO_LOAD" << "\n";
+		std::cout << "TEXTURE::SPACE10::FAILED_TO_LOAD" << "\n";
 	}
 
 	this->stageBackground.setTexture(this->stageBackgroundTexture);
@@ -1181,6 +1181,22 @@ void Game::initializeGameOverMenu()
 	);
 }
 
+void Game::initializeEndScreen()
+{
+
+    // Set up congratulatory text
+    this->congratText.setFont(this->font);
+    this->congratText.setCharacterSize(64);
+    this->congratText.setFillColor(sf::Color::Yellow);
+    this->congratText.setString("Congratulations, You Won!");
+    this->congratText.setPosition(
+        this->window->getSize().x / 2.f - this->congratText.getGlobalBounds().width / 2.f,
+        100.f
+    );
+
+
+}
+
 void Game::initializeSettingsMenu()
 {
 	updateMusicVolume();
@@ -1342,6 +1358,7 @@ void Game::initializeStage()
 	this->checkerFive = true;
 	this->checkerSix = true;
 	this->checkerSeven = true;
+	this->cutscene = false;
 	this->Stage = 1;
 
 
