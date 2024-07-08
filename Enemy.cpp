@@ -259,7 +259,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->enemyOne.setScale(2.25f, 2.25f);
 
 		this->type = type;
-		this->hp = 999;
+		this->hp = 100;
 		this->damage = 1;
 		this->points = 0;
 		this->speed = 7.5f + meteorSpeedIncrease;

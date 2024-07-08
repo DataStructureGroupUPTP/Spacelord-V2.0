@@ -359,6 +359,7 @@ void Game::updateDifficulty()
 			checkerThree = true;
 			checkerFour = true;
 			checkerFive = true;
+			checkerSix = true;
 			this->healthItemSpawnRate = 0.0167f;
 			this->enemySpawnRate = 0.f;
 			this->horizontalEnemySpawnRate = 0.f;
