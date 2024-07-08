@@ -58,7 +58,7 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack())
 	{
-		if (enemyKillCounter < 350)
+		if (enemyKillCounter < 400)
 		{
 			this->laserSound.play();
 			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,

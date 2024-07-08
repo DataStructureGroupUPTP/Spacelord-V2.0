@@ -151,7 +151,7 @@ void Game::reset()
 	this->initializeStage();
 	this->initializeSystems();
 	this->lane = 4;
-
+	this->stageMusic.setLoop(false);
 
 
 
@@ -289,7 +289,7 @@ void Game::update()
 			boss->receivePos(this->player->getPos());
 		}
 		
-		if (bossIsActive && boss->getHp() < 60 && boss->getHp() >= 1 && Stage == 3)
+		if (bossIsActive && boss->getHp() < 100 && boss->getHp() >= 1 && Stage == 3)
 		{
 			this->applyScreenShake(5.0f); // Adjust intensity as needed
 		}

@@ -17,7 +17,7 @@ void Player::initializeVariables()
     this->hp = this->hpMax;
 
     this->shieldActive = false;
-    this->shieldDuration = 5.0f; // Shield lasts for 5 seconds
+    this->shieldDuration = 3.0f; // Shield lasts for 3 seconds
     this->shieldTimer = 0.0f;
 
     this->damageMAX = false;

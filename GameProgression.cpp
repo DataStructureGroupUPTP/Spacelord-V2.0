@@ -202,7 +202,7 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp2 + 55.f && checkerTwo)
 		{
 			this->doubleMeteorChance = 45.f;
-			this->horizontalEnemySpawnRate = 0.6f;
+			this->horizontalEnemySpawnRate = 0.75f;
 			checkerTwo = false;
 		}
 
@@ -253,12 +253,12 @@ void Game::updateDifficulty()
 
 		if (bossIsActive && this->boss->getHp() <= 120 && !stageTransition)
 		{
-			this->horizontalEnemySpawnRate = 0.4f;
+			this->horizontalEnemySpawnRate = 0.5f;
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 50 && !stageTransition)
 		{
-			this->horizontalEnemySpawnRate = 0.6f;
+			this->horizontalEnemySpawnRate = 0.75f;
 		}
 
 		if (bossDefeated && checkerFour)
