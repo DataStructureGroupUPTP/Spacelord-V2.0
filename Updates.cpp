@@ -58,7 +58,7 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && this->player->canAttack())
 	{
-		if (enemyKillCounter < 500)
+		if (enemyKillCounter < 350)
 		{
 			this->laserSound.play();
 			this->bullets.push_back(new Bullet(this->textures["BULLET"], this->player->getPos().x + this->player->getBounds().width / 2 - 5.5f,
@@ -204,9 +204,9 @@ void Game::updateGUI()
 		this->killCounterText.setString(ss3.str());
 
 	}
-	else if (enemyKillCounter < 150)
+	else if (enemyKillCounter < 100)
 	{
-		ss3 << "Kills: " << this->enemyKillCounter << "/150";
+		ss3 << "Kills: " << this->enemyKillCounter << "/100";
 		this->killCounterText.setString(ss3.str());
 		if (lastKillThreshold < 50 && enemyKillCounter >= 50)
 		{
@@ -215,37 +215,37 @@ void Game::updateGUI()
 			lastKillThreshold = 50;
 		}
 	}
-	else if (enemyKillCounter < 300)
+	else if (enemyKillCounter < 200)
 	{
-		ss3 << "Kills: " << this->enemyKillCounter << "/300";
+		ss3 << "Kills: " << this->enemyKillCounter << "/200";
 		this->killCounterText.setString(ss3.str());
-		if (lastKillThreshold < 150 && enemyKillCounter >= 150)
+		if (lastKillThreshold < 100 && enemyKillCounter >= 100)
 		{
 			levelup.play();
 			this->bombs++;
-			lastKillThreshold = 150;
+			lastKillThreshold = 100;
 		}
 	}
-	else if (enemyKillCounter < 500)
+	else if (enemyKillCounter < 400)
 	{
-		ss3 << "Kills: " << this->enemyKillCounter << "/500";
+		ss3 << "Kills: " << this->enemyKillCounter << "/400";
 		this->killCounterText.setString(ss3.str());
-		if (lastKillThreshold < 300 && enemyKillCounter >= 300)
+		if (lastKillThreshold < 200 && enemyKillCounter >= 200)
 		{
 			levelup.play();
 			this->bombs++;
-			lastKillThreshold = 300;
+			lastKillThreshold = 200;
 		}
 	}
 	else
 	{
 		ss3 << "Kills: " << this->enemyKillCounter << "/MAX";
 		this->killCounterText.setString(ss3.str());
-		if (lastKillThreshold < 500 && enemyKillCounter >= 500)
+		if (lastKillThreshold < 400 && enemyKillCounter >= 400)
 		{
 			levelup.play();
 			this->bombs++;
-			lastKillThreshold = 500;
+			lastKillThreshold = 400;
 		}
 	}
 }

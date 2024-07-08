@@ -181,7 +181,7 @@ void Game::updateDifficulty()
 		if(elapsedTime >= timeStamp2 + 7.f && checkerOne)
 		{
 			
-			this->enemySpawnRate = 1.5f;
+			this->enemySpawnRate = 2.0f;
 			if (!this->stageMusic.openFromFile("Music/WithoutFear.ogg"))
 			{
 				std::cout << "ERROR::WITHOUT_FEAR_MUSIC::FAILED_TO_LOAD" << "\n";
@@ -190,20 +190,19 @@ void Game::updateDifficulty()
 			checkerOne = false;
 			this->meteorSpawnRate = 0.25f;
 			this->doubleMeteorChance = 25.f;
-			this->tripleMeteorChance = 2.f;
 		}
 
-		if (elapsedTime >= timeStamp2 + 37.f && elapsedTime <= timeStamp2 + 38.f)
+		if (elapsedTime >= timeStamp2 + 31.f && elapsedTime <= timeStamp2 + 32.f)
 		{
-	
+			this->enemySpawnRate = 1.6f;
 			this->horizontalEnemySpawnRate = 0.3f;
 			this->meteorSpawnRate = 0.75f;
 		}
 
 		if (elapsedTime >= timeStamp2 + 55.f && checkerTwo)
 		{
-			this->doubleMeteorChance = 40.f;
-			this->horizontalEnemySpawnRate = 0.55f;
+			this->doubleMeteorChance = 45.f;
+			this->horizontalEnemySpawnRate = 0.6f;
 			checkerTwo = false;
 		}
 
@@ -394,7 +393,7 @@ void Game::updateDifficulty()
 		if(elapsedTime >= timeStamp2 + 20.f && elapsedTime <= timeStamp2 + 21.f)
 		{
 			this->enemySpawnRate = 0.25f;
-			this->meteorSpawnRate = 1.5f;
+			this->meteorSpawnRate = 2.0f;
 			this->doubleMeteorChance = 50.f;
 			this->tripleMeteorChance = 0.f;
 			this->horizontalSpawnTimer = 0.f;
