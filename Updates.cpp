@@ -318,9 +318,9 @@ void Game::updateCollision()
 	}
 
 	// Collision with bottom of the screen
-	else if (this->player->getBounds().top + this->player->getBounds().height > this->window->getSize().y)
+	else if (this->player->getBounds().top + this->player->getBounds().height > this->window->getSize().y - 10.f)
 	{
-		this->player->setPosition(this->player->getBounds().left, this->window->getSize().y - this->player->getBounds().height);
+		this->player->setPosition(this->player->getBounds().left, this->window->getSize().y - this->player->getBounds().height - 10.f);
 	}
 }
 
