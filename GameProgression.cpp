@@ -196,13 +196,13 @@ void Game::updateDifficulty()
 		{
 			this->enemySpawnRate = 1.6f;
 			this->horizontalEnemySpawnRate = 0.3f;
-			this->meteorSpawnRate = 0.75f;
+			this->meteorSpawnRate = 0.70f;
 		}
 
 		if (elapsedTime >= timeStamp2 + 55.f && checkerTwo)
 		{
-			this->doubleMeteorChance = 45.f;
-			this->horizontalEnemySpawnRate = 0.75f;
+			this->doubleMeteorChance = 40.f;
+			this->horizontalEnemySpawnRate = 0.65f;
 			checkerTwo = false;
 		}
 
@@ -399,7 +399,7 @@ void Game::updateDifficulty()
 			this->horizontalSpawnTimer = 0.f;
 		}
 
-		if(elapsedTime >= timeStamp2 + 35.f && elapsedTime <= timeStamp2 + 36.f)
+		if(elapsedTime >= timeStamp2 + 31.f && elapsedTime <= timeStamp2 + 32.f)
 		{
 			this->enemySpawnRate = 1.25f;
 			this->meteorSpawnRate = 0.75f;
@@ -413,6 +413,7 @@ void Game::updateDifficulty()
 			this->enemySpawnRate = 1.0f;
 			this->deathBeamSpawnRate = 0.12f;
 			this->doubleMeteorChance = 0.f;
+			this->horizontalEnemySpawnRate = 1.0f;
 		}
 
 		if (elapsedTime >= timeStamp2 + 88.f && elapsedTime <= timeStamp2 + 89.f)
@@ -529,11 +530,6 @@ void Game::updateDifficulty()
 		if (bossIsActive && boss->getHp() <= 150 && boss->getHp() >= 50)
 		{
 			this->horizontalEnemySpawnRate = 1.0f;
-		}
-
-		if (bossIsActive && boss->getHp() <= 50 && boss->getHp() >= 1)
-		{
-		
 		}
 
 		if (bossDefeated && checkerFive)
