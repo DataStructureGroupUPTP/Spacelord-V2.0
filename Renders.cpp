@@ -496,7 +496,9 @@ void Game::renderGameOverMenu()
 
 void Game::renderEndScreen()
 {
+	this->window->draw(this->endBackground);
 	this->window->draw(this->congratText);
+	this->window->draw(this->earthSprite);
 
 }
 

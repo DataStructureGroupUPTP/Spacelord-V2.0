@@ -96,6 +96,7 @@ void Game::updateInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
+		this->gameState = END;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
@@ -960,6 +961,26 @@ void Game::updateEndScreen()
 		this->endMusic.stop();
 		this->gameState = MAIN_MENU;
 		this->menuMusic.play();
+	}
+
+	// Update the animation timer
+	earthAnimationTimer += 0.0167f;
+
+	// Check if it's time to update the frame
+	if (earthAnimationTimer >= earthAnimationSpeed) {
+		// Move to the next frame
+		earthCurrentFrame++;
+		if (earthCurrentFrame >= 50) {
+			earthCurrentFrame = 0; // Loop back to the first frame
+		}
+
+		// Update the texture rect
+		earthFrame.left = earthCurrentFrame * 100; // Move horizontally only
+
+		earthSprite.setTextureRect(earthFrame);
+
+		// Reset the animation timer
+		earthAnimationTimer -= earthAnimationSpeed;
 	}
 }
 

@@ -225,6 +225,17 @@ void Game::initializeTextures()
 	{
 		std::cout << "TEXTURE::SHIELD_ICON::FAILED_TO_LOAD" << "\n";
 	}
+
+	if (!this->earthTexture.loadFromFile("Animations/earth.png"))
+	{
+		std::cout << "ANIMATION::EARTH::FAILED_TO_LOAD" << "\n";
+	}
+
+	if (!this->endBackgroundTexture.loadFromFile("Textures/End.png"))
+	{
+		std::cout << "TEXTURE::END_BACKGROUND::FAILED_TO_LOAD" << "\n";
+	}
+
 }
 
 void Game::initializeSounds()
@@ -1186,14 +1197,27 @@ void Game::initializeEndScreen()
 
     // Set up congratulatory text
     this->congratText.setFont(this->font);
-    this->congratText.setCharacterSize(64);
-    this->congratText.setFillColor(sf::Color::Yellow);
+    this->congratText.setCharacterSize(100);
+    this->congratText.setFillColor(sf::Color::White);
+	this->congratText.setOutlineColor(sf::Color::Yellow);
+	this->congratText.setOutlineThickness(0.5);
     this->congratText.setString("Congratulations, You Won!");
     this->congratText.setPosition(
         this->window->getSize().x / 2.f - this->congratText.getGlobalBounds().width / 2.f,
         100.f
     );
 
+	this->earthSprite.setTexture(this->earthTexture);
+	earthCurrentFrame = 0;
+	earthAnimationTimer = 0.f;
+	earthAnimationSpeed = 0.1f; // Adjust this value as needed for your animation speed
+	earthFrame = sf::IntRect(0, 0, 100, 100); // Start at the first frame
+	earthSprite.setTextureRect(earthFrame);
+
+	this->earthSprite.setScale(4.f, 4.f);
+	this->earthSprite.setPosition(300.f, 500.f);
+
+	this->endBackground.setTexture(this->endBackgroundTexture);
 
 }
 

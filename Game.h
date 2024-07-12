@@ -357,6 +357,21 @@ private:
     int selectedMenuItem;
     int shopselectedMenuItem = 0;
 
+    // End menu
+    sf::Texture earthTexture;
+    sf::Sprite earthSprite;
+
+    sf::IntRect earthFrame;
+    int earthCurrentFrame;
+    float earthAnimationTimer;
+    float earthAnimationSpeed;
+
+    sf::Texture endBackgroundTexture;
+    sf::Sprite endBackground;
+
+
+
+
     // Other
     bool bossIsActive;
     bool checkerOne;
