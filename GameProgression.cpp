@@ -3,7 +3,7 @@
 // Game events & progression
 void Game::updateDifficulty()
 {
-	// Debug stage (Not normally accesible)
+	// Debug stage (Not normally accessible)
 	if(Stage == 0)
 	{
 	
