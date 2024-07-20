@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+// Explosion class declaration
 class Explosion {
 public:
     Explosion(float x, float y, const sf::Vector2f& enemySize);

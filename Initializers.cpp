@@ -1,5 +1,7 @@
 #include "Game.h"
 
+// All initializers are found here
+
 void Game::initializeLines()
 {
 	

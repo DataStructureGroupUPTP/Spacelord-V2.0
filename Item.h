@@ -6,9 +6,12 @@
 
 #include <SFML/Graphics.hpp>
 
+// Item class declaration
 class Item
 {
 private:
+
+	//Item parameters
 	sf::Texture itemTexture;
 	sf::Sprite itemSprite;
 
@@ -19,15 +22,18 @@ private:
 	void initializeVariables();
 
 public:
+	// Constructors
 	Item();
 	Item(sf::Texture* texture, float pos_x, float pos_y, int type );
 	
 	virtual ~Item();
 
+	// Getters
 	const int& getPoints() const;
 	const sf::FloatRect getBounds() const;
 	const int& getType() const;
 
+	// Update & render
 	void update();
 	void render(sf::RenderTarget& target);
 };

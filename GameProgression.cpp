@@ -1,14 +1,16 @@
 #include "Game.h"
 
+// Game events & progression
 void Game::updateDifficulty()
 {
-
+	// Debug stage (Not normally accesible)
 	if(Stage == 0)
 	{
 	
 		this->meteorSpawnRate = 5.0f;
 	}
 
+	// Stage 1 events
 	if (Stage == 1) {
 
 		if (elapsedTime >= 30.f && elapsedTime <= 31.f)
@@ -33,6 +35,7 @@ void Game::updateDifficulty()
 			cutscene = true;
 		}
 
+		// Boss spawn
 		if (elapsedTime >= 110.f && elapsedTime <= 111.f)
 		{
 			if (!bossIsActive) {
@@ -72,6 +75,7 @@ void Game::updateDifficulty()
 
 		}
 
+		// Boss defeat rewards & start stage transition
 		if (bossDefeated && checkerOne)
 		{
 			this->stageMusic.stop();
@@ -141,6 +145,7 @@ void Game::updateDifficulty()
 
 		}
 
+		// Stage transition complete
 		if (elapsedTime >= timeStamp + 16.f && stage1End)
 		{
 			this->backgroundScrollSpeed = 1.5f;
@@ -150,7 +155,6 @@ void Game::updateDifficulty()
 			this->boss = new Boss(320.f, 10.5f, 2);
 			bossDefeated = false;
 			Stage = 2;
-	
 
 
 		}
@@ -158,6 +162,7 @@ void Game::updateDifficulty()
 		
 	}
 
+	// Stage 2 events
 	if(Stage == 2)
 	{
 		if(elapsedTime >= timeStamp2 + 1.f  && elapsedTime <= timeStamp2 + 2.f)
@@ -216,6 +221,7 @@ void Game::updateDifficulty()
 
 		}
 
+		// Boss spawn
 		if (elapsedTime >= timeStamp2 + 112.f && checkerThree)
 		{
 			if (!bossIsActive) {
@@ -261,6 +267,7 @@ void Game::updateDifficulty()
 			this->horizontalEnemySpawnRate = 0.75f;
 		}
 
+		// Boss defeated rewards
 		if (bossDefeated && checkerFour)
 		{
 			this->stageMusic.stop();
@@ -332,6 +339,7 @@ void Game::updateDifficulty()
 
 		}
 
+		// Stage transition
 		if (elapsedTime >= timeStamp + 16.f && stage2End)
 		{
 			this->backgroundScrollSpeed = 1.5f;
@@ -348,7 +356,8 @@ void Game::updateDifficulty()
 
 
 	}
-
+	
+	// Stage 3 events
 	if (Stage == 3)
 	{
 		if (elapsedTime >= timeStamp2 + 1.f && elapsedTime <= timeStamp2 + 2.f)
@@ -404,7 +413,7 @@ void Game::updateDifficulty()
 			this->enemySpawnRate = 1.25f;
 			this->meteorSpawnRate = 0.75f;
 			this->doubleMeteorChance = 90.f;
-			this->horizontalEnemySpawnRate = 1.25f;
+			this->horizontalEnemySpawnRate = 0.75f;
 
 		}
 
@@ -416,7 +425,7 @@ void Game::updateDifficulty()
 			this->horizontalEnemySpawnRate = 1.0f;
 		}
 
-		if (elapsedTime >= timeStamp2 + 88.f && elapsedTime <= timeStamp2 + 89.f)
+		if (elapsedTime >= timeStamp2 + 89.f && elapsedTime <= timeStamp2 + 90.f)
 		{
 			this->horizontalEnemySpawnRate = 0.25f;
 			this->deathBeamSpawnRate = 0.f;
@@ -460,7 +469,7 @@ void Game::updateDifficulty()
 			this->player->setAttackCooldown(0);
 		}
 
-
+		// Boss spawn
 		if (elapsedTime >= timeStamp2 + 115.f && checkerTwo)
 		{
 			if (!bossIsActive) {
@@ -565,6 +574,7 @@ void Game::updateDifficulty()
 			this->healthItemSpawnRate = 1.0f;
 		}
 
+		// Game end
 		if(elapsedTime >= timeStamp + 25.f && checkerFive == false)
 		{
 			cutscene = false;

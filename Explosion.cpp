@@ -1,6 +1,8 @@
 #include "Explosion.h"
 
-Explosion::Explosion(float x, float y, const sf::Vector2f& enemySize) {
+Explosion::Explosion(float x, float y, const sf::Vector2f& enemySize) 
+{
+    // Initialize explosion animation
     this->texture.loadFromFile("Animations/explosion.png");
     this->sprite.setTexture(this->texture);
     this->sprite.setScale(2.75f, 2.75f);
@@ -12,6 +14,7 @@ Explosion::Explosion(float x, float y, const sf::Vector2f& enemySize) {
 }
 
 void Explosion::update() {
+    // Update explosion animation
     if (this->animationTimer.getElapsedTime().asSeconds() > 0.05f) {
         this->frame++;
         if (this->frame >= 5) {
@@ -24,10 +27,12 @@ void Explosion::update() {
     }
 }
 
+// Render
 void Explosion::render(sf::RenderTarget& target) {
     target.draw(this->sprite);
 }
 
+// Check if animation is done
 bool Explosion::isFinished() const {
     return this->finished;
 }

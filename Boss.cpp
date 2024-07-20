@@ -2,10 +2,10 @@
 #include <iostream>
 #include <algorithm>
 
+// Boss class definition
 Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
     : health(initialHealth), moveSpeed(initialMoveSpeed), isMovingInLoop(false), angle(0.f), isDefeated(false), defeatTimer(0.f)
 {
-
     this->type = type;
 
     // Load textures
@@ -58,11 +58,13 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
         }
     }
 
+    // TO BE IMPLEMENTED --
     if (!this->defeatAnimation.loadFromFile("Animations/bossDefeat.png"))
     {
         std::cout << "TEXTURE::BOSS_ENGINE_FIRE::FAILED_TO_LOAD" << "\n";
     }
 
+    // Set textures and scales
     bossSprite.setTexture(bossTexture);
     bossSprite.setScale(3.0f, 3.0f);
 
@@ -75,11 +77,13 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
 
     }
 
+    // Boss position and movement initialization
     startPosition = sf::Vector2f(400.f, -250.f); // Start just above the screen
     bossSprite.setPosition(startPosition);
     loopCenter = sf::Vector2f(600.f, 300.f); // Center of the loop
     loopRadius = 200.f; // Radius of the loop
 
+    // Engine fire animation
     this->fire.setTexture(this->bossFire);
     this->fireFrame = sf::IntRect(0, 0, 128, 128);
     this->fire.setTextureRect(this->fireFrame);
@@ -118,6 +122,7 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
     this->animationTimer = 0.f;
     this->animationSpeed = 0.1f; // Speed of the animation
 
+    // Boss movement parameters
     this->movingDown = true;
     this->Xincrease = 0.f;
     this->Yincrease = 0.f;
@@ -125,9 +130,9 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
 
 Boss::~Boss()
 {
-    // Destructor
 }
 
+// Boss sprite bounds getter
 const sf::FloatRect Boss::getBounds() const
 {
     sf::FloatRect originalBounds = this->bossSprite.getGlobalBounds();
@@ -145,16 +150,19 @@ const sf::FloatRect Boss::getBounds() const
     return smallerBounds;
 }
 
+// Position getter
 const sf::Vector2f& Boss::getPos() const
 {
     return this->bossSprite.getPosition();
 }
 
+// Hp getter
 const float Boss::getHp() const
 {
     return this->health;
 }
 
+// Spawn function
 void Boss::spawn(sf::Vector2f position, sf::Vector2f loopLocation)
 {
     bossSprite.setPosition(position);
@@ -165,6 +173,7 @@ void Boss::spawn(sf::Vector2f position, sf::Vector2f loopLocation)
     defeatTimer = 0.f;
 }
 
+// Animation
 void Boss::updateAnimation()
 {
     if (type == 1) {
@@ -218,8 +227,10 @@ void Boss::updateAnimation()
     }
 }
 
+// Boss spawning and defeat animation
 void Boss::update(float deltaTime)
 {
+    // Fall off screen if defeated
     if (isDefeated)
     {
         updateDefeatedState(deltaTime);
@@ -249,6 +260,7 @@ void Boss::update(float deltaTime)
     }
 }
 
+// Player pos receiver (Necessary for thid boss)
 void Boss::receivePos(sf::Vector2f pos)
 {
     playerPos = pos;
@@ -266,6 +278,7 @@ void Boss::updateDefeatedState(float deltaTime)
 
 }
 
+// Render
 void Boss::render(sf::RenderTarget& target)
 {
 
@@ -277,6 +290,7 @@ void Boss::render(sf::RenderTarget& target)
     target.draw(bossSprite);
 }
 
+// Reduce health
 void Boss::takeDamage(float damage)
 {
     health -= damage;
@@ -288,13 +302,16 @@ void Boss::takeDamage(float damage)
     std::cout << "Health remaining: " << health <<"\n";
 }
 
+// Check if alive
 bool Boss::isAlive() const
 {
     return health > 0;
 }
 
+// Boss movement
 void Boss::moveInLoop(float deltaTime)
 {
+    // First boss movement
     if (type == 1) {
         // Move in a circular loop
         angle += 0.5f * deltaTime; // Adjust loop speed as needed
@@ -328,6 +345,7 @@ void Boss::moveInLoop(float deltaTime)
             this->bossSprite.getPosition().y + this->bossSprite.getGlobalBounds().height - 277.f
         );
     }
+    // Second boss movement
     else if(type == 2)
     {
 

@@ -7,18 +7,20 @@
 
 #include <SFML/Graphics.hpp>
 
+// Bullet class declaration
 class Bullet
 {
 private:
+	// Bullet parameters
 	sf::Sprite bullet;
-
 	sf::Vector2f direction;
 
 	float bulletSpeed;
-	bool enemyBullet;
+	bool enemyBullet; // Variable to tell whether a bullet is from a player or enemy
 
 
 public:
+	// Constructors
 	Bullet();
 	Bullet(sf::Texture* texture, float pos_x, float pos_y, float dir_x, float dir_y, float moveSpeed, bool enemyBullet, int type);
 	virtual ~Bullet();

@@ -1,5 +1,7 @@
 #include "Game.h"
 
+// All update functions are here
+
 void Game::updateInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !cutscene)
@@ -83,7 +85,6 @@ void Game::updateInput()
 		bombs--;
 	}
 
-	// FUTURE PAUSE
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !cutscene)
 	{
 		this->pauseSound.play();
@@ -91,22 +92,19 @@ void Game::updateInput()
 		this->stageMusic.pause();
 	}
 	
-
-	// COLOR TESTS
+	// DEBUG INPUTS
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
 	{
-		this->gameState = END;
+		this->player->upgradeDamage();
+		this->player->upgradeAttackSpeed();
+		this->enemyKillCounter = enemyKillCounter + 10;
+		this->points = points + 100000;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		this->player->setHp(5);
-		this->player->upgradeDamage();
-		this->player->upgradeAttackSpeed();
-		this->enemyKillCounter = enemyKillCounter + 10;
-
-
 
 	}
 
@@ -114,7 +112,6 @@ void Game::updateInput()
 	{
 
 		elapsedTime = elapsedTime + 1.f;
-		this->player->setHp(1);
 	}
 }
 
@@ -957,6 +954,18 @@ void Game::updateEndScreen()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 	{
+		if (gameData.highScore < points)
+		{
+			gameData.highScore = points;
+			updateGameData(gameData);
+		}
+		if (gameData.highScore >= 500000)
+		{
+			gameData.blackship = "ACQUIRED";
+			gameData.blackbullet = "ACQUIRED";
+			gameData.whitefire = "ACQUIRED";
+			updateGameData(gameData);
+		}
 		this->reset();
 		this->endMusic.stop();
 		this->gameState = MAIN_MENU;

@@ -1,5 +1,6 @@
 #include "Item.h"
 
+// Initialize variables
 void Item::initializeVariables()
 {
 	this->type = 1;
@@ -12,6 +13,7 @@ Item::Item(sf::Texture* texture, float pos_x, float pos_y, int type)
 {
 	this->initializeVariables();
 
+	// Switch depending on item type
 	switch (type)
 	{
 	case 1:
@@ -68,6 +70,7 @@ Item::~Item()
 {
 }
 
+// Getters
 const int& Item::getPoints() const
 {
 	return this->points;
@@ -83,11 +86,13 @@ const int& Item::getType() const
 	return this->type;
 }
 
+// Update
 void Item::update()
 {
 	this->itemSprite.move(0.f, this->speed);
 }
 
+// Render
 void Item::render(sf::RenderTarget& target)
 {
 	target.draw(this->itemSprite);

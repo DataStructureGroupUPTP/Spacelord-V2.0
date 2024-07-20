@@ -1,9 +1,6 @@
 #include "Game.h"
 
-// Private
-
-
-
+// All initializers
 void Game::initialize()
 {
 	this->initializeWindow();
@@ -16,7 +13,7 @@ void Game::initialize()
 	this->initializeEnemy();
 	this->initializeItems();
 	this->initializeGUI();
-	this->initializeStartMenu(); // Initialize start menu
+	this->initializeStartMenu(); 
 	this->initializeBackground();
 	this->initializePlayerHealthBar();
 	this->initializeSystems();
@@ -40,8 +37,7 @@ void Game::initialize()
 	this->selectedMenuItem = 0;  // Initialize the selected menu item to the first item
 }
 
-// Constructor
-
+// Load saved bullet color
 void Game::setBulletColor(int c)
 {
 	switch (c)
@@ -123,16 +119,17 @@ Game::~Game()
 }
 
 // Public
-
 void Game::run()
 {
 	while (this->window->isOpen())
 	{
+		// Game loop
 		this->update();
 		this->render();
 	}
 }
 
+// Reset game
 void Game::reset()
 {  
 	// Reset player stats
@@ -184,13 +181,14 @@ void Game::reset()
 
 }
 
+// Fade to black effect
 void Game::triggerFadeEffect() {
-	std::cout << "hello";
 	fadeState = FADING_OUT;
 	fadeAlpha = 0.f;
 	fadeClock.restart();
 }
 
+// Screen shake effect (for last boss)
 void Game::applyScreenShake(float intensity)
 {
 	// Get the original center of the view
@@ -208,6 +206,7 @@ void Game::applyScreenShake(float intensity)
 	this->window->setView(tempView);
 }
 
+// Check inputs & events
 void Game::updatePollEvents()
 {
 	sf::Event ev;
@@ -255,6 +254,7 @@ void Game::updatePollEvents()
 	}
 }
 
+// Updaters
 void Game::update()
 {
 	this->updatePollEvents();
@@ -310,6 +310,7 @@ void Game::update()
 	}
 }
 
+// Renders
 void Game::render()
 {
 	this->window->clear();

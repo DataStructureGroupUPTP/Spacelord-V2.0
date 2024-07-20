@@ -6,10 +6,11 @@
 
 #include <SFML/Graphics.hpp>
 
-
+// Boss class declaration
 class Boss
 {
 private:
+    // Boss parameters
     sf::Sprite bossSprite;
     sf::Texture bossTexture;
     float health;
@@ -23,6 +24,7 @@ private:
     bool isDefeated;
     float defeatTimer;
 
+    // Boss animations
     sf::Texture defeatAnimation;
     sf::Texture bossFire;
     sf::Sprite fire;
@@ -38,17 +40,21 @@ private:
     float defeatAnimationSpeed;
     sf::Vector2f playerPos;
 
+    // Boss movement
     bool movingDown;
     float Xincrease;
     float Yincrease;
 
+    // Movement states
     void moveInLoop(float deltaTime); // Move in a looping pattern
     void updateDefeatedState(float deltaTime);
 
 public:
+    // Constructors
     Boss(float initialHealth, float initialMoveSpeed, int type);
     ~Boss();
 
+    // Getters
     const sf::FloatRect getBounds() const;
     const sf::Vector2f& getPos() const;
     const float getHp() const;

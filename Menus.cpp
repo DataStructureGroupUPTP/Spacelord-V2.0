@@ -1,5 +1,6 @@
 #include "Game.h"
 
+// Handle inputs in main menu
 void Game::handleMainMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Up)
@@ -68,6 +69,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in tutorial menu
 void Game::handleTutorialMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Escape)
@@ -75,8 +77,21 @@ void Game::handleTutorialMenuInput(const sf::Event& ev)
 		this->gameState = MAIN_MENU;
 		this->selectedMenuItem = 0;
 	}
+
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		this->gameState = MAIN_MENU;
+		this->selectedMenuItem = 0;
+	}
+
+	if (ev.key.code == sf::Keyboard::Enter)
+	{
+		this->gameState = MAIN_MENU;
+		this->selectedMenuItem = 0;
+	}
 }
 
+// Handle quit menu
 void Game::handleQuitConfirmationInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Up)
@@ -114,6 +129,7 @@ void Game::handleQuitConfirmationInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in credits menu
 void Game::handleCreditsMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Return)
@@ -126,6 +142,7 @@ void Game::handleCreditsMenuInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in shop menu
 void Game::handleShopMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Escape)
@@ -471,6 +488,7 @@ void Game::handleShopMenuInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in pause menu
 void Game::handlePauseMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Up)
@@ -517,6 +535,7 @@ void Game::handlePauseMenuInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in game over menu
 void Game::handleGameOverMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Escape)
@@ -537,6 +556,7 @@ void Game::handleGameOverMenuInput(const sf::Event& ev)
 	}
 }
 
+// Handle inputs in settings menu
 void Game::handleSettingsMenuInput(const sf::Event& ev)
 {
 	if (ev.key.code == sf::Keyboard::Escape)

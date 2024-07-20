@@ -1,5 +1,7 @@
 #include "Game.h"
 
+// All render functions are here
+
 void Game::renderCreditsMenu()
 {
 	this->window->draw(this->startMenuBackground);
@@ -140,6 +142,7 @@ void Game::renderTutorialMenu()
 	this->window->draw(pausesettingsBackground);
 	this->window->draw(tutorialTitle);
 	this->window->draw(keybindingsExplanation);
+	this->window->draw(returnfromcreditsText);
 }
 
 void Game::renderShopMenu()

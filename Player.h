@@ -11,12 +11,12 @@
 #include <SFML/Window.hpp>
 #include <SFML/Audio.hpp>
 
-
-// Hello world
-
+// Player class declaration
 class Player
 {
 private:
+
+	// Player parameters
 	sf::Texture shipFull;
 	sf::Texture shipDamaged;
 	sf::Texture shipVeryDamaged;
@@ -96,16 +96,18 @@ public:
 	
 	void setDamage(const float val);
 
-	// Invincibility frames
+	// Invincibility frames & shield
 	bool isInvincible() const;
 	void startInvincibility();
 	void activateShield();
 
+	// Setters
 	void upgradeDamage();
 	void upgradeAttackSpeed();
 	void setShipColor(int c);
 	void setFireColor(int c);
 	
+	// Updates
 	void updateAttackCooldown();
 	void setAttackCooldown(float val);
 	void updateSprite();
@@ -113,6 +115,6 @@ public:
 	void updateAnimationShield();
 	void update();
 
-
+	// Render
 	void render(sf::RenderTarget& target);
 };

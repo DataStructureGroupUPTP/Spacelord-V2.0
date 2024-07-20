@@ -3,8 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-
-
+// Save game data
 void updateGameData(const GameData& data)
 {
     std::ofstream outFile("Data/gamedata.txt");
@@ -39,6 +38,7 @@ void updateGameData(const GameData& data)
     }
 }
 
+// Load game data
 GameData readFromFile() {
     GameData data;
     std::ifstream inFile("Data/gamedata.txt");
@@ -123,6 +123,7 @@ GameData readFromFile() {
     return data;
 }
 
+// Reset game data
 void resetGameData()
 {
     std::ofstream outFile("Data/gamedata.txt");

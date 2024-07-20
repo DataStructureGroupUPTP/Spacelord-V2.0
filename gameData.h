@@ -1,7 +1,7 @@
 #pragma once
-
 #include <string>
 
+// Game data struct (Handles save file)
 struct GameData {
     int coins = 0;
     unsigned int highScore = 0;
@@ -27,9 +27,13 @@ struct GameData {
     std::string yellowfire;
     std::string greenfire;
     std::string whitefire;
+
 };
 
+// Functions
 void updateGameData(const GameData& data);
 GameData readFromFile();
 void resetGameData();
+
+
 

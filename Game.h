@@ -5,16 +5,15 @@
 #include "Item.h"
 #include "Boss.h"
 #include "Explosion.h"
+#include "gameData.h"
 #include <map>
 #include <string>
 #include <sstream>
 #include <iostream>
 #include <iomanip>
 #include <random>
-#include "gameData.h"
 
-// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING// BOSS DELETE PENDING --> nvm
-
+// Possible gamestates
 enum GameState
 {
     MAIN_MENU,
@@ -29,7 +28,7 @@ enum GameState
     END
 };
 
-
+// GAME ENGINE
 class Game
 {
 private:
@@ -46,7 +45,7 @@ private:
     // GUI
     sf::Font font;
     sf::Text pointText;
-    sf::Text startText; // New text for the start menu
+    sf::Text startText; 
     sf::Text coinText;
     sf::Text killCounterText;
     sf::Text shieldText;
@@ -65,7 +64,7 @@ private:
     int seconds;
     int minutes;
 
-    //World
+    // World
     sf::Texture startMenuTexture;
     sf::Sprite startMenuBackground;
 
@@ -223,11 +222,13 @@ private:
     int line3Pos;
     int line4Pos;
 
-    // Game state
-    GameState gameState; // New game state variable
+    // Game states
+    GameState gameState; 
     GameState prevgameState;
 
     // Private functions
+
+    // Initializers
     void initialize();
     void initializeWindow();
     void initializeStage();
@@ -241,7 +242,7 @@ private:
     void initializeMenuBackgrounds();
     void initializeGameData();
 
-    void initializeStartMenu(); // New function for initializing the start menu
+    void initializeStartMenu();
     void initializeQuitConfirmationMenu();
     void initializeShopMenu();
     void initializePauseMenu();
@@ -258,6 +259,8 @@ private:
     void initializeShieldDisplay();
     void initializeItems();
     void initializePlayer();
+
+    // Game menu input handling
     void handleCreditsMenuInput(const sf::Event& ev);
     void handleMainMenuInput(const sf::Event& ev);
     void handleTutorialMenuInput(const sf::Event& ev);
@@ -369,10 +372,7 @@ private:
     sf::Texture endBackgroundTexture;
     sf::Sprite endBackground;
 
-
-
-
-    // Other
+    // Flags
     bool bossIsActive;
     bool checkerOne;
     bool checkerTwo;
@@ -395,7 +395,6 @@ private:
     GameData gameData;
 
     // Fade effect
-
     enum FadeState { NONE, FADING_OUT, BLACK_SCREEN, FADING_IN };
     FadeState fadeState;
     sf::RectangleShape fadeOverlay;
@@ -404,22 +403,21 @@ private:
     void initializeFadeEffects();
 
     // Title effect
-
     float titlePulseTime;
     float titleScaleFactor;
    
-
-
 public:
+    // Constructors
     Game();
     virtual ~Game();
 
-    // Functions
+    // Other functions
     void run();
     void reset();
     void triggerFadeEffect();
     void applyScreenShake(float intensity);
 
+    // Updaters
     void updatePollEvents();
     void updateInput();
 
@@ -443,11 +441,13 @@ public:
 
     void update();
 
+    // Renders
+
     void renderCreditsMenu();
     void renderGUI();
     void renderWorld();
     void render();
-    void renderStartMenu(); // New function for rendering the start menu
+    void renderStartMenu();
     void renderTutorialMenu();
     void renderShopMenu();
     void renderEquiped();

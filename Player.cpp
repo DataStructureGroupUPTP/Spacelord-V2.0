@@ -3,6 +3,7 @@
 
 void Player::initializeVariables()
 {
+    // Parameters initialization
     this->movementSpeed = 10.f;
     this->damage = 1.f;
 
@@ -122,6 +123,8 @@ Player::~Player()
 {
 }
 
+// Getters
+
 const sf::Vector2f& Player::getPos() const
 {
     return this->ship.getPosition();
@@ -158,6 +161,7 @@ const bool Player::getMAX() const
     return playerMaxed;
 }
 
+// Player movement 
 void Player::move(const float dirX, const float dirY)
 {
     this->ship.move(dirX, dirY);
@@ -178,6 +182,7 @@ void Player::move(const float dirX, const float dirY)
     );
 }
 
+// Attack cooldown handling
 const bool Player::canAttack()
 {
     if (this->attackCooldown >= this->attackCooldownMax)
@@ -188,6 +193,8 @@ const bool Player::canAttack()
 
     return false;
 }
+
+// Player position setters (mostly unused, made to accept both a vector and (x,y))
 
 void Player::setPosition(const sf::Vector2f pos)
 {
@@ -229,6 +236,8 @@ void Player::setPosition(const float x, const float y)
     );
 }
 
+// Setters
+
 void Player::setHp(const int newhp)
 {
     this->hp = newhp;
@@ -261,6 +270,8 @@ void Player::setDamage(const float val)
     this->damage = val;
 }
 
+// Invincibility frame handling
+
 bool Player::isInvincible() const
 {
     return invincible;
@@ -271,6 +282,8 @@ void Player::startInvincibility()
     invincible = true;
     invincibilityTimer = 0.0f;
 }
+
+// Stat upgrades
 
 void Player::upgradeDamage()
 {
@@ -292,6 +305,8 @@ void Player::upgradeAttackSpeed()
         this->fireRateMAX = true;
     }
 }
+
+// Load saved ship color
 
 void Player::setShipColor(int c)
 {
@@ -320,6 +335,8 @@ void Player::setShipColor(int c)
         break;
     }
 }
+
+// Load saved fire color
 
 void Player::setFireColor(int c)
 {
@@ -351,6 +368,8 @@ void Player::setFireColor(int c)
         break;
     }
 }
+
+// Updates
 
 void Player::updateAttackCooldown()
 {
@@ -444,6 +463,8 @@ void Player::update()
     }
 }
 
+// Render
+
 void Player::render(sf::RenderTarget& target)
 {
     target.draw(this->fire);
@@ -454,6 +475,8 @@ void Player::render(sf::RenderTarget& target)
         target.draw(this->shield);
     }
 }
+
+// Shield mechanic
 
 void Player::activateShield()
 {

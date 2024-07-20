@@ -6,6 +6,7 @@
 
 	#include <SFML/Graphics.hpp>
 
+// Enemy class declaration
 	class Enemy
 	{
 	private:
@@ -38,6 +39,7 @@
 		sf::Texture bomberFireTexture;
 		sf::Sprite bomberFire;
 
+		// Animations
 		sf::IntRect bomberfireFrame;
 		int bomberCurrentFrame;
 		float bomberAnimationTimer;
@@ -146,7 +148,7 @@
 		float deathBeam2AnimationSpeed;
 
 	public:
-
+		// Constructors
 		Enemy();
 		Enemy(float pos_x, float pos_y, int type);
 
