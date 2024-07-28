@@ -480,7 +480,6 @@ void Game::updateDifficulty()
 				dpsItemSpawnRate = 0.f;
 				healthItemSpawnRate = 0.04f;
 				this->deathBeamSpawnTimer = 55.f;
-				this->player->setDamage(4.0f);
 
 				this->boss->spawn(sf::Vector2f(355.f, -400.f), sf::Vector2f(355.f, -100.f));
 			}
@@ -572,6 +571,12 @@ void Game::updateDifficulty()
 
 			checkerSix = false;
 			this->healthItemSpawnRate = 1.0f;
+		}
+
+		if(elapsedTime >= timeStamp + 22.f && checkerFive == false && checkerSeven)
+		{
+			this->triggerFadeEffect();
+			checkerSeven = false;
 		}
 
 		// Game end

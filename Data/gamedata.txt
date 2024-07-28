@@ -1,5 +1,5 @@
-coins = 10015
-high-score = 6676100
+coins = 15060
+high-score = 7000000
 equipedbullet = 0
 redbullet = ACQUIRED
 bluebullet = NULL
