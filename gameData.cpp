@@ -128,7 +128,7 @@ void resetGameData()
 {
     std::ofstream outFile("Data/gamedata.txt");
     if (outFile.is_open()) {
-        outFile << "coins = " << "30000" << '\n';
+        outFile << "coins = " << "0" << '\n';
         outFile << "high-score = " << 0 << '\n';
         outFile << "equipedbullet = " << 0 << '\n';
         outFile << "redbullet = " << "ACQUIRED" << '\n';

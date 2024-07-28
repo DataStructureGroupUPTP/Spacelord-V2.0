@@ -18,7 +18,7 @@ void Player::initializeVariables()
     this->hp = this->hpMax;
 
     this->shieldActive = false;
-    this->shieldDuration = 3.0f; // Shield lasts for 3 seconds
+    this->shieldDuration = 4.0f; // Shield lasts for 4 seconds
     this->shieldTimer = 0.0f;
 
     this->damageMAX = false;
@@ -155,10 +155,14 @@ const float& Player::getDamage() const
     return this->damage;
 }
 
-const bool Player::getMAX() const
+const bool Player::getFireRateMAX() const
 {
-    bool playerMaxed = (damageMAX && fireRateMAX);
-    return playerMaxed;
+    return fireRateMAX;
+}
+
+const bool Player::getDamageMAX() const
+{
+    return damageMAX;
 }
 
 // Player movement 

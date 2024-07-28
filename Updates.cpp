@@ -657,11 +657,45 @@ void Game::updateItems()
 			break;
 		}
 
-		int randomizer = rand() % 3;
+		int randomizer{};
 
-		if(this->player->getMAX())
+		if(this->player->getDamageMAX() && !this->player->getFireRateMAX())
+		{
+			int randomizer2 = rand() % 2;
+
+			if(randomizer2 == 0)
+			{
+				randomizer = 1;
+			}
+
+			if(randomizer2 == 1)
+			{
+				randomizer = 2;
+			}
+		}
+
+		else if(this->player->getFireRateMAX() && !this->player->getDamageMAX())
+		{
+			int randomizer2 = rand() % 2;
+
+			if(randomizer2 == 0)
+			{
+				randomizer = 0;
+			}
+			if(randomizer2 == 1)
+			{
+				randomizer = 2;
+			}
+		}
+
+		else if(this->player->getFireRateMAX() && this->player->getDamageMAX())
 		{
 			randomizer = 2;
+		}
+
+		else
+		{
+			randomizer = rand() % 3;
 		}
 
 		switch (randomizer)
@@ -674,7 +708,7 @@ void Game::updateItems()
 			break;
 		case 2:
 			this->items.push_back(new Item(this->textures["YELLOWBALL"], static_cast<float> (lanePos - (this->textures["YELLOWBALL"]->getSize().x / 2) * 1.5), -200.f, 4));
-			dpsItemSpawnTimer = dpsItemSpawnTimer + 30.f;
+			dpsItemSpawnTimer = dpsItemSpawnTimer + 20.f;
 			break;
 		}
 	}

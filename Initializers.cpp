@@ -704,6 +704,7 @@ void Game::initializeStartMenu()
 	}
 	// Play the music
 	this->menuMusic.play();
+	this->menuMusic.setLoop(true);
 
 
 	// Initialize title

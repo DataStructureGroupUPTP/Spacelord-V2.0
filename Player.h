@@ -82,7 +82,8 @@ public:
 	const int& getHpMax() const;
 	const float& getMoveSpeed() const;
 	const float& getDamage() const;
-	const bool getMAX() const;
+	const bool getFireRateMAX() const;
+	const bool getDamageMAX() const;
 
 	// Functions
 	void move(const float dirX, const float dirY);
