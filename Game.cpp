@@ -263,6 +263,7 @@ void Game::update()
 	if(this->gameState == MAIN_MENU)
 	{
 		this->updateTitleEffect();
+		this->updateFadeEffect();
 	}
 
 	if (this->gameState == GAMEPLAY)
@@ -394,6 +395,7 @@ void Game::render()
 			this->boss->render(*window);
 		}
 		this->window->draw(fadeOverlay);
+	
 	}
 
 	if(this->gameState == END)

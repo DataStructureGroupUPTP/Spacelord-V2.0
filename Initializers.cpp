@@ -1427,7 +1427,7 @@ void Game::initializeSpawnRates()
 	this->deathBeamSpawnRate = 0.f;
 
 	this->healthItemSpawnRate = 0.0167f;
-	this->dpsItemSpawnRate = 0.11f;
+	this->dpsItemSpawnRate = 0.125f;
 
 }
 

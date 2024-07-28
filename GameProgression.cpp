@@ -6,7 +6,6 @@ void Game::updateDifficulty()
 	// Debug stage (Not normally accessible)
 	if(Stage == 0)
 	{
-	
 		this->meteorSpawnRate = 5.0f;
 	}
 
@@ -448,6 +447,7 @@ void Game::updateDifficulty()
 			this->deathBeamSpawnRate = 0.f;
 			this->enemySpawnRate = 0.f;
 			this->horizontalEnemySpawnRate = 0.f;
+			cutscene = true;
 
 		}
 
@@ -499,7 +499,7 @@ void Game::updateDifficulty()
 			this->stageMusic.setVolume(this->musicVolume * 20);
 			this->stageMusic.setLoop(true);
 
-
+			this->cutscene = false;
 			this->checkerThree = false;
 		}
 
