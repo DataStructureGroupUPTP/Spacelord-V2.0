@@ -51,8 +51,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			this->selectedMenuItem = 0;
 			break;
 		case 5:
-			resetGameData();
-			initializeGameData();
+			this->gameState = DIFFICULTY;
 			this->selectedMenuItem = 0;
 			break;
 		case 6:
@@ -618,5 +617,31 @@ void Game::handleSettingsMenuInput(const sf::Event& ev)
 		break;
 	default:
 		break;
+	}
+}
+
+void Game::handleDifficultyMenuInput(const sf::Event& ev)
+{
+
+	if (ev.key.code == sf::Keyboard::Escape)
+	{
+		this->gameState = MAIN_MENU; // Return to main menu
+	}
+
+	if (ev.key.code == sf::Keyboard::Up)
+	{
+		if (this->currentSelection > 0)
+		{
+			this->menuSound.play();
+			this->currentSelection--;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Down)
+	{
+		if (this->currentSelection < 3)
+		{
+			this->menuSound.play();
+			this->currentSelection++;
+		}
 	}
 }

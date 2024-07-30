@@ -3,6 +3,7 @@
 // All initializers
 void Game::initialize()
 {
+
 	this->initializeWindow();
 	this->initializeLines();
 	this->initializeStage();
@@ -23,6 +24,7 @@ void Game::initialize()
 	this->initializeSettingsMenu();
 	this->initializeFadeEffects();
 	this->initializeTutorialMenu();
+	this->initializeDifficultyMenu();
 	this->initializeGameData();
 	this->initializeShopMenu();
 	this->initializeShieldDisplay();
@@ -247,6 +249,9 @@ void Game::updatePollEvents()
 			case TUTORIAL:
 				handleTutorialMenuInput(ev);
 				break;
+			case DIFFICULTY:
+				handleDifficultyMenuInput(ev);
+				break;
 			default:
 				break;
 			}
@@ -382,6 +387,11 @@ void Game::render()
 	{
 		this->window->draw(this->startMenuBackground);
 		this->renderTutorialMenu();
+	}
+
+	if(this->gameState == DIFFICULTY)
+	{
+		this->renderDifficultyMenu();
 	}
 
 	if (this->gameState == DEATH_ANIMATION)

@@ -84,7 +84,17 @@ void Game::updateDifficulty()
 			this->timeStamp = elapsedTime;
 			this->stageTransition = true;
 			bossDefeated = false;
-			this->points = points + 50000;
+			if (difficulty == 0) {
+				this->points = points + 25000;
+			}
+			if (difficulty == 1)
+			{
+				this->points = points + 50000;
+			}
+			if(difficulty == 2)
+			{
+				this->points = points + 75000;
+			}
 			this->gameData.coins = gameData.coins + 500;
 			this->enemyKillCounter = enemyKillCounter + 40;
 			checkerOne = false;
@@ -277,7 +287,22 @@ void Game::updateDifficulty()
 			this->timeStamp = elapsedTime;
 			this->stageTransition = true;
 			bossDefeated = false;
-			this->points = points + 100000;
+
+			if (difficulty == 0)
+			{
+				this->points = points + 50000;
+			}
+
+			if (difficulty == 1) 
+			{
+				this->points = points + 100000;
+			}
+
+			if (difficulty == 2)
+			{
+				this->points = points + 150000;
+			}
+
 			this->gameData.coins = gameData.coins + 1000;
 			this->enemyKillCounter = enemyKillCounter + 80;
 			checkerFour = false;
@@ -551,7 +576,22 @@ void Game::updateDifficulty()
 			this->enemySpawnRate = 0.f;
 			this->timeStamp = elapsedTime;
 			bossDefeated = false;
-			this->points = points + 250000;
+
+			if(this->difficulty == 0)
+			{
+				this->points = points + 125000;
+			}
+
+			if(this->difficulty == 1)
+			{
+				this->points = points + 250000;
+			}
+
+			if(this->difficulty == 2)
+			{
+				this->points = points + 500000;
+			}
+
 			this->gameData.coins = gameData.coins + 2500;
 			this->enemyKillCounter = enemyKillCounter + 200;
 			checkerFive = false;

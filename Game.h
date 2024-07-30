@@ -23,6 +23,7 @@ enum GameState
     SHOP,
     CREDITS,
     SETTINGS,
+    DIFFICULTY,
     DEATH_ANIMATION,
     GAME_OVER,
     END
@@ -85,6 +86,7 @@ private:
     unsigned enemyKillCounter;
     unsigned bombs;
     int lastKillThreshold;
+    int difficulty;
 
     // Spawnrates
     float enemySpawnRate;
@@ -247,6 +249,7 @@ private:
     void initializeShopMenu();
     void initializePauseMenu();
     void initializeTutorialMenu();
+    void initializeDifficultyMenu();
     void initializeGameOverMenu();
     void initializeEndScreen();
     void initializeSettingsMenu();
@@ -267,6 +270,7 @@ private:
     void handleQuitConfirmationInput(const sf::Event& ev);
     void handleShopMenuInput(const sf::Event& ev);
     void handlePauseMenuInput(const sf::Event& ev);
+    void handleDifficultyMenuInput(const sf::Event& ev);
     void handleGameOverMenuInput(const sf::Event& ev);
     void handleSettingsMenuInput(const sf::Event& ev);
 
@@ -343,6 +347,12 @@ private:
     sf::Text listofcredits3Text;
     sf::Text returnfromcreditsText;
 
+    // Difficulty menu
+    sf::Text easyText;
+    sf::Text normalText;
+    sf::Text hardText;
+    sf::Text returnText;
+
     // Game Over menu options
     sf::Text gameOverText;
     sf::Text scoreAchieved;
@@ -359,6 +369,7 @@ private:
 
     int selectedMenuItem;
     int shopselectedMenuItem = 0;
+    int currentSelection = 0;
 
     // End menu
     sf::Texture earthTexture;
@@ -439,6 +450,7 @@ public:
     void updateTitleEffect();
     void updateEndScreen();
 
+
     void update();
 
     // Renders
@@ -454,6 +466,7 @@ public:
     void renderQuitConfirmationMenu();
     void renderPauseMenu();
     void renderSettingsMenu();
+    void renderDifficultyMenu();
     void renderGameOverMenu();
     void renderEndScreen();
     void renderGameElements();

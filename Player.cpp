@@ -1,5 +1,4 @@
 #include "Player.h"
-#include "Game.h"
 
 void Player::initializeVariables()
 {
@@ -14,8 +13,23 @@ void Player::initializeVariables()
     this->attackCooldownMax = 24.f;
     this->attackCooldown = this->attackCooldownMax;
 
-    this->hpMax = 5;
-    this->hp = this->hpMax;
+    if(this->difficulty == 0)
+    {
+        this->hpMax = 10;
+        this->hp = this->hpMax;
+    }
+
+    if(this->difficulty == 1)
+    {
+        this->hpMax = 5;
+        this->hp = this->hpMax;
+    }
+
+    if (this->difficulty == 2)
+    {
+        this->hpMax = 3;
+        this->hp = this->hpMax;
+    }
 
     this->shieldActive = false;
     this->shieldDuration = 4.0f; // Shield lasts for 4 seconds
@@ -96,8 +110,9 @@ void Player::initializeAnimation()
 }
 
 // Constructors
-Player::Player()
+Player::Player(int difficulty)
 {
+    this->difficulty = difficulty;
     this->initializeVariables();
     this->initializeTexture();
     this->initializeSprite();
@@ -117,6 +132,7 @@ Player::Player()
         this->ship.getPosition().x + this->ship.getGlobalBounds().width / 2 - this->shield.getGlobalBounds().width / 2,
         this->ship.getPosition().y + this->ship.getGlobalBounds().height - 90.f
     );
+
 }
 
 Player::~Player()
@@ -246,9 +262,9 @@ void Player::setHp(const int newhp)
 {
     this->hp = newhp;
 
-    if (this->hp >= 6)
+    if (this->hp > hpMax)
     {
-        this->hp = 5;
+        this->hp = hpMax;
     }
     updateSprite();
 }

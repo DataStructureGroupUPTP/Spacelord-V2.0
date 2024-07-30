@@ -61,6 +61,50 @@ void Game::renderGameElements()
 	this->renderGUI();
 }
 
+void Game::renderDifficultyMenu()
+{
+
+	this->easyText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->easyText.setOutlineColor(sf::Color(0, 255, 0, 128));  // Semi-transparent green
+	this->normalText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->normalText.setOutlineColor(sf::Color(255, 255, 0, 128)); // Semi-transparent yellow
+	this->hardText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->hardText.setOutlineColor(sf::Color(255, 0, 0, 128));  // Semi-transparent red
+	this->returnText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->returnText.setOutlineColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+
+	switch(currentSelection)
+	{
+	case 0:
+
+		this->easyText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+		this->easyText.setOutlineColor(sf::Color(0, 255, 0, 255));  // Semi-transparent green
+		break;
+
+	case 1:
+		this->normalText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+		this->normalText.setOutlineColor(sf::Color(255, 255, 0, 255)); // Semi-transparent yellow
+		break;
+
+	case 2:
+		this->hardText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+		this->hardText.setOutlineColor(sf::Color(255, 0, 0, 255));  // Semi-transparent red
+		break;
+
+	case 3:
+		this->returnText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+		this->returnText.setOutlineColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+		break;
+	}
+
+	// Draw menu items
+	this->window->draw(this->easyText);
+	this->window->draw(this->normalText);
+	this->window->draw(this->hardText);
+	this->window->draw(this->returnText);
+
+}
+
 void Game::renderExplosion(sf::RenderTarget& target)
 {
 	for (size_t i = 0; i < this->explosions.size(); ++i) {

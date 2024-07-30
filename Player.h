@@ -40,6 +40,7 @@ private:
 
 	int hp;
 	int hpMax;
+	int difficulty;
 
 	bool damageMAX;
 	bool fireRateMAX;
@@ -72,7 +73,7 @@ private:
 	void initializeAnimation();
 
 public:
-	Player();
+	Player(int difficulty);
 	virtual ~Player();
 
 	// Accessors

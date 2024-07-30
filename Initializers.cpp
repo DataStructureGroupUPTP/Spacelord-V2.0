@@ -4,7 +4,7 @@
 
 void Game::initializeLines()
 {
-	
+	this->difficulty = 1;
 	this->lane = 4;
 	this->rightKeyPressed = false;
 	this->leftKeyPressed = false;
@@ -693,6 +693,7 @@ void Game::initializeGameData()
 	gameData.yellowfire = readData.yellowfire;
 	gameData.greenfire = readData.greenfire;
 	gameData.whitefire = readData.whitefire;
+
 }
 
 void Game::initializeStartMenu()
@@ -768,7 +769,7 @@ void Game::initializeStartMenu()
 	this->resetText.setFont(this->font);
 	this->resetText.setCharacterSize(48);
 	this->resetText.setFillColor(sf::Color::White);
-	this->resetText.setString("Reset Progress & Purchases");
+	this->resetText.setString("Set Difficulty");
 	this->resetText.setPosition(
 		this->window->getSize().x / 2.f - this->resetText.getGlobalBounds().width / 2.f,
 		this->window->getSize().y / 2.f - this->resetText.getGlobalBounds().height / 2.f + 150.f
@@ -1224,6 +1225,58 @@ void Game::initializeEndScreen()
 
 }
 
+void Game::initializeDifficultyMenu()
+{
+	// Easy difficulty text
+	this->easyText.setFont(this->font);
+	this->easyText.setCharacterSize(60);
+	this->easyText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->easyText.setOutlineColor(sf::Color(0, 255, 0, 128));  // Semi-transparent green
+	this->easyText.setOutlineThickness(1.f);
+	this->easyText.setString("Easy");
+	this->easyText.setPosition(
+		this->window->getSize().x / 2.f - this->easyText.getGlobalBounds().width / 2.f,
+		200.f
+	);
+
+	// Normal difficulty text
+	this->normalText.setFont(this->font);
+	this->normalText.setCharacterSize(60);
+	this->normalText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->normalText.setOutlineColor(sf::Color(255, 255, 0, 128)); // Semi-transparent yellow
+	this->normalText.setOutlineThickness(1.f);
+	this->normalText.setString("Normal");
+	this->normalText.setPosition(
+		this->window->getSize().x / 2.f - this->normalText.getGlobalBounds().width / 2.f,
+		300.f
+	);
+
+	// Hard difficulty text
+	this->hardText.setFont(this->font);
+	this->hardText.setCharacterSize(60);
+	this->hardText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->hardText.setOutlineColor(sf::Color(255, 0, 0, 128));  // Semi-transparent red
+	this->hardText.setOutlineThickness(1.f);
+	this->hardText.setString("Hard");
+	this->hardText.setPosition(
+		this->window->getSize().x / 2.f - this->hardText.getGlobalBounds().width / 2.f,
+		400.f
+	);
+
+	// Return text
+	this->returnText.setFont(this->font);
+	this->returnText.setCharacterSize(50);
+	this->returnText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->returnText.setOutlineColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
+	this->returnText.setOutlineThickness(1.f);
+	this->returnText.setString("Return");
+	this->returnText.setPosition(
+		this->window->getSize().x / 2.f - this->returnText.getGlobalBounds().width / 2.f,
+		500.f
+	);
+}
+
+
 void Game::initializeSettingsMenu()
 {
 	updateMusicVolume();
@@ -1455,7 +1508,7 @@ void Game::initializeItems()
 
 void Game::initializePlayer()
 {
-	this->player = new Player;
+	this->player = new Player(difficulty);
 	this->player->setShipColor(gameData.equipedship);
 	this->player->setFireColor(gameData.equipedfire);
 	this->setBulletColor(gameData.equipedbullet);

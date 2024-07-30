@@ -105,12 +105,10 @@ void Game::updateInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		this->player->setHp(5);
-
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
 	{
-
 		elapsedTime = elapsedTime + 1.f;
 	}
 }
@@ -858,32 +856,95 @@ void Game::updateBoss()
 
 void Game::updateHealthBar(int hp)
 {
-	switch (hp) 
+	if (difficulty == 0)
 	{
-	case 0:
-		this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
-		break;
-	case 1:
-		this->playerHealthBar.setTexture(*this->textures["1HPHEALTHBAR"]);
-		break;
-	case 2:
-		this->playerHealthBar.setTexture(*this->textures["2HPHEALTHBAR"]);
-		break;
-	case 3:
-		this->playerHealthBar.setTexture(*this->textures["3HPHEALTHBAR"]);
-		break;
-	case 4:
-		this->playerHealthBar.setTexture(*this->textures["4HPHEALTHBAR"]);
-		break;
-	case 5:
-		this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
-		break;
-	case 6:
-		this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
-		break;
-	default:
-		this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
-		break;
+		switch(hp)
+		{
+		case 0:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		case 1:
+		case 2:
+			this->playerHealthBar.setTexture(*this->textures["1HPHEALTHBAR"]);
+			break;
+		case 3:
+		case 4:
+			this->playerHealthBar.setTexture(*this->textures["2HPHEALTHBAR"]);
+			break;
+		case 5:
+		case 6:
+			this->playerHealthBar.setTexture(*this->textures["3HPHEALTHBAR"]);
+			break;
+		case 7:
+		case 8:
+			this->playerHealthBar.setTexture(*this->textures["4HPHEALTHBAR"]);
+			break;
+		case 9:
+		case 10:
+		case 11:
+			this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+			break;
+		default:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		}
+	
+	}
+
+	if (difficulty == 1)
+	{
+		switch (hp)
+		{
+
+		case 0:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		case 1:
+			this->playerHealthBar.setTexture(*this->textures["1HPHEALTHBAR"]);
+			break;
+		case 2:
+			this->playerHealthBar.setTexture(*this->textures["2HPHEALTHBAR"]);
+			break;
+		case 3:
+			this->playerHealthBar.setTexture(*this->textures["3HPHEALTHBAR"]);
+			break;
+		case 4:
+			this->playerHealthBar.setTexture(*this->textures["4HPHEALTHBAR"]);
+			break;
+		case 5:
+			this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+			break;
+		case 6:
+			this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+			break;
+		default:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		}
+	}
+
+	if(difficulty == 2)
+	{
+		switch (hp)
+		{
+
+		case 0:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		case 1:
+			this->playerHealthBar.setTexture(*this->textures["1HPHEALTHBAR"]);
+			break;
+		case 2:
+			this->playerHealthBar.setTexture(*this->textures["3HPHEALTHBAR"]);
+			break;
+		case 3:
+		case 4:
+			this->playerHealthBar.setTexture(*this->textures["FULLHEALTHBAR"]);
+			break;
+		default:
+			this->playerHealthBar.setTexture(*this->textures["EMPTYHEALTHBAR"]);
+			break;
+		}
 	}
 }
 

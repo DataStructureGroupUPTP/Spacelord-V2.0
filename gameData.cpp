@@ -118,6 +118,7 @@ GameData readFromFile() {
         else if (line.find("whitefire = ") == 0) {
                 data.whitefire = line.substr(12);
             }
+
         }
         inFile.close();
     return data;
