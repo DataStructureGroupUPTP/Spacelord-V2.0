@@ -10,6 +10,7 @@ void updateGameData(const GameData& data)
     if (outFile.is_open()) {
         outFile << "coins = " << data.coins << '\n';
         outFile << "high-score = " << data.highScore << '\n';
+        outFile << "normalVictory = " << data.normalVictory << '\n';
         outFile << "equipedbullet = " << data.equipedbullet << '\n';
         outFile << "redbullet = " << data.redbullet << '\n';
         outFile << "bluebullet = " << data.bluebullet << '\n';
@@ -46,7 +47,6 @@ GameData readFromFile() {
         std::cerr << "Unable to open file for reading\n";
         return data;
     }
-
         std::string line;
         while (getline(inFile, line)) {
             if (line.find("coins = ") == 0) {
@@ -55,6 +55,12 @@ GameData readFromFile() {
             else if (line.find("high-score = ") == 0) {
             data.highScore = std::stoul(line.substr(13));
         }
+
+        else if (line.find("normalVictory = ") == 0)
+        {
+            data.normalVictory = std::stoul(line.substr(16));
+        }
+
         else if (line.find("equipedbullet = ") == 0) {
             data.equipedbullet = std::stoi(line.substr(16));
         }
@@ -131,6 +137,7 @@ void resetGameData()
     if (outFile.is_open()) {
         outFile << "coins = " << "0" << '\n';
         outFile << "high-score = " << 0 << '\n';
+        outFile << "normalVictory = " << 0 << '\n';
         outFile << "equipedbullet = " << 0 << '\n';
         outFile << "redbullet = " << "ACQUIRED" << '\n';
         outFile << "bluebullet = " << "NULL" << '\n';

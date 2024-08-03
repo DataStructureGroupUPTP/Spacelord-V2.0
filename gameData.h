@@ -5,6 +5,7 @@
 struct GameData {
     int coins = 0;
     unsigned int highScore = 0;
+    bool normalVictory = false;
     int equipedbullet;
     std::string redbullet;
     std::string bluebullet;

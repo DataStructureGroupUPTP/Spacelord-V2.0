@@ -100,11 +100,13 @@ void Game::updateInput()
 		this->player->upgradeAttackSpeed();
 		this->enemyKillCounter = enemyKillCounter + 10;
 		this->points = points + 100000;
+		this->gameData.coins = gameData.coins + 1000;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		this->player->setHp(5);
+		this->gameData.normalVictory = false;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))

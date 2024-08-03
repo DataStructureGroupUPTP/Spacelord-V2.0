@@ -86,16 +86,19 @@ void Game::updateDifficulty()
 			bossDefeated = false;
 			if (difficulty == 0) {
 				this->points = points + 25000;
+				this->gameData.coins = gameData.coins + 250;
 			}
 			if (difficulty == 1)
 			{
 				this->points = points + 50000;
+				this->gameData.coins = gameData.coins + 500;
 			}
 			if(difficulty == 2)
 			{
 				this->points = points + 75000;
+				this->gameData.coins = gameData.coins + 750;
 			}
-			this->gameData.coins = gameData.coins + 500;
+
 			this->enemyKillCounter = enemyKillCounter + 40;
 			checkerOne = false;
 			this->backgroundScrollSpeed = 2.0f;
@@ -291,19 +294,23 @@ void Game::updateDifficulty()
 			if (difficulty == 0)
 			{
 				this->points = points + 50000;
+				this->gameData.coins = gameData.coins + 500;
+
 			}
 
 			if (difficulty == 1) 
 			{
 				this->points = points + 100000;
+				this->gameData.coins = gameData.coins + 1000;
 			}
 
 			if (difficulty == 2)
 			{
 				this->points = points + 150000;
+				this->gameData.coins = gameData.coins + 1500;
 			}
 
-			this->gameData.coins = gameData.coins + 1000;
+
 			this->enemyKillCounter = enemyKillCounter + 80;
 			checkerFour = false;
 			this->backgroundScrollSpeed = 2.0f;
@@ -580,19 +587,22 @@ void Game::updateDifficulty()
 			if(this->difficulty == 0)
 			{
 				this->points = points + 125000;
+				this->gameData.coins = gameData.coins + 1250;
 			}
 
 			if(this->difficulty == 1)
 			{
 				this->points = points + 250000;
+				this->gameData.coins = gameData.coins + 2500;
 			}
 
 			if(this->difficulty == 2)
 			{
 				this->points = points + 500000;
+				this->gameData.coins = gameData.coins + 5000;
 			}
 
-			this->gameData.coins = gameData.coins + 2500;
+
 			this->enemyKillCounter = enemyKillCounter + 200;
 			checkerFive = false;
 			this->backgroundScrollSpeed = 2.0f;
