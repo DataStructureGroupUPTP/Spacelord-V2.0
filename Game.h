@@ -352,6 +352,7 @@ private:
     sf::Text normalText;
     sf::Text hardText;
     sf::Text returnText;
+    sf::Text currentText;
 
     // Game Over menu options
     sf::Text gameOverText;

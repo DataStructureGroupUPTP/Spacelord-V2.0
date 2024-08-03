@@ -97,11 +97,28 @@ void Game::renderDifficultyMenu()
 		break;
 	}
 
+	switch(this->difficulty)
+	{
+	case 0:
+		this->currentText.setString("Difficulty: Easy");
+		break;
+	case 1:
+		this->currentText.setString("Difficulty: Normal");
+		break;
+	case 2:
+		this->currentText.setString("Difficulty: Hard");
+		break;
+	default:
+		this->currentText.setString("Difficulty: uwu");
+		break;
+	}
+
 	// Draw menu items
 	this->window->draw(this->easyText);
 	this->window->draw(this->normalText);
 	this->window->draw(this->hardText);
 	this->window->draw(this->returnText);
+	this->window->draw(this->currentText);
 
 }
 

@@ -1274,6 +1274,14 @@ void Game::initializeDifficultyMenu()
 		this->window->getSize().x / 2.f - this->returnText.getGlobalBounds().width / 2.f,
 		500.f
 	);
+
+	this->currentText.setFont(this->font);
+	this->currentText.setCharacterSize(50);
+	this->currentText.setFillColor(sf::Color::White);
+	this->currentText.setString("Difficulty: ");
+	this->currentText.setPosition(0, 500);
+
+
 }
 
 

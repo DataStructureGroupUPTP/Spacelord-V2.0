@@ -52,7 +52,7 @@ void Game::handleMainMenuInput(const sf::Event& ev)
 			break;
 		case 5:
 			this->gameState = DIFFICULTY;
-			this->selectedMenuItem = 0;
+			this->currentSelection = 0;
 			break;
 		case 6:
 			this->window->close();
@@ -625,6 +625,7 @@ void Game::handleDifficultyMenuInput(const sf::Event& ev)
 
 	if (ev.key.code == sf::Keyboard::Escape)
 	{
+		this->selectedMenuItem = 0;
 		this->gameState = MAIN_MENU; // Return to main menu
 	}
 
@@ -642,6 +643,27 @@ void Game::handleDifficultyMenuInput(const sf::Event& ev)
 		{
 			this->menuSound.play();
 			this->currentSelection++;
+		}
+	}
+	if (ev.key.code == sf::Keyboard::Return)
+	{
+		switch (this->currentSelection)
+		{
+		case 0:
+			this->difficulty = 0;
+			std::cout << difficulty;
+			break;
+		case 1:
+			this->difficulty = 1;
+			std::cout << difficulty;
+			break;
+		case 2:
+			this->difficulty = 2;
+			std::cout << difficulty;
+			break;
+		case 3:
+			this->selectedMenuItem = 0;
+			this->gameState = MAIN_MENU;
 		}
 	}
 }
