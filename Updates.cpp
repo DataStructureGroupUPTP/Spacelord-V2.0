@@ -728,7 +728,15 @@ void Game::updateItems()
 			if (item->getType() == 1)
 			{
 				this->points = this->points + item->getPoints();
-				this->player->setHp(this->player->getHp() + 1);
+				if (difficulty == 0) 
+				{
+					this->player->setHp(this->player->getHp() + 2);
+				}
+				else
+				{
+					this->player->setHp(this->player->getHp() + 1);
+				}
+				
 				this->healSound.play();
 			}
 			else if (item->getType() == 2)
