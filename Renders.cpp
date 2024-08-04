@@ -140,6 +140,8 @@ void Game::renderDifficultyMenu()
 	}
 
 	// Draw menu items
+	this->window->draw(this->startMenuBackground);
+	this->window->draw(pausesettingsBackground);
 	this->window->draw(this->easyText);
 	this->window->draw(this->normalText);
 	this->window->draw(this->hardText);
@@ -571,6 +573,7 @@ void Game::renderPauseMenu()
 	this->window->draw(this->resumeText);
 	this->window->draw(this->pausesettingsText);
 	this->window->draw(this->mainmenuText);
+
 }
 
 void Game::renderGameOverMenu()
