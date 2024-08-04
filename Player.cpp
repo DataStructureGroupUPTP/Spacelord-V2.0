@@ -406,18 +406,55 @@ void Player::setAttackCooldown(float val)
 
 void Player::updateSprite()
 {
-    if (this->hp == 3 or this->hp == 2)
+    if(difficulty == 0)
     {
-        this->ship.setTexture(this->shipDamaged);
+        if (this->hp == 5 or this->hp == 4 or this->hp == 3)
+        {
+            this->ship.setTexture(this->shipDamaged);
+        }
+        else if (this->hp <= 2)
+        {
+            this->ship.setTexture(this->shipVeryDamaged);
+        }
+        else
+        {
+            this->ship.setTexture(this->shipFull);
+        }
+    
     }
-    else if (this->hp <= 1)
+
+    if(difficulty == 1)
     {
-        this->ship.setTexture(this->shipVeryDamaged);
+        if (this->hp == 3 or this->hp == 2)
+        {
+            this->ship.setTexture(this->shipDamaged);
+        }
+        else if (this->hp <= 1)
+        {
+            this->ship.setTexture(this->shipVeryDamaged);
+        }
+        else
+        {
+            this->ship.setTexture(this->shipFull);
+        }
     }
-    else
+
+    if(difficulty == 2)
     {
-        this->ship.setTexture(this->shipFull);
+        if(this->hp == 2)
+        {
+            this->ship.setTexture(this->shipDamaged);
+        }
+        else if(this->hp <= 1)
+        {
+            this->ship.setTexture(this->shipVeryDamaged);
+        }
+        else
+        {
+            this->ship.setTexture(this->shipFull);
+        }
     }
+
 }
 
 void Player::updateAnimation()

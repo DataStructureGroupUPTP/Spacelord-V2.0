@@ -12,22 +12,67 @@ void Game::updateDifficulty()
 	// Stage 1 events
 	if (Stage == 1) {
 
+		if (elapsedTime >= 2.f && elapsedTime <= 3.f)
+		{
+			if(difficulty == 0)
+			{
+				this->enemySpawnRate = 1.5f;
+			}
+
+			if(difficulty == 2)
+			{
+				this->enemySpawnRate = 2.75f;
+				this->meteorSpawnRate = 0.3f;
+			}
+		}
+
 		if (elapsedTime >= 30.f && elapsedTime <= 31.f)
 		{
-			this->meteorSpawnRate = 0.3f;
-			this->doubleMeteorChance = 10;
+			if(difficulty == 0)
+			{
+				this->meteorSpawnRate = 0.15f;
+			}
+
+
+			if(difficulty == 1)
+			{
+				this->meteorSpawnRate = 0.3f;
+				this->doubleMeteorChance = 10;
+			}
+			
+			if(difficulty == 2)
+			{
+				this->meteorSpawnRate = 0.6f;
+				this->doubleMeteorChance = 25;
+			}
 			this->tripleMeteorChance = 0;
 		}
 
 		if (elapsedTime >= 60.f && elapsedTime <= 61.f)
 		{
-			this->meteorSpawnRate = 0.75f;
-			this->doubleMeteorChance = 15;
+			if(difficulty == 0)
+			{
+				this->meteorSpawnRate = 0.3f;
+				this->doubleMeteorChance = 10;
+			}
+
+			if(difficulty == 1)
+			{
+				this->meteorSpawnRate = 0.75f;
+				this->doubleMeteorChance = 15;
+			}
+
+			if(difficulty == 2)
+			{
+				this->meteorSpawnRate = 0.9f;
+				this->doubleMeteorChance = 30;
+			}
 		}
 
 		if (elapsedTime >= 105.f && elapsedTime <= 106.f)
 		{
 			this->meteorSpawnRate = 0.f;
+			this->doubleMeteorChance = 10;
 			this->dpsItemSpawnRate = 0.f;
 			this->enemySpawnRate = 0.f;
 			this->backgroundScrollSpeed = 3.0f;
@@ -58,12 +103,31 @@ void Game::updateDifficulty()
 		{
 			startShooting = true;
 			cutscene = false;
+
+			if(difficulty == 2)
+			{
+				this->meteorSpawnRate = 0.3f;
+			}
 		}
 
 		if (((elapsedTime >= 158.f && elapsedTime <= 159.f && startShooting) or (this->boss->getHp() <= 50)) && checkerOne)
 		{
-			this->meteorSpawnRate = 0.25f;
-			this->bossAttackCooldownMax = 52.f;
+			if(difficulty == 0)
+			{
+				this->bossAttackCooldownMax = 55.f;
+			}
+
+			if (difficulty == 1) 
+			{
+				this->meteorSpawnRate = 0.25f;
+				this->bossAttackCooldownMax = 52.f;
+			}
+
+			if (difficulty == 2) 
+			{
+				this->meteorSpawnRate = 0.5f;
+				this->bossAttackCooldownMax = 50.f;
+			}
 
 		}
 
@@ -97,6 +161,7 @@ void Game::updateDifficulty()
 			{
 				this->points = points + 75000;
 				this->gameData.coins = gameData.coins + 750;
+				this->enemyKillCounter = enemyKillCounter + 20;
 			}
 
 			this->enemyKillCounter = enemyKillCounter + 40;
@@ -308,6 +373,7 @@ void Game::updateDifficulty()
 			{
 				this->points = points + 150000;
 				this->gameData.coins = gameData.coins + 1500;
+				this->enemyKillCounter = enemyKillCounter + 40;
 			}
 
 
@@ -459,7 +525,6 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp2 + 89.f && elapsedTime <= timeStamp2 + 90.f)
 		{
 			this->horizontalEnemySpawnRate = 0.25f;
-			this->deathBeamSpawnRate = 0.f;
 			this->enemySpawnRate = 0.25f;
 			this->doubleMeteorChance = 0.f;
 		}
