@@ -136,7 +136,7 @@ Boss::~Boss()
 const sf::FloatRect Boss::getBounds() const
 {
     sf::FloatRect originalBounds = this->bossSprite.getGlobalBounds();
-    float shrinkFactor = 0.8f; // Shrink the hitbox by 20%
+    float shrinkFactor = 0.775f; // Shrink the hitbox by 22.5%
     float widthReduction = originalBounds.width * (1 - shrinkFactor);
     float heightReduction = originalBounds.height * (1 - shrinkFactor);
 

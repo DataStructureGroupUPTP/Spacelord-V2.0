@@ -1,5 +1,5 @@
-coins = 29050
-high-score = 781900
+coins = 62010
+high-score = 859400
 normalVictory = 1
 equipedbullet = 2
 redbullet = ACQUIRED
