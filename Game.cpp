@@ -391,6 +391,7 @@ void Game::render()
 
 	if(this->gameState == DIFFICULTY)
 	{
+		this->updateDifficultyMenuEffect();
 		this->renderDifficultyMenu();
 	}
 

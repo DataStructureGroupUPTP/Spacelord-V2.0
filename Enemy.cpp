@@ -262,6 +262,7 @@ Enemy::Enemy(float pos_x, float pos_y, int type)
 		this->hp = 100;
 		this->damage = 1;
 		this->points = 0;
+
 		this->speed = 7.5f + meteorSpeedIncrease;
 
 		break;
@@ -630,7 +631,7 @@ void Enemy::reduceHp(const float value)
 
 void Enemy::increaseMeteorSpeed(const float value)
 {
-	this->meteorSpeedIncrease = meteorSpeedIncrease + value;
+	this->meteorSpeedIncrease = value;
 }
 
 const sf::Vector2f& Enemy::getPos() const

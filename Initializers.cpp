@@ -369,6 +369,14 @@ void Game::initializeSounds()
 	}
 
 	this->deathbeamSound.setBuffer(this->deathbeamSoundBuffer);
+
+	if (!this->difficultySetBuffer.loadFromFile("Sounds/difficultySet.mp3"))
+	{
+		std::cout << "SOUND::DIFFICULTY_SET:FAILED_TO_LOAD";
+	}
+
+	this->difficultySetSound.setBuffer(this->difficultySetBuffer);
+
 }
 
 void Game::initializeSoundFXVolume()
@@ -391,6 +399,7 @@ void Game::initializeSoundFXVolume()
 	this->noMoneySound.setVolume(this->soundfxVolume * 25);
 	this->equipSound.setVolume(this->soundfxVolume * 15);
 	this->deathbeamSound.setVolume(this->soundfxVolume * 15);
+	this->difficultySetSound.setVolume(this->soundfxVolume * 15);
 }
 
 void Game::initializeMusic()
@@ -672,6 +681,7 @@ void Game::initializeGameData()
 	GameData readData = readFromFile();
 	gameData.coins = readData.coins;
 	gameData.highScore = readData.highScore;
+	gameData.normalVictory = readData.normalVictory;
 	gameData.equipedbullet = readData.equipedbullet;
 	gameData.redbullet = readData.redbullet;
 	gameData.bluebullet = readData.bluebullet;
@@ -1227,6 +1237,8 @@ void Game::initializeEndScreen()
 
 void Game::initializeDifficultyMenu()
 {
+	this->incognitoFlag = false;
+
 	// Easy difficulty text
 	this->easyText.setFont(this->font);
 	this->easyText.setCharacterSize(60);
@@ -1257,7 +1269,7 @@ void Game::initializeDifficultyMenu()
 	this->hardText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
 	this->hardText.setOutlineColor(sf::Color(255, 0, 0, 128));  // Semi-transparent red
 	this->hardText.setOutlineThickness(1.f);
-	this->hardText.setString("Hard");
+	this->hardText.setString("???");
 	this->hardText.setPosition(
 		this->window->getSize().x / 2.f - this->hardText.getGlobalBounds().width / 2.f,
 		400.f
@@ -1279,7 +1291,7 @@ void Game::initializeDifficultyMenu()
 	this->currentText.setCharacterSize(50);
 	this->currentText.setFillColor(sf::Color::White);
 	this->currentText.setString("Difficulty: ");
-	this->currentText.setPosition(0, 500);
+	this->currentText.setPosition(0, 725);
 
 
 }

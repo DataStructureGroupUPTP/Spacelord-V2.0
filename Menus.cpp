@@ -650,16 +650,26 @@ void Game::handleDifficultyMenuInput(const sf::Event& ev)
 		switch (this->currentSelection)
 		{
 		case 0:
+			this->difficultySetSound.play();
 			this->difficulty = 0;
 			std::cout << difficulty;
 			break;
 		case 1:
+			this->difficultySetSound.play();
 			this->difficulty = 1;
 			std::cout << difficulty;
 			break;
 		case 2:
-			this->difficulty = 2;
-			std::cout << difficulty;
+			if (gameData.normalVictory == true)
+			{
+			this->difficultySetSound.play();
+				this->difficulty = 2;
+				std::cout << difficulty;
+			}
+			else
+			{
+				this->noMoneySound.play();
+			}
 			break;
 		case 3:
 			this->selectedMenuItem = 0;

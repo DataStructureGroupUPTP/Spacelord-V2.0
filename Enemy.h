@@ -21,6 +21,7 @@
 		int points;
 		float speed;
 
+		int difficulty;
 		float meteorSpeedIncrease;
 
 		// Texture vector

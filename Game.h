@@ -200,6 +200,9 @@ private:
     sf::SoundBuffer deathbeamSoundBuffer;
     sf::Sound deathbeamSound;
 
+    sf::SoundBuffer difficultySetBuffer;
+    sf::Sound difficultySetSound;
+
     // Music
     sf::Music stageMusic;
     sf::Music menuMusic;
@@ -350,6 +353,7 @@ private:
     // Difficulty menu
     sf::Text easyText;
     sf::Text normalText;
+    bool incognitoFlag;
     sf::Text hardText;
     sf::Text returnText;
     sf::Text currentText;
@@ -449,6 +453,7 @@ public:
     void updateFadeEffect();
     void updateExplosionEffect();
     void updateTitleEffect();
+    void updateDifficultyMenuEffect();
     void updateEndScreen();
 
 

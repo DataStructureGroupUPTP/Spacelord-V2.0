@@ -1,6 +1,6 @@
-coins = 23415
+coins = 23590
 high-score = 295400
-normalVictory = 0
+normalVictory = 1
 equipedbullet = 2
 redbullet = ACQUIRED
 bluebullet = NULL

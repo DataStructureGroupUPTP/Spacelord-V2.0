@@ -68,8 +68,27 @@ void Game::renderDifficultyMenu()
 	this->easyText.setOutlineColor(sf::Color(0, 255, 0, 128));  // Semi-transparent green
 	this->normalText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
 	this->normalText.setOutlineColor(sf::Color(255, 255, 0, 128)); // Semi-transparent yellow
+
+	if(gameData.normalVictory == true)
+	{
+		if (this->incognitoFlag == false) 
+		{
+			this->hardText.setString("HELL");
+			this->hardText.setPosition(
+				this->window->getSize().x / 2.f - this->hardText.getGlobalBounds().width / 2.f,
+				400.f
+			);
+			this->incognitoFlag = true;
+		}
 	this->hardText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
 	this->hardText.setOutlineColor(sf::Color(255, 0, 0, 128));  // Semi-transparent red
+	}
+	else
+	{
+	this->hardText.setFillColor(sf::Color(255, 255, 255, 60));
+	this->hardText.setOutlineColor(sf::Color(255, 255, 255, 60));
+	}
+
 	this->returnText.setFillColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
 	this->returnText.setOutlineColor(sf::Color(255, 255, 255, 128)); // Semi-transparent white
 
@@ -87,8 +106,15 @@ void Game::renderDifficultyMenu()
 		break;
 
 	case 2:
-		this->hardText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
-		this->hardText.setOutlineColor(sf::Color(255, 0, 0, 255));  // Semi-transparent red
+		if (gameData.normalVictory == true) {
+			this->hardText.setFillColor(sf::Color(255, 255, 255, 255)); // Semi-transparent white
+			this->hardText.setOutlineColor(sf::Color(255, 0, 0, 255));  // Semi-transparent red
+		}
+		else
+		{
+			this->hardText.setFillColor(sf::Color(255, 255, 255, 255));
+			this->hardText.setOutlineColor(sf::Color(255, 255, 255, 255));
+		}
 		break;
 
 	case 3:
@@ -106,7 +132,7 @@ void Game::renderDifficultyMenu()
 		this->currentText.setString("Difficulty: Normal");
 		break;
 	case 2:
-		this->currentText.setString("Difficulty: Hard");
+		this->currentText.setString("Difficulty: HELL");
 		break;
 	default:
 		this->currentText.setString("Difficulty: uwu");

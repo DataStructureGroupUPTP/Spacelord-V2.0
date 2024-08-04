@@ -3,7 +3,7 @@
 // Game events & progression
 void Game::updateDifficulty()
 {
-	// Debug stage (Not normally accessible)
+	// Debug stage
 	if(Stage == 0)
 	{
 		this->meteorSpawnRate = 5.0f;
@@ -626,6 +626,12 @@ void Game::updateDifficulty()
 		if(elapsedTime >= timeStamp + 22.f && checkerFive == false && checkerSeven)
 		{
 			this->triggerFadeEffect();
+
+			if(difficulty == 1)
+			{
+				this->gameData.normalVictory = true;
+			}
+
 			checkerSeven = false;
 		}
 

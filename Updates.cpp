@@ -106,7 +106,7 @@ void Game::updateInput()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
 	{
 		this->player->setHp(5);
-		this->gameData.normalVictory = false;
+		this->gameData.normalVictory = true;
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
@@ -1053,6 +1053,19 @@ void Game::updateTitleEffect()
 	// Apply the scale to the game title
 	this->gameTitle.setScale(scale, scale);
 
+}
+
+void Game::updateDifficultyMenuEffect()
+{
+
+	if (gameData.normalVictory == true) {
+		const float shakeAmplitude = 3.0f;
+
+		float offsetX = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 * shakeAmplitude;
+		float offsetY = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 2 * shakeAmplitude;
+
+		this->hardText.setPosition(this->window->getSize().x / 2.f - this->hardText.getGlobalBounds().width / 2.f + offsetX, 400.f + offsetY);
+	}
 }
 
 void Game::updateEndScreen()
