@@ -174,7 +174,14 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp + 5.f && stageTransition)
 		{
 			this->healthItemSpawnRate = 0.5f;
-			this->dpsItemSpawnRate = 1.5f;
+			if (difficulty == 1 or difficulty == 0)
+			{
+				this->dpsItemSpawnRate = 1.5f;
+			}
+			if (difficulty == 2)
+			{
+				this->dpsItemSpawnRate = 1.75f;
+			}
 			bossIsActive = false;
 			stageTransition = false;
 			victoryTune.play();
@@ -520,6 +527,12 @@ void Game::updateDifficulty()
 			this->deathBeamSpawnRate = 0.12f;
 			this->doubleMeteorChance = 0.f;
 			this->horizontalEnemySpawnRate = 1.0f;
+		}
+
+
+		if (elapsedTime >= timeStamp2 + 86.f && elapsedTime <= timeStamp2 + 87.f)
+		{
+			this->deathBeamSpawnRate = 0.f;
 		}
 
 		if (elapsedTime >= timeStamp2 + 89.f && elapsedTime <= timeStamp2 + 90.f)
