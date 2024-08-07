@@ -400,6 +400,7 @@ void Game::initializeSoundFXVolume()
 	this->equipSound.setVolume(this->soundfxVolume * 15);
 	this->deathbeamSound.setVolume(this->soundfxVolume * 15);
 	this->difficultySetSound.setVolume(this->soundfxVolume * 15);
+	this->boss->setVolumeSFX(soundfxVolume);
 }
 
 void Game::initializeMusic()
@@ -1460,7 +1461,7 @@ void Game::initializeStage()
 	this->checkerSix = true;
 	this->checkerSeven = true;
 	this->cutscene = false;
-	this->Stage = 1;
+	this->Stage = 2;
 
 
 }

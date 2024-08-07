@@ -432,6 +432,7 @@ public:
     void reset();
     void triggerFadeEffect();
     void applyScreenShake(float intensity);
+    float getSoundFx();
 
     // Updaters
     void updatePollEvents();

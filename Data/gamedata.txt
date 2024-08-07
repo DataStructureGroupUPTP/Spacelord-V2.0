@@ -1,4 +1,4 @@
-coins = 62010
+coins = 68025
 high-score = 859400
 normalVictory = 1
 equipedbullet = 2

@@ -208,6 +208,11 @@ void Game::applyScreenShake(float intensity)
 	this->window->setView(tempView);
 }
 
+float Game::getSoundFx()
+{
+	return soundfxVolume;
+}
+
 // Check inputs & events
 void Game::updatePollEvents()
 {

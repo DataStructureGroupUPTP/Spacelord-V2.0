@@ -3,8 +3,8 @@
 #include <vector>
 #include <ctime>
 #include <sstream>
-
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // Boss class declaration
 class Boss
@@ -49,6 +49,12 @@ private:
     void moveInLoop(float deltaTime); // Move in a looping pattern
     void updateDefeatedState(float deltaTime);
 
+    // Boss SFX
+    sf::SoundBuffer dirSwapBuffer;
+    sf::Sound dirSwapSound;
+    float volumeSFX;
+    
+
 public:
     // Constructors
     Boss(float initialHealth, float initialMoveSpeed, int type);
@@ -63,6 +69,7 @@ public:
     void updateAnimation();
     void update(float deltaTime);      // Update boss logic
     void receivePos(sf::Vector2f pos);
+    void setVolumeSFX(float volume);
 
     void render(sf::RenderTarget& target); // Draw boss to render target
 

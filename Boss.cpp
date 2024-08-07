@@ -126,6 +126,15 @@ Boss::Boss(float initialHealth, float initialMoveSpeed, int type)
     this->movingDown = true;
     this->Xincrease = 0.f;
     this->Yincrease = 0.f;
+
+    // SFX
+    if (!this->dirSwapBuffer.loadFromFile("Sounds/Dirchange.wav"))
+    {
+        std::cout << "SOUND::DIRCHANGE::FAILED_TO_LOAD" << "\n";
+    }
+    this->dirSwapSound.setBuffer(this->dirSwapBuffer);
+
+    this->dirSwapSound.setVolume(this->volumeSFX * 15);
 }
 
 Boss::~Boss()
@@ -136,7 +145,7 @@ Boss::~Boss()
 const sf::FloatRect Boss::getBounds() const
 {
     sf::FloatRect originalBounds = this->bossSprite.getGlobalBounds();
-    float shrinkFactor = 0.775f; // Shrink the hitbox by 22.5%
+    float shrinkFactor = 0.75f; // Shrink the hitbox by 22.5%
     float widthReduction = originalBounds.width * (1 - shrinkFactor);
     float heightReduction = originalBounds.height * (1 - shrinkFactor);
 
@@ -258,6 +267,13 @@ void Boss::update(float deltaTime)
     {
         moveInLoop(deltaTime);
     }
+
+    this->dirSwapSound.setVolume(this->volumeSFX);
+}
+
+void Boss::setVolumeSFX(float volume)
+{
+    volumeSFX = volume;
 }
 
 // Player pos receiver (Necessary for thid boss)
@@ -348,29 +364,28 @@ void Boss::moveInLoop(float deltaTime)
     // Second boss movement
     else if(type == 2)
     {
+        static float timeElapsed = 0.0f; // Timer to change direction periodically
+        static float changeDirectionInterval = 20.0f; // Interval in seconds to change direction
 
-        if(health <= 150)
+        if (health <= 150)
         {
-            Xincrease = Xincrease + 0.02f;
-            Yincrease = Yincrease + 0.02f;
+            Xincrease = Xincrease + 0.03f;
+            Yincrease = Yincrease + 0.03f;
+        }
+        else if (health <= 10)
+        {
+            Xincrease = Xincrease + 0.25f;
+            Yincrease = Yincrease + 0.25f;
+        }
+        else
+        {
+            Xincrease = Xincrease + 0.015f;
+            Yincrease = Yincrease + 0.015f;
         }
 
-        else if(health <= 10)
-        {
-            Xincrease = Xincrease + 0.2f;
-            Yincrease = Yincrease + 0.2f;
-            
-        }
-        
-        else 
-        {
-            Xincrease = Xincrease + 0.01f;
-            Yincrease = Yincrease + 0.01f;
-        }
-
-        // Erratic movement pattern
-        float speedX = 110.0f + Xincrease; // Adjust horizontal speed
-        float speedY = 55.0f + Yincrease; // Adjust vertical speed
+        // Speed adjustment based on health
+        float speedX = 100.0f + Xincrease; // Adjust horizontal speed
+        float speedY = 55.0f + Yincrease;  // Adjust vertical speed
 
         std::cout << speedX << "\n";
 
@@ -379,12 +394,32 @@ void Boss::moveInLoop(float deltaTime)
 
         sf::Vector2f currentPosition = bossSprite.getPosition();
 
-        // Change direction randomly
-        if (rand() % 600 < 1) { // >1% chance to change direction
-            directionX = -directionX;
+        // Change direction based on the timer
+        timeElapsed += deltaTime;
+
+        if (timeElapsed >= changeDirectionInterval - 4.f && timeElapsed <= changeDirectionInterval - 3.5f)
+        {
+            dirSwapSound.play();
         }
-        if (rand() % 600 < 1) { // >1% chance to change direction
-            directionY = -directionY;
+
+        if (timeElapsed >= changeDirectionInterval) {
+            int dirRandomizer = rand() % 5;
+            if(dirRandomizer == 0 or dirRandomizer == 1 or dirRandomizer == 2)
+            {
+                directionX = -directionX;
+                directionY = -directionY;
+            }
+            if(dirRandomizer == 3)
+            {
+                directionX = directionX;
+                directionY = -directionY;
+            }
+            if(dirRandomizer == 4)
+            {
+                directionX = -directionX;
+                directionY = directionY;
+            }
+            timeElapsed = 0.0f; // Reset the timer
         }
 
         float newX = currentPosition.x + directionX * speedX * deltaTime;

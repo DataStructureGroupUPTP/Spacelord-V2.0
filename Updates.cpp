@@ -974,6 +974,12 @@ void Game::updateSoundFXVolume()
 	this->alienHit.setVolume(this->soundfxVolume * 6); // 30
 	this->playerHit.setVolume(this->soundfxVolume * 7); // 35
 	this->menuSound.setVolume(this->soundfxVolume * 10); // 50
+	this->buySound.setVolume(this->soundfxVolume * 50);
+	this->noMoneySound.setVolume(this->soundfxVolume * 25);
+	this->equipSound.setVolume(this->soundfxVolume * 15);
+	this->deathbeamSound.setVolume(this->soundfxVolume * 15);
+	this->difficultySetSound.setVolume(this->soundfxVolume * 15);
+	this->boss->setVolumeSFX(soundfxVolume*15);
 	float soundfxvolumePercent = static_cast<float>(this->soundfxVolume / static_cast<float>(10));
 	this->soundfxvolumeIndicator.setSize(sf::Vector2f(300.f * soundfxvolumePercent, this->soundfxvolumeIndicator.getSize().y));
 }

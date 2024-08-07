@@ -367,6 +367,7 @@ void Game::updateDifficulty()
 					std::cout << "ERROR::BOSSMUSIC::FAILED_TO_LOAD" << "\n";
 				}
 				this->stageMusic.play();
+				this->stageMusic.setLoop(true);
 
 				bossIsActive = true;
 				this->meteorSpawnRate = 0.f;
@@ -379,6 +380,7 @@ void Game::updateDifficulty()
 			this->checkerThree = false;
 			this->deathBeamSpawnTimer = 50.f;
 			cutscene = false;
+			this->updateSoundFXVolume();
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 310 && !stageTransition)
@@ -408,6 +410,7 @@ void Game::updateDifficulty()
 		if (bossDefeated && checkerFour)
 		{
 			this->stageMusic.stop();
+			this->stageMusic.setLoop(false);
 			this->explosionSound.play();
 			this->meteorSpawnRate = 0.f;
 			this->horizontalEnemySpawnRate = 0.f;
