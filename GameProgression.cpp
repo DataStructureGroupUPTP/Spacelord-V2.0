@@ -439,7 +439,7 @@ void Game::updateDifficulty()
 			if (difficulty == 2)
 			{
 				this->horizontalEnemySpawnRate = 0.6f;
-				this->enemySpawnrate = 0.1f;
+				this->enemySpawnRate = 0.1f;
 			}
 		}
 
