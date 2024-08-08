@@ -385,20 +385,62 @@ void Game::updateDifficulty()
 
 		if(bossIsActive && this->boss->getHp() <= 310 && !stageTransition)
 		{
-			this->deathBeamSpawnRate = 0.12f;
-			this->horizontalEnemySpawnRate = 0.1f;
+			if(difficulty == 0)
+			{
+				this->deathBeamSpawnRate = 0.09f;
+				this->horizontalEnemySpawnRate = 0.08f;
+			}
+			if(difficulty == 1) 
+			{
+				this->deathBeamSpawnRate = 0.12f;
+				this->horizontalEnemySpawnRate = 0.1f;
+			}
+			if(difficulty == 2)
+			{
+				this->deathBeamSpawnRate = 0.14f;
+				this->horizontalEnemySpawnRate = 0.25f;
+			}
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 200 && !stageTransition)
 		{
-			this->horizontalEnemySpawnRate = 0.25f;
-			this->deathBeamSpawnRate = 0.16f;
+			if (difficulty == 0)
+			{
+				this->horizontalEnemySpawnRate = 0.2f;
+				this->deathBeamSpawnRate = 0.1f;
+			
+			}
+
+			if (difficulty == 1)
+			{
+				this->horizontalEnemySpawnRate = 0.25f;
+				this->deathBeamSpawnRate = 0.16f;
+			}
+
+			if (difficulty == 2)
+			{
+				this->horizontalEnemySpawnRate = 0.4f;
+				this->deathBeamSpawnRate = 0.175f;
+			
+			}
 		}
 
 
 		if (bossIsActive && this->boss->getHp() <= 120 && !stageTransition)
 		{
-			this->horizontalEnemySpawnRate = 0.5f;
+			if (difficulty == 0)
+			{
+				this->horizontalEnemySpawnRate = 0.35f;
+			}
+			if (difficulty == 1) 
+			{
+				this->horizontalEnemySpawnRate = 0.5f;
+			}
+			if (difficulty == 2)
+			{
+				this->horizontalEnemySpawnRate = 0.6f;
+				this->enemySpawnrate = 0.1f;
+			}
 		}
 
 		if(bossIsActive && this->boss->getHp() <= 50 && !stageTransition)
@@ -413,6 +455,7 @@ void Game::updateDifficulty()
 			this->stageMusic.setLoop(false);
 			this->explosionSound.play();
 			this->meteorSpawnRate = 0.f;
+			this->enemySpawnRate = 0.f;
 			this->horizontalEnemySpawnRate = 0.f;
 			this->deathBeamSpawnRate = 0.f;
 			this->timeStamp = elapsedTime;
@@ -544,45 +587,118 @@ void Game::updateDifficulty()
 		if (elapsedTime >= timeStamp2 + 6.f && checkerOne)
 		{
 
-			this->enemySpawnRate = 2.5f;
-			this->horizontalEnemySpawnRate = 0.f;
 			if (!this->stageMusic.openFromFile("Music/Aloneagainstenemy.ogg"))
 			{
 				std::cout << "ERROR::ALONE_MUSIC::FAILED_TO_LOAD" << "\n";
 			}
 			this->stageMusic.play();
-			checkerOne = false;
-			this->meteorSpawnRate = 0.25f;
-			this->doubleMeteorChance = 25.f;
-			this->tripleMeteorChance = 0.f;
 			this->dpsItemSpawnRate = 0.08f;
 			this->healthItemSpawnTimer = 0.f;
+
+			if(difficulty == 0)
+			{
+				this->enemySpawnRate = 2.25f;
+				this->horizontalEnemySpawnRate = 0.f;
+			}
+
+			if(difficulty == 1)
+			{
+				this->enemySpawnRate = 2.5f;
+				this->horizontalEnemySpawnRate = 0.f;
+			}
+
+			if (difficulty == 2)
+			{
+				this->enemySpawnRate = 2.5f;
+				this->horizontalEnemySpawnRate = 0.5f;
+			}
+			this->meteorSpawnRate = 0.25f;
+			this->doubleMeteorChance = 25.f;
+
+
+			checkerOne = false;
 		}
 
 		if(elapsedTime >= timeStamp2 + 20.f && elapsedTime <= timeStamp2 + 21.f)
 		{
 			this->enemySpawnRate = 0.25f;
-			this->meteorSpawnRate = 2.0f;
-			this->doubleMeteorChance = 50.f;
-			this->tripleMeteorChance = 0.f;
+			if (difficulty == 0)
+			{
+				this->meteorSpawnRate = 1.75f;
+				this->doubleMeteorChance = 40.f;
+				this->tripleMeteorChance = 0.f;
+			
+			}
+
+			if (difficulty == 1) 
+			{
+				this->meteorSpawnRate = 2.0f;
+				this->doubleMeteorChance = 50.f;
+				this->tripleMeteorChance = 0.f;
+			}
+			if(difficulty == 2)
+			{
+				this->meteorSpawnRate = 2.35f;
+				this->doubleMeteorChance = 55.f;
+				this->tripleMeteorChance = 0.f;
+			}
 			this->horizontalSpawnTimer = 0.f;
 		}
 
-		if(elapsedTime >= timeStamp2 + 31.f && elapsedTime <= timeStamp2 + 32.f)
+		if(elapsedTime >= timeStamp2 + 30.f && elapsedTime <= timeStamp2 + 31.f)
 		{
-			this->enemySpawnRate = 1.25f;
-			this->meteorSpawnRate = 0.75f;
-			this->doubleMeteorChance = 90.f;
-			this->horizontalEnemySpawnRate = 0.75f;
+			if (difficulty == 0)
+			{
+				this->enemySpawnRate = 1.0f;
+				this->meteorSpawnRate = 0.5f;
+				this->doubleMeteorChance = 90.f;
+				this->horizontalEnemySpawnRate = 0.75f;
+			}
+
+			if (difficulty == 1)
+			{
+				this->enemySpawnRate = 1.25f;
+				this->meteorSpawnRate = 0.75f;
+				this->doubleMeteorChance = 90.f;
+				this->horizontalEnemySpawnRate = 0.75f;
+			}
+
+			if (difficulty == 2)
+			{
+				this->enemySpawnRate = 1.35f;
+				this->meteorSpawnRate = 0.8f;
+				this->doubleMeteorChance = 90.f;
+				this->horizontalEnemySpawnRate = 0.8f;
+			}
 
 		}
 
 		if(elapsedTime >= timeStamp2 + 65.f && elapsedTime <= timeStamp2 + 66.f)
 		{
-			this->enemySpawnRate = 1.0f;
-			this->deathBeamSpawnRate = 0.12f;
-			this->doubleMeteorChance = 0.f;
-			this->horizontalEnemySpawnRate = 1.0f;
+			if(difficulty == 0)
+			{
+				this->enemySpawnRate = 0.9f;
+				this->deathBeamSpawnRate = 0.10f;
+				this->doubleMeteorChance = 0.f;
+				this->horizontalEnemySpawnRate = 0.8f;
+			}
+
+			if(difficulty == 1)
+			{
+				this->enemySpawnRate = 1.0f;
+				this->deathBeamSpawnRate = 0.12f;
+				this->doubleMeteorChance = 0.f;
+				this->horizontalEnemySpawnRate = 1.0f;
+			}
+
+			if (difficulty == 2)
+			{
+				this->enemySpawnRate = 1.25f;
+				this->deathBeamSpawnRate = 0.13f;
+				this->doubleMeteorChance = 0.f;
+				this->horizontalEnemySpawnRate = 1.1f;
+			}
+
 		}
 
 
@@ -600,8 +716,29 @@ void Game::updateDifficulty()
 
 		if (elapsedTime >= timeStamp2 + 90.f && elapsedTime <= timeStamp2 + 91.f)
 		{
-			this->meteorSpawnRate = 2.25f;
-			this->doubleMeteorChance = 50.f;
+
+			if(difficulty == 0)
+			{
+				this->meteorSpawnRate = 2.f;
+				this->doubleMeteorChance = 45.f;
+			
+			}
+
+			if(difficulty == 1)
+			{
+				this->meteorSpawnRate = 2.25f;
+				this->doubleMeteorChance = 50.f;
+			}
+
+
+			if (difficulty == 2)
+			{
+				this->meteorSpawnRate = 2.4f;
+				this->doubleMeteorChance = 55.f;
+				this->horizontalEnemySpawnRate = 0.3f;
+				this->enemySpawnRate = 0.3f;
+			}
+
 
 		}
 
@@ -693,17 +830,36 @@ void Game::updateDifficulty()
 
 		if (bossIsActive && boss->getHp() <= 400 && boss->getHp() >= 300)
 		{
-			this->enemySpawnRate = 0.75f;
+			if(difficulty == 1 or difficulty == 2)
+			{
+				this->enemySpawnRate = 0.75f;
+			}
+
 		}
 
 		if (bossIsActive && boss->getHp() <= 200 && boss->getHp() >= 150)
 		{
-			this->deathBeamSpawnRate = 0.12f;
+			if (difficulty == 1 or difficulty == 2)
+			{
+				this->deathBeamSpawnRate = 0.12f;
+			}
 		}
 
 		if (bossIsActive && boss->getHp() <= 150 && boss->getHp() >= 50)
 		{
-			this->horizontalEnemySpawnRate = 1.0f;
+			if (difficulty == 1 or difficulty == 2)
+			{
+				this->horizontalEnemySpawnRate = 1.0f;
+			}
+
+		}
+
+		if (bossIsActive && boss->getHp() <= 35 && boss->getHp() >= 1)
+		{
+			if(difficulty == 2)
+			{
+				this->deathBeamSpawnRate = 0.2f;
+			}
 		}
 
 		if (bossDefeated && checkerFive)
